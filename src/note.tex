@@ -34,6 +34,8 @@
 \newtheorem{definition}{定义}[section]
 \newtheorem{example}{例}[section]
 \newtheorem{note}{注}[section]
+\newtheorem{property}{性质}[section]
+\newtheorem{theorem}{定理}[section]
 
 % 页眉页脚
 \pagestyle{fancy}
@@ -396,22 +398,932 @@ f_n(A) = \frac{n_A}{n}
 % \label{fig:buffon}
 % \end{figure}
 
-% ==================== 后续章节框架 ====================
-\section*{后续章节框架（待补充）}
-\addcontentsline{toc}{section}{后续章节框架（待补充）}
-
-\begin{itemize}[leftmargin=2em]
-    \item \textbf{\S3 古典概型与几何概型}：等可能概型、排列组合、几何测度。
-    \item \textbf{\S4 条件概率}：条件概率公式、乘法公式、全概率公式、Bayes公式。
-    \item \textbf{\S5 独立性}：两两独立、相互独立、Bernoulli概型。
-\end{itemize}
-
-% ==================== 结尾 ====================
 \vfill
 \begin{center}
 \rule{0.6\textwidth}{0.4pt}\\[0.5em]
 \textit{``生活中最重要的问题，其中绝大多数在实质上只是概率的问题。''}\\
 --- 拉普拉斯
 \end{center}
+
+% ==================== §2 频率与概率（续）====================
+\subsection{概率的公理化定义}
+
+\begin{definition}[Kolmogorov 公理]
+设 $E$ 是随机试验，$\Omega$ 是其样本空间。对于 $E$ 的每一个事件 $A$，赋予一个实数 $P(A)$。若集合函数 $P(\cdot)$ 满足以下三条，则称 $P(A)$ 为事件 $A$ 的\textbf{概率}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{非负性}：对任意事件 $A$，有 $P(A) \geq 0$；
+    \item \textbf{规范性}：$P(\Omega) = 1$；
+    \item \textbf{可列可加性}：若 $A_1, A_2, \dots$ 是两两互不相容的事件（即 $A_i \cap A_j = \varnothing,\; i \neq j$），则
+    \[
+    P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i).
+    \]
+\end{enumerate}
+\end{definition}
+
+\subsection{概率的基本性质}
+
+由上述公理可导出以下常用性质：
+
+\begin{property}[空集的概率]
+$P(\varnothing) = 0$。
+\end{property}
+
+\begin{property}[有限可加性]
+若 $A_1, A_2, \dots, A_n$ 两两互不相容，则
+\[
+P\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{i=1}^{n} P(A_i).
+\]
+\end{property}
+
+\begin{property}[差事件的概率（单调性）]
+设 $A, B$ 为两个事件，若 $A \subset B$，则
+\[
+P(B - A) = P(B) - P(A), \qquad P(B) \geq P(A).
+\]
+\end{property}
+
+\begin{property}[有界性]
+对任意事件 $A$，有 $P(A) \leq 1$。
+\end{property}
+
+\begin{property}[逆事件的概率]
+对任一事件 $A$，有
+\[
+\boxed{P(\bar{A}) = 1 - P(A)}.
+\]
+\end{property}
+
+\begin{property}[加法公式]
+对任意两事件 $A, B$，有
+\[
+\boxed{P(A \cup B) = P(A) + P(B) - P(A \cap B)}.
+\]
+\end{property}
+
+\begin{property}[一般容斥原理]
+对任意 $n$ 个事件 $A_1, A_2, \dots, A_n$，有
+\begin{align*}
+P\left(\bigcup_{i=1}^{n} A_i\right) &= \sum_{i=1}^{n} P(A_i) - \sum_{1 \leq i < j \leq n} P(A_i A_j) \\
+&\quad + \sum_{1 \leq i < j < k \leq n} P(A_i A_j A_k) - \cdots + (-1)^{n-1} P(A_1 A_2 \cdots A_n).
+\end{align*}
+\end{property}
+
+% ==================== §3 古典概型与几何概型 ====================
+\section{古典概型与几何概型}
+
+\subsection{古典概型}
+
+\begin{definition}[古典概型]
+若随机试验满足以下两个特点，则称为\textbf{古典概型}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{有限性}：样本空间只包含有限个元素，$\Omega = \{e_1, e_2, \dots, e_n\}$；
+    \item \textbf{等可能性}：每个基本事件发生的可能性相同，即
+    \[
+    P(e_1) = P(e_2) = \cdots = P(e_n) = \frac{1}{n}.
+    \]
+\end{enumerate}
+\end{definition}
+
+在古典概型中，若事件 $A$ 包含的样本点个数为 $N(A)$，样本空间 $\Omega$ 中样本点总数为 $N(\Omega)$，则
+\[
+\boxed{P(A) = \frac{N(A)}{N(\Omega)}}.
+\]
+
+\subsubsection{例1：超几何分布}
+
+\textbf{问题}：$N$ 件产品中有 $D$ 件次品，从中任取 $n$ 件，求其中恰有 $k$ 件（$k \leq D$）次品的概率。
+
+\textbf{解}：总的取法数为 $\dbinom{N}{n}$。要取 $k$ 件次品和 $n-k$ 件合格品，分两步完成：
+\begin{itemize}[leftmargin=2em]
+    \item 从 $D$ 件次品中取 $k$ 件：$\dbinom{D}{k}$ 种；
+    \item 从 $N-D$ 件合格品中取 $n-k$ 件：$\dbinom{N-D}{n-k}$ 种。
+\end{itemize}
+由乘法原理，有利事件数为 $\dbinom{D}{k}\dbinom{N-D}{n-k}$，故所求概率为
+\[
+\boxed{p = \frac{\dbinom{D}{k}\dbinom{N-D}{n-k}}{\dbinom{N}{n}}}.
+\]
+此即为\textbf{超几何分布}的概率质量函数。
+
+\subsubsection{例2：动物种群调查（标记重捕法）}
+
+\textbf{问题}：鱼塘中捕捉 $1000$ 尾鱼做标记后放回，一段时间后再次捕捉 $2000$ 尾，发现其中有 $100$ 尾有标记，估计鱼塘中鱼的总数 $N$。
+
+\textbf{解}：将问题类比为超几何分布：
+\begin{itemize}[leftmargin=2em]
+    \item 总产品数 $N$（待估）；
+    \item 次品数（标记鱼）$D = 1000$；
+    \item 抽取 $n = 2000$ 尾，其中次品数 $k = 100$。
+\end{itemize}
+概率为
+\[
+p_N = \frac{\dbinom{1000}{100}\dbinom{N-1000}{1900}}{\dbinom{N}{2000}}.
+\]
+为求使 $p_N$ 最大的 $N$（极大似然估计），考察比值
+\[
+f(N) = \frac{p_N}{p_{N-1}} = \frac{(N-1000)(N-2000)}{(N-2900)N}.
+\]
+令 $f(N) \to 1$，即 $g(N) = |f(N)-1|$ 或 $(f(N)-1)^2$ 最小化，解得
+\[
+\boxed{N \approx 20000}.
+\]
+（直观理解：标记比例 $\approx$ 样本中标记比例，即 $\frac{1000}{N} \approx \frac{100}{2000}$，得 $N \approx 20000$。）
+
+\subsubsection{二项分布（有放回抽样）}
+
+\textbf{问题}：从含 $D$ 件次品的 $N$ 件产品中有放回地抽取 $n$ 件，求恰有 $k$ 件次品的概率。
+
+\textbf{解}：每次抽取独立，抽到次品概率 $p = D/N$。样本空间大小为 $N^n$（排列），其中恰有 $k$ 件次品的取法需先选 $k$ 个位置放次品，再分别填入次品和合格品：
+\[
+\dbinom{n}{k} D^k (N-D)^{n-k}.
+\]
+故
+\[
+p = \frac{\dbinom{n}{k} D^k (N-D)^{n-k}}{N^n} = \dbinom{n}{k} \left(\frac{D}{N}\right)^k \left(1-\frac{D}{N}\right)^{n-k}.
+\]
+令 $p = D/N$，则得到\textbf{二项分布}：
+\[
+\boxed{P(X=k) = \dbinom{n}{k} p^k (1-p)^{n-k}, \quad k=0,1,\dots,n}.
+\]
+
+\subsubsection{例3：抛硬币问题}
+
+\textbf{问题}：抛一枚硬币三次，设 $A_1$ 为``至少出现一次正面''，求 $P(A_1)$。
+
+\textbf{解}：样本空间
+\[
+\Omega = \{HHH, HHT, HTH, HTT, THH, THT, TTH, TTT\}, \quad N(\Omega) = 8.
+\]
+直接计算：$N(A_1) = 7$。或利用逆事件：
+\[
+\bar{A}_1 = \{TTT\}, \quad P(\bar{A}_1) = \frac{1}{8},
+\]
+故
+\[
+\boxed{P(A_1) = 1 - \frac{1}{8} = \frac{7}{8}}.
+\]
+
+\subsubsection{例4：球与盒子问题（生日问题）}
+
+\textbf{问题}：$n$ 个球随机放入 $N$（$N \geq n$）个盒子，每个盒子至多一个球的概率。
+
+\textbf{解}：每个球有 $N$ 种选择，样本空间大小为 $N^n$。满足条件的放法（无重复）相当于从 $N$ 个盒子中选 $n$ 个进行排列：
+\[
+N(N-1)(N-2)\cdots(N-n+1) = \frac{N!}{(N-n)!}.
+\]
+故
+\[
+\boxed{p = \frac{N!}{N^n (N-n)!}}.
+\]
+
+\textbf{生日问题}：$n$ 个人生日不同的概率（假定每年 $365$ 天）：
+\[
+p = \frac{365!}{365^n (365-n)!}.
+\]
+数值结果：
+\[
+\begin{array}{c|cccccc}
+n & 20 & 23 & 30 & 40 & 50 & 100 \\ \hline
+p & 0.589 & 0.493 & 0.294 & 0.109 & 0.030 & 0.0000003
+\end{array}
+\]
+当 $n=23$ 时，$p \approx 0.493 < 0.5$，即 $23$ 人中至少两人生日相同的概率已超过 $50\%$。
+
+\subsubsection{多项式系数}
+
+将 $n$ 个球随机分成 $m$ 组（$n > m$），要求第 $i$ 组恰有 $n_i$ 个球（$\sum n_i = n$），则分法数为
+\[
+\boxed{\dbinom{n}{n_1}\dbinom{n-n_1}{n_2}\cdots\dbinom{n-\sum_{i=1}^{m-1}n_i}{n_m} = \frac{n!}{n_1! n_2! \cdots n_m!}}.
+\]
+
+\subsubsection{例5：抽签公平性}
+
+\textbf{问题}：袋中有 $a$ 个白球、$b$ 个红球，$k$（$k \leq a+b$）个人依次不放回抽取，求第 $i$（$i=1,2,\dots,k$）个人抽到白球的概率。
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{放回抽样}：显然每次独立，$p = \dfrac{a}{a+b}$。
+    \item \textbf{不放回抽样}：样本空间大小为 $(a+b)(a+b-1)\cdots(a+b-k+1)$（排列）。
+    
+    考虑第 $i$ 个人抽到白球：先让第 $i$ 个人从 $a$ 个白球中取一个（$a$ 种），剩余 $a+b-1$ 个球由其余 $k-1$ 人抽取，有 $(a+b-1)(a+b-2)\cdots(a+b-k+1)$ 种。故有利事件数为
+    \[
+    a \cdot (a+b-1)(a+b-2)\cdots(a+b-k+1).
+    \]
+    因此
+    \[
+    p = \frac{a \cdot (a+b-1)! / (a+b-k)!}{(a+b)! / (a+b-k)!} = \boxed{\frac{a}{a+b}}.
+    \]
+\end{enumerate}
+
+\begin{note}
+\textbf{抽签与顺序无关}：不放回抽样时，第 $i$ 个人抽到白球的概率与 $i$ 无关，均为 $a/(a+b)$。这是``抽签公平性''的理论依据。
+\end{note}
+
+\subsubsection{例6：从工作记录分析工作状态}
+
+\textbf{问题}：某工作应每天观察，每天等概率发生异常。记录本显示 $20$ 条异常记录均发生在周一、二、五。判断记录者是否每天观察。
+
+\textbf{解}：若每天观察且异常等概率发生，则 $20$ 次异常均落在 $3$ 天（周一、二、五）中的概率为
+\[
+p = \left(\frac{3}{7}\right)^{20} \approx 4.37 \times 10^{-8}.
+\]
+此概率极小，根据\textbf{小概率事件原理}，有理由怀疑记录者并非每天观察（或存在系统性偏差）。
+
+\subsubsection{例7：分组问题}
+
+\textbf{问题}：$30$ 名学生中有 $3$ 名运动员，平均分成 $3$ 组（每组 $10$ 人）。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 求每组恰有 $1$ 名运动员的概率；
+    \item 求 $3$ 名运动员集中在同一组的概率。
+\end{enumerate}
+
+\textbf{解}：总的分配方法数（将 $30$ 人分成 $3$ 组，每组 $10$ 人）：
+\[
+N(\Omega) = \dbinom{30}{10}\dbinom{20}{10}\dbinom{10}{10} = \frac{30!}{10!10!10!}.
+\]
+
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{每组一名运动员}：先将 $3$ 名运动员分配到 $3$ 组（$3!$ 种），再将剩余 $27$ 名非运动员分成 $3$ 组各 $9$ 人：
+    \[
+    N(A) = 3! \cdot \frac{27!}{9!9!9!}.
+    \]
+    故
+    \[
+    P(A) = \frac{3! \cdot 27! / (9!)^3}{30! / (10!)^3} = \frac{6 \cdot 10^3}{30 \cdot 29 \cdot 28} = \frac{6000}{24360} \approx \boxed{0.246}.
+    \]
+    
+    \item \textbf{三名运动员集中在一组}：先选哪一组（$3$ 种），该组还需 $7$ 名非运动员（从 $27$ 人中选），剩余 $20$ 人分成两组各 $10$ 人：
+    \[
+    N(B) = 3 \cdot \dbinom{27}{7} \cdot \dbinom{20}{10} \cdot \dbinom{10}{10} = 3 \cdot \frac{27!}{7!10!10!}.
+    \]
+    故
+    \[
+    P(B) = \frac{3 \cdot 27! / (7!10!10!)}{30! / (10!10!10!)} = \frac{3 \cdot 10 \cdot 9 \cdot 8}{30 \cdot 29 \cdot 28} = \frac{2160}{24360} \approx \boxed{0.0887}.
+    \]
+\end{enumerate}
+
+\subsubsection{例8：随机取数问题}
+
+\textbf{问题}：从 $1, 2, \dots, 2000$ 中任取一数。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 求能被 $6$ 整除的概率（事件 $A$）；
+    \item 求能被 $8$ 整除的概率（事件 $B$）；
+    \item 求既能被 $6$ 又能被 $8$ 整除的概率（事件 $C = A \cap B$）；
+    \item 求既不能被 $6$ 也不能被 $8$ 整除的概率（事件 $D = \bar{A} \cap \bar{B}$）。
+\end{enumerate}
+
+\textbf{解}：$N(\Omega) = 2000$。
+\begin{align*}
+N(A) &= \left\lfloor \frac{2000}{6} \right\rfloor = 333, & P(A) &= \frac{333}{2000}; \\
+N(B) &= \left\lfloor \frac{2000}{8} \right\rfloor = 250, & P(B) &= \frac{250}{2000} = \frac{1}{8}; \\
+N(C) &= N(A \cap B) = \left\lfloor \frac{2000}{\operatorname{lcm}(6,8)} \right\rfloor = \left\lfloor \frac{2000}{24} \right\rfloor = 83, & P(C) &= \frac{83}{2000}.
+\end{align*}
+对于事件 $D$，由 De Morgan 律与加法公式：
+\[
+P(D) = P(\overline{A \cup B}) = 1 - P(A) - P(B) + P(A \cap B) = 1 - \frac{333}{2000} - \frac{250}{2000} + \frac{83}{2000} = \frac{1500}{2000} = \boxed{\frac{3}{4}}.
+\]
+
+\subsection{几何概型}
+
+古典概型要求样本空间有限，而\textbf{几何概型}处理有无穷多个等可能结果的随机试验。
+
+\begin{definition}[几何概型]
+若随机试验 $E$ 相当于在可度量区域 $D$ 内任意取点，且取到每一点都是等可能的，则称 $E$ 为几何概型。若事件 $A$ 对应于点落在 $D$ 内某子区域 $A$ 中，则
+\[
+\boxed{P(A) = \frac{m_A}{m_D}},
+\]
+其中 $m$ 表示测度（长度、面积、体积等）。
+\end{definition}
+
+\subsubsection{例9：会面问题}
+
+\textbf{问题}：甲、乙约定在 $5$ 点到 $12$ 点之间在某地会面，先到者等 $1$ 小时后离去。两人到达时刻等可能且独立，求能会面的概率。
+
+\textbf{解}：设 $X, Y$ 分别为甲、乙到达时刻（以 $5$ 点为原点，单位：小时），则 $X, Y \in [0, 7]$。样本空间为正方形区域
+\[
+\Omega = \{(X,Y) \mid 0 \leq X \leq 7,\; 0 \leq Y \leq 7\}, \quad m_\Omega = 7 \times 7 = 49.
+\]
+两人能会面的条件是 $|X - Y| \leq 1$，即
+\[
+-1 \leq X - Y \leq 1 \quad \Longleftrightarrow \quad Y \in [X-1, X+1].
+\]
+在正方形中，满足条件的区域为两条直线 $Y = X+1$ 与 $Y = X-1$ 之间的带状区域。
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.5\textwidth]{fig_meeting.png}
+% \caption{会面问题示意图：正方形内 $|X-Y|\leq 1$ 的带状阴影区域}
+% \label{fig:meeting}
+% \end{figure}
+
+不满足条件的区域为两个直角三角形：
+\begin{itemize}[leftmargin=2em]
+    \item 上方三角形：顶点 $(0,1), (0,7), (6,7)$，直角边长 $6$；
+    \item 下方三角形：顶点 $(1,0), (7,0), (7,6)$，直角边长 $6$。
+\end{itemize}
+每个三角形面积为 $\dfrac{1}{2} \times 6^2 = 18$，故不满足总面积为 $36$。满足条件的面积为
+\[
+m_A = 49 - 36 = 13.
+\]
+因此
+\[
+\boxed{P(\text{会面}) = \frac{13}{49}}.
+\]
+
+\subsubsection{蒲丰投针的几何概型解释}
+
+\textbf{问题}：平面上有间距为 $d$（$d>0$）的平行线，向平面任意投掷长为 $l$（$l<d$）的针，求针与平行线相交的概率。
+
+\textbf{解}：设 $x$ 为针中点 $M$ 到最近平行线的距离，$\theta$ 为针与平行线的交角。则样本空间为
+\[
+D = \left\{(\theta, x) \mid 0 \leq \theta \leq \pi,\; 0 \leq x \leq \frac{d}{2}\right\}, \quad m_D = \frac{d}{2} \cdot \pi.
+\]
+针与线相交的条件是中点到线距离不超过针在垂直方向投影的一半：
+\[
+x \leq \frac{l}{2}\sin\theta.
+\]
+故有利区域为
+\[
+A = \left\{(\theta, x) \mid 0 \leq \theta \leq \pi,\; 0 \leq x \leq \frac{l}{2}\sin\theta\right\}.
+\]
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.6\textwidth]{fig_buffon2.png}
+% \caption{蒲丰投针几何概型示意图：针中点距离 $x$ 与夹角 $\theta$}
+% \label{fig:buffon2}
+% \end{figure}
+
+计算 $A$ 的面积：
+\[
+m_A = \int_0^\pi \frac{l}{2}\sin\theta \,\diff\theta = \frac{l}{2}[-\cos\theta]_0^\pi = \frac{l}{2}(1+1) = l.
+\]
+因此
+\[
+\boxed{P(\text{相交}) = \frac{m_A}{m_D} = \frac{l}{\frac{\pi d}{2}} = \frac{2l}{\pi d}}.
+\]
+若进行 $n$ 次投针，观察到 $m$ 次相交，则频率 $m/n \approx 2l/(\pi d)$，从而
+\[
+\boxed{\pi \approx \frac{2ln}{md}}.
+\]
+
+% ==================== §4 条件概率 ====================
+\section{条件概率}
+
+\subsection{引例}
+
+\textbf{问题}：抛一枚硬币两次，$A$：至少出现一次正面；$B$：两次为同一面。求在 $A$ 发生的条件下 $B$ 发生的概率。
+
+\textbf{解}：样本空间 $\Omega = \{HH, HT, TH, TT\}$。
+\[
+A = \{HH, HT, TH\}, \quad B = \{HH, TT\}, \quad A \cap B = \{HH\}.
+\]
+在 $A$ 已发生的条件下，样本空间缩小为 $A$，其中使 $B$ 发生的结果只有 $HH$。故
+\[
+P(B \mid A) = \frac{1}{3}.
+\]
+
+\subsection{条件概率的定义}
+
+\begin{definition}[条件概率]
+设 $A, B$ 是两个事件，且 $P(A) > 0$，称
+\[
+\boxed{P(B \mid A) = \frac{P(A \cap B)}{P(A)}}
+\]
+为在事件 $A$ 已发生的条件下事件 $B$ 发生的\textbf{条件概率}。
+\end{definition}
+
+\textbf{计算方法}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{缩小样本空间法}：直接在新样本空间 $A$ 中计算 $B$ 发生的比例（适用于古典概型）；
+    \item \textbf{公式法}：利用 $P(B \mid A) = P(AB)/P(A)$。
+\end{enumerate}
+
+\subsubsection{例1：乒乓球问题}
+
+\textbf{问题}：盒中混有 $100$ 只新、旧乒乓球，各有黄、白两色，分布如下：
+\[
+\begin{array}{c|cc|c}
+ & \text{黄} & \text{白} & \text{合计} \\ \hline
+\text{新} & 40 & 30 & 70 \\
+\text{旧} & 20 & 10 & 30 \\ \hline
+\text{合计} & 60 & 40 & 100
+\end{array}
+\]
+随机取出一球，若已知取得黄球，求该球是新球的概率。
+
+\textbf{解}：设 $A$ = ``取出黄球''，$B$ = ``取出新球''。
+\[
+n_A = 60, \quad n_{A \cap B} = 40.
+\]
+由缩小样本空间法：
+\[
+\boxed{P(B \mid A) = \frac{n_{A \cap B}}{n_A} = \frac{40}{60} = \frac{2}{3}}.
+\]
+或由公式法：
+\[
+P(A) = \frac{60}{100} = \frac{3}{5}, \quad P(A \cap B) = \frac{40}{100} = \frac{2}{5}, \quad P(B \mid A) = \frac{2/5}{3/5} = \frac{2}{3}.
+\]
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.4\textwidth]{fig_conditional.png}
+% \caption{条件概率示意图：事件 $A$ 中 $B$ 所占比例}
+% \label{fig:conditional}
+% \end{figure}
+
+\subsubsection{例2：有放回取球}
+
+\textbf{问题}：盒中有 $4$ 个标号为 $1,2,3,4$ 的球，有放回地取两次。设 $B$ = ``两球标号之和为 $4$''。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 求 $P(B)$；
+    \item 若已知第一次取出标号为 $2$（事件 $A$），求 $P(B \mid A)$。
+\end{enumerate}
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 样本空间 $\Omega = \{(i,j) \mid i,j = 1,2,3,4\}$，共 $16$ 个样本点。
+    \[
+    B = \{(1,3), (2,2), (3,1)\}, \quad P(B) = \frac{3}{16}.
+    \]
+    
+    \item $A = \{(2,1), (2,2), (2,3), (2,4)\}$。在 $A$ 发生条件下，样本空间缩小为 $4$ 个结果，其中只有 $(2,2) \in B$。故
+    \[
+    \boxed{P(B \mid A) = \frac{1}{4}}.
+    \]
+    注意：$P(B \mid A) = \dfrac{1}{4} \neq \dfrac{3}{16} = P(B)$，说明附加条件改变了概率。
+\end{enumerate}
+
+\subsection{条件概率是概率吗？}
+
+条件概率 $P(\cdot \mid A)$ 满足概率的三条公理，因此它本身也是一种概率：
+
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{非负性}：$P(B \mid A) \geq 0$；
+    \item \textbf{规范性}：$P(\Omega \mid A) = \dfrac{P(\Omega \cap A)}{P(A)} = \dfrac{P(A)}{P(A)} = 1$；
+    \item \textbf{可列可加性}：若 $B_1, B_2, \dots$ 两两互斥，则
+    \[
+    P\left(\bigcup_{i=1}^{\infty} B_i \,\middle|\, A\right) = \sum_{i=1}^{\infty} P(B_i \mid A).
+    \]
+\end{enumerate}
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.7\textwidth]{fig_conditional_additivity.png}
+% \caption{条件概率的可列可加性示意图：$A$ 与互斥的 $B_i$ 的交集也互斥}
+% \label{fig:conditional_additivity}
+% \end{figure}
+
+由此可导出条件概率下的常用公式：
+
+\begin{property}[逆事件公式]
+\[
+P(\bar{B} \mid A) = 1 - P(B \mid A).
+\]
+\end{property}
+
+\begin{property}[加法公式]
+对任意两事件 $B_1, B_2$，
+\[
+P(B_1 \cup B_2 \mid A) = P(B_1 \mid A) + P(B_2 \mid A) - P(B_1 \cap B_2 \mid A).
+\]
+\end{property}
+
+% ==================== §4 条件概率（续）====================
+\subsection{条件概率与无条件概率的关系}
+
+\begin{note}
+条件概率 $P(B \mid A)$ 与无条件概率 $P(B)$ 之间的大小\textbf{没有确定关系}。$P(B \mid A)$ 可能大于、等于或小于 $P(B)$，取决于事件 $A$ 与 $B$ 的具体关联。
+\end{note}
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.5\textwidth]{fig_cond_vs_uncond.png}
+% \caption{条件概率与无条件概率的对比示意图：$|B|/|\Omega|$ vs $|A\cap B|/|A|$}
+% \label{fig:cond_vs_uncond}
+% \end{figure}
+
+\subsubsection{例3：市场占有率与合格率}
+
+\textbf{问题}：市场上手机中，甲产品占有率 $50\%$，乙产品 $30\%$，其他品牌 $20\%$。甲、乙、其他品牌的合格率分别为 $95\%$、$80\%$、$60\%$。用 $A,B,C$ 分别表示甲、乙和其他品牌，$Q$ 表示合格品。
+
+\textbf{已知}：
+\[
+\begin{aligned}
+P(A) &= 0.5, & P(Q \mid A) &= 0.95, \\
+P(B) &= 0.3, & P(Q \mid B) &= 0.8, \\
+P(C) &= 0.2, & P(Q \mid C) &= 0.6.
+\end{aligned}
+\]
+
+此例为后续全概率公式的应用做铺垫。
+
+\subsubsection{例4：连续大雾问题}
+
+\textbf{问题}：某地区连续两天出现清晨大雾的概率为 $0.1$，第一天大雾概率为 $0.6$，第二天大雾概率为 $0.3$。若游客第一天遇到大雾，求第二天没有大雾的概率。
+
+\textbf{解}：设 $A_1, A_2$ 分别表示第一、第二天出现大雾。
+\[
+P(\bar{A}_2 \mid A_1) = \frac{P(A_1 \cap \bar{A}_2)}{P(A_1)} = \frac{P(A_1) - P(A_1 A_2)}{P(A_1)} = \frac{0.6 - 0.1}{0.6} = \boxed{\frac{5}{6}}.
+\]
+
+\subsection{乘法公式（乘法定理）}
+
+由条件概率定义 $P(B \mid A) = \dfrac{P(AB)}{P(A)}$，直接得到：
+
+\begin{theorem}[乘法公式]
+对任意事件 $A, B \subset \Omega$，若 $P(A) > 0$，则
+\[
+\boxed{P(AB) = P(B \mid A) P(A)}.
+\]
+\end{theorem}
+
+\textbf{推广到三事件}：设 $A,B,C$ 为三个事件，且 $P(AB) > 0$，则
+\[
+P(ABC) = P(C \mid AB) \cdot P(B \mid A) \cdot P(A).
+\]
+
+\textbf{一般情形}：设 $A_1, A_2, \dots, A_n$ 为 $n$ 个事件，且 $P(A_1 A_2 \cdots A_{n-1}) > 0$，则
+\[
+\boxed{P(A_1 A_2 \cdots A_n) = P(A_n \mid A_1 A_2 \cdots A_{n-1}) \cdot P(A_{n-1} \mid A_1 \cdots A_{n-2}) \cdots P(A_2 \mid A_1) \cdot P(A_1)}.
+\]
+
+\subsubsection{例5：波利亚罐子模型（P\'{o}lya's Urn Model / 传染模型）}
+
+\textbf{模型设定}：盒中有 $r$ 个红球、$t$ 个白球。每次任取一球，观察颜色后放回，并再放入 $a$ 只与所取球颜色相同的球。连续取球 $4$ 次。
+
+设 $A_i$ 表示第 $i$ 次取到红球，$\bar{A}_i$ 表示第 $i$ 次取到白球。
+
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{第1、2次红球，第3、4次白球的概率}：
+    \begin{align*}
+    P(A_1 A_2 \bar{A}_3 \bar{A}_4) 
+    &= P(\bar{A}_4 \mid A_1 A_2 \bar{A}_3) \cdot P(\bar{A}_3 \mid A_1 A_2) \cdot P(A_2 \mid A_1) \cdot P(A_1) \\
+    &= \frac{t+a}{r+t+3a} \cdot \frac{t}{r+t+2a} \cdot \frac{r+a}{r+t+a} \cdot \frac{r}{r+t}.
+    \end{align*}
+    
+    \item \textbf{第1、2次白球，第3、4次红球的概率}：
+    \begin{align*}
+    P(\bar{A}_1 \bar{A}_2 A_3 A_4) 
+    &= P(A_4 \mid A_3 \bar{A}_2 \bar{A}_1) \cdot P(A_3 \mid \bar{A}_2 \bar{A}_1) \cdot P(\bar{A}_2 \mid \bar{A}_1) \cdot P(\bar{A}_1) \\
+    &= \frac{r+a}{r+t+3a} \cdot \frac{r}{r+t+2a} \cdot \frac{t+a}{r+t+a} \cdot \frac{t}{r+t}.
+    \end{align*}
+\end{enumerate}
+
+\textbf{一般公式}：在波利亚罐子模型中，先取出 $n_1$ 个红球，再取出 $n_2$ 个白球（总共 $n_1+n_2$ 次抽取），其概率为
+\[
+\boxed{p = \frac{r(r+a)\cdots(r+n_1 a - a) \cdot t(t+a)\cdots(t+n_2 a - a)}{(r+t)(r+t+a)\cdots(r+t+(n_1+n_2)a - a)}}.
+\]
+
+\begin{note}
+波利亚模型是一种\textbf{ reinforced process（强化过程）}，常用于描述传染病的传播、品牌忠诚度等``富者愈富''现象。
+\end{note}
+
+% ==================== 全概率公式与Bayes公式 ====================
+\subsection{样本空间的划分}
+
+\begin{definition}[划分 / Partition]
+设 $\Omega$ 为试验 $E$ 的样本空间，$B_1, B_2, \dots, B_n$ 为一组事件，若满足：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 两两互斥：$B_i \cap B_j = \varnothing,\; i \neq j,\; i,j = 1,2,\dots,n$；
+    \item 完全覆盖：$\displaystyle\bigcup_{i=1}^{n} B_i = \Omega$，
+\end{enumerate}
+则称 $B_1, B_2, \dots, B_n$ 为样本空间 $\Omega$ 的一个\textbf{划分}（或完备事件组）。
+\end{definition}
+
+\textbf{特点}：对每次试验，有且仅有一个 $B_i$ 发生。
+
+\textbf{例子}：掷骰子的两种划分：
+\begin{itemize}[leftmargin=2em]
+    \item $\{1,3,5\}, \{2,4,6\}$（按奇偶划分）；
+    \item $\{1,2,3\}, \{4,5,6\}$（按大小划分）。
+\end{itemize}
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.5\textwidth]{fig_partition.png}
+% \caption{样本空间划分示意图：$B_1,B_2,\dots,B_6$ 构成 $\Omega$ 的一个划分}
+% \label{fig:partition}
+% \end{figure}
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.5\textwidth]{fig_partition_event.png}
+% \caption{事件 $A$ 被划分切割：$A = \bigcup_{i} (A \cap B_i)$}
+% \label{fig:partition_event}
+% \end{figure}
+
+\subsection{全概率公式}
+
+\begin{theorem}[全概率公式 / Law of Total Probability]
+设试验 $E$ 的样本空间为 $\Omega$，$A$ 为 $E$ 的事件，$B_1, B_2, \dots, B_n$ 为 $\Omega$ 的一个划分，且 $P(B_i) > 0\;(i=1,2,\dots,n)$，则
+\[
+\boxed{P(A) = \sum_{i=1}^{n} P(A \mid B_i) P(B_i)}.
+\]
+\end{theorem}
+
+\textbf{思想}：将复杂事件 $A$ 的概率分解到各个``原因'' $B_i$ 上分别计算，再求和。适用于直接计算 $P(A)$ 困难，但各分支条件概率已知的情形。
+
+\subsubsection{例6：手机代工厂次品率}
+
+\textbf{问题}：某品牌手机由甲、乙、丙三家代工厂生产，产量占比分别为 $1/4, 1/4, 1/2$，次品率分别为 $2\%, 1\%, 3\%$。求市场上该品牌手机的次品率。
+
+\textbf{解}：设 $A_1, A_2, A_3$ 分别表示产品来自甲、乙、丙厂，$B$ 表示产品为次品。
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.5\textwidth]{fig_phone_factory.png}
+% \caption{手机代工厂问题示意图：三家工厂的市场份额与次品交集}
+% \label{fig:phone_factory}
+% \end{figure}
+
+由全概率公式：
+\begin{align*}
+P(B) &= P(B \mid A_1)P(A_1) + P(B \mid A_2)P(A_2) + P(B \mid A_3)P(A_3) \\
+&= 0.02 \times \frac{1}{4} + 0.01 \times \frac{1}{4} + 0.03 \times \frac{1}{2} \\
+&= 0.005 + 0.0025 + 0.015 = \boxed{0.0225}.
+\end{align*}
+
+\subsubsection{例7：两袋取球问题}
+
+\textbf{问题}：甲袋中有 $2$ 个白球、$1$ 个红球；乙袋中有 $2$ 个红球、$1$ 个白球。这六个球手感不可区别。从甲袋任取一球放入乙袋，搅匀后再从乙袋任取一球，求取到红球的概率。
+
+\textbf{解}：设 $A_1$ = ``从甲袋取出白球放入乙袋''，$A_2$ = ``从甲袋取出红球放入乙袋''，$B$ = ``从乙袋取到红球''。
+
+先验概率：
+\[
+P(A_1) = \frac{2}{3}, \quad P(A_2) = \frac{1}{3}.
+\]
+
+条件概率：
+\begin{itemize}[leftmargin=2em]
+    \item 若 $A_1$ 发生（甲袋白球放入乙袋），乙袋变为 $2$ 红 $2$ 白，$P(B \mid A_1) = \dfrac{2}{4} = \dfrac{1}{2}$；
+    \item 若 $A_2$ 发生（甲袋红球放入乙袋），乙袋变为 $3$ 红 $1$ 白，$P(B \mid A_2) = \dfrac{3}{4}$。
+\end{itemize}
+
+由全概率公式：
+\[
+P(B) = P(B \mid A_1)P(A_1) + P(B \mid A_2)P(A_2) = \frac{1}{2} \times \frac{2}{3} + \frac{3}{4} \times \frac{1}{3} = \frac{1}{3} + \frac{1}{4} = \boxed{\frac{7}{12}}.
+\]
+
+\subsection{乘法公式的拓展：已知结果求原因}
+
+\textbf{续例7}：若已知从乙袋取到的是红球，求从甲袋放入乙袋的是白球的概率。
+
+即求 $P(A_1 \mid B)$。由条件概率定义：
+\[
+P(A_1 \mid B) = \frac{P(A_1 B)}{P(B)} = \frac{P(B \mid A_1) P(A_1)}{P(B)} = \frac{\dfrac{1}{2} \times \dfrac{2}{3}}{\dfrac{7}{12}} = \frac{\dfrac{1}{3}}{\dfrac{7}{12}} = \boxed{\frac{4}{7}}.
+\]
+
+同理：
+\[
+P(A_2 \mid B) = \frac{P(B \mid A_2) P(A_2)}{P(B)} = \frac{\dfrac{3}{4} \times \dfrac{1}{3}}{\dfrac{7}{12}} = \frac{\dfrac{1}{4}}{\dfrac{7}{12}} = \frac{3}{7}.
+\]
+
+验证：$P(A_1 \mid B) + P(A_2 \mid B) = \dfrac{4}{7} + \dfrac{3}{7} = 1$。
+
+% ==================== Bayes定理 ====================
+\subsection{Bayes定理（贝叶斯公式）}
+
+\begin{theorem}[Bayes公式]
+设试验 $E$ 的样本空间为 $\Omega$，$A$ 为 $E$ 的一个事件，$B_1, B_2, \dots, B_n$ 为 $\Omega$ 的一个划分，且 $P(A) > 0,\; P(B_i) > 0\;(i=1,2,\dots,n)$，则对任意 $i$，
+\[
+\boxed{P(B_i \mid A) = \frac{P(A \mid B_i) P(B_i)}{\displaystyle\sum_{j=1}^{n} P(A \mid B_j) P(B_j)}}.
+\]
+\end{theorem}
+
+\textbf{公式结构}：
+\[
+\underbrace{P(B_i \mid A)}_{\text{后验概率}} = \frac{\overbrace{P(A \mid B_i)}^{\text{似然}} \cdot \overbrace{P(B_i)}^{\text{先验}}}{\underbrace{\sum_{j=1}^{n} P(A \mid B_j) P(B_j)}_{\text{全概率 } P(A)}}.
+\]
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.7\textwidth]{fig_bayes_cycle.png}
+% \caption{Bayes公式的循环结构：条件概率 $\rightarrow$ 乘法定理 $\rightarrow$ 全概率公式}
+% \label{fig:bayes_cycle}
+% \end{figure}
+
+\textbf{两类事件的Bayes公式}（$n=2$ 的特例）：
+\[
+\begin{aligned}
+P(A_1 \mid B) &= \frac{P(B \mid A_1) P(A_1)}{P(B \mid A_1) P(A_1) + P(B \mid A_2) P(A_2)}, \\[0.5em]
+P(A_2 \mid B) &= \frac{P(B \mid A_2) P(A_2)}{P(B \mid A_1) P(A_1) + P(B \mid A_2) P(A_2)}.
+\end{aligned}
+\]
+
+\subsubsection{例8：射手等级问题}
+
+\textbf{问题}：某小组有 $20$ 名射手，其中一、二、三、四级射手分别为 $2,6,9,3$ 名。若选一、二、三、四级射手参赛，射中目标的概率分别为 $0.85, 0.64, 0.45, 0.32$。今随机选一人参赛。
+
+\textbf{(1) 求该小组在比赛中射中目标的概率。}
+
+\textbf{解}：设 $A$ = ``射中目标''，$B_i$ = ``选 $i$ 级选手''（$i=1,2,3,4$）。
+
+先验概率：
+\[
+P(B_1) = \frac{2}{20} = 0.1,\; P(B_2) = \frac{6}{20} = 0.3,\; P(B_3) = \frac{9}{20} = 0.45,\; P(B_4) = \frac{3}{20} = 0.15.
+\]
+
+条件概率：
+\[
+P(A \mid B_1) = 0.85,\; P(A \mid B_2) = 0.64,\; P(A \mid B_3) = 0.45,\; P(A \mid B_4) = 0.32.
+\]
+
+由全概率公式：
+\begin{align*}
+P(A) &= 0.1 \times 0.85 + 0.3 \times 0.64 + 0.45 \times 0.45 + 0.15 \times 0.32 \\
+&= 0.085 + 0.192 + 0.2025 + 0.048 = \boxed{0.5275}.
+\end{align*}
+
+\textbf{(2) 若已知射中目标，求该选手是一、二、三、四级选手的概率。}
+
+由Bayes公式：
+\[
+\begin{aligned}
+P(B_1 \mid A) &= \frac{0.085}{0.5275} \approx \boxed{0.1611}, \\
+P(B_2 \mid A) &= \frac{0.192}{0.5275} \approx \boxed{0.3640}, \\
+P(B_3 \mid A) &= \frac{0.2025}{0.5275} \approx \boxed{0.3839}, \\
+P(B_4 \mid A) &= \frac{0.048}{0.5275} \approx \boxed{0.0910}.
+\end{aligned}
+\]
+
+\textbf{先验与后验对比}：
+
+\begin{table}[htbp]
+\centering
+\caption{先验概率与后验概率对比}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+\textbf{等级} & \textbf{先验} $P(B_i)$ & \textbf{后验} $P(B_i \mid A)$ & \textbf{条件概率} $P(A \mid B_i)$ \\
+\midrule
+一级 & $0.10$ & $0.1611$（$\uparrow$） & $0.85$ \\
+二级 & $0.30$ & $0.3640$（$\uparrow$） & $0.64$ \\
+三级 & $0.45$ & $0.3839$（$\downarrow$） & $0.45$ \\
+四级 & $0.15$ & $0.0910$（$\downarrow$） & $0.32$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{note}
+观察到``射中目标''后，高等级选手（一、二级）的后验概率上升，低等级选手（三、四级）的后验概率下降。这是因为高等级选手的命中率更高，结果 $A$ 对他们更有利。
+\end{note}
+
+\subsubsection{例9：晶体管供应商问题}
+
+\textbf{问题}：某电子设备制造厂所用晶体管由三家元件厂提供，数据如下：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+\textbf{元件厂} & \textbf{次品率} $P(A \mid B_i)$ & \textbf{市场份额} $P(B_i)$ \\
+\midrule
+1 & $0.02$ & $0.15$ \\
+2 & $0.01$ & $0.80$ \\
+3 & $0.03$ & $0.05$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+三家产品在仓库中均匀混合且无区别标志。
+
+\textbf{(1) 在仓库中随机取一只晶体管，求其次品率。}
+
+\textbf{解}：设 $A$ = ``取到次品''，$B_i$ = ``取到第 $i$ 家工厂的产品''。
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.6\textwidth]{fig_transistor_share.png}
+% \caption{晶体管供应商市场份额示意图}
+% \label{fig:transistor_share}
+% \end{figure}
+
+由全概率公式：
+\[
+P(A) = 0.02 \times 0.15 + 0.01 \times 0.80 + 0.03 \times 0.05 = 0.003 + 0.008 + 0.0015 = \boxed{0.0125}.
+\]
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.7\textwidth]{fig_total_prob_tree.png}
+% \caption{全概率公式的树状图表示：Step 1 供应商 $\rightarrow$ Step 2 条件 $\rightarrow$ 试验结果}
+% \label{fig:total_prob_tree}
+% \end{figure}
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\textwidth]{fig_prob_tree_numeric.png}
+% \caption{树状图数值计算：各分支概率与联合概率}
+% \label{fig:prob_tree_numeric}
+% \end{figure}
+
+\textbf{(2) 若已知取到的是次品，求它出自各家工厂的概率。}
+
+由Bayes公式：
+\[
+\begin{aligned}
+P(B_1 \mid A) &= \frac{0.02 \times 0.15}{0.0125} = \frac{0.003}{0.0125} = \boxed{0.24}, \\
+P(B_2 \mid A) &= \frac{0.01 \times 0.80}{0.0125} = \frac{0.008}{0.0125} = \boxed{0.64}, \\
+P(B_3 \mid A) &= \frac{0.03 \times 0.05}{0.0125} = \frac{0.0015}{0.0125} = \boxed{0.12}.
+\end{aligned}
+\]
+
+\begin{note}
+虽然第3家工厂的次品率最高（$3\%$），但由于其市场份额极小（$5\%$），次品出自第3家的概率反而最低（$12\%$）。第2家工厂次品率最低（$1\%$），但因其占据 $80\%$ 市场，次品出自第2家的概率高达 $64\%$。
+\end{note}
+
+\subsection{Bayes公式的三种理解}
+
+\subsubsection{理解1：从结果寻求关联因素}
+
+\begin{itemize}[leftmargin=2em]
+    \item 将事件 $A$ 看作某一过程的\textbf{结果}；
+    \item 将 $B_1, B_2, \dots, B_n$ 看作导致该结果的\textbf{所有可能因素}；
+    \item $P(B_i)$：根据历史信息得到的\textbf{先验概率}（Prior）；
+    \item $P(A \mid B_i)$：每种因素对结果的影响程度，即\textbf{条件概率 / 似然}（Likelihood）；
+    \item $P(B_i \mid A)$：事件 $A$ 已发生后，推断此事由第 $i$ 个因素引起的概率，即\textbf{后验概率}（Posterior）。
+\end{itemize}
+
+\begin{note}
+Bayes公式本质上是发现\textbf{关联因素}，而非严格意义上的``原因''。统计关联不等于因果。
+\end{note}
+
+\subsubsection{理解2：组合先验知识与新信息修正预测}
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.9\textwidth]{fig_bayes_typhoon.png}
+% \caption{Bayes公式在台风路径预测中的应用：先验路径 $P(B_i)$ + 新观测 $P(A \mid B_i)$ $\rightarrow$ 修正预测 $P(B_i \mid A)$}
+% \label{fig:bayes_typhoon}
+% \end{figure}
+
+\textbf{应用场景}：气象预报、股票预测、导航定位等。先验知识（历史数据）与新观测信息结合，通过Bayes公式不断更新信念。
+
+\subsubsection{理解3：建模因果关系，推断主要因素}
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.9\textwidth]{fig_bayes_smog.png}
+% \caption{Bayes公式在雾霾成因分析中的应用：各种因素导致雾霾的模型 $P(A \mid B_i)$ + 先验 $P(B_i)$ $\rightarrow$ 判断主要因素 $P(B_i \mid A)$}
+% \label{fig:bayes_smog}
+% \end{figure}
+
+\textbf{核心思想}：建立``因素 $\rightarrow$ 结果''的因果模型（$P(A \mid B_i)$），结合各因素的先验发生概率，当观察到结果 $A$ 后，反推各因素的后验概率，从而判断主要影响因素。
+
+\subsection{假阳性之谜（医学检测中的Bayes应用）}
+
+\subsubsection{例10：疾病检测}
+
+\textbf{问题}：某种检测方法对患病者的阳性率为 $0.95$（真阳性率），对非患病者的阴性率为 $0.96$（真阴性率）。人群中该疾病的发病率为 $0.001$。随机抽出一人，检出为阳性，求该人实际患病的概率。
+
+\textbf{解}：设 $A$ = ``该人患病''，$B$ = ``该人检出为阳性''。
+
+\begin{table}[htbp]
+\centering
+\caption{检测方法的性能指标}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{结果阳性} & \textbf{结果阴性} \\
+\midrule
+患病者 & $P(B \mid A) = 0.95$（真阳性） & $P(\bar{B} \mid A) = 0.05$（漏检率） \\
+非患病者 & $P(B \mid \bar{A}) = 0.04$（误检率） & $P(\bar{B} \mid \bar{A}) = 0.96$（真阴性） \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+由Bayes公式：
+\[
+P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B \mid A) P(A) + P(B \mid \bar{A}) P(\bar{A})} = \frac{0.95 \times 0.001}{0.95 \times 0.001 + 0.04 \times 0.999} \approx \boxed{0.0232}.
+\]
+
+\begin{note}
+\textbf{反直觉结论}：即使检出阳性，实际患病概率仅约 $2.32\%$！这是因为疾病发病率极低（$0.001$），大量健康人群中的误检（$4\%$）数量远超真实患者中的真检（$95\%$）。$P(B \mid A)$ 远不能代表 $P(A \mid B)$，不必被检查结果吓坏。
+\end{note}
+
+\textbf{追问}：若检出阴性，是否安全？
+
+\[
+P(\bar{A} \mid \bar{B}) = \frac{P(\bar{B} \mid \bar{A}) P(\bar{A})}{P(\bar{B} \mid A) P(A) + P(\bar{B} \mid \bar{A}) P(\bar{A})} = \frac{0.96 \times 0.999}{0.05 \times 0.001 + 0.96 \times 0.999} \approx \boxed{0.9999479}.
+\]
+
+检出阴性后，确实安全的概率极高（约 $99.995\%$），安全程度比单纯的真阴性率 $P(\bar{B} \mid \bar{A}) = 0.96$ 大幅提升。
+
+% ==================== 作业 ====================
+\section*{作业}
+
+\addcontentsline{toc}{section}{作业}
+
+\subsection*{教材《概率论及其应用》}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 1.8（p.20/21）：\#14, \#16, \#17, \#19
+    \item 2.10（pp.42--44 / 45--47）：\#9, \#11, \#21, \#24, \#38
+    \item 5.8（pp.107--109 / 116--118）：\#6, \#7, \#18, \#19, \#26
+    \item 6.10（p.129 / 139）：\#5, \#12, \#16
+\end{enumerate}
+
+\subsection*{教材《概率论与数理统计》（盛聚等）}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 第一章（pp.25--29）：\#2, \#8, \#12, \#13, \#16, \#18, \#19, \#23, \#25, \#26, \#29, \#33, \#35, \#38
+\end{enumerate}
 
 \end{document}
