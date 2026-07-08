@@ -13,6 +13,7 @@
 \usepackage{fancyhdr}                % 页眉页脚
 \usepackage{titlesec}                % 标题格式
 \usepackage{multicol}                % 多栏排版
+\usepackage{multirow}                % 表格合并行
 \usepackage{tikz}                    % 绘图
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 
@@ -6873,5 +6874,469 @@ Masatoshi Okutomi, Takeo Kanade, \textit{A Multiple-Baseline Stereo}, IEEE Trans
 \addcontentsline{toc}{section}{作业}
 
 教材《概率论及其应用》（pp.~201/217）：\#7，\#8。
+
+\section{中心极限定理}
+
+\subsection{问题的引出}
+
+大数定律回答了随机变量序列的收敛性问题——算术平均值依概率收敛于期望。但还有一个自然的问题：\textbf{如何收敛？}收敛的速度和分布形态如何？
+
+\begin{example}[射击偏差]
+考察射击命中点与靶心距离的偏差，偏差可能由多种因素叠加而成：
+\begin{itemize}[leftmargin=2em]
+    \item 瞄准误差；
+    \item 子弹制造过程方面（如外形、重量等）的误差；
+    \item 射击时武器的振动；
+    \item 气象因素（如风速、风向、能见度、温度等）。
+\end{itemize}
+\end{example}
+
+问题：某个随机变量是由大量相互独立且都很小的随机变量相加而成的，研究其概率分布情况。
+
+一般地，若某项偶然因素对总和的影响是均匀的、微小的，即没有一项起特别突出的作用，则这些大量独立偶然因素总和的随机变量近似服从正态分布——中心极限定理试图证明这一假设的正确性。
+
+研究在什么条件下，大量独立随机变量和的分布以正态分布为极限，这一类定理称为\textbf{中心极限定理}。
+
+\subsection{中心极限定理的定义}
+
+\begin{definition}[中心极限定理]
+设$X_{1},X_{2},\ldots,X_{n},\ldots$是独立的随机变量序列，若$E(X_{k}),D(X_{k})$ $(k=1,2,\ldots)$都存在，令
+\[
+Y_{n}=\frac{\sum_{k=1}^{n}X_{k}-\sum_{k=1}^{n}E(X_{k})}{\sqrt{\sum_{k=1}^{n}D(X_{k})}}.
+\]
+若对任意$x\in\mathbb{R}$，有
+\[
+\lim_{n\to\infty}P\{Y_{n}\leq x\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{t^{2}}{2}}\,dt,
+\]
+则称该随机变量序列\textbf{服从中心极限定理}。
+
+等价地，若$\{X_{n}\}$服从中心极限定理，则当$n$足够大时$Y_{n}$近似服从标准正态分布$N(0,1)$。
+\end{definition}
+
+\subsection{独立同分布的中心极限定理}
+
+\begin{theorem}[独立同分布的中心极限定理]
+设随机变量$X_{1},X_{2},\ldots,X_{n},\ldots$独立同分布，且$E(X_{k})=\mu$，$D(X_{k})=\sigma^{2}>0$ $(k=1,2,\ldots)$，则随机变量之和$\sum_{k=1}^{n}X_{k}$的标准化变量
+\[
+Y_{n}=\frac{\sum_{k=1}^{n}X_{k}-E\left(\sum_{k=1}^{n}X_{k}\right)}{\sqrt{D\left(\sum_{k=1}^{n}X_{k}\right)}}=\frac{\sum_{k=1}^{n}X_{k}-n\mu}{\sqrt{n}\sigma}
+\]
+的分布函数$F_{n}(x)$对于任意的$x$满足
+\[
+\lim_{n\to\infty}F_{n}(x)=\lim_{n\to\infty}P\left\{\frac{\sum_{k=1}^{n}X_{k}-n\mu}{\sqrt{n}\sigma}\leq x\right\}=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}\,dt=\Phi(x).
+\]
+\end{theorem}
+
+\subsubsection*{证明}
+
+设$X_{i}$的概率密度为$f(x)$，令$X'_{i}=\dfrac{X_{i}-\mu}{\sqrt{n}\sigma}$，其概率密度为$f'(x)$，且
+\[
+Y_{n}=\sum_{k=1}^{n}X'_{k}.
+\]
+
+由第三章知：两个独立的随机变量之和$Z=X+Y$的概率密度可以表达为对应概率密度的卷积，即
+\[
+f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(z-y)f_{Y}(y)\,dy.
+\]
+由傅里叶变换可知：
+\[
+\mathcal{F}[f_{Z}(z)]=\mathcal{F}[f_{X}(x)]\cdot\mathcal{F}[f_{Y}(y)].
+\]
+于是$Y_{n}$对应的概率密度$f_{n}$满足：
+\[
+\mathcal{F}[f_{n}]=\prod_{k=1}^{n}\mathcal{F}[f'],\qquad f_{n}=\mathcal{F}^{-1}\left[\prod_{k=1}^{n}\mathcal{F}[f']\right].
+\]
+
+由于
+\[
+P(X'\leq t)=\int_{-\infty}^{t}f'(x)\,dx=P\left(\frac{X-\mu}{\sqrt{n}\sigma}\leq t\right)=\int_{-\infty}^{\sqrt{n}\sigma t+\mu}f(x)\,dx=\int_{-\infty}^{t}\sqrt{n}\sigma\,f(\sqrt{n}\sigma x+\mu)\,dx,
+\]
+于是
+\[
+f'(x)=\sqrt{n}\sigma\,f(\sqrt{n}\sigma x+\mu).
+\]
+相应地：
+\[
+\mathcal{F}[f']=\int_{-\infty}^{+\infty}\sqrt{n}\sigma\,f(\sqrt{n}\sigma t+\mu)e^{-j\omega t}\,dt=\int_{-\infty}^{+\infty}f(x)e^{-\frac{j\omega(x-\mu)}{\sqrt{n}\sigma}}\,dx,\quad\left(\sqrt{n}\sigma t+\mu=x\right).
+\]
+
+由Taylor展开：
+\[
+e^{-\frac{j\omega(x-\mu)}{\sqrt{n}\sigma}}\approx1-\frac{j\omega(x-\mu)}{\sqrt{n}\sigma}+\frac{1}{2}\left(\frac{j\omega(x-\mu)}{\sqrt{n}\sigma}\right)^{2}=1-\frac{j\omega(x-\mu)}{\sqrt{n}\sigma}-\frac{\omega^{2}(x-\mu)^{2}}{2n\sigma^{2}}.
+\]
+于是
+\[
+\mathcal{F}[f']\approx\int_{-\infty}^{+\infty}f(x)\,dx-\frac{j\omega}{\sqrt{n}\sigma}\int_{-\infty}^{+\infty}(x-\mu)f(x)\,dx-\frac{\omega^{2}}{2n\sigma^{2}}\int_{-\infty}^{+\infty}(x-\mu)^{2}f(x)\,dx=1-\frac{\omega^{2}}{2n}.
+\]
+（其中利用了均值为$\mu$、方差为$\sigma^{2}$的定义。）
+
+因此
+\[
+\mathcal{F}[f_{n}]=\left(1-\frac{\omega^{2}}{2n}\right)^{n}.
+\]
+当$n\to\infty$时，
+\[
+\lim_{n\to\infty}\mathcal{F}[f_{n}]=e^{-\frac{\omega^{2}}{2}}.
+\]
+
+由逆傅里叶变换：
+\begin{align*}
+\lim_{n\to\infty}f_{n}(x)&=\mathcal{F}^{-1}\left[e^{-\frac{\omega^{2}}{2}}\right]\\
+&=\frac{1}{2\pi}\int_{-\infty}^{+\infty}e^{-\frac{\omega^{2}}{2}}e^{j\omega x}\,d\omega\\
+&=\frac{1}{2\pi}e^{-\frac{x^{2}}{2}}\int_{-\infty}^{+\infty}e^{-\frac{(\omega-jx)^{2}}{2}}\,d\omega\\
+&=\frac{1}{2\pi}e^{-\frac{x^{2}}{2}}\cdot\sqrt{2\pi}=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^{2}}{2}}.
+\end{align*}
+从而
+\[
+\lim_{n\to\infty}F_{n}(x)=\lim_{n\to\infty}P\left\{\frac{\sum_{k=1}^{n}X_{k}-n\mu}{\sqrt{n}\sigma}\leq x\right\}=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}\,dt=\Phi(x).
+\]
+
+\subsection{对中心极限定理的理解}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 当$n\to\infty$时，随机变量序列$Y_{n}$的分布函数收敛于标准正态分布。
+    \begin{enumerate}[label=1.\arabic*.,leftmargin=2em]
+        \item 注意这与$X_{i}$的分布无关；
+        \item 大量独立微小因素叠加，最终结果呈正态分布。
+    \end{enumerate}
+    \item 等价表示——若$X_{1},X_{2},\ldots,X_{n},\ldots$独立同分布，且$E(X_{k})=\mu$，$D(X_{k})=\sigma^{2}>0$ $(k=1,2,\ldots)$，则对充分大的$n$：
+    \begin{enumerate}[label=2.\arabic*.,leftmargin=2em]
+        \item $\dfrac{\sum_{k=1}^{n}X_{k}-n\mu}{\sqrt{n}\sigma}$（或等价地$\dfrac{\dfrac{1}{n}\sum_{k=1}^{n}X_{k}-\mu}{\sigma/\sqrt{n}}$）近似服从标准正态分布$N(0,1)$；
+        \item $\sum_{k=1}^{n}X_{k}$近似服从正态分布$N(n\mu,n\sigma^{2})$。
+    \end{enumerate}
+    \item 提供了相应的计算方法：
+    \begin{align*}
+    P\left\{a<\sum_{k=1}^{n}X_{k}<b\right\}&=P\left\{\frac{a-n\mu}{\sqrt{n}\sigma}<\frac{\sum_{k=1}^{n}X_{k}-n\mu}{\sqrt{n}\sigma}<\frac{b-n\mu}{\sqrt{n}\sigma}\right\}\\
+    &\approx\Phi\left(\frac{b-n\mu}{\sqrt{n}\sigma}\right)-\Phi\left(\frac{a-n\mu}{\sqrt{n}\sigma}\right),\\[0.5em]
+    P\{a<\bar{X}<b\}&=P\left\{\frac{a-\mu}{\sigma/\sqrt{n}}<\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}<\frac{b-\mu}{\sigma/\sqrt{n}}\right\}\\
+    &\approx\Phi\left(\frac{b-\mu}{\sigma/\sqrt{n}}\right)-\Phi\left(\frac{a-\mu}{\sigma/\sqrt{n}}\right).
+    \end{align*}
+\end{enumerate}
+
+\subsection{离散情形的示例}
+
+设$X_{i}$的分布为：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccc@{}}  
+\toprule
+$X_{i}$ & $1$ & $2$ & $3$ \\
+\midrule
+$P(X_{i})$ & $1/3$ & $1/3$ & $1/3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+三个独立同分布的和：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccccc@{}}  
+\toprule
+$X_{1}+X_{2}+X_{3}$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ \\
+\midrule
+\multirow{2}{*}{$P(\sum X_{i})$} & $1$ & $3$ & $6$ & $7$ & $6$ & $3$ & $1$ \\
+& $27$ & $27$ & $27$ & $27$ & $27$ & $27$ & $27$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_discrete_clt.png}
+    \caption{离散情形下三个独立同分布变量之和的概率分布（趋近正态分布）}
+    \label{fig:discrete_clt}
+\end{figure}
+
+\subsection{Bean Machine (Galton Board)}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_galton_board.png}
+    \includegraphics[width=0.4\textwidth]{figures/fig_galton_photo.png}
+    \caption{Galton Board（高尔顿板）示意图与实物照片}
+    \label{fig:galton_board}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/fig_clt_animation.png}
+    \caption{独立同分布的中心极限定理动画模拟：均匀分布、$1/x$分布、三角分布、抛物线分布}
+    \label{fig:clt_animation}
+\end{figure}
+
+\begin{note}
+GIFs from \url{http://www.statisticalengineering.com/central_limit_theorem_(summary).html}
+\end{note}
+
+\subsection{Lyapunov定理}
+
+\begin{theorem}[Lyapunov定理]
+设随机变量$X_{1},X_{2},\ldots,X_{n},\ldots$相互独立，且$E(X_{k})=\mu_{k}$，$D(X_{k})=\sigma_{k}^{2}>0$ $(k=1,2,\ldots)$，记$B_{n}^{2}=\sum_{k=1}^{n}\sigma_{k}^{2}$。若存在$\delta>0$，使得当$n\to\infty$时
+\[
+\frac{1}{B_{n}^{2+\delta}}\sum_{k=1}^{n}E\bigl\{|X_{k}-\mu_{k}|^{2+\delta}\bigr\}\to0,
+\]
+则随机变量之和$\sum_{k=1}^{n}X_{k}$的标准化变量
+\[
+Z_{n}=\frac{\sum_{k=1}^{n}X_{k}-E\left(\sum_{k=1}^{n}X_{k}\right)}{\sqrt{D\left(\sum_{k=1}^{n}X_{k}\right)}}=\frac{\sum_{k=1}^{n}X_{k}-\sum_{k=1}^{n}\mu_{k}}{B_{n}}
+\]
+的分布函数$F_{n}(x)$对于任意的$x$满足
+\[
+\lim_{n\to\infty}F_{n}(x)=\lim_{n\to\infty}P\{Z_{n}\leq x\}=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}\,dt=\Phi(x).
+\]
+\end{theorem}
+
+Lyapunov定理表明：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 只要独立性即可，不一定要同分布；
+    \item 无论$X_{1},X_{2},\ldots,X_{n},\ldots$服从何种分布，只要满足定理的条件，其和$\sum X_{k}$在$n$足够大的时候都近似服从正态分布。
+\end{enumerate}
+
+\subsection{De Moivre--Laplace定理}
+
+\begin{theorem}[De Moivre--Laplace定理]
+设随机变量$\eta_{n}$ $(n=1,2,\ldots)$服从参数为$n,p$ $(0<p<1)$的二项分布，则对于任意$x$，有
+\[
+\lim_{n\to\infty}P\left\{\frac{\eta_{n}-np}{\sqrt{np(1-p)}}\leq x\right\}=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}\,dt=\Phi(x).
+\]
+\end{theorem}
+
+\textbf{证明}：令
+\[
+X_{k}=
+\begin{cases}
+0, & \text{若在第}k\text{次实验中}A\text{不发生},\\[0.3em]
+1, & \text{若在第}k\text{次实验中}A\text{发生},
+\end{cases}
+\qquad k=1,2,\ldots
+\]
+则$\{X_{k}\}$是相互独立的随机变量序列，于是
+\[
+E(X_{k})=p,\quad D(X_{k})=p(1-p),\quad k=1,2,\ldots
+\]
+且$\eta_{n}=\sum_{k=1}^{n}X_{k}$。由独立同分布中心极限定理得
+\[
+\lim_{n\to\infty}P\left\{\frac{\eta_{n}-np}{\sqrt{np(1-p)}}\leq x\right\}=\lim_{n\to\infty}P\left\{\frac{\sum_{k=1}^{n}X_{k}-np}{\sqrt{np(1-p)}}\leq x\right\}=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}\,dt=\Phi(x).
+\]
+
+\textbf{定理表明}：二项分布的极限分布是正态分布，即当$n$充分大时，可以用正态分布逼近二项分布。
+
+由上面的定理知
+\[
+P\left\{\left|\frac{n_{A}}{n}-p\right|\leq\varepsilon\right\}=P\left\{\left|\frac{n_{A}-np}{\sqrt{np(1-p)}}\right|\leq\varepsilon\sqrt{\frac{n}{p(1-p)}}\right\}\approx2\Phi\left(\varepsilon\sqrt{\frac{n}{p(1-p)}}\right)-1.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/fig_binomial_normal_approx.png}
+    \caption{二项分布的正态逼近（$n=500,1000,5000,10000$，$p=0.01,0.005$）}
+    \label{fig:binomial_normal_approx}
+\end{figure}
+
+\subsection{大数定律与中心极限定理的关系}
+
+\begin{itemize}[leftmargin=2em]
+    \item 大数定律回答了用频率估计概率的合理性问题；
+    \item De Moivre--Laplace中心极限定理回答了用频率估计概率的误差问题；
+    \item 中心极限定理阐明了在什么条件下，原本不属于正态分布的一些随机变量其总和分布渐近服从正态分布；
+    \item 大数定律是研究随机变量序列依概率收敛的极限问题；
+    \item 两者均是大量的随机变量之和的极限形式，当$X_{1},X_{2},\ldots,X_{n},\ldots$相互独立同分布且有大于零的有限方差时，两者同时成立，否则关系不确定。
+\end{itemize}
+
+\subsection{应用实例}
+
+\begin{example}[噪声电压之和]
+一个加法器同时收到$20$个噪声电压$V_{k}$ $(k=1,2,\ldots,20)$，设它们是相互独立的随机变量，且服从$(0,10)$上的均匀分布，记$V=\sum_{k=1}^{20}V_{k}$，求$P\{V>105\}$的近似值。
+\end{example}
+
+\textbf{解}：
+\[
+E(V_{k})=5,\quad D(V_{k})=\frac{100}{12},\quad(k=1,2,\ldots,20).
+\]
+令
+\[
+Z=\frac{\sum_{k=1}^{20}V_{k}-20\times5}{\sqrt{20}\sqrt{\frac{100}{12}}}=\frac{V-100}{10\sqrt{5}/\sqrt{3}}=\frac{V-100}{10}\sqrt{\frac{3}{5}}.
+\]
+由独立同分布中心极限定理，随机变量$Z$近似服从$N(0,1)$。
+
+于是
+\begin{align*}
+P\{V>105\}&=P\left\{\frac{V-100}{10}\sqrt{\frac{3}{5}}>\frac{105-100}{10}\sqrt{\frac{3}{5}}\right\}\\
+&=1-P\left\{\frac{V-100}{10}\sqrt{\frac{3}{5}}\leq0.387\right\}\\
+&\approx1-\Phi(0.387)=0.348.
+\end{align*}
+
+\begin{example}[船舶纵摇角]
+一船舶在某海区航行，已知每遭受一次海浪的冲击，纵摇角大于$3^{\circ}$的概率为$1/3$，若船舶遭受了$90\,000$次波浪冲击，问其中有$29\,500\sim30\,500$次纵摇角大于$3^{\circ}$的概率是多少？
+\end{example}
+
+\textbf{解}：将船舶每遭受一次海浪的冲击看作一次试验，并假设各次试验是独立的。在$90\,000$次波浪冲击中纵摇角大于$3^{\circ}$的次数为$X$，则$X$是一个随机变量，且$X\sim B(90\,000,1/3)$。
+
+分布律为：
+\[
+P\{X=k\}=\binom{90000}{k}\left(\frac{1}{3}\right)^{k}\left(\frac{2}{3}\right)^{90000-k},\quad k=1,2,\ldots,90000.
+\]
+所求概率为
+\[
+P\{29500\leq X\leq30500\}=\sum_{k=29500}^{30500}\binom{90000}{k}\left(\frac{1}{3}\right)^{k}\left(\frac{2}{3}\right)^{90000-k}.
+\]
+为避免直接计算，采用De Moivre--Laplace中心极限定理：
+\begin{align*}
+P\{29500\leq X\leq30500\}&=P\left\{\frac{29500-np}{\sqrt{np(1-p)}}\leq\frac{X-np}{\sqrt{np(1-p)}}\leq\frac{30500-np}{\sqrt{np(1-p)}}\right\}\\
+&\approx\int_{\frac{29500-np}{\sqrt{np(1-p)}}}^{\frac{30500-np}{\sqrt{np(1-p)}}}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}\,dt
+=\int_{-\frac{5}{\sqrt{2}}}^{\frac{5}{\sqrt{2}}}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}\,dt\\
+&=\Phi\left(\frac{5\sqrt{2}}{2}\right)-\Phi\left(-\frac{5\sqrt{2}}{2}\right)=0.9995.
+\end{align*}
+
+\begin{example}[家长会人数]
+对于一个学生而言，来参加家长会的家长人数是一个随机变量。设一个学生无家长、$1$名家长、$2$名家长来参加会议的概率分别为$0.05$，$0.8$，$0.15$。若学校共有$400$名学生，设各学生参加会议的家长数相互独立且服从同一分布。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 求参加会议的家长数$X$超过$450$的概率；
+    \item 求有$1$名家长来参加会议的学生数不多于$340$的概率。
+\end{enumerate}
+\end{example}
+
+\textbf{解}：(1) 以$X_{k}$ $(k=1,2,\ldots,400)$记第$k$个学生来参加会议的家长人数，则$X_{k}$的分布律为
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccc@{}}  
+\toprule
+$X_{k}$ & $0$ & $1$ & $2$ \\
+\midrule
+$p_{k}$ & $0.05$ & $0.8$ & $0.15$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\[
+E(X_{k})=1.1,\quad D(X_{k})=0.19,\quad(k=1,2,\ldots,400).
+\]
+参会人数为$X=\sum_{k=1}^{400}X_{k}$，由独立同分布的中心极限定理，随机变量
+\[
+Z=\frac{\sum_{k=1}^{400}X_{k}-400\times1.1}{\sqrt{400}\sqrt{0.19}}=\frac{X-440}{\sqrt{400}\sqrt{0.19}}
+\]
+近似服从正态分布$N(0,1)$。
+
+于是
+\begin{align*}
+P\{X>450\}&=P\left\{\frac{X-440}{\sqrt{400}\sqrt{0.19}}>\frac{450-440}{\sqrt{400}\sqrt{0.19}}\right\}\\
+&=1-P\left\{\frac{X-440}{\sqrt{400}\sqrt{0.19}}\leq1.147\right\}\\
+&\approx1-\Phi(1.147)=0.1357.
+\end{align*}
+
+(2) 以$Y$表示有一名家长来参加会议的学生数，则$Y\sim B(400,0.8)$，由De Moivre--Laplace定理知
+\[
+P\{Y\leq340\}=P\left\{\frac{Y-400\times0.8}{\sqrt{400\times0.8\times0.2}}\leq\frac{340-400\times0.8}{\sqrt{400\times0.8\times0.2}}\right\}=P\left\{\frac{Y-320}{8}\leq2.5\right\}\approx\Phi(2.5)=0.9938.
+\]
+
+\begin{example}[螺丝钉重量]
+一个螺丝钉重量是一个随机变量，期望值是$1$两，标准差是$0.1$两。求一盒（$100$个）同型号螺丝钉的重量超过$10.2$斤的概率。
+\end{example}
+
+\textbf{解}：设第$i$个螺丝钉的重量为$X_{i}$，一盒的总重量为$X=\sum_{i=1}^{100}X_{i}$。$X_{1},X_{2},\ldots,X_{100}$独立同分布，且
+\[
+E(X_{i})=1,\quad D(X_{i})=0.1^{2}.
+\]
+于是
+\[
+E(X)=\sum_{i=1}^{100}E(X_{i})=100,\quad D(X)=\sum_{i=1}^{100}D(X_{i})=1.
+\]
+$X$近似服从正态分布$N(100,1)$，故
+\[
+P(X>102)=P\left(\frac{X-100}{1}>\frac{102-100}{1}\right)=1-P\left(\frac{X-100}{1}\leq2\right)\approx1-\Phi(2)=0.02275.
+\]
+
+\begin{example}[机器停机]
+$10$部机器独立工作，每部停机的概率为$0.2$，求$3$部机器同时停机的概率。
+\end{example}
+
+\textbf{解}：设同时停机的数目为$X$，它服从二项分布
+\[
+n=10,\quad p=0.2,\quad np=2,\quad\sqrt{npq}=\sqrt{1.6}\approx1.265.
+\]
+(1) 直接计算
+\[
+P(X=3)=\binom{10}{3}0.2^{3}\cdot0.8^{7}\approx0.2013.
+\]
+(2) 用中心极限定理（局部极限定理）
+\[
+P(X=3)\approx\frac{1}{\sqrt{npq}}\phi_{0}\left(\frac{k-np}{\sqrt{npq}}\right)=\frac{1}{1.265}\phi_{0}\left(\frac{3-2}{1.265}\right)=\frac{1}{1.265}\phi_{0}(0.79)\approx0.2308.
+\]
+相差较大，这是因为$n$较小，一般要求$n\geq30$。
+
+\begin{example}[电话分机外线]
+某单位有$200$台电话分机，每台大约有$5\%$时间使用外线。若各分机是否使用外线是相互独立的，问总机至少要装多少条外线才能使打外线的接通率达到$90\%$？
+\end{example}
+
+\textbf{解}：用$X$表示需使用外线的分机数量，则$X\sim B(200,0.05)$，
+\[
+n=200,\quad p=0.05,\quad np=10,\quad npq=9.5.
+\]
+假设要装$k$条外线，则
+\[
+P(X\leq k)=P\left(\frac{X-10}{\sqrt{9.5}}\leq\frac{k-10}{\sqrt{9.5}}\right)\approx\Phi\left(\frac{k-10}{\sqrt{9.5}}\right)\geq0.9.
+\]
+故
+\[
+\frac{k-10}{\sqrt{9.5}}\geq1.30.
+\]
+于是$k\geq14$，至少要装$14$条外线。
+
+\begin{example}[均匀分布平方和的极限]
+设随机变量$X_{1},X_{2},\ldots,X_{n}$相互独立，且$X_{i}$在区间$(-1,1)$上服从均匀分布$(i=1,2,\ldots,n)$，试证当$n$充分大时，随机变量
+\[
+Z_{n}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2}
+\]
+近似服从正态分布，并指出其分布参数。
+\end{example}
+
+\textbf{解}：令$Y_{i}=X_{i}^{2}$ $(i=1,2,\ldots,n)$，则
+\[
+E(Y_{i})=E(X_{i}^{2})=D(X_{i})=\frac{1}{3}.
+\]
+因为
+\[
+E(X_{i}^{4})=\int_{-1}^{1}x_{i}^{4}\cdot\frac{1}{2}\,dx_{i}=\frac{1}{5},
+\]
+故
+\[
+D(Y_{i})=E(Y_{i}^{2})-[E(Y_{i})]^{2}=E(X_{i}^{4})-[E(X_{i}^{2})]^{2}=\frac{1}{5}-\left(\frac{1}{3}\right)^{2}=\frac{4}{45}.
+\]
+
+因为$X_{1},X_{2},\ldots,X_{n}$相互独立，根据独立同分布的中心极限定理，
+\[
+\sum_{i=1}^{n}X_{i}^{2}=\sum_{i=1}^{n}Y_{i}
+\]
+近似服从正态分布$N\!\left(\dfrac{n}{3},\dfrac{4n}{45}\right)$，故$Z_{n}$近似地服从正态分布
+\[
+N\!\left(\frac{1}{3},\frac{4}{45n}\right).
+\]
+
+\section*{本章小结}
+
+\addcontentsline{toc}{section}{本章小结}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{大数定律}——回答了收敛性的问题，研究了随机变量序列依概率收敛的极限问题，证明了用频率估计概率的合理性；
+    \item \textbf{中心极限定理}——阐明了在什么条件下，原本不属于正态分布的一些随机变量其总和分布渐近服从正态分布。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.9\textwidth]{figures/fig_lln_clt_summary.png}
+    \caption{大数定律与中心极限定理的关系总结}
+    \label{fig:lln_clt_summary}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/fig_three_clt.png}
+    \caption{三个中心极限定理的关系：Lyapunov定理、独立同分布中心极限定理、De Moivre--Laplace定理}
+    \label{fig:three_clt}
+\end{figure}
+
+\section*{作业}
+
+\addcontentsline{toc}{section}{作业}
+
+教材《概率论与数理统计》（pp.~125--126）：\#2，\#4，\#6，\#12。
 
 \end{document}
