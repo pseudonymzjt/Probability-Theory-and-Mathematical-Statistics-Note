@@ -4390,4 +4390,482 @@ F_{(X_{1},X_{2},\dots,X_{k})}(x_{1},x_{2},\dots,x_{k})=F(x_{1},x_{2},\dots,x_{k}
 
 教材《概率论与数理统计》第三章（pp.~84--86）：\#1, \#5, \#6, \#9.
 
+\section{两个随机变量的函数的分布}
+
+\subsection{回顾随机变量函数的分布}
+
+上一章中讨论了单个随机变量的函数的分布。一般方法：若 $X\sim f(x)$，$-\infty<x<+\infty$，$Y=g(X)$ 为随机变量 $X$ 的函数，则可先求 $Y$ 的分布函数
+\[
+F_{Y}(y)=P\{Y\leq y\}=P\{g(X)\leq y\}=\int_{g(x)\leq y}f(x)\,dx,
+\]
+进一步获得 $Y$ 的概率密度函数
+\[
+f_{Y}(y)=\frac{dF_{Y}(y)}{dy}.
+\]
+
+\subsection{二元随机变量的函数的分布}
+
+若 $(X,Y)\sim f(x,y)$，$-\infty<x,y<+\infty$，$Z=g(X,Y)$ 为随机变量 $(X,Y)$ 的函数，则可先求 $Z$ 的分布函数
+\[
+F_{Z}(z)=P\{Z\leq z\}=P\{g(X,Y)\leq z\}=\iint_{g(x,y)\leq z}f(x,y)\,dx\,dy.
+\]
+进一步获得 $Z$ 的概率密度函数
+\[
+f_{Z}(z)=\frac{dF_{Z}(z)}{dz}.
+\]
+
+本节考虑几种特殊的二元函数：
+\begin{itemize}[leftmargin=2em]
+    \item $Z=X+Y$；
+    \item $Z=Y/X$ 和 $Z=XY$；
+    \item $Z=\max\{X,Y\}$ 和 $Z=\min\{X,Y\}$。
+\end{itemize}
+
+\subsection{几个常用二维随机变量函数的分布}
+
+\subsubsection{\texorpdfstring{$Z=X+Y$}{Z=X+Y} 的分布}
+
+设 $(X,Y)$ 的概率密度为 $f(x,y)$，则 $Z=X+Y$ 的分布函数为
+\[
+F_{Z}(z)=P\{Z\leq z\}=\iint_{x+y\leq z}f(x,y)\,dx\,dy.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_sum_distribution_3d.png}
+    \caption{$Z=X+Y$ 的分布：积分区域 $x+y<z$}
+    \label{fig:sum_distribution_3d}
+\end{figure}
+
+将重积分化为累次积分：
+\[
+F_{Z}(z)=\int_{-\infty}^{\infty}\left[\int_{-\infty}^{z-y}f(x,y)\,dx\right]dy.
+\]
+固定 $y,z$，作变量代换，令 $x=u-y$，得
+\[
+\int_{-\infty}^{z-y}f(x,y)\,dx=\int_{-\infty}^{z}f(u-y,y)\,du.
+\]
+于是
+\[
+F_{Z}(z)=\int_{-\infty}^{\infty}\int_{-\infty}^{z}f(u-y,y)\,du\,dy
+=\int_{-\infty}^{z}\left[\int_{-\infty}^{\infty}f(u-y,y)\,dy\right]du.
+\]
+由概率密度的定义，即得到 $Z$ 的概率密度为
+\[
+\boxed{f_{Z}(z)=\int_{-\infty}^{\infty}f(z-y,y)\,dy}. \tag{*1}
+\]
+由 $X,Y$ 的对称性，有
+\[
+\boxed{f_{Z}(z)=\int_{-\infty}^{\infty}f(x,z-x)\,dx}. \tag{*2}
+\]
+以上两式是两个随机变量和的概率密度的一般公式。
+
+\textbf{卷积公式}
+
+当 $X$ 和 $Y$ 相互独立时，则 $(*1)$ 和 $(*2)$ 式分别化为
+\[
+\boxed{f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(z-y)f_{Y}(y)\,dy}
+\]
+和
+\[
+\boxed{f_{Z}(z)=\int_{-\infty}^{\infty}f_{X}(x)f_{Y}(z-x)\,dx}.
+\]
+这两个公式称为\textbf{卷积公式}，记作 $f_{X}*f_{Y}$。
+
+\begin{example}[例1：正态分布的可加性]
+设随机变量 $X$ 与 $Y$ 独立且均服从标准正态分布，求 $Z=X+Y$ 的概率密度函数。
+\end{example}
+
+\textbf{解}：由于
+\[
+f_{X}(x)=\frac{1}{\sqrt{2\pi}}e^{-x^{2}/2},\quad
+f_{Y}(y)=\frac{1}{\sqrt{2\pi}}e^{-y^{2}/2},\quad
+(-\infty<x,y<\infty)
+\]
+于是 $Z$ 的密度函数为
+\begin{align*}
+f_{Z}(z)&=\int_{-\infty}^{\infty}f_{X}(z-y)f_{Y}(y)\,dy
+=\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-\frac{(z-y)^{2}+y^{2}}{2}}\,dy\\
+&=\frac{1}{2\pi}e^{-\frac{z^{2}}{4}}\int_{-\infty}^{\infty}e^{-\left(y-\frac{z}{2}\right)^{2}}\,dy
+=\frac{1}{2\pi}e^{-\frac{z^{2}}{4}}\cdot\sqrt{\pi}
+=\frac{1}{2\sqrt{\pi}}e^{-\frac{z^{2}}{4}}.
+\end{align*}
+于是 $Z\sim N(0,2)$。
+
+\begin{note}[更为一般的结论]
+有限个相互独立的正态随机变量的线性组合仍然服从正态分布，即
+
+若 $X_{i}\sim N(\mu_{i},\sigma_{i}^{2})\;(i=1,2,\dots,n)$，且相互独立，$Z=\sum_{i=1}^{n}X_{i}$，则
+\[
+\boxed{Z\sim N\left(\sum_{i=1}^{n}\mu_{i},\;\sum_{i=1}^{n}\sigma_{i}^{2}\right)}.
+\]
+\end{note}
+
+\begin{example}[例2：串联电阻]
+在一简单电路中，两个电阻 $R_{1}$ 和 $R_{2}$ 串联连接，设 $R_{1}$ 和 $R_{2}$ 相互独立，它们的概率密度函数均为
+\[
+f(x)=
+\begin{cases}
+\dfrac{10-x}{50}, & 0\leq x\leq 10,\\[0.5em]
+0, & \text{其他},
+\end{cases}
+\]
+求总电阻 $R=R_{1}+R_{2}$ 的概率密度。
+\end{example}
+
+\textbf{解}：$R$ 的概率密度为
+\[
+f_{R}(z)=\int_{-\infty}^{\infty}f(x)f(z-x)\,dx.
+\]
+非零的积分区域如右图中阴影区域，即
+\[
+\begin{cases}
+0\leq x\leq 10,\\[0.3em]
+0\leq z-x\leq 10.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_resistor_convolution_region.png}
+    \caption{卷积非零积分区域示意图}
+    \label{fig:resistor_convolution_region}
+\end{figure}
+
+于是
+\[
+f_{R}(z)=
+\begin{cases}
+\displaystyle\int_{0}^{z}f(x)f(z-x)\,dx, & 0\leq z<10,\\[1em]
+\displaystyle\int_{z-10}^{10}f(x)f(z-x)\,dx, & 10\leq z<20,\\[1em]
+0, & \text{其他}.
+\end{cases}
+\]
+代入 $f(x)=\dfrac{10-x}{50}$ 计算得
+\[
+f_{R}(z)=
+\begin{cases}
+\dfrac{600z-60z^{2}+z^{3}}{15000}, & 0\leq z<10,\\[0.8em]
+\dfrac{(20-z)^{3}}{15000}, & 10\leq z<20,\\[0.8em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+\begin{example}[例3：均匀分布与指数分布之和]
+设随机变量 $X$ 与 $Y$ 相互独立，$X$ 服从区间 $(0,1)$ 上的均匀分布，$Y$ 服从 $\lambda=1$ 的指数分布，令 $Z=X+Y$，试求随机变量 $Z$ 的密度函数。
+\end{example}
+
+\textbf{解}：由题意：
+\[
+f_{X}(x)=
+\begin{cases}
+1, & 0<x<1,\\[0.3em]
+0, & \text{其他},
+\end{cases}
+\qquad
+f_{Y}(y)=
+\begin{cases}
+e^{-y}, & y>0,\\[0.3em]
+0, & y\leq 0.
+\end{cases}
+\]
+于是
+\[
+f_{X}(x)f_{Y}(z-x)=
+\begin{cases}
+e^{-(z-x)}, & 0<x<1,\;z-x>0,\\[0.3em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_uniform_exponential_sum.png}
+    \caption{$Z=X+Y$ 的积分域示意图}
+    \label{fig:uniform_exponential_sum}
+\end{figure}
+
+注意积分域如右图，于是分情况讨论：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若 $z\leq 0$，则 $f_{Z}(z)=0$；
+    \item 若 $0<z\leq 1$，
+    \[
+    f_{Z}(z)=\int_{0}^{z}e^{-(z-x)}\,dx=e^{-z}\int_{0}^{z}e^{x}\,dx=1-e^{-z};
+    \]
+    \item 若 $z>1$，
+    \[
+    f_{Z}(z)=\int_{0}^{1}e^{-(z-x)}\,dx=e^{-z}\int_{0}^{1}e^{x}\,dx=e^{-z+1}-e^{-z}.
+    \]
+\end{enumerate}
+
+于是，$(0,1)$ 上均匀分布与 $\lambda=1$ 的指数分布的和函数的密度函数为
+\[
+f_{Z}(z)=
+\begin{cases}
+0, & z\leq 0,\\[0.3em]
+1-e^{-z}, & 0<z\leq 1,\\[0.3em]
+e^{-z+1}-e^{-z}, & z>1.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_sum_pdf_plot.png}
+    \caption{$Z=X+Y$ 的概率密度函数示意图}
+    \label{fig:sum_pdf_plot}
+\end{figure}
+
+\subsubsection{商\texorpdfstring{$(Z=Y/X)$}{(Z=Y/X)} 和积\texorpdfstring{$(Z=XY)$}{(Z=XY)} 的分布}
+
+已知 $(X,Y)\sim f(x,y)$，$(x,y)\in\mathbb{R}^{2}$，推导 $Z=Y/X$ 和 $Z=XY$ 的概率密度。
+
+\textbf{(1) $Z=Y/X$ 的概率密度}
+
+\[
+F_{Y/X}(z)=P(Y/X\leq z)=\iint_{G_{1}\cup G_{2}}f(x,y)\,dx\,dy,
+\]
+其中 $G_{1},G_{2}$ 分别为 $x<0$ 和 $x>0$ 时 $y/x\leq z$ 对应的区域。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_quotient_regions.png}
+    \caption{$Z=Y/X$ 的积分区域 $G_{1}\cup G_{2}$}
+    \label{fig:quotient_regions}
+\end{figure}
+
+\begin{align*}
+F_{Y/X}(z)&=\int_{-\infty}^{0}\int_{zx}^{\infty}f(x,y)\,dy\,dx+\int_{0}^{\infty}\int_{-\infty}^{zx}f(x,y)\,dy\,dx\\
+&\quad(\text{令 }y=xu)\\
+&=\int_{-\infty}^{0}\int_{z}^{-\infty}xf(x,xu)\,du\,dx+\int_{0}^{\infty}\int_{-\infty}^{z}xf(x,xu)\,du\,dx\\
+&=\int_{-\infty}^{0}\int_{-\infty}^{z}-x f(x,xu)\,du\,dx+\int_{0}^{\infty}\int_{-\infty}^{z}x f(x,xu)\,du\,dx\\
+&=\int_{-\infty}^{z}\int_{-\infty}^{\infty}|x|f(x,xu)\,dx\,du.
+\end{align*}
+由概率密度定义得
+\[
+\boxed{f_{Y/X}(z)=\int_{-\infty}^{\infty}|x|f(x,xz)\,dx}.
+\]
+
+\textbf{(2) $Z=XY$ 的概率密度}
+
+当 $z<0$ 时，
+\[
+F_{XY}(z)=P(XY\leq z)=\iint_{G_{1}\cup G_{2}}f(x,y)\,dx\,dy.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_product_regions.png}
+    \caption{$Z=XY$ 的积分区域 $G_{1}\cup G_{2}$（$z<0$）}
+    \label{fig:product_regions}
+\end{figure}
+
+\begin{align*}
+F_{XY}(z)&=\int_{-\infty}^{0^{-}}\int_{z/x}^{\infty}f(x,y)\,dy\,dx+\int_{0^{+}}^{\infty}\int_{-\infty}^{z/x}f(x,y)\,dy\,dx\\
+&\quad(\text{令 }y=u/x)\\
+&=\int_{-\infty}^{0^{-}}\int_{z}^{-\infty}\frac{1}{x}f\left(x,\frac{u}{x}\right)du\,dx+\int_{0^{+}}^{\infty}\int_{-\infty}^{z}\frac{1}{x}f\left(x,\frac{u}{x}\right)du\,dx\\
+&=\int_{-\infty}^{z}\int_{-\infty}^{\infty}\left|\frac{1}{x}\right|f\left(x,\frac{u}{x}\right)dx\,du.
+\end{align*}
+由概率密度定义得
+\[
+\boxed{f_{XY}(z)=\int_{-\infty}^{\infty}\left|\frac{1}{x}\right|f\left(x,\frac{z}{x}\right)dx}.
+\]
+
+当 $z>0$ 时，可自行类似推导。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_product_z_positive.png}
+    \caption{$Z=XY$ 的积分区域（$z>0$）}
+    \label{fig:product_z_positive}
+\end{figure}
+
+\subsubsection{相互独立随机变量的极大(小)值的分布}
+
+设 $X,Y$ 是相互独立的随机变量，其分布函数分别为 $F_{X}(x)$ 和 $F_{Y}(y)$，推导 $M=\max\{X,Y\}$ 和 $N=\min\{X,Y\}$ 的分布函数。
+
+由独立性，以及 $M=\max\{X,Y\}$，于是
+\[
+P\{M\leq z\}=P\{X\leq z,\;Y\leq z\}=P\{X\leq z\}P\{Y\leq z\},
+\]
+故
+\[
+\boxed{F_{\max}(z)=F_{X}(z)F_{Y}(z)}.
+\]
+
+对于 $N=\min\{X,Y\}$，利用补集关系有
+\begin{align*}
+P\{N\leq z\}&=1-P\{N>z\}\\
+&=1-P\{X>z,\;Y>z\}\\
+&=1-P\{X>z\}P\{Y>z\}\\
+&=1-[1-F_{X}(z)][1-F_{Y}(z)].
+\end{align*}
+于是
+\[
+\boxed{F_{\min}(z)=1-[1-F_{X}(z)][1-F_{Y}(z)]}.
+\]
+
+\begin{note}
+推广到任意 $n$ 个相互独立的随机变量 $X_{1},X_{2},\dots,X_{n}$，其分布函数分别为 $F_{X_{i}}(x_{i})\;(i=1,2,\dots,n)$，则 $M=\max\{X_{1},X_{2},\dots,X_{n}\}$ 的分布函数为
+\[
+F_{\max}(z)=\prod_{i=1}^{n}F_{X_{i}}(z).
+\]
+$N=\min\{X_{1},X_{2},\dots,X_{n}\}$ 的分布函数为
+\[
+F_{\min}(z)=1-\prod_{i=1}^{n}\bigl[1-F_{X_{i}}(z)\bigr].
+\]
+这两个分布分别对应不同的可靠性模型。
+\end{note}
+
+在实际系统中，经常假定 $X_{1},X_{2},\dots,X_{n}$ 符合独立同分布（iid）$F(x)$，于是有
+\[
+F_{\max}(z)=[F(z)]^{n},\qquad F_{\min}(z)=1-[1-F(z)]^{n}.
+\]
+进一步地，若独立同分布的 $X_{i}\;(i=1,2,\dots,n)$ 的密度函数为 $f(x)$，则 $M$ 和 $N$ 对应的密度函数分别为
+\[
+f_{\max}(z)=n[F(z)]^{n-1}f(z),\qquad f_{\min}(z)=n[1-F(z)]^{n-1}f(z).
+\]
+
+\begin{example}[可靠性模型]
+设系统 $L$ 由两个相互独立的子系统 $L_{1}$ 和 $L_{2}$ 构成，构成的方式分别为 (1) 串联，(2) 并联，(3) 备份。设 $L_{1},L_{2}$ 的寿命分别为 $X$ 与 $Y$，已知它们的概率密度分别为
+\[
+f_{X}(x)=
+\begin{cases}
+\alpha e^{-\alpha x}, & x>0,\\[0.3em]
+0, & x\leq 0,
+\end{cases}
+\qquad
+f_{Y}(y)=
+\begin{cases}
+\beta e^{-\beta y}, & y>0,\\[0.3em]
+0, & y\leq 0,
+\end{cases}
+\]
+分别考虑三种情况下系统寿命 $Z$ 的概率密度。
+\end{example}
+
+\textbf{分析}：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{串联}：一个子系统出故障即导致系统不可用，此时的寿命为 $Z=\min\{X,Y\}$；
+    \item \textbf{并联}：可靠性并联模型（热备份），两个子系统均出故障时系统才不可用，此时的寿命为 $Z=\max\{X,Y\}$；
+    \item \textbf{备份}：冷备份，两个子系统均出故障时系统才不可用，此时的寿命为 $Z=X+Y$。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_reliability_series.png}
+    \caption{串联系统示意图}
+    \label{fig:reliability_series}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_reliability_parallel.png}
+    \caption{并联系统示意图}
+    \label{fig:reliability_parallel}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_reliability_backup.png}
+    \caption{备份系统示意图}
+    \label{fig:reliability_backup}
+\end{figure}
+
+\textbf{解}：
+
+(1) \textbf{串联情况}，此时的寿命为 $Z=\min\{X,Y\}$。于是有
+\[
+F_{\min}(z)=1-[1-F_{X}(z)][1-F_{Y}(z)]
+=1-\left[1-\int_{0}^{z}\alpha e^{-\alpha x}\,dx\right]\left[1-\int_{0}^{z}\beta e^{-\beta y}\,dy\right]
+=
+\begin{cases}
+1-e^{-(\alpha+\beta)z}, & z>0,\\[0.3em]
+0, & z\leq 0.
+\end{cases}
+\]
+从而概率密度为：
+\[
+f_{\min}(z)=\frac{dF_{\min}(z)}{dz}=
+\begin{cases}
+(\alpha+\beta)e^{-(\alpha+\beta)z}, & z>0,\\[0.3em]
+0, & z\leq 0.
+\end{cases}
+\]
+
+(2) \textbf{并联情况}，此时的寿命为 $Z=\max\{X,Y\}$。于是有
+\begin{align*}
+F_{\max}(z)&=F_{X}(z)F_{Y}(z)\\
+&=\int_{0}^{z}\alpha e^{-\alpha x}\,dx\cdot\int_{0}^{z}\beta e^{-\beta y}\,dy\\
+&=
+\begin{cases}
+\bigl(1-e^{-\alpha z}\bigr)\bigl(1-e^{-\beta z}\bigr), & z>0,\\[0.3em]
+0, & z\leq 0.
+\end{cases}
+\end{align*}
+从而概率密度为：
+\[
+f_{\max}(z)=\frac{dF_{\max}(z)}{dz}=
+\begin{cases}
+\alpha e^{-\alpha z}+\beta e^{-\beta z}-(\alpha+\beta)e^{-(\alpha+\beta)z}, & z>0,\\[0.3em]
+0, & z\leq 0.
+\end{cases}
+\]
+
+(3) \textbf{备份情况}，此时的寿命为 $Z=X+Y$。于是有
+\begin{align*}
+f_{X+Y}(z)&=\int_{-\infty}^{\infty}f_{X}(z-y)f_{Y}(y)\,dy
+=\int_{-\infty}^{\infty}\alpha e^{-\alpha(z-y)}\beta e^{-\beta y}\,dy\\
+&=\alpha\beta e^{-\alpha z}\int_{0}^{z}e^{-(\beta-\alpha)y}\,dy
+=
+\begin{cases}
+\dfrac{\alpha\beta}{\beta-\alpha}\bigl(e^{-\alpha z}-e^{-\beta z}\bigr), & z>0,\\[0.8em]
+0, & z\leq 0.
+\end{cases}
+\end{align*}
+
+\section*{本章小结}
+
+\addcontentsline{toc}{section}{本章小结}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/fig_chapter3_summary.png}
+    \caption{第三章知识结构总图}
+    \label{fig:chapter3_summary}
+\end{figure}
+
+\textbf{要求}：
+\begin{itemize}[leftmargin=2em]
+    \item 掌握二维随机变量的分布函数的定义及性质；
+    \item 掌握二维随机变量的边缘分布与条件分布，及其与联合分布的关系；
+    \item 理解随机变量的独立性；
+    \item 掌握二维随机变量函数的分布的一般方法以及常用的多维随机变量的和、积、商以及极值等函数的分布。
+\end{itemize}
+
+\textbf{核心概念脉络}：
+
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{二维随机变量}：从单个试验同时获得的多个随机变量，$(X,Y)$ 应看作一个整体。联合分布函数 $F(x,y)=P\{X\leq x,\;Y\leq y\}$ 具有单调性、有界性、右连续性和非负性四条基本性质。
+    
+    \item \textbf{边缘分布}：遍历某一变量所有可能的分布。由联合分布可唯一确定边缘分布，但边缘分布不能唯一确定联合分布。
+    
+    \item \textbf{条件分布}：联合分布唯一确定边缘分布和条件分布；边缘分布和条件分布各自都不能唯一确定联合分布；一个条件分布和对应的边缘分布一起，能唯一确定联合分布（贝叶斯公式）。
+    
+    \item \textbf{独立性}：随机变量 $X$ 与 $Y$ 满足 $P\{X\leq x,\;Y\leq y\}=P\{X\leq x\}P\{Y\leq y\}$。独立时联合分布可由边缘分布唯一确定：$F(x,y)=F_{X}(x)F_{Y}(y)$，$f(x,y)=f_{X}(x)f_{Y}(y)$，$p_{ij}=p_{i\cdot}p_{\cdot j}$。
+    
+    \item \textbf{随机变量的函数的分布}：一般方法为先求分布函数 $F_{Z}(z)=\iint_{g(x,y)\leq z}f(x,y)\,dx\,dy$，再求导得密度。常用结论包括：
+    \begin{itemize}
+        \item 和分布（卷积公式）：$f_{X+Y}(z)=\int_{-\infty}^{\infty}f(x,z-x)\,dx$；
+        \item 商分布：$f_{Y/X}(z)=\int_{-\infty}^{\infty}|x|f(x,xz)\,dx$；
+        \item 积分布：$f_{XY}(z)=\int_{-\infty}^{\infty}\frac{1}{|x|}f(x,\frac{z}{x})\,dx$；
+        \item 极值分布：$F_{\max}(z)=\prod F_{X_{i}}(z)$，$F_{\min}(z)=1-\prod[1-F_{X_{i}}(z)]$。
+    \end{itemize}
+\end{enumerate}
+
+\section*{作业}
+
+\addcontentsline{toc}{section}{作业}
+
+教材《概率论与数理统计》第三章（pp.~86--88）：\#18, \#21, \#24, \#29, \#34.
+
 \end{document}
