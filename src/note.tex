@@ -2119,4 +2119,774 @@ P\{X \geq 1\} = 1 - P\{X=0\} = 1 - 0.77^n.
 \boxed{k_0 = \lfloor 8.02 \rfloor = 8}.
 \]
 
+\subsubsection{Poisson分布}
+
+\begin{definition}[Poisson分布]
+如果随机变量 $X$ 的分布律为
+\[
+\boxed{P\{X=k\} = \frac{\lambda^k}{k!}e^{-\lambda}, \quad k=0,1,2,\dots}
+\]
+（其中 $\lambda > 0$ 为常数），则称随机变量 $X$ 服从参数为 $\lambda$ 的\textbf{Poisson分布}（泊松分布），记为
+\[
+\boxed{X \sim P(\lambda)}.
+\]
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_poisson_dist.png}
+    \caption{Poisson分布示意图（$\lambda=1,4,10$ 三条曲线对比）}
+    \label{fig:poisson_dist}
+\end{figure}
+
+\textbf{Poisson分布的应用}：
+\begin{itemize}[leftmargin=2em]
+    \item Poisson分布是概率论中重要的分布之一；
+    \item 自然界及工程技术中的许多随机指标都服从Poisson分布；
+    \item 它多出现在当 $X$ 表示在一定的时间或空间内出现的事件个数这种场合。
+\end{itemize}
+
+例如，电话总机在某一时间间隔内收到的呼叫次数，放射物在某一时间间隔内发射的粒子数，容器在某一时间间隔内产生的细菌数，某一时间间隔内来到某服务台要求服务的人数等，在一定条件下，都是服从Poisson分布的。
+
+\begin{example}[例12：求Poisson分布的参数]
+设随机变量 $X$ 服从参数为 $\lambda$ 的Poisson分布，且已知 $P\{X=1\}=P\{X=2\}$，试求 $P\{X=4\}$。
+\end{example}
+
+\textbf{解}：随机变量 $X$ 的分布律为
+\[
+P\{X=k\} = \frac{\lambda^k}{k!}e^{-\lambda}, \quad k=0,1,2,\dots
+\]
+由 $P\{X=1\}=P\{X=2\}$，有
+\[
+\lambda e^{-\lambda} = \frac{\lambda^2}{2}e^{-\lambda} \quad\Longrightarrow\quad \lambda^2 - 2\lambda = 0.
+\]
+解得 $\lambda=2$（$\lambda=0$ 不合题意，忽略）。于是
+\[
+\boxed{P\{X=4\} = \frac{2^4}{4!}e^{-2} = \frac{2}{3}e^{-2} \approx 0.09022}.
+\]
+
+\begin{example}[例13：Bayes公式与Poisson分布]
+设一个人在一年中得感冒次数服从参数 $\lambda=5$ 的Poisson分布。现有一种预防感冒的药，对 $30\%$ 的人可将参数降为 $\lambda=1$（疗效显著）；对另外 $45\%$ 的人可将参数降为 $\lambda=4$（疗效一般）；对其余 $25\%$ 的人则无效。现某人服用此药一年，其间得了3次感冒，求此药对他``疗效显著''的概率。
+\end{example}
+
+\textbf{解}：设 $B=\{\text{此人在一年中得3次感冒}\}$，$A_1=\{\text{疗效显著}\}$，$A_2=\{\text{疗效一般}\}$，$A_3=\{\text{该药无效}\}$。
+
+由Bayes公式得
+\[
+P(A_1 \mid B) = \frac{P(A_1)P(B \mid A_1)}{P(A_1)P(B \mid A_1)+P(A_2)P(B \mid A_2)+P(A_3)P(B \mid A_3)}
+\]
+其中
+\[
+P(B \mid A_1) = \frac{1^3}{3!}e^{-1}, \quad P(B \mid A_2) = \frac{4^3}{3!}e^{-4}, \quad P(B \mid A_3) = \frac{5^3}{3!}e^{-5}.
+\]
+代入得
+\[
+\boxed{P(A_1 \mid B) \approx 0.1301}.
+\]
+
+\begin{theorem}[Poisson定理]
+设随机变量 $X_n\;(n=1,2,\dots)$ 服从二项分布，其分布律为
+\[
+P\{X_n=k\} = \dbinom{n}{k}p_n^k(1-p_n)^{n-k}, \quad k=0,1,\dots,n.
+\]
+设 $np_n = \lambda > 0$ 为常数，则
+\[
+\boxed{\lim_{n\to\infty} P\{X_n=k\} = \lim_{n\to\infty}\dbinom{n}{k}p_n^k(1-p_n)^{n-k} = \frac{\lambda^k}{k!}e^{-\lambda}}.
+\]
+\end{theorem}
+
+\begin{proof}
+由 $p_n = \lambda/n$，有
+\[
+\dbinom{n}{k}p_n^k(1-p_n)^{n-k} = \frac{n(n-1)\cdots(n-k+1)}{k!}\left(\frac{\lambda}{n}\right)^k\left(1-\frac{\lambda}{n}\right)^{n-k}.
+\]
+注意到
+\[
+\lim_{n\to\infty}\left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right)\cdots\left(1-\frac{k-1}{n}\right)=1, \quad \lim_{n\to\infty}\left(1-\frac{\lambda}{n}\right)^n = e^{-\lambda}, \quad \lim_{n\to\infty}\left(1-\frac{\lambda}{n}\right)^{-k}=1.
+\]
+所以
+\[
+\lim_{n\to\infty}\dbinom{n}{k}p_n^k(1-p_n)^{n-k} = \frac{\lambda^k}{k!}e^{-\lambda}.
+\]
+\end{proof}
+
+\begin{note}
+若随机变量 $X \sim B(n,p)$，则当 $n$ 比较大、$p$ 比较小时，令 $\lambda=np$，有
+\[
+P\{X=k\} = \dbinom{n}{k}p^k(1-p)^{n-k} \approx \frac{\lambda^k}{k!}e^{-\lambda}.
+\]
+\end{note}
+
+\begin{example}[例14：Poisson近似计算]
+设每次射击命中目标的概率为 $0.012$，现射击 $600$ 次，求至少命中 $3$ 次目标的概率（用Poisson分布近似计算）。
+\end{example}
+
+\textbf{解}：设 $B=\{600\text{次射击至少命中3次目标}\}$。进行 $600$ 次射击可看作是 $600$ 重Bernoulli试验。令 $X$ 表示 $600$ 次射击命中目标的次数，则 $X \sim B(600,0.012)$。
+
+用Poisson分布近似计算，取 $\lambda = 600 \times 0.012 = 7.2$。
+\[
+P(B) = P\{X \geq 3\} = 1 - P\{X < 3\} = 1 - P\{X=0\} - P\{X=1\} - P\{X=2\}
+\]
+\[
+\approx 1 - e^{-7.2} - 7.2e^{-7.2} - \frac{7.2^2}{2}e^{-7.2} \approx \boxed{0.9745}.
+\]
+
+\subsubsection{几何分布}
+
+\begin{definition}[几何分布]
+若随机变量 $X$ 的分布律为
+\[
+\boxed{P\{X=k\} = q^{k-1}p, \quad k=1,2,\dots}
+\]
+（其中 $p \geq 0,\; q \geq 0,\; p+q=1$），则称随机变量 $X$ 服从参数为 $p$ 的\textbf{几何分布}。
+\end{definition}
+
+\textbf{概率背景}：在Bernoulli试验中，$P(A)=p$，$P(\bar{A})=q=1-p$。试验进行到 $A$ 首次出现为止，令 $X$ 表示所需试验次数，则 $X$ 服从参数为 $p$ 的几何分布。
+
+事件 $\{X=k\}$ 表示``前 $k-1$ 次试验中 $A$ 不出现，第 $k$ 次试验中 $A$ 出现''，故 $P\{X=k\}=q^{k-1}p$。
+
+\begin{example}[例15：射击次数问题]
+对同一目标进行射击，设每次射击时的命中率为 $0.64$，射击进行到击中目标时为止。令 $X$ 表示所需射击次数，试求 $X$ 的分布律，并求至少进行 $2$ 次射击才能击中目标的概率。
+\end{example}
+
+\textbf{解}：$X$ 的取值为 $1,2,\dots,n,\dots$，$X$ 服从参数为 $p=0.64$ 的几何分布，故 $X$ 的分布律为
+\[
+P\{X=n\} = 0.36^{n-1} \cdot 0.64, \quad n=1,2,\dots
+\]
+至少进行2次射击才能击中目标的概率为
+\[
+P\{X \geq 2\} = \sum_{n=2}^{\infty} 0.36^{n-1} \cdot 0.64 = 0.64 \times \frac{0.36}{1-0.36} = \boxed{0.36}.
+\]
+
+\subsubsection{超几何分布}
+
+\begin{definition}[超几何分布]
+如果随机变量 $X$ 的分布律为
+\[
+\boxed{P\{X=k\} = \frac{\dbinom{M}{k}\dbinom{N-M}{n-k}}{\dbinom{N}{n}}, \quad k=0,1,\dots,\min(M,n)}
+\]
+其中 $N,M,n$ 均为自然数，则称随机变量 $X$ 服从参数为 $(N,M,n)$ 的\textbf{超几何分布}。
+\end{definition}
+
+\textbf{概率背景}：一批产品有 $N$ 件，其中有 $M$ 件次品，其余 $N-M$ 件为正品。现从中取出 $n$ 件，令 $X$ 表示取出 $n$ 件产品中的次品数，则 $X$ 的分布律为上式，即 $X$ 服从参数为 $(N,M,n)$ 的超几何分布。
+
+\begin{note}
+\begin{itemize}[leftmargin=2em]
+    \item 这个分布在涉及抽样的问题中常用，特别当 $N$ 不大时。因为通常在抽样时多是``无放回的''，这就与同时抽出的效果一样。
+    \item 如果是``有放回的抽样''，结果是二项分布。
+    \item 若 $n/N$ 很小，则放回与不放回差别不大。在这种情况下超几何分布与二项分布很接近。
+    \item 确切地说，若 $X$ 服从超几何分布，则当 $n$ 固定、$M/N$ 固定、$N \to \infty$ 时，$X$ 近似地服从二项分布。
+\end{itemize}
+\end{note}
+
+% ==================== §3 随机变量的分布函数 ====================
+\section{随机变量的分布函数}
+
+\subsection{分布函数的定义及其性质}
+
+\begin{definition}[分布函数]
+设 $X$ 是一个随机变量，$x$ 是任意实数，函数
+\[
+\boxed{F(x) = P\{X \leq x\}}
+\]
+称为 $X$ 的\textbf{分布函数}。
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_distribution_func.png}
+    \caption{分布函数 $F(x)$ 示意图（单调不减、右连续）}
+    \label{fig:distribution_func}
+\end{figure}
+
+\begin{note}
+$F(x)$ 是 $x$ 的实值单调不减函数，且 $x \in (-\infty,+\infty)$ 时 $F(x) \in [0,1]$。
+\end{note}
+
+\begin{property}[分布函数的性质]
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{单调不减}：若 $x_1 < x_2$，则 $F(x_1) \leq F(x_2)$。
+    
+    \textit{证}：由于 $x_1 < x_2$，有 $\{X \leq x_1\} \subset \{X \leq x_2\}$，故
+    \[
+    F(x_1) = P\{X \leq x_1\} \leq P\{X \leq x_2\} = F(x_2).
+    \]
+    
+    \item \textbf{有界性}：$0 \leq F(x) \leq 1$，且
+    \[
+    F(-\infty) = \lim_{x\to-\infty}F(x) = 0, \qquad F(+\infty) = \lim_{x\to+\infty}F(x) = 1.
+    \]
+    
+    \item \textbf{右连续性}：$F(x+0) = F(x)$，即 $F(x)$ 是右连续的。
+\end{enumerate}
+\end{property}
+
+\textbf{应用：用分布函数计算事件的概率}
+
+对任意实数 $x_1 \leq x_2$，有
+\[
+P\{x_1 < X \leq x_2\} = P\{X \leq x_2\} - P\{X \leq x_1\} = F(x_2) - F(x_1).
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_interval_prob.png}
+    \caption{区间概率示意图（数轴上 $(a,b]$ 的表示）}
+    \label{fig:interval_prob}
+\end{figure}
+
+更一般地：
+\begin{align*}
+P\{X < a\} &= \lim_{x\to a^-}F(x) = F(a-0), \\
+P\{X = a\} &= P\{X \leq a\} - P\{X < a\} = F(a) - F(a-0), \\
+P\{a \leq X \leq b\} &= F(b) - F(a-0), \\
+P\{a < X < b\} &= F(b-0) - F(a), \\
+P\{a \leq X < b\} &= F(b-0) - F(a-0), \\
+P\{X > b\} &= 1 - F(b), \\
+P\{X \geq b\} &= 1 - F(b-0).
+\end{align*}
+
+\begin{example}[例1：分段分布函数]
+设随机变量 $X$ 的分布函数为
+\[
+F(x) = \begin{cases}
+0, & x < 0, \\[0.3em]
+\dfrac{x}{2}, & 0 \leq x < 1, \\[0.5em]
+\dfrac{2}{3}, & 1 \leq x < 2, \\[0.5em]
+\dfrac{11}{12}, & 2 \leq x < 3, \\[0.5em]
+1, & 3 \leq x.
+\end{cases}
+\]
+求 $P\{X \leq 3\}$，$P\{X < 3\}$，$P\{X=1\}$，$P\{X > \frac{1}{2}\}$，$P\{2 < X < 4\}$，$P\{1 \leq X < 3\}$。
+\end{example}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_piecewise_df.png}
+    \caption{分段分布函数的阶梯示意图}
+    \label{fig:piecewise_df}
+\end{figure}
+
+\textbf{解}：
+\begin{align*}
+P\{X \leq 3\} &= F(3) = 1, \\
+P\{X < 3\} &= F(3-0) = \frac{11}{12}, \\
+P\{X=1\} &= F(1) - F(1-0) = \frac{2}{3} - \frac{1}{2} = \frac{1}{6}, \\
+P\{X > \tfrac{1}{2}\} &= 1 - F(\tfrac{1}{2}) = 1 - \frac{1}{4} = \frac{3}{4}, \\
+P\{2 < X < 4\} &= F(4-0) - F(2) = 1 - \frac{11}{12} = \frac{1}{12}, \\
+P\{1 \leq X < 3\} &= F(3-0) - F(1-0) = \frac{11}{12} - \frac{1}{2} = \frac{5}{12}.
+\end{align*}
+
+\begin{example}[例2：确定分布函数中的常数]
+设随机变量 $X$ 的分布函数为
+\[
+F(x) = A + B\arctan x, \quad -\infty < x < \infty.
+\]
+试求常数 $A,B$。
+\end{example}
+
+\textbf{解}：由分布函数的性质，
+\[
+\lim_{x\to-\infty}F(x) = A - \frac{\pi}{2}B = 0, \qquad \lim_{x\to+\infty}F(x) = A + \frac{\pi}{2}B = 1.
+\]
+解得
+\[
+\boxed{A = \frac{1}{2}, \quad B = \frac{1}{\pi}}.
+\]
+
+\begin{example}[例3：右连续性确定常数]
+设随机变量 $X$ 的分布函数为
+\[
+F(x) = \begin{cases}
+0, & x < 0, \\[0.3em]
+A\sin x, & 0 \leq x \leq \dfrac{\pi}{2}, \\[0.5em]
+1, & x > \dfrac{\pi}{2}.
+\end{cases}
+\]
+试确定 $A$。
+\end{example}
+
+\textbf{解}：由分布函数的右连续性，
+\[
+F\left(\frac{\pi}{2}+0\right) = F\left(\frac{\pi}{2}\right) = A\sin\frac{\pi}{2} = A = 1.
+\]
+故 $\boxed{A=1}$。
+
+\subsection{离散型随机变量的分布函数}
+
+\begin{example}[例4：由分布律求分布函数]
+设随机变量 $X$ 的分布律为
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$X$ & $-1$ & $2$ & $3$ \\
+\midrule
+$P$ & $\dfrac{1}{4}$ & $\dfrac{1}{2}$ & $\dfrac{1}{4}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+求 $X$ 的分布函数。
+\end{example}
+
+\textbf{解}：
+\begin{itemize}[leftmargin=2em]
+    \item 当 $x < -1$ 时，$\{X \leq x\} = \varnothing$，故 $F(x)=0$；
+    \item 当 $-1 \leq x < 2$ 时，$F(x)=P\{X \leq x\}=P\{X=-1\}=\dfrac{1}{4}$；
+    \item 当 $2 \leq x < 3$ 时，$F(x)=P\{X=-1\}+P\{X=2\}=\dfrac{1}{4}+\dfrac{1}{2}=\dfrac{3}{4}$；
+    \item 当 $x \geq 3$ 时，$F(x)=1$。
+\end{itemize}
+
+因此
+\[
+F(x) = \begin{cases}
+0, & x < -1, \\[0.3em]
+\dfrac{1}{4}, & -1 \leq x < 2, \\[0.5em]
+\dfrac{3}{4}, & 2 \leq x < 3, \\[0.5em]
+1, & x \geq 3.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_discrete_cdf_steps.png}
+    \caption{离散型分布函数阶梯图（在 $-1,2,3$ 处有跳跃）}
+    \label{fig:discrete_cdf_steps}
+\end{figure}
+
+\textbf{一般地}，设离散型随机变量 $X$ 的分布律为
+\[
+P\{X=x_k\}=p_k, \quad k=1,2,\dots
+\]
+则 $X$ 的分布函数为
+\[
+F(x) = P(X \leq x) = \sum_{x_k \leq x} P\{X=x_k\}.
+\]
+
+\begin{note}
+此函数为\textbf{阶梯函数}，且在 $X=x_k\;(k=1,2,\dots)$ 处有跳跃，其跳跃值为 $P\{X=x_k\}=p_k$。
+\end{note}
+
+\begin{example}[例5：由分布函数求分布律]
+设随机变量 $X$ 的分布函数为
+\[
+F(x) = \begin{cases}
+0, & x < 0, \\[0.3em]
+\dfrac{1}{3}, & 0 \leq x < 1, \\[0.5em]
+\dfrac{1}{2}, & 1 \leq x < 2, \\[0.5em]
+1, & x \geq 2.
+\end{cases}
+\]
+求 $X$ 的分布律。
+\end{example}
+
+\textbf{解}：$X$ 的可能取值为 $0,1,2$。利用 $P\{X=a\}=F(a)-F(a-0)$，
+\[
+P\{X=0\} = \frac{1}{3}, \quad P\{X=1\} = \frac{1}{2}-\frac{1}{3} = \frac{1}{6}, \quad P\{X=2\} = 1-\frac{1}{2} = \frac{1}{2}.
+\]
+
+\begin{example}[例6：靶子问题]
+一个靶子是半径为 $2$ 米的圆盘，设击中靶上任一同心圆盘上的点的概率与该圆盘的面积成正比，并设射击都能中靶。以 $X$ 表示弹着点与圆心的距离，试求随机变量 $X$ 的分布函数。
+\end{example}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_target.png}
+    \caption{靶子示意图（圆盘、弹着点距离 $x$）}
+    \label{fig:target}
+\end{figure}
+
+\textbf{解}：$X \geq 0$。由于 $F(x)=P\{X \leq x\}$：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若 $x < 0$，则 $\{X \leq x\}$ 是不可能事件，$F(x)=0$；
+    \item 若 $0 \leq x \leq 2$，则 $F(x)=P\{0 \leq X \leq x\} = kx^2$。由 $P\{0 \leq X \leq 2\}=1$ 得 $k=\dfrac{1}{4}$，故 $F(x)=\dfrac{x^2}{4}$；
+    \item 若 $x \geq 2$，则 $\{X \leq x\}$ 是必然事件，$F(x)=1$。
+\end{enumerate}
+
+于是分布函数为
+\[
+F(x) = \begin{cases}
+0, & x < 0, \\[0.3em]
+\dfrac{x^2}{4}, & 0 \leq x < 2, \\[0.5em]
+1, & x \geq 2.
+\end{cases}
+\]
+
+\begin{note}
+不同的随机变量，它们的分布函数不一定相同。例如抛均匀硬币，令
+\[
+X_1 = \begin{cases} 1, & \text{正面}, \\ -1, & \text{反面}, \end{cases} \qquad
+X_2 = \begin{cases} 1, & \text{反面}, \\ -1, & \text{正面}. \end{cases}
+\]
+$X_1$ 与 $X_2$ 在样本空间上对应法则不同，是两个不同的随机变量，但它们有相同的分布函数
+\[
+F(x) = \begin{cases} 0, & x < -1, \\[0.3em] \dfrac{1}{2}, & -1 \leq x < 1, \\[0.5em] 1, & x \geq 1. \end{cases}
+\]
+\end{note}
+
+% ==================== §4 连续型随机变量及其概率密度 ====================
+\section{连续型随机变量及其概率密度}
+
+\subsection{概率密度函数的导出}
+
+从离散到连续——将连续情形看成越来越小、离散单元的极限。
+
+一个好的``随机数生成器''赋予 $0$ 到 $1$ 之间任何一个数字以等概率。问题在于每一个数的概率为零，而它们的概率之和必须为 $1$。
+
+近似：考虑随机数生成器仅给出一个有限位精度的数字。当有一位小数精度时，有 $10$ 个简单事件；当用两个小数精度时，有 $100$ 个简单事件。
+
+新型直方图：用\textbf{面积}（而不是高度）来表示概率。
+
+\textbf{概率密度函数}：假设简单事件可以用实数 $x$ 为指标，$a \leq x \leq b$。一个函数 $f(x)$ 若满足
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 对所有 $a \leq x \leq b$，有 $f(x) \geq 0$；
+    \item $\displaystyle\int_a^b f(x)\,dx = 1$，
+\end{enumerate}
+则称其为\textbf{概率密度函数}。
+
+\subsection{连续型随机变量的概念与性质}
+
+\begin{definition}[连续型随机变量]
+如果对于随机变量 $X$ 的分布函数 $F(x)$，存在非负实函数 $f(x)$，使得对于任意实数 $x$，有
+\[
+\boxed{F(x) = \int_{-\infty}^{x} f(t)\,dt},
+\]
+则称 $X$ 为\textbf{连续型随机变量}，其中 $f(x)$ 称为 $X$ 的\textbf{概率密度函数}（简称概率密度或密度函数）。
+\end{definition}
+
+\begin{note}
+$f(x)$ 不一定连续，但 $F(x)$ 一定连续。
+\end{note}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_pdf.png}
+    \caption{概率密度函数 $f(x)$ 示意图（曲线下面积为 $1$）}
+    \label{fig:pdf}
+\end{figure}
+
+\begin{property}[概率密度的性质]
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{非负性}：$f(x) \geq 0$；
+    \item \textbf{归一化}：$\displaystyle\int_{-\infty}^{+\infty} f(x)\,dx = 1$。
+\end{enumerate}
+这两条性质是判定 $f(x)$ 是否为概率密度函数的充要条件。
+\end{property}
+
+\begin{property}[概率的计算]
+对任意 $x_1 < x_2$，
+\[
+P\{x_1 < X \leq x_2\} = F(x_2) - F(x_1) = \int_{x_1}^{x_2} f(x)\,dx.
+\]
+\end{property}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_pdf_interval.png}
+    \caption{区间概率示意图（$f(x)$ 在 $[x_1,x_2]$ 上的面积）}
+    \label{fig:pdf_interval}
+\end{figure}
+
+\begin{property}
+若 $f(x)$ 在点 $x$ 处连续，则
+\[
+F'(x) = f(x).
+\]
+\end{property}
+
+\textbf{对 $f(x)$ 的进一步理解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若 $x$ 是 $f(x)$ 的连续点，则
+    \[
+    \lim_{\Delta x \to 0} \frac{P\{x < X \leq x+\Delta x\}}{\Delta x} = \lim_{\Delta x \to 0} \frac{\int_x^{x+\Delta x} f(t)\,dt}{\Delta x} = f(x).
+    \]
+    类比：概率密度 $\leftrightarrow$ 概率；物质密度 $\leftrightarrow$ 物质质量；速度 $\leftrightarrow$ 距离。
+    
+    \item 若不计高阶无穷小，有
+    \[
+    P\{x < X \leq x+\Delta x\} \approx f(x)\Delta x.
+    \]
+    它表示 $X$ 取值于 $(x,x+\Delta x]$ 的概率近似等于 $f(x)\Delta x$。$f(x)\Delta x$ 在连续型随机变量理论中所起的作用与 $P\{X=x_k\}=p_k$ 在离散型随机变量理论中所起的作用类似。
+    
+    \item 连续型随机变量取任一指定值的概率为 $0$，即
+    \[
+    P\{X=a\} = 0, \quad a \text{ 为任一指定值}.
+    \]
+    \textit{证}：
+    \[
+    0 \leq P\{X=a\} \leq \lim_{\epsilon\to 0}[F(a)-F(a-\epsilon)] = 0.
+    \]
+    
+    由此得，对连续型 $X$，
+    \[
+    P\{a \leq X \leq b\} = P\{a < X \leq b\} = P\{a \leq X < b\} = P\{a < X < b\}.
+    \]
+    这与离散型有很大差别。
+    
+    注意：$P\{X=a\}=0$ 并不意味着 $\{X=a\}$ 是不可能事件；$P(B)=1$ 也并不意味着 $B=\Omega$。
+    
+    \item $f(x)$ 在某点 $a$ 处的高度，不反映 $X$ 取值的概率，只意味着 $X$ 取 $a$ 附近的值的概率的大小。
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_pdf_height.png}
+    \caption{概率密度在某点高度意义的示意图}
+    \label{fig:pdf_height}
+\end{figure}
+
+\begin{example}[例1：分子离开细胞的概率密度]
+若一个分子离开细胞非常快，概率密度函数可能为
+\[
+f(t) = \begin{cases} 10e^{-10t}, & t \geq 0, \\ 0, & \text{otherwise}. \end{cases}
+\]
+$t=0$ 时概率密度函数值较大，表示在 $t=0$ 附近分子更趋向于离开细胞。
+\end{example}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_exponential_decay.png}
+    \caption{指数衰减曲线 $f(t)=10e^{-10t}$}
+    \label{fig:exponential_decay}
+\end{figure}
+
+\textbf{解}：一个分子在时刻 $0.1$ 和 $0.2$ 之间离开的概率为
+\[
+P\{0.1 \leq t \leq 0.2\} = \int_{0.1}^{0.2} 10e^{-10t}\,dt = -e^{-10t}\Big|_{0.1}^{0.2} \approx 0.233.
+\]
+
+\begin{note}[与离散情形的不同]
+\begin{enumerate}[leftmargin=2em]
+    \item 对于连续型随机变量，不关心在某一点的概率取值，而关心在某一区间上的概率取值。
+    \item 若连续型随机变量 $X$ 的概率密度为 $f(x)$，则 $X$ 在任意区间 $G$（可开、可闭、半开半闭、有限或无限）上的概率均为
+    \[
+    P\{X \in G\} = \int_G f(x)\,dx.
+    \]
+\end{enumerate}
+\end{note}
+
+\begin{example}[例2：求密度函数中的常数]
+设 $X$ 是连续型随机变量，其密度函数为
+\[
+f(x) = \begin{cases} c(4x-2x^2), & 0 < x < 2, \\ 0, & \text{otherwise}. \end{cases}
+\]
+求：(1) 常数 $c$；(2) $P\{X > 1\}$；(3) $X$ 的分布函数。
+\end{example}
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 由密度函数的归一化性质，
+    \[
+    \int_0^2 c(4x-2x^2)\,dx = c\left[2x^2-\frac{2}{3}x^3\right]_0^2 = \frac{8}{3}c = 1 \quad\Longrightarrow\quad \boxed{c=\frac{3}{8}}.
+    \]
+    
+    \item
+    \[
+    P\{X > 1\} = \int_1^2 \frac{3}{8}(4x-2x^2)\,dx = \frac{3}{8}\left[2x^2-\frac{2}{3}x^3\right]_1^2 = \boxed{\frac{1}{2}}.
+    \]
+    
+    \item 当 $x \leq 0$ 时，$F(x)=0$；当 $0 < x < 2$ 时，
+    \[
+    F(x) = \int_0^x \left(\frac{3t}{2}-\frac{3t^2}{4}\right)dt = \frac{3x^2}{4}-\frac{x^3}{4};
+    \]
+    当 $x \geq 2$ 时，$F(x)=1$。因此
+    \[
+    F(x) = \begin{cases}
+    0, & x \leq 0, \\[0.3em]
+    \dfrac{3x^2}{4}-\dfrac{x^3}{4}, & 0 < x < 2, \\[0.5em]
+    1, & x \geq 2.
+    \end{cases}
+    \]
+\end{enumerate}
+
+\begin{example}[例3：由分布函数求密度函数]
+设随机变量 $X$ 的分布函数为
+\[
+F(x) = \begin{cases}
+0, & x \leq 0, \\[0.3em]
+\dfrac{x^2}{2}, & 0 < x \leq 1, \\[0.5em]
+-\dfrac{x^2}{2}+2x-1, & 1 < x < 2, \\[0.5em]
+1, & 2 \leq x.
+\end{cases}
+\]
+试求 $X$ 的密度函数 $f(x)$。
+\end{example}
+
+\textbf{解}：由于 $f(x)=F'(x)$，故
+\[
+f(x) = \begin{cases}
+x, & 0 < x \leq 1, \\[0.3em]
+2-x, & 1 < x \leq 2, \\[0.3em]
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+\begin{example}[例4：确定分布函数中的系数]
+设随机变量 $X$ 的分布函数为
+\[
+F(x) = \begin{cases}
+A+Be^{-\frac{x^2}{2}}, & x > 0, \\[0.3em]
+0, & x \leq 0.
+\end{cases}
+\]
+试求：(1) 系数 $A,B$；(2) $X$ 的密度函数。
+\end{example}
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 由分布函数的性质，
+    \[
+    F(+\infty) = A = 1, \qquad F(0+) = A+B = 0.
+    \]
+    解得
+    \[
+    \boxed{A=1,\quad B=-1}.
+    \]
+    因此
+    \[
+    F(x) = \begin{cases}
+    1-e^{-\frac{x^2}{2}}, & x > 0, \\[0.3em]
+    0, & x \leq 0.
+    \end{cases}
+    \]
+    
+    \item 设 $X$ 的密度函数为 $f(x)$，则
+    \[
+    f(x) = F'(x) = \begin{cases}
+    xe^{-\frac{x^2}{2}}, & x > 0, \\[0.3em]
+    0, & x \leq 0.
+    \end{cases}
+    \]
+\end{enumerate}
+
+\begin{example}[例5：电子元件寿命]
+某电子元件的寿命 $X$（单位：小时）是以
+\[
+f(x) = \begin{cases}
+\dfrac{100}{x^2}, & x > 100, \\[0.5em]
+0, & x \leq 100
+\end{cases}
+\]
+为密度函数的连续型随机变量。求 $5$ 个同类型的元件在使用的前 $150$ 小时内恰有 $2$ 个需要更换的概率。
+\end{example}
+
+\textbf{解}：设 $A=\{\text{某元件在使用的前150小时内需要更换}\}$，则
+\[
+P(A) = P\{X \leq 150\} = \int_{100}^{150} \frac{100}{x^2}\,dx = 100\left[-\frac{1}{x}\right]_{100}^{150} = \frac{1}{3}.
+\]
+
+检验 $5$ 个元件的使用寿命可以看作是在做一个 $5$ 重Bernoulli试验。以 $Y$ 记 $5$ 个元件中使用寿命不超过 $150$ 小时的元件数，则 $Y \sim B\left(5,\dfrac{1}{3}\right)$。
+
+设 $B=\{5\text{个元件中恰有2个的使用寿命不超过150小时}\}$，则
+\[
+P(B) = P\{Y=2\} = \dbinom{5}{2}\left(\frac{1}{3}\right)^2\left(\frac{2}{3}\right)^3 = \boxed{\frac{80}{243}}.
+\]
+
+\subsection{一些常用的连续型随机变量}
+
+\subsubsection{均匀分布}
+
+\begin{definition}[均匀分布]
+若随机变量 $X$ 的密度函数为
+\[
+\boxed{f(x) = \begin{cases}
+\dfrac{1}{b-a}, & a \leq x \leq b, \\[0.5em]
+0, & \text{otherwise},
+\end{cases}}
+\]
+则称随机变量 $X$ 服从区间 $[a,b]$ 上的\textbf{均匀分布}，记作
+\[
+\boxed{X \sim U[a,b]}.
+\]
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_uniform_pdf.png}
+    \caption{均匀分布密度函数示意图（矩形）}
+    \label{fig:uniform_pdf}
+\end{figure}
+
+\textbf{密度函数的验证}：
+\begin{enumerate}[leftmargin=2em]
+    \item 对任意的 $x$，有 $f(x) \geq 0$；
+    \item $\displaystyle\int_{-\infty}^{\infty} f(x)\,dx = \int_a^b \frac{1}{b-a}\,dx = 1$。
+\end{enumerate}
+
+类似地，可以定义区间 $[a,b)$、$(a,b)$、$(a,b]$ 上的均匀分布。
+
+若 $a \leq c \leq c+l \leq b$，则
+\[
+P\{c \leq X \leq c+l\} = \int_c^{c+l} \frac{1}{b-a}\,dx = \frac{l}{b-a}.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_uniform_interval.png}
+    \caption{均匀分布区间概率示意图（子区间长度与概率）}
+    \label{fig:uniform_interval}
+\end{figure}
+
+\textbf{均匀分布的概率背景}：
+若随机变量 $X$ 服从区间 $[a,b]$ 上的均匀分布，则 $X$ 在区间 $[a,b]$ 上的任意一个子区间上取值的概率与该子区间的长度成正比，而与该子区间的位置无关。这可以认为 $X$ 在区间 $[a,b]$ 上取值是等可能的。
+
+\textbf{均匀分布的应用}：
+\begin{itemize}[leftmargin=2em]
+    \item 数值计算中，四舍五入的误差，一般认为服从 $(-0.5,0.5)$ 上的均匀分布；
+    \item 某一时间间隔内汽车站上乘客到站的时间等，均认为服从均匀分布。
+\end{itemize}
+
+\textbf{均匀分布的分布函数}：
+若 $X \sim U[a,b]$，则 $X$ 的分布函数为
+\[
+F(x) = \begin{cases}
+0, & x < a, \\[0.3em]
+\dfrac{x-a}{b-a}, & a \leq x \leq b, \\[0.5em]
+1, & x > b.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_uniform_cdf.png}
+    \caption{均匀分布分布函数示意图（斜线）}
+    \label{fig:uniform_cdf}
+\end{figure}
+
+\begin{example}[例6：公交车候车问题]
+设公共汽车站从上午7时起每隔15分钟来一班车。如果某乘客到达此站的时间是 $7{:}00$ 到 $7{:}30$ 之间的均匀随机变量，试求该乘客候车时间不超过5分钟的概率。
+\end{example}
+
+\textbf{解}：设该乘客于7时 $X$ 分到达此站，则 $X \sim U[0,30]$，其概率密度为
+\[
+f(x) = \begin{cases} \dfrac{1}{30}, & 0 \leq x \leq 30, \\[0.5em] 0, & \text{otherwise}. \end{cases}
+\]
+
+令 $B=\{\text{候车时间不超过5分钟}\}$。候车不超过5分钟意味着到达时间在 $[10,15]$ 或 $[25,30]$ 内，故
+\[
+P(B) = P\{10 \leq X \leq 15\} + P\{25 \leq X \leq 30\} = \int_{10}^{15}\frac{1}{30}\,dx + \int_{25}^{30}\frac{1}{30}\,dx = \frac{5}{30}+\frac{5}{30} = \boxed{\frac{1}{3}}.
+\]
+
+\begin{example}[例7：方程有实根的概率]
+设随机变量 $\xi$ 服从区间 $[-3,6]$ 上的均匀分布，试求方程
+\[
+4x^2 + 4\xi x + (\xi+2) = 0
+\]
+有实根的概率。
+\end{example}
+
+\textbf{解}：随机变量 $\xi$ 的概率密度函数为
+\[
+f(x) = \begin{cases} \dfrac{1}{9}, & -3 \leq x \leq 6, \\[0.5em] 0, & \text{otherwise}. \end{cases}
+\]
+
+方程有实根等价于判别式
+\[
+\Delta = 16\xi^2 - 16(\xi+2) \geq 0 \quad\Longleftrightarrow\quad (\xi-2)(\xi+1) \geq 0.
+\]
+即 $\xi \leq -1$ 或 $\xi \geq 2$。对应概率为
+\[
+P = \int_{-3}^{-1}\frac{1}{9}\,dx + \int_{2}^{6}\frac{1}{9}\,dx = \frac{2}{9} + \frac{4}{9} = \boxed{\frac{2}{3}}.
+\]
+
 \end{document}
