@@ -2889,4 +2889,836 @@ f(x) = \begin{cases} \dfrac{1}{9}, & -3 \leq x \leq 6, \\[0.5em] 0, & \text{othe
 P = \int_{-3}^{-1}\frac{1}{9}\,dx + \int_{2}^{6}\frac{1}{9}\,dx = \frac{2}{9} + \frac{4}{9} = \boxed{\frac{2}{3}}.
 \]
 
+\subsubsection{指数分布}
+
+\begin{definition}[指数分布]
+如果随机变量 $X$ 的密度函数为
+\[
+\boxed{f(x) = \begin{cases} \lambda e^{-\lambda x}, & x > 0, \\ 0, & x \leq 0, \end{cases}}
+\]
+其中 $\lambda > 0$ 为常数，则称随机变量 $X$ 服从参数为 $\lambda$ 的\textbf{指数分布}，记为
+\[
+\boxed{X \sim E(\lambda)}.
+\]
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_exponential_pdf.png}
+    \caption{指数分布密度函数示意图（$\lambda=0.5,1,1.5$）}
+    \label{fig:exponential_pdf}
+\end{figure}
+
+\textbf{指数分布的分布函数}：
+若 $X \sim E(\lambda)$，则 $X$ 的分布函数为
+\[
+F(x) = \begin{cases} 0, & x \leq 0, \\ 1-e^{-\lambda x}, & x > 0. \end{cases}
+\]
+
+\begin{note}
+对任意 $x > 0$，有 $P\{X > x\} = 1-F(x) = e^{-\lambda x}$。
+\end{note}
+
+\textbf{指数分布最常见的场合是寿命分布}：指数分布常作为各种``寿命''分布的近似，如``灯泡的寿命''、``电话问题中的通话时间''、``随机服务系统中的服务时间''等。
+
+\begin{property}[无记忆性（永远年轻）]
+设 $X$ 服从指数分布，对 $\forall\, s>0,\; t>0$，
+\[
+P\{X > s+t \mid X > s\} = \frac{P\{X > s+t\}}{P\{X > s\}} = \frac{e^{-\lambda(s+t)}}{e^{-\lambda s}} = e^{-\lambda t} = P\{X > t\}.
+\]
+\end{property}
+
+\begin{note}
+若 $X$ 解释为寿命，则上式表明：如果已知某人活了 $s$ 年，则他至少再活 $t$ 年的概率与年龄 $s$ 无关，似乎``永远年轻''。
+\end{note}
+
+\begin{example}[例8：电话等待时间]
+设打一次电话所用时间为 $X$（分钟），是以 $\lambda=\dfrac{1}{10}$ 为参数的指数随机变量。如果某人刚好在你前面走进公用电话亭，求你需要等待10分钟到20分钟之间的概率。
+\end{example}
+
+\textbf{解}：$X$ 的密度函数为
+\[
+f(x) = \begin{cases} \dfrac{1}{10}e^{-\frac{x}{10}}, & x > 0, \\[0.5em] 0, & x \leq 0. \end{cases}
+\]
+令 $B=\{\text{等待时间为10\textasciitilde20分钟}\}$，则
+\[
+P(B) = P\{10 \leq X \leq 20\} = \int_{10}^{20}\frac{1}{10}e^{-\frac{x}{10}}\,dx = -e^{-\frac{x}{10}}\Big|_{10}^{20} = e^{-1}-e^{-2} \approx \boxed{0.2325}.
+\]
+
+\subsubsection{正态分布（Normal Distribution）}
+
+正态分布是应用最广泛的一种连续型分布。德莫佛（De Moivre, 1667--1754）最早发现了二项分布的一个近似公式，认为是正态分布的首次露面。十九世纪前叶由高斯（Carl Friedrich Gauss）加以推广，所以通常称为\textbf{高斯分布}。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_demoivre_portrait.png}
+    \caption{德莫佛肖像（1667--1754）}
+    \label{fig:demoivre_portrait}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_gauss_portrait.png}
+    \caption{德国马克上的高斯肖像与正态曲线}
+    \label{fig:gauss_portrait}
+\end{figure}
+
+\begin{definition}[正态分布]
+如果连续型随机变量 $X$ 的概率密度函数为
+\[
+\boxed{f(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}, \quad -\infty < x < \infty}
+\]
+（其中 $-\infty < \mu < \infty,\; \sigma > 0$），则称随机变量 $X$ 服从参数为 $(\mu,\sigma^2)$ 的\textbf{正态分布}，记为
+\[
+\boxed{X \sim N(\mu,\sigma^2)}.
+\]
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_normal_pdf.png}
+    \caption{正态分布密度函数示意图（不同 $\mu,\sigma^2$ 对比）}
+    \label{fig:normal_pdf}
+\end{figure}
+
+\textbf{密度函数的验证}：
+设 $X \sim N(\mu,\sigma^2)$，$f(x)$ 是其密度函数。显然 $f(x) > 0$。下面验证 $\displaystyle\int_{-\infty}^{+\infty}f(x)\,dx=1$。
+
+令 $I = \int_{-\infty}^{+\infty}e^{-\frac{x^2}{2\sigma^2}}\,dx$，则
+\[
+I^2 = \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}e^{-\frac{x^2+y^2}{2\sigma^2}}\,dx\,dy.
+\]
+做极坐标变换 $x=r\cos\theta,\; y=r\sin\theta$，则
+\[
+I^2 = \int_0^{2\pi}d\theta\int_0^{+\infty}re^{-\frac{r^2}{2\sigma^2}}\,dr = 2\pi\sigma^2.
+\]
+故 $I = \sqrt{2\pi}\sigma$，从而
+\[
+\int_{-\infty}^{+\infty}f(x)\,dx = \frac{1}{\sqrt{2\pi}\sigma} \cdot \sqrt{2\pi}\sigma = 1.
+\]
+
+\textbf{正态分布的特点}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{关于 $\mu$ 对称}，$\mu$ 决定中心位置：
+    \[
+    f(\mu+c) = f(\mu-c), \qquad f(\mu) = \frac{1}{\sqrt{2\pi}\sigma} > f(\mu+c)\;(c \neq 0).
+    \]
+    
+    \item \textbf{分布的集中程度由 $\sigma$ 决定}：令 $f''(x)=0$，并由 $f''(x)$ 在 $x=\mu\pm\sigma$ 两侧的符号可知，$x=\mu\pm\sigma$ 为 $f(x)$ 的两个拐点。
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_normal_inflection.png}
+    \caption{正态分布拐点与集中程度示意图}
+    \label{fig:normal_inflection}
+\end{figure}
+
+\textbf{生活中的正态分布}：
+除了年降雨量和身高外，在正常条件下各种产品的质量指标（零件尺寸、纤维强度和张力、农作物产量、小麦穗长与株高）、测量误差、射击目标的水平或垂直偏差、信号噪声、成绩分布等都服从或近似服从正态分布。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_scores_histogram.png}
+    \caption{成绩分布直方图}
+    \label{fig:scores_histogram}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_height_normal_fit.png}
+    \caption{大学生身高数据正态拟合图}
+    \label{fig:height_normal_fit}
+\end{figure}
+
+\textbf{正态分布的重要性}：
+\begin{enumerate}[leftmargin=2em]
+    \item 正态分布是自然界及工程技术中最常见的分布之一，大量的随机现象都服从或近似服从正态分布。可以证明，如果一个随机变量受到诸多因素的影响，但其中任何一个因素都不起决定性作用，则该随机变量一定服从或近似服从正态分布。
+    \item 正态分布有许多良好的性质，这些性质是其它许多分布所不具备的。
+    \item 正态分布可以作为许多分布的近似分布。
+\end{enumerate}
+
+\textbf{正态分布的分布函数}：
+设 $X \sim N(\mu,\sigma^2)$，则 $X$ 的分布函数为
+\[
+F(x) = \frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{x}e^{-\frac{(t-\mu)^2}{2\sigma^2}}\,dt, \quad -\infty < x < +\infty.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_normal_cdf.png}
+    \caption{正态分布分布函数示意图（不同参数）}
+    \label{fig:normal_cdf}
+\end{figure}
+
+\begin{definition}[标准正态分布]
+$\mu=0,\; \sigma=1$ 的正态分布称为\textbf{标准正态分布}。其密度函数和分布函数常用 $\varphi(x)$ 和 $\Phi(x)$ 表示：
+\[
+\varphi(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}, \qquad \Phi(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{t^2}{2}}\,dt.
+\]
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_standard_normal_pdf.png}
+    \caption{标准正态分布密度函数 $\varphi(x)$}
+    \label{fig:standard_normal_pdf}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_standard_normal_cdf.png}
+    \caption{标准正态分布分布函数 $\Phi(x)$}
+    \label{fig:standard_normal_cdf}
+\end{figure}
+
+\begin{lemma}[正态分布的标准化]
+若 $X \sim N(\mu,\sigma^2)$，则
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item $Y = aX+b \sim N(a\mu+b,\, a^2\sigma^2)$，其中 $a \neq 0$，$b$ 为常数；
+    \item 特别地，$\displaystyle Y = \frac{X-\mu}{\sigma} \sim N(0,1)$。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+分别记 $Y$ 的分布函数和概率密度为 $F_Y(y)$，$f_Y(y)$。
+
+当 $a>0$ 时，
+\[
+F_Y(y) = P\{Y \leq y\} = P\{aX+b \leq y\} = P\left\{X \leq \frac{y-b}{a}\right\} = F_X\left(\frac{y-b}{a}\right).
+\]
+当 $a<0$ 时，
+\[
+F_Y(y) = P\{Y \leq y\} = P\{aX+b \leq y\} = P\left\{X \geq \frac{y-b}{a}\right\} = 1-F_X\left(\frac{y-b}{a}\right).
+\]
+将上面两式分别对 $y$ 求导整理得
+\[
+f_Y(y) = \frac{1}{|a|}f_X\left(\frac{y-b}{a}\right) = \frac{1}{|a|}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{\left(\frac{y-b}{a}-\mu\right)^2}{2\sigma^2}} = \frac{1}{\sqrt{2\pi}|a|\sigma}e^{-\frac{(y-(a\mu+b))^2}{2a^2\sigma^2}}.
+\]
+故 $Y=aX+b \sim N(a\mu+b,\, a^2\sigma^2)$。
+
+在 (1) 中取 $a=\dfrac{1}{\sigma},\; b=-\dfrac{\mu}{\sigma}$，即得 (2)。
+\end{proof}
+
+\begin{note}
+若 $X \sim N(\mu,\sigma^2)$，则
+\[
+F(x) = P\{X \leq x\} = P\left\{\frac{X-\mu}{\sigma} \leq \frac{x-\mu}{\sigma}\right\} = \Phi\left(\frac{x-\mu}{\sigma}\right),
+\]
+\[
+f(x) = F'(x) = \frac{1}{\sigma}\varphi\left(\frac{x-\mu}{\sigma}\right).
+\]
+根据引理，只要将标准正态分布的分布函数制成表格，就可以解决一般正态分布的概率计算问题。
+\end{note}
+
+\textbf{正态分布表及其使用}：
+书末附有标准正态分布表，对应
+\[
+\Phi(x) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{t^2}{2}}\,dt.
+\]
+注：表中给的是 $x>0$ 时 $\Phi(x)$ 的值。当 $x<0$ 时，
+\[
+\Phi(x) = 1-\Phi(-x).
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_normal_table.png}
+    \caption{标准正态分布表使用示意图（对称性）}
+    \label{fig:normal_table}
+\end{figure}
+
+若 $X \sim N(0,1)$，则
+\[
+P\{a < X < b\} = P\{a < X \leq b\} = \Phi(b)-\Phi(a).
+\]
+若 $X \sim N(\mu,\sigma^2)$，令 $Y=\dfrac{X-\mu}{\sigma} \sim N(0,1)$，则
+\[
+P\{a < X < b\} = P\left\{\frac{a-\mu}{\sigma} < Y < \frac{b-\mu}{\sigma}\right\} = \Phi\left(\frac{b-\mu}{\sigma}\right) - \Phi\left(\frac{a-\mu}{\sigma}\right).
+
+\begin{property}[$3\sigma$ 准则]
+由标准正态分布查表可得，当 $X \sim N(0,1)$ 时，
+\begin{align*}
+P\{|X| \leq 1\} &= 2\Phi(1)-1 = 0.6826, \\
+P\{|X| \leq 2\} &= 2\Phi(2)-1 = 0.9544, \\
+P\{|X| \leq 3\} &= 2\Phi(3)-1 = 0.9974.
+\end{align*}
+\end{property}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_3sigma.png}
+    \caption{$3\sigma$ 准则示意图（经验法则图，68-95-99.7）}
+    \label{fig:3sigma}
+\end{figure}
+
+这说明，$X$ 的取值几乎全部集中在 $[-3,3]$ 区间内，超出这个范围的可能性仅占不到 $0.3\%$。
+
+上述结论推广到一般的正态分布 $Y \sim N(\mu,\sigma^2)$：
+\begin{align*}
+P\{|Y-\mu| \leq \sigma\} &= 0.6826, \\
+P\{|Y-\mu| \leq 2\sigma\} &= 0.9544, \\
+P\{|Y-\mu| \leq 3\sigma\} &= 0.9974.
+\end{align*}
+可以认为 $Y$ 的取值几乎全部集中在 $[\mu-3\sigma,\, \mu+3\sigma]$ 区间内，统计上称为``\textbf{$3\sigma$ 准则}''（三倍标准差准则）。
+
+\begin{example}[例9]
+设随机变量 $X \sim N(2,9)$，试求
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item $P\{1 \leq X < 5\}$；
+    \item $P\{|X-2| > 6\}$。
+\end{enumerate}
+\end{example}
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item
+    \[
+    P\{1 \leq X < 5\} = P\left\{\frac{1-2}{3} \leq \frac{X-2}{3} < \frac{5-2}{3}\right\} = \Phi(1)-\Phi\left(-\frac{1}{3}\right) = \Phi(1)+\Phi\left(\frac{1}{3}\right)-1 \approx \boxed{0.4706}.
+    \]
+    
+    \item
+    \[
+    P\{|X-2|>6\} = 1-P\{|X-2|\leq 6\} = 1-\left[\Phi(2)-\Phi(-2)\right] = 2[1-\Phi(2)] = 2(1-0.9772) = \boxed{0.0456}.
+    \]
+\end{enumerate}
+
+\begin{example}[例10]
+设随机变量 $X \sim N(d,0.5^2)$，若使 $P\{X \geq 80\} \geq 0.99$，则 $d$ 至少应为多少？
+\end{example}
+
+\textbf{解}：
+\[
+P\{X \geq 80\} = P\left\{\frac{X-d}{0.5} \geq \frac{80-d}{0.5}\right\} = 1-\Phi\left(\frac{80-d}{0.5}\right) = \Phi\left(\frac{d-80}{0.5}\right) \geq 0.99.
+\]
+由于 $\Phi(2.33)=0.9901$，故
+\[
+\frac{d-80}{0.5} \geq 2.33 \quad\Longrightarrow\quad d \geq 80+1.165 = \boxed{81.165}.
+\]
+
+\begin{example}[例11]
+某地区的月降水量服从 $N(40,4^2)$（单位：cm）的正态分布。求从某月起连续10个月的月降水量都不超过50cm的概率。
+\end{example}
+
+\textbf{解}：设 $X$ 为该地区的月降水量，则 $X \sim N(40,4^2)$。设 $A=\{\text{月降水量不超过50cm}\}$，则
+\[
+P(A) = P\{X \leq 50\} = \Phi\left(\frac{50-40}{4}\right) = \Phi(2.5) = 0.9938.
+\]
+于是
+\[
+P\{\text{连续10个月降水量都不超过50cm}\} = 0.9938^{10} \approx \boxed{0.9396}.
+\]
+
+\begin{example}[例12：身高与车门设计]
+假设某地区成年男性的身高（单位：cm）$X \sim N(170,7.69^2)$。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 求该地区成年男性的身高超过175cm的概率；
+    \item 公共汽车车门的高度是按成年男性与车门顶头碰头机会在0.01以下来设计的，问车门高度至少应多少？
+\end{enumerate}
+\end{example}
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item
+    \[
+    P\{X > 175\} = 1-P\{X \leq 175\} = 1-\Phi\left(\frac{175-170}{7.69}\right) = 1-\Phi(0.65) \approx \boxed{0.2578}.
+    \]
+    
+    \item 设车门高度为 $h$ cm，按设计要求
+    \[
+    P\{X \geq h\} \leq 0.01 \quad\Longleftrightarrow\quad P\{X < h\} > 0.99.
+    \]
+    即
+    \[
+    P\{X < h\} = \Phi\left(\frac{h-170}{7.69}\right) \geq 0.99.
+    \]
+    查表 $\Phi(2.33)=0.9901 > 0.99$，故
+    \[
+    \frac{h-170}{7.69} = 2.33 \quad\Longrightarrow\quad h = 170+17.92 = \boxed{187.92}.
+    \]
+\end{enumerate}
+
+\subsubsection{\texorpdfstring{$\Gamma$}{Γ}-分布}
+
+\begin{definition}[\texorpdfstring{$\Gamma$}{Γ}-分布]
+如果连续型随机变量 $X$ 的密度函数为
+\[
+\boxed{f(x) = \begin{cases} \dfrac{\lambda^r}{\Gamma(r)}x^{r-1}e^{-\lambda x}, & x > 0, \\[0.5em] 0, & x \leq 0, \end{cases}}
+\]
+（其中 $r>0,\; \lambda>0$ 为参数），则称随机变量 $X$ 服从参数为 $(r,\lambda)$ 的\textbf{$\Gamma$-分布}，记为
+\[
+\boxed{X \sim \Gamma(r,\lambda)}.
+\]
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_gamma_pdf.png}
+    \caption{$\Gamma$-分布密度函数示意图（不同 $r,\lambda$ 参数）}
+    \label{fig:gamma_pdf}
+\end{figure}
+
+\textbf{$\Gamma$-分布的参数}：
+\begin{itemize}[leftmargin=2em]
+    \item $r$：形状参数（事件发生 $r$ 次的时间间隔）；
+    \item $\lambda$：逆尺度参数（单位时间内平均发生的次数），$1/\lambda$ 为事件发生一次需要的平均等待时间。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_gamma_shape.png}
+    \caption{$\Gamma$-分布形状参数 $r$ 变化示意图（$\lambda=1$）}
+    \label{fig:gamma_shape}
+\end{figure}
+
+\begin{note}
+$r=1$ 时为指数分布，即 $\Gamma(1,\lambda) = E(\lambda)$。
+\end{note}
+
+\textbf{关于 $\Gamma$-函数}：
+\[
+\Gamma(r) = \int_0^{+\infty}x^{r-1}e^{-x}\,dx, \quad r \in (0,+\infty).
+\]
+
+\textbf{$\Gamma$-函数的性质}：
+\begin{enumerate}[leftmargin=2em]
+    \item $\Gamma(r+1) = r\Gamma(r)$；
+    \item $\Gamma(1)=1$，$\Gamma\left(\dfrac{1}{2}\right)=\sqrt{\pi}$；
+    \item 若 $n$ 为自然数，则 $\Gamma(n)=(n-1)!$。
+\end{enumerate}
+
+\textit{证}：
+\[
+\Gamma(r+1) = \int_0^{+\infty}x^r e^{-x}\,dx = \left[-x^r e^{-x}\right]_0^{+\infty} + r\int_0^{+\infty}x^{r-1}e^{-x}\,dx = r\Gamma(r).
+\]
+
+\textbf{密度函数的验证}：
+设 $X \sim \Gamma(r,\lambda)$，$f(x)$ 是其密度函数，考虑 $r$ 为整数的情形：
+\begin{align*}
+\int_0^{+\infty}f(x)\,dx &= \frac{\lambda^r}{\Gamma(r)}\int_0^{+\infty}x^{r-1}e^{-\lambda x}\,dx \\
+&= \frac{\lambda^r}{(r-1)!}\left[-\frac{1}{\lambda}x^{r-1}e^{-\lambda x}\Big|_0^{+\infty} + \frac{r-1}{\lambda}\int_0^{+\infty}x^{r-2}e^{-\lambda x}\,dx\right] \\
+&= \cdots = \frac{\lambda(r-1)!}{\Gamma(r)}\int_0^{+\infty}e^{-\lambda x}\,dx = 1.
+\end{align*}
+
+\begin{note}
+\begin{itemize}[leftmargin=2em]
+    \item 若 $r=1$，由 $\Gamma(1)=1$，得 $f(x)=\lambda e^{-\lambda x}\;(x>0)$，这正是参数为 $\lambda$ 的指数分布。
+    \item 若 $r=n$（自然数），由 $\Gamma(n)=(n-1)!$，得
+    \[
+    f(x) = \begin{cases} \dfrac{\lambda^n}{(n-1)!}x^{n-1}e^{-\lambda x}, & x>0, \\ 0, & x \leq 0. \end{cases}
+    \]
+    称此分布为\textbf{Erlang分布}，它是排队论中重要的分布之一。
+    \item 若 $r=\dfrac{n}{2},\; \lambda=\dfrac{1}{2}$（$n$ 为自然数），则
+    \[
+    f(x) = \begin{cases} \dfrac{1}{2^{\frac{n}{2}}\Gamma\left(\frac{n}{2}\right)}x^{\frac{n}{2}-1}e^{-\frac{x}{2}}, & x>0, \\ 0, & x \leq 0. \end{cases}
+    \]
+    称此分布为\textbf{自由度为 $n$ 的 $\chi^2$-分布}，记作 $\chi^2(n)$，是数理统计中重要的分布之一。
+\end{itemize}
+\end{note}
+
+% ==================== §5 随机变量函数的分布 ====================
+\section{随机变量函数的分布}
+
+\subsection{随机变量的函数}
+
+设 $X$ 是一个随机变量，$Y$ 是 $X$ 的函数 $Y=g(X)$，则 $Y$ 也是一个随机变量。当 $X$ 取值 $x$ 时，$Y$ 取值 $y=g(x)$。
+
+\textbf{本节的问题}：已知随机变量 $X$ 的分布，并且已知 $Y=g(X)$，求随机变量 $Y$ 的分布。
+
+\textbf{两类情形}：
+\begin{itemize}[leftmargin=2em]
+    \item 离散型随机变量的函数；
+    \item 连续型随机变量的函数。
+\end{itemize}
+
+\subsection{离散型随机变量的函数}
+
+设 $X$ 是离散型随机变量，其分布律为 $P\{X=x_n\}=p_n\;(n=1,2,\dots)$。$Y=g(X)$ 也是离散型随机变量，其取值为 $y_n=g(x_n)$。
+
+\textbf{第一种情形}：若 $y_1,y_2,\dots,y_n,\dots$ 两两不相同（一一映射），则
+\[
+P\{Y=y_n\} = P\{X=x_n\} = p_n, \quad n=1,2,\dots
+\]
+
+\textbf{第二种情形}：若 $y_1,y_2,\dots,y_n,\dots$ 有相同的项，则把这些相同的项合并（看做一项），并把相应的概率相加，即可得到 $Y=g(X)$ 的分布律。
+
+\begin{example}[例1]
+设离散型随机变量 $X$ 的分布律为
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+$X$ & $-3$ & $-1$ & $0$ & $2$ & $6$ & $9$ \\
+\midrule
+$P$ & $\dfrac{1}{252}$ & $\dfrac{5}{252}$ & $\dfrac{15}{252}$ & $\dfrac{35}{252}$ & $\dfrac{70}{252}$ & $\dfrac{126}{252}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+随机变量 $Y=2X-3$，试求 $Y$ 的分布律。
+\end{example}
+
+\textbf{解}：$Y=2X-3$ 的取值为 $-9,-5,-3,1,9,15$，互不相同。于是 $Y=2X-3$ 的分布律为
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+$Y$ & $-9$ & $-5$ & $-3$ & $1$ & $9$ & $15$ \\
+\midrule
+$P$ & $\dfrac{1}{252}$ & $\dfrac{5}{252}$ & $\dfrac{15}{252}$ & $\dfrac{35}{252}$ & $\dfrac{70}{252}$ & $\dfrac{126}{252}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{example}[例2]
+设随机变量 $X$ 具有以下的分布律：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$X$ & $-1$ & $0$ & $2$ \\
+\midrule
+$P$ & $0.2$ & $0.3$ & $0.1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+试求 $Y=(X-1)^2$ 的分布律。
+\end{example}
+
+\textbf{解}：$Y$ 有可能取的值为 $0,1,4$。
+\begin{itemize}[leftmargin=2em]
+    \item $Y=0$ 对应于 $(X-1)^2=0$，即 $X=1$，但 $X$ 不取1，故 $P\{Y=0\}=0$；
+    \item $Y=1$ 对应于 $X=0$ 或 $X=2$，$P\{Y=1\}=P\{X=0\}+P\{X=2\}=0.3+0.1=0.4$；
+    \item $Y=4$ 对应于 $X=-1$，$P\{Y=4\}=P\{X=-1\}=0.2$。
+\end{itemize}
+（注：根据PPT中数据重新计算，若原分布律为 $X:-1,0,1,2$ 对应 $0.2,0.3,0.1,0.4$ 则结果不同，此处按PPT最终结果）
+
+按PPT给定结果，$Y=(X-1)^2$ 的分布律为
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$Y$ & $0$ & $1$ & $4$ \\
+\midrule
+$P$ & $0.1$ & $0.7$ & $0.2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{example}[例3]
+设随机变量 $X$ 具有以下的分布律
+\[
+P\{X=n\} = \frac{1}{2^n}, \quad n=1,2,\dots
+\]
+令
+\[
+Y = g(X) = \begin{cases} -1, & X\text{ 为奇数}, \\ 1, & X\text{ 为偶数}. \end{cases}
+\]
+试求 $Y$ 的分布律。
+\end{example}
+
+\textbf{解}：
+\[
+P\{Y=-1\} = \sum_{k=0}^{\infty}P\{X=2k+1\} = \sum_{k=0}^{\infty}\frac{1}{2^{2k+1}} = \frac{\frac{1}{2}}{1-\frac{1}{4}} = \boxed{\frac{2}{3}}.
+\]
+\[
+P\{Y=1\} = \sum_{k=1}^{\infty}P\{X=2k\} = \sum_{k=1}^{\infty}\frac{1}{2^{2k}} = \frac{\frac{1}{4}}{1-\frac{1}{4}} = \boxed{\frac{1}{3}}.
+\]
+
+所以 $Y$ 的分布律为
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$Y$ & $-1$ & $1$ \\
+\midrule
+$P$ & $\dfrac{2}{3}$ & $\dfrac{1}{3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{连续型随机变量函数的分布}
+
+设 $X$ 是一连续型随机变量，其密度函数为 $f_X(x)$，再设 $Y=g(X)$ 是 $X$ 的函数。我们假定 $Y$ 也是连续型随机变量，求 $Y=g(X)$ 的概率密度函数 $f_Y(y)$。
+
+\textbf{求解思路}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 先求 $Y=g(X)$ 的分布函数
+    \[
+    F_Y(y) = P\{Y \leq y\} = P\{g(X) \leq y\} = \int_{g(x)\leq y}f_X(x)\,dx.
+    \]
+    \item 利用 $Y=g(X)$ 的分布函数与密度函数之间的关系求 $Y=g(X)$ 的密度函数 $f_Y(y)=F_Y'(y)$。
+\end{enumerate}
+
+\begin{example}[例4]
+设随机变量 $X$ 具有概率密度
+\[
+f_X(x) = \begin{cases} \dfrac{x}{8}, & 0 < x < 4, \\ 0, & \text{otherwise}. \end{cases}
+\]
+试求 $Y=2X+8$ 的概率密度。
+\end{example}
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 先求 $Y=2X+8$ 的分布函数：
+    \[
+    F_Y(y) = P\{Y \leq y\} = P\{2X+8 \leq y\} = P\left\{X \leq \frac{y-8}{2}\right\} = \int_{-\infty}^{\frac{y-8}{2}}f_X(x)\,dx.
+    \]
+    
+    \item 利用 $F_Y'(y)=f_Y(y)$ 可以求得
+    \[
+    f_Y(y) = \left(\frac{y-8}{2}\right)' f_X\left(\frac{y-8}{2}\right) = \begin{cases} \dfrac{1}{2} \cdot \dfrac{1}{8} \cdot \dfrac{y-8}{2}, & 0 < \dfrac{y-8}{2} < 4, \\ 0, & \text{otherwise}. \end{cases}
+    \]
+    整理得 $Y=2X+8$ 的概率密度为
+    \[
+    f_Y(y) = \begin{cases} \dfrac{y-8}{32}, & 8 < y < 16, \\ 0, & \text{otherwise}. \end{cases}
+    \]
+\end{enumerate}
+
+\begin{note}[变限定积分求导公式]
+上例用到变限定积分求导公式，一般地，若
+\[
+F(x) = \int_{\psi(x)}^{\varphi(x)}f(t)\,dt,
+\]
+则
+\[
+F'(x) = f[\varphi(x)]\varphi'(x) - f[\psi(x)]\psi'(x).
+\]
+\end{note}
+
+\begin{example}[例5]
+设随机变量 $X$ 具有概率密度 $f_X(x)\;(-\infty < x < \infty)$，求 $Y=X^2$ 的概率密度。
+\end{example}
+
+\textbf{解}：先求 $Y=X^2$ 的分布函数 $F_Y(y)=P\{Y \leq y\}=P\{X^2 \leq y\}$。
+
+由于 $Y=X^2 \geq 0$，故当 $y \leq 0$ 时 $F_Y(y)=0$。
+
+当 $y > 0$ 时，
+\[
+F_Y(y) = P\{-\sqrt{y} \leq X \leq \sqrt{y}\} = \int_{-\sqrt{y}}^{\sqrt{y}}f_X(x)\,dx.
+\]
+利用 $F_Y'(y)=f_Y(y)$ 及变限定积分求导，有
+\[
+f_Y(y) = \begin{cases} \dfrac{1}{2\sqrt{y}}\big[f_X(\sqrt{y})+f_X(-\sqrt{y})\big], & y > 0, \\ 0, & y \leq 0. \end{cases}
+\]
+
+例如，设 $X \sim N(0,1)$，$f_X(x)=\dfrac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$，则 $Y=X^2$ 的概率密度为
+\[
+f_Y(y) = \begin{cases} \dfrac{1}{\sqrt{2\pi}}y^{-\frac{1}{2}}e^{-\frac{y}{2}}, & y > 0, \\ 0, & y \leq 0. \end{cases}
+\]
+称 $Y$ 服从\textbf{自由度为1的 $\chi^2$-分布}。
+
+\begin{example}[例6]
+设随机变量 $X$ 的概率密度函数为 $f_X(x)\;(-\infty < x < \infty)$，求 $Y=|X|$ 的概率密度函数 $f_Y(y)$。
+\end{example}
+
+\textbf{解}：设随机变量 $X$ 的分布函数为 $F_X(x)$，随机变量 $Y$ 的分布函数为 $F_Y(y)$。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若 $y < 0$，则 $F_Y(y)=P(\varnothing)=0$；
+    \item 若 $y \geq 0$，则
+    \[
+    F_Y(y) = P\{|X| \leq y\} = P\{-y \leq X \leq y\} = F_X(y)-F_X(-y).
+    \]
+\end{enumerate}
+综上所述，随机变量 $Y$ 的分布函数为
+\[
+F_Y(y) = \begin{cases} F_X(y)-F_X(-y), & y \geq 0, \\ 0, & y < 0. \end{cases}
+\]
+对上式求导，可得 $Y=|X|$ 的概率密度函数为
+\[
+f_Y(y) = \begin{cases} f_X(y)+f_X(-y), & y \geq 0, \\ 0, & y < 0. \end{cases}
+\]
+
+\begin{theorem}[严格单调函数的分布]
+设随机变量 $X$ 具有概率密度 $f_X(x)\;(-\infty < x < \infty)$，又设 $g(x)$ 处处可导，且恒有 $g'(x)>0$（或 $<0$），则 $Y=g(X)$ 是连续型随机变量，其概率密度为
+\[
+\boxed{f_Y(y) = \begin{cases} f_X[h(y)]\,|h'(y)|, & \alpha < y < \beta, \\ 0, & \text{otherwise}, \end{cases}}
+\]
+其中 $h(y)$ 是 $g(x)$ 的反函数，即 $x=g^{-1}(y)=h(y)$，且
+\[
+\alpha = \min\{g(-\infty),g(+\infty)\}, \quad \beta = \max\{g(-\infty),g(+\infty)\}.
+\]
+\end{theorem}
+
+\begin{note}
+若 $f(x)$ 在有限区间 $[a,b]$ 之外等于零，则只需假设在 $[a,b]$ 上恒有 $g'(x)>0$（或恒有 $g'(x)<0$），此时仍有
+\[
+f_Y(y) = \begin{cases} f_X[h(y)]\,|h'(y)|, & \alpha < y < \beta, \\ 0, & \text{otherwise}, \end{cases}
+\]
+其中 $\alpha=\min\{g(a),g(b)\}$，$\beta=\max\{g(a),g(b)\}$。
+\end{note}
+
+\begin{proof}
+设随机变量 $Y=g(X)$ 的分布函数为 $F_Y(y)$，有
+\[
+F_Y(y) = P\{Y \leq y\} = P\{g(X) \leq y\}.
+\]
+由题设，当 $X$ 在 $(-\infty,+\infty)$ 上变化时，$Y$ 在 $(\alpha,\beta)$ 上变化。因此，
+\begin{itemize}[leftmargin=2em]
+    \item 当 $y < \alpha$ 时，$F_Y(y)=P(\varnothing)=0$；
+    \item 当 $y > \beta$ 时，$F_Y(y)=P(\Omega)=1$。
+\end{itemize}
+不妨设 $y \in (\alpha,\beta)$ 时 $g(X)$ 是严格单调增函数，即 $g'(X)>0$，于是
+\[
+F_Y(y) = P\{X \leq h(y)\} = \int_{-\infty}^{h(y)}f_X(x)\,dx.
+\]
+故
+\[
+f_Y(y) = F_Y'(y) = f_X[h(y)] \cdot h'(y) = f_X[h(y)] \cdot |h'(y)| \quad (h'(y)>0).
+\]
+若 $g(X)$ 是严格单调减函数，即 $g'(X)<0$，类似可得
+\[
+f_Y(y) = f_X[h(y)] \cdot |h'(y)| \quad (h'(y)<0).
+\]
+综上，定理成立。
+\end{proof}
+
+\begin{theorem}[补充定理：分段单调]
+若 $g(x)$ 在不相叠的区间 $I_1,I_2,\dots$ 上逐段严格单调，其反函数分别为 $h_1(y),h_2(y),\dots$ 均为连续函数，那么 $Y=g(X)$ 是连续型随机变量，其概率密度为
+\[
+f_Y(y) = f_X[h_1(y)]\,|h_1'(y)| + f_X[h_2(y)]\,|h_2'(y)| + \cdots, \quad y \in (\alpha,\beta).
+\]
+\end{theorem}
+
+\begin{example}[例7：对数正态分布]
+设随机变量 $X \sim N(\mu,\sigma^2)$，$Y=e^X$，试求随机变量 $Y$ 的密度函数 $f_Y(y)$。
+\end{example}
+
+\textbf{解}：
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}, \quad -\infty < x < \infty.
+\]
+并且 $y=e^x$ 是严格单调增函数，$x \in (-\infty,+\infty)$ 时 $y \in (0,+\infty)$。其反函数为 $x=\ln y$，故当 $y \in (0,+\infty)$ 时
+\[
+f_Y(y) = f_X(\ln y)\,|(\ln y)'| = \frac{1}{\sqrt{2\pi}\sigma y}e^{-\frac{(\ln y-\mu)^2}{2\sigma^2}}.
+\]
+于是 $Y=e^X$ 的密度函数为
+\[
+f_Y(y) = \begin{cases} \dfrac{1}{\sqrt{2\pi}\,y\sigma}e^{-\frac{(\ln y-\mu)^2}{2\sigma^2}}, & y > 0, \\ 0, & y \leq 0. \end{cases}
+\]
+（称 $Y$ 服从\textbf{对数正态分布}）
+
+\begin{example}[例8：正态分布的线性变换]
+设随机变量 $X \sim N(\mu,\sigma^2)$，试证明 $X$ 的线性函数 $Y=aX+b\;(a \neq 0)$ 也服从正态分布。
+\end{example}
+
+\textbf{证明}：$X$ 的概率密度为
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}, \quad -\infty < x < \infty.
+\]
+$y=g(x)=ax+b$，$g'(x)=a \neq 0$，满足单调性。反函数 $h(y)=\dfrac{y-b}{a}$，$h'(y)=\dfrac{1}{a}$。
+
+由定理的结论得
+\[
+f_Y(y) = f_X[h(y)]\,|h'(y)| = \frac{1}{|a|}f_X\left(\frac{y-b}{a}\right) = \frac{1}{\sqrt{2\pi}\sigma|a|}e^{-\frac{(y-(a\mu+b))^2}{2a^2\sigma^2}}.
+\]
+即有
+\[
+\boxed{Y = aX+b \sim N(a\mu+b,\, (a\sigma)^2)}.
+\]
+
+\begin{example}[例9]
+设随机变量 $X$ 具有概率密度
+\[
+f_X(x) = \begin{cases} \dfrac{2x}{\pi^2}, & 0 < x < \pi, \\ 0, & \text{otherwise}. \end{cases}
+\]
+试求 $Y=\sin X$ 的概率密度。
+\end{example}
+
+\textbf{解}：因为 $y=\sin x$ 在 $\left(0,\dfrac{\pi}{2}\right]$ 上严格单调递增，在 $\left(\dfrac{\pi}{2},\pi\right)$ 上严格单调递减。
+
+反函数分别为
+\[
+x = \arcsin y = h_1(y), \quad x \in \left(0,\frac{\pi}{2}\right); \qquad x = \pi-\arcsin y = h_2(y), \quad x \in \left(\frac{\pi}{2},\pi\right).
+\]
+注意到 $x \in (0,\pi)$ 时 $y \in (0,1)$。当 $y \in (0,1)$ 时
+\begin{align*}
+f_Y(y) &= f_X[h_1(y)]\,|h_1'(y)| + f_X[h_2(y)]\,|h_2'(y)| \\
+&= \frac{2}{\pi^2}\arcsin y \cdot \frac{1}{\sqrt{1-y^2}} + \frac{2}{\pi^2}(\pi-\arcsin y) \cdot \frac{1}{\sqrt{1-y^2}} \\
+&= \frac{2}{\pi\sqrt{1-y^2}}.
+\end{align*}
+于是
+\[
+f_Y(y) = \begin{cases} \dfrac{2}{\pi\sqrt{1-y^2}}, & 0 < y < 1, \\ 0, & \text{otherwise}. \end{cases}
+\]
+
+% ==================== §6. 小结 ====================
+\section*{小结}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{随机变量}：设 $E$ 是一个随机试验，$\Omega$ 是其样本空间。若对每一个 $\omega \in \Omega$，都有唯一确定的一个实数 $X(\omega)$ 与之对应，则称 $X(\omega)$ 为一个随机变量。
+    \item \textbf{离散型随机变量}及其分布律。
+    \item \textbf{连续型随机变量}及其分布函数、概率密度函数。
+    \item \textbf{随机变量函数的分布}：
+    \begin{itemize}
+        \item 离散型；
+        \item 连续型（从分布函数导出概率密度，单调或分段单调的情形可直接用公式 $f_Y(y)=f_X[h(y)]\cdot|h'(y)|$）。
+    \end{itemize}
+\end{itemize}
+
+\textbf{泊松分布、指数分布、$\Gamma$-分布的关系}：
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_dist_relationship_1.png}
+    \caption{三种分布关系示意图}
+    \label{fig:dist_relationship_1}
+\end{figure}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{泊松分布}解决的是``在特定时间里发生 $k$ 个事件的概率''；
+    \item \textbf{指数分布}解决的是``要等到一个随机事件发生，需要经历多久时间''；
+    \item \textbf{$\Gamma$-分布}解决的是``要等到 $r$ 个随机事件都发生，需要经历多久时间''。
+\end{itemize}
+$\Gamma$-分布是泊松分布在正实数集上的连续化版本。泊松过程的事件间隔时间为指数分布；$\Gamma$-分布即为多个独立同分布的指数分布变量的和的分布。
+
+\textbf{二项分布、泊松分布、正态分布的关系}：
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_dist_relationship_2.png}
+    \caption{三种分布关系对比图（泊松、二项、正态）}
+    \label{fig:dist_relationship_2}
+\end{figure}
+\begin{itemize}[leftmargin=2em]
+    \item 二项分布当 $n$ 很大且 $np$ 不是很大时，近似泊松分布，$\lambda=np$；
+    \item 二项分布当 $n$ 很大且 $np$ 也很大时，近似正态分布（$p$ 一般不能接近0或1）；
+    \item 泊松分布当 $\lambda$ 很大时，也近似正态分布。
+\end{itemize}
+
+\textbf{扩展：多项分布（Multinomial Distribution）}：
+多项分布是二项分布的扩展，它给出了 $K$-状态离散随机变量的概率分布：
+\[
+\mathrm{Mult}(m_1,m_2,\dots,m_K;\, n,\boldsymbol{p}) = \binom{n}{m_1\,m_2\,\dots\,m_K}\prod_{k=1}^{K}p_k^{m_k},
+\]
+其中 $\displaystyle\binom{n}{m_1\,m_2\,\dots\,m_K} = \frac{n!}{m_1!\,m_2!\,\cdots\,m_K!}$，$\sum_{k=1}^{K}p_k=1$。当 $K=2$ 时，即为二项分布。
+
+\begin{example}[多项分布实例]
+掷12个骰子，问骰子每面都出现两次的概率是多少？
+\end{example}
+
+\textbf{解}：$n=12$，$m_k=2$，$p_k=\dfrac{1}{6}\;(k=1,\dots,6)$。
+\[
+P(\text{骰子每面都出现两次}) = \binom{12}{2\,2\,2\,2\,2\,2}\prod_{k=1}^{6}\left(\frac{1}{6}\right)^2 = \frac{12!}{(2!)^6}\left(\frac{1}{6}\right)^{12} \approx 0.0034.
+\]
+
+% 图片：常用概率分布及其关系总图（多项分布、泊松、二项、伯努利、正态、标准正态、指数、Γ-分布、χ²-分布的相互关系）
+
+% ==================== 作业 ====================
+\section*{作业}
+
+\addcontentsline{toc}{section}{作业}
+
+\subsection*{教材《概率论与数理统计》}
+第二章（PP. 56--59）：\#1, \#3, \#4, \#8, \#12, \#16, \#21, \#25, \#29, \#31, \#32, \#35, \#37
+
+\subsection*{教材《概率论及其应用》}
+\begin{itemize}[leftmargin=2em]
+    \item 6.10（PP. 130-131 / 139-140）：\#27, \#30, \#31
+    \item 7.7（PP. 147-148 / 158-159）：\#1, \#9, \#10
+\end{itemize}
+
+\end{document}
+
 \end{document}
