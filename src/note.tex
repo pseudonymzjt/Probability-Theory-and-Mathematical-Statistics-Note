@@ -83,6 +83,7 @@
 \newpage
 
 % ==================== 绪论 ====================
+\newpage
 \chapter*{绪论}
 
 \section{概率论的研究对象}
@@ -280,6 +281,7 @@ P(A>B) > \frac{1}{2},\quad P(B>C) > \frac{1}{2},\quad P(C>D) > \frac{1}{2},\quad
 \end{itemize}
 
 % ==================== 第一章 ====================
+\newpage
 \chapter{随机事件与概率}
 
 \section{随机事件及其概率}
@@ -1701,6 +1703,7 @@ P(D) &= 0.95^{10} \approx \boxed{0.5987}.
     \item 第一章（pp.25--29）：\#2, \#8, \#12, \#13, \#16, \#18, \#19, \#23, \#25, \#26, \#29, \#33, \#35, \#38
 \end{enumerate}
 
+\newpage
 \chapter{随机变量及其分布}
 
 \section{随机变量}
@@ -3725,5 +3728,665 @@ P(\text{骰子每面都出现两次}) = \binom{12}{2\,2\,2\,2\,2\,2}\prod_{k=1}^
     \item 6.10（PP. 130-131 / 139-140）：\#27, \#30, \#31
     \item 7.7（PP. 147-148 / 158-159）：\#1, \#9, \#10
 \end{itemize}
+
+\newpage
+\chapter{多维随机变量及其分布}
+
+\section{二维随机变量}
+
+\subsection{二维随机变量的定义}
+
+\begin{definition}[二维随机变量]
+设 $E$ 是一个随机试验，它的样本空间是 $\Omega=\{e\}$，设 $X=X(e)$ 和 $Y=Y(e)$ 是定义在 $\Omega$ 上的随机变量。由它们构成的一个向量 $(X,Y)$，叫做二维随机向量，或二维随机变量。
+\end{definition}
+
+\begin{note}
+多维随机变量本质上是从单个试验同时获得的多个随机变量。
+\end{note}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_2d_rv_mapping.png}
+    \caption{样本空间到二维随机变量的映射示意图}
+    \label{fig:2d_rv_mapping}
+\end{figure}
+
+研究多维随机变量的目的：
+\begin{itemize}[leftmargin=2em]
+    \item 随机变量之间存在某种关系（例如：身高与体重）；
+    \item 依赖于随机变量的结果同时与多个随机变量相关（例如：健康状况的多个化验指标）。
+\end{itemize}
+
+应该把二维随机变量 $(X,Y)=(X(e),Y(e))\;(e\in\Omega)$ 看作一个整体，因为 $X$ 和 $Y$ 是有关联的。几何上 $(X,Y)$ 可以看作是平面坐标系上的点。
+
+\begin{example}[成年男子的身体状况]
+一个地区成年男子的身体状况。令 $X$ 表示身高，$Y$ 表示体重，则 $(X,Y)$ 就是一个二维随机变量。
+\end{example}
+
+\begin{example}[投掷飞镖游戏]
+在投掷飞镖游戏中，令 $X$ 表示距靶心的水平距离，$Y$ 表示距靶心的垂直距离，则 $(X,Y)$ 就是一个二维随机变量。
+\end{example}
+
+\begin{example}[地区气候]
+考察某地区的气候，令 $X$ 表示温度，$Y$ 表示气压，则 $(X,Y)$ 就是一个二维随机变量。
+\end{example}
+
+\subsection{二维随机变量的联合分布函数}
+
+\begin{definition}[联合分布函数]
+设 $(X,Y)$ 是二维随机变量，对任意实数 $x,y$，二元函数
+\[
+F(x,y)=P\{(X\leq x)\cap(Y\leq y)\}=P(X\leq x,Y\leq y)
+\]
+称为二维随机变量 $(X,Y)$ 的\textbf{联合分布}（Joint Distribution）函数，或简称为分布函数。
+\end{definition}
+
+\textbf{分布函数的几何意义}：$F(x,y)$ 在 $(x,y)$ 处的函数值就是随机点 $(X,Y)$ 落在以 $(x,y)$ 为右上角顶点的无穷矩形区域内的概率。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_joint_distribution_rectangle.png}
+    \caption{联合分布函数的几何意义：无穷矩形区域}
+    \label{fig:joint_distribution_rectangle}
+\end{figure}
+
+\textbf{一个基本公式}：若 $x_1<x_2,\;y_1<y_2$，则
+\[
+P(x_1<X\leq x_2,\;y_1<Y\leq y_2)=F(x_2,y_2)-F(x_2,y_1)-F(x_1,y_2)+F(x_1,y_1).
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_rectangle_probability.png}
+    \caption{矩形区域概率计算示意图}
+    \label{fig:rectangle_probability}
+\end{figure}
+
+\subsection{分布函数的基本性质}
+
+\begin{property}[分布函数的基本性质]
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{单调性}：$F(x,y)$ 是变量 $x,y$ 的不减函数，即对于任意固定的 $y$，当 $x_1<x_2$ 时，
+    \[
+    F(x_1,y)\leq F(x_2,y).
+    \]
+    同样地，对于任意固定的 $x$，当 $y_1<y_2$ 时，
+    \[
+    F(x,y_1)\leq F(x,y_2).
+    \]
+    
+    \item \textbf{有界性}：$0\leq F(x,y)\leq 1$，且对于任意固定的 $x$，
+    \[
+    F(x,-\infty)=0,
+    \]
+    对于任意固定的 $y$，
+    \[
+    F(-\infty,y)=0,\quad F(-\infty,-\infty)=0,\quad F(+\infty,+\infty)=1.
+    \]
+    
+    \item \textbf{右连续}：
+    \[
+    F(x+0,y)=F(x,y),\quad F(x,y+0)=F(x,y).
+    \]
+    
+    \item \textbf{非负性}：若 $x_1<x_2,\;y_1<y_2$，则
+    \[
+    F(x_2,y_2)+F(x_1,y_1)-F(x_2,y_1)-F(x_1,y_2)\geq 0.
+    \]
+\end{enumerate}
+\end{property}
+
+\begin{note}
+任何二维随机变量的分布函数都满足这四条性质；任一具有这四条性质的二元函数均是二维随机变量的分布函数。
+\end{note}
+
+\subsection{二维离散型随机变量}
+
+\begin{definition}[二维离散型随机变量]
+若二维随机变量 $(X,Y)$ 的取值是有限个或可列无限多对时，则称 $(X,Y)$ 为\textbf{二维离散型随机变量}。
+
+设 $(X,Y)$ 为二维离散型随机变量，$(X,Y)$ 的取值为 $(x_i,y_j)\;(i,j=1,2,\dots)$，并且记
+\[
+P(X=x_i,Y=y_j)=p_{ij},
+\]
+则称 $p_{ij}$ 为 $(X,Y)$ 的\textbf{分布律}或 $X$ 和 $Y$ 的\textbf{联合分布律}。
+\end{definition}
+
+二维离散型随机变量的联合分布律可以枚举，也可以用表格形式表现。
+
+\begin{table}[htbp]
+\centering
+\caption{二维离散型随机变量的联合分布律}
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+$X\backslash Y$ & $y_1$ & $y_2$ & $\cdots$ & $y_j$ & $\cdots$ \\
+\midrule
+$x_1$ & $p_{11}$ & $p_{12}$ & $\cdots$ & $p_{1j}$ & $\cdots$ \\
+$x_2$ & $p_{21}$ & $p_{22}$ & $\cdots$ & $p_{2j}$ & $\cdots$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ & $\ddots$ \\
+$x_i$ & $p_{i1}$ & $p_{i2}$ & $\cdots$ & $p_{ij}$ & $\cdots$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ & $\ddots$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{example}[例4：随机变量的联合分布律]
+设随机变量 $X$ 在 $1,2,3,4$ 四个整数中等可能地取值，另一个随机变量 $Y$ 在 $1\sim X$ 之间等可能地取值，求 $(X,Y)$ 的分布律。
+\end{example}
+
+\textbf{解}：$X$ 的取值为 $1,2,3,4$，$Y$ 的取值为 $1,2,3,4$。由题意，
+\[
+P\{X=k\}=\frac{1}{4},\quad P\{Y=j\mid X=k\}=\frac{1}{k}\;(1\leq j\leq k).
+\]
+故
+\[
+P\{X=k,Y=j\}=P\{X=k\}P\{Y=j\mid X=k\}=\frac{1}{4k}\quad(1\leq j\leq k).
+\]
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$X\backslash Y$ & 1 & 2 & 3 & 4 \\
+\midrule
+1 & $\dfrac{1}{4}$ & $\dfrac{1}{8}$ & $\dfrac{1}{12}$ & $\dfrac{1}{16}$ \\[0.5em]
+2 & 0 & $\dfrac{1}{8}$ & $\dfrac{1}{12}$ & $\dfrac{1}{16}$ \\[0.5em]
+3 & 0 & 0 & $\dfrac{1}{12}$ & $\dfrac{1}{16}$ \\[0.5em]
+4 & 0 & 0 & 0 & $\dfrac{1}{16}$ \\[0.5em]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{property}[二维离散型随机变量联合分布律的性质]
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{非负性}：对任意 $i,j\;(i,j=1,2,\dots)$，
+    \[
+    p_{ij}=P\{X=x_i,Y=y_j\}\geq 0.
+    \]
+    \item \textbf{规范性}：
+    \[
+    \sum_{i,j}p_{ij}=1.
+    \]
+\end{enumerate}
+\end{property}
+
+\begin{example}[例5：抛硬币的联合分布]
+将一枚均匀的硬币抛 $3$ 次，令
+\[
+X:\text{3次中出现正面的次数};\quad Y:\text{3次中正面出现次数与反面次数之差的绝对值}.
+\]
+给出 $(X,Y)$ 的联合分布律。
+\end{example}
+
+\textbf{解}：样本空间为
+\[
+\Omega=\{HHH,HHT,HTH,HTT,THH,THT,TTH,TTT\}.
+\]
+对应的 $X$ 的可能取值为 $0,1,2,3$，$Y$ 为 $1,3$。
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$X\backslash Y$ & 0 & 1 & 2 & 3 \\
+\midrule
+1 & 0 & $\dfrac{3}{8}$ & $\dfrac{3}{8}$ & 0 \\[0.5em]
+3 & $\dfrac{1}{8}$ & 0 & 0 & $\dfrac{1}{8}$ \\[0.5em]
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{二维离散型随机变量的联合分布函数}
+
+类似一维情况，并考虑与连续情况的对应，引入分布函数。设二维离散型随机变量 $(X,Y)$ 的联合分布律为 $p_{ij}\;(i,j=1,2,\dots)$，则 $(X,Y)$ 的联合分布函数为
+\[
+F(x,y)=\sum_{x_i\leq x,\;y_j\leq y}p_{ij}.
+\]
+
+\subsection{二维连续型随机变量}
+
+\begin{definition}[二维连续型随机变量]
+对于二维随机变量 $(X,Y)$ 的分布函数 $F(x,y)$，如果存在非负可积函数 $f(x,y)$，使得对于任意的实数 $x,y$，有
+\[
+F(x,y)=\int_{-\infty}^{y}\int_{-\infty}^{x}f(u,v)\,du\,dv,
+\]
+则称 $(X,Y)$ 是\textbf{连续型的二维随机变量}，函数 $f(x,y)$ 称为二维随机变量 $(X,Y)$ 的\textbf{概率密度}，或称为 $X$ 和 $Y$ 的\textbf{联合概率密度}。
+\end{definition}
+
+\begin{property}[概率密度的性质]
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{非负性}：$f(x,y)\geq 0$；
+    \item \textbf{规范性}：
+    \[
+    \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(u,v)\,du\,dv=F(+\infty,+\infty)=1;
+    \]
+    \item 设 $G$ 是 $xOy$ 平面上的一个区域，点 $(X,Y)$ 落在 $G$ 内的概率为
+    \[
+    P\{(X,Y)\in G\}=\iint_{(x,y)\in G}f(x,y)\,dx\,dy;
+    \]
+    \item 若 $f(x,y)$ 在点 $(x,y)$ 连续，则
+    \[
+    \frac{\partial^{2}F(x,y)}{\partial x\partial y}=f(x,y).
+    \]
+\end{enumerate}
+\end{property}
+
+\textbf{局部概率 $P\{(X,Y)\in G\}$ 的几何意义}
+
+在几何上 $z=f(x,y)$ 表示空间的一个曲面，
+\[
+P\{(X,Y)\in G\}=\iint_{(x,y)\in G}f(x,y)\,dx\,dy
+\]
+即表示 $P\{(X,Y)\in G\}$ 的值等于以 $G$ 为底，以曲面 $z=f(x,y)$ 为顶的柱体体积。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_2d_pdf_geometry.png}
+    \caption{概率密度函数的几何意义：柱体体积}
+    \label{fig:2d_pdf_geometry}
+\end{figure}
+
+\subsubsection{一些连续型二维随机变量}
+
+\textbf{1. 二维均匀分布}
+
+设 $D$ 是平面上的有界区域，其面积为 $A$，如果二维随机变量 $(X,Y)$ 的概率密度为
+\[
+f(x,y)=
+\begin{cases}
+\dfrac{1}{A}, & (x,y)\in D, \\[0.5em]
+0, & (x,y)\notin D,
+\end{cases}
+\]
+则称二维随机变量 $(X,Y)$ 服从区域 $D$ 上的\textbf{均匀分布}。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_2d_uniform.png}
+    \caption{二维均匀分布概率密度示意图}
+    \label{fig:2d_uniform}
+\end{figure}
+
+\textbf{2. 二维正态分布}
+
+设二维随机变量 $(X,Y)$ 的密度函数为
+\[
+\begin{aligned}
+f(x,y)&=\frac{1}{2\pi\sigma_{1}\sigma_{2}\sqrt{1-\rho^{2}}} \\
+&\quad\cdot\exp\left\{-\frac{1}{2(1-\rho^{2})}\left[\frac{(x-\mu_{1})^{2}}{\sigma_{1}^{2}}-\frac{2\rho(x-\mu_{1})(y-\mu_{2})}{\sigma_{1}\sigma_{2}}+\frac{(y-\mu_{2})^{2}}{\sigma_{2}^{2}}\right]\right\},
+\end{aligned}
+\]
+则称随机变量 $(X,Y)$ 服从参数为 $(\mu_{1},\mu_{2},\sigma_{1}^{2},\sigma_{2}^{2},\rho)$ 的\textbf{正态分布}，记为
+\[
+(X,Y)\sim N(\mu_{1},\mu_{2},\sigma_{1}^{2},\sigma_{2}^{2},\rho),
+\]
+其中 $-\infty<\mu_{i}<\infty,\;\sigma_{i}>0\;(i=1,2)$，$-1<\rho<1$。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_2d_normal.png}
+    \caption{二维正态分布概率密度示意图}
+    \label{fig:2d_normal}
+\end{figure}
+
+\begin{example}[例6：确定常数与计算概率]
+设二维随机变量 $(X,Y)$ 的密度函数为
+\[
+f(x,y)=
+\begin{cases}
+c\bigl(R-\sqrt{x^{2}+y^{2}}\bigr), & x^{2}+y^{2}<R^{2}, \\[0.3em]
+0, & \text{其他},
+\end{cases}
+\]
+(1) 求常数 $c$；(2) 求 $(X,Y)$ 落入圆 $x^{2}+y^{2}<r^{2}\;(0<r<R)$ 内的概率。
+\end{example}
+
+\textbf{解}：由概率归一化的特性有
+\[
+\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(x,y)\,dx\,dy
+=\iint_{x^{2}+y^{2}\leq R^{2}}c\bigl(R-\sqrt{x^{2}+y^{2}}\bigr)\,dx\,dy=1.
+\]
+
+变换到极坐标下 $x=\rho\cos\theta,\;y=\rho\sin\theta$，于是有
+\[
+\int_{0}^{2\pi}d\theta\int_{0}^{R}c(R-\rho)\rho\,d\rho=\frac{1}{3}\pi cR^{3}=1.
+\]
+故
+\[
+\boxed{c=\frac{3}{\pi R^{3}}}.
+\]
+
+(2) 类似地：
+\[
+P\bigl\{(X,Y)\in\{x^{2}+y^{2}<r^{2}\}\bigr\}
+=\iint_{x^{2}+y^{2}<r^{2}}\frac{3}{\pi R^{3}}\bigl(R-\sqrt{x^{2}+y^{2}}\bigr)\,dx\,dy
+=\frac{3r^{2}}{R^{2}}\left(1-\frac{2r}{3R}\right).
+\]
+
+\textbf{高斯分布的应用}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{高斯滤波}：左：原图；中：均值滤波；右：高斯滤波。
+    \item \textbf{高斯混合模型聚类}（Gaussian Mixture Models）：左：输入数据；右：聚类结果。
+    \item \textbf{3D Gaussian Splatting}。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_gaussian_filter.png}
+    \caption{高斯滤波效果对比图}
+    \label{fig:gaussian_filter}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_gmm_clustering.png}
+    \caption{高斯混合模型聚类示意图}
+    \label{fig:gmm_clustering}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_3d_gaussian_splatting.png}
+    \caption{3D Gaussian Splatting 示意图}
+    \label{fig:3d_gaussian_splatting}
+\end{figure}
+
+\subsection{从二维到\texorpdfstring{$n$}{n}维}
+
+\begin{definition}[$n$维随机变量]
+设 $E$ 是一个随机试验，它的样本空间是 $\Omega=\{e\}$，设 $X_{i}=X_{i}(e)\;(e\in\Omega,\;i=1,2,\dots,n)$ 是定义在 $\Omega$ 上的 $n$ 个随机变量。由它们构成的一个向量 $(X_{1},X_{2},\dots,X_{n})$，叫做样本空间 $\Omega$ 上的 $n$ 维随机向量，或 $n$ 维随机变量。
+\end{definition}
+
+\textbf{$n$ 维随机变量的分布函数}
+
+设 $(X_{1},X_{2},\dots,X_{n})$ 是一个 $n$ 维随机变量，则对于任一 $n$ 维实数组 $(x_{1},x_{2},\dots,x_{n})$，
+\[
+F(x_{1},x_{2},\dots,x_{n})=P\{X_{1}\leq x_{1},X_{2}\leq x_{2},\dots,X_{n}\leq x_{n}\},
+\]
+称此函数为 $n$ 维随机变量的分布函数。
+
+\section{边缘分布}
+
+\subsection{边缘分布的定义}
+
+设 $(X,Y)$ 为二维随机向量，其分布函数为 $F(x,y)$。其中分量 $X$ 或 $Y$ 是一维随机变量，相应的存在一维分布，分别记为 $F_{X}(x)$ 和 $F_{Y}(y)$，依次称 $F_{X}(x),F_{Y}(y)$ 为 $(X,Y)$ 关于 $X$ 和关于 $Y$ 的\textbf{边缘分布函数}。
+
+\begin{note}
+边缘分布又翻译为``边际分布''或``边沿分布''。
+\end{note}
+
+\subsection{边缘分布函数}
+
+利用联合分布函数获得边缘分布函数。
+
+设二维随机变量 $(X,Y)$ 的分布函数为 $F(x,y)$，则分量 $X$ 的边缘分布函数为
+\[
+F_{X}(x)=P\{X\leq x\}=P\{X\leq x,Y<+\infty\}=\lim_{y\to+\infty}F(x,y)=F(x,+\infty).
+\]
+类似地，对分量 $Y$ 的边缘分布函数为
+\[
+F_{Y}(y)=P\{Y\leq y\}=P\{Y\leq y,X<+\infty\}=\lim_{x\to+\infty}F(x,y)=F(+\infty,y).
+\]
+
+\begin{note}
+上述方法适用于离散和连续情形。
+\end{note}
+
+\begin{example}[例7：确定常数并求边缘分布]
+设二维随机变量 $(X,Y)$ 的联合分布函数为
+\[
+F(x,y)=A\left(B+\arctan\frac{x}{2}\right)\left(C+\arctan\frac{y}{5}\right),\quad (-\infty<x,y<+\infty)
+\]
+求常数 $A,B,C$ 以及边缘分布函数。
+\end{example}
+
+\textbf{解}：由分布函数性质有
+\begin{align*}
+F(+\infty,+\infty)&=A\left(B+\frac{\pi}{2}\right)\left(C+\frac{\pi}{2}\right)=1, \tag{1}\\
+F(-\infty,+\infty)&=A\left(B-\frac{\pi}{2}\right)\left(C+\frac{\pi}{2}\right)=0, \tag{2}\\
+F(+\infty,-\infty)&=A\left(B+\frac{\pi}{2}\right)\left(C-\frac{\pi}{2}\right)=0. \tag{3}
+\end{align*}
+由 (2),(3) 得 $B=\dfrac{\pi}{2},\;C=\dfrac{\pi}{2}$，代入 (1)，有
+\[
+\boxed{A=\frac{1}{\pi^{2}}}.
+\]
+
+于是
+\[
+F_{X}(x)=\lim_{y\to+\infty}F(x,y)=\frac{1}{\pi^{2}}\left(\frac{\pi}{2}+\arctan\frac{x}{2}\right)\left(\frac{\pi}{2}+\frac{\pi}{2}\right)=\frac{1}{\pi}\left(\frac{\pi}{2}+\arctan\frac{x}{2}\right).
+\]
+类似地，
+\[
+F_{Y}(y)=\lim_{x\to+\infty}F(x,y)=\frac{1}{\pi}\left(\frac{\pi}{2}+\arctan\frac{y}{5}\right).
+\]
+
+\subsection{边缘分布律}
+
+利用联合分布律求边缘分布律。
+
+已知二维离散型随机变量 $(X,Y)$ 的联合分布律为
+\[
+p_{ij}=P\{X=x_{i},Y=y_{j}\}\quad(i,j=1,2,\dots)
+\]
+则随机变量 $X$ 的边缘分布律为
+\[
+p_{i\cdot}=P\{X=x_{i}\}=\sum_{j}P\{X=x_{i},Y=y_{j}\}=\sum_{j}p_{ij}\quad(i=1,2,\dots).
+\]
+类似地，随机变量 $Y$ 的边缘分布律为
+\[
+p_{\cdot j}=P\{Y=y_{j}\}=\sum_{i}p_{ij}\quad(j=1,2,\dots).
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/fig_marginal_distribution_table.png}
+    \caption{联合分布律与边缘分布示意图}
+    \label{fig:marginal_distribution_table}
+\end{figure}
+
+\begin{example}[例8：鸟类寄生虫的边缘分布]
+下表中给出了两种不同类型的鸟（A和B）寄生了两种类型的寄生虫——虱子和螨虫。由于这两种寄生虫相当大，鸟身上有同类寄生虫的数量不会超过两个。对每一种鸟身上具有的特定寄生虫数量的概率进行了统计。例如，在一只鸟身上有一只螨虫和两支虱子的概率为 $0.09$，有两只螨虫和一只虱子的概率为 $0.06$。求两类鸟的边缘分布。
+\end{example}
+
+\begin{table}[htbp]
+\centering
+\caption{Bird A 的联合分布律与边缘分布}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+虱子\textbackslash 螨虫 & 0 & 1 & 2 & 边缘 \\
+\midrule
+0 & 0.20 & 0.15 & 0.15 & 0.5 \\
+1 & 0.12 & 0.09 & 0.09 & 0.3 \\
+2 & 0.08 & 0.06 & 0.06 & 0.2 \\
+\midrule
+边缘 & 0.4 & 0.3 & 0.3 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Bird B 的联合分布律与边缘分布}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+虱子\textbackslash 螨虫 & 0 & 1 & 2 & 边缘 \\
+\midrule
+0 & 0.33 & 0.08 & 0.09 & 0.5 \\
+1 & 0.05 & 0.13 & 0.12 & 0.3 \\
+2 & 0.02 & 0.09 & 0.09 & 0.2 \\
+\midrule
+边缘 & 0.4 & 0.3 & 0.3 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{解}：为求出每类鸟身上虱子的数量的边缘概率分布，将每一列中的数字相加。例如 A 类鸟身上有一只虱子的概率为
+\[
+0.15+0.09+0.06=0.3.
+\]
+类似的，螨虫数量的边缘分布为每一行中的数字相加，例如 B 类鸟身上有两只螨虫的概率为
+\[
+0.02+0.09+0.09=0.2.
+\]
+
+\begin{note}
+尽管两类鸟身上昆虫的分布不同，但边缘分布是一样的，也就是从边缘分布不能唯一确定联合分布。从联合分布律求边缘分布律仅适用于离散分布。
+\end{note}
+
+\subsection{边缘密度函数}
+
+利用联合概率密度函数求边缘密度函数。
+
+已知二维连续型随机变量 $(X,Y)$，已知其联合分布密度函数为 $f(x,y)$，则随机变量 $X$ 的边缘分布为
+\[
+F_{X}(x)=P\{X\leq x\}=F(x,+\infty)=\int_{-\infty}^{x}\int_{-\infty}^{+\infty}f(x,y)\,dy\,dx=\int_{-\infty}^{x}f_{X}(x)\,dx.
+\]
+于是，
+\[
+\boxed{f_{X}(x)=\int_{-\infty}^{+\infty}f(x,y)\,dy}.
+\]
+类似地，
+\[
+\boxed{f_{Y}(y)=\int_{-\infty}^{+\infty}f(x,y)\,dx}.
+\]
+
+\begin{example}[例9：均匀分布的边缘密度]
+设平面区域 $D$ 是由抛物线 $y=x^{2}$ 及直线 $y=x$ 所围成，随机变量 $(X,Y)$ 服从区域 $D$ 上的均匀分布，试求随机变量 $(X,Y)$ 的联合密度函数及 $X,Y$ 各自的边缘密度函数。
+\end{example}
+
+\textbf{解}：区域 $D$ 的面积为
+\[
+S=\int_{0}^{1}\int_{x^{2}}^{x}dy\,dx=\int_{0}^{1}(x-x^{2})\,dx=\left[\frac{x^{2}}{2}-\frac{x^{3}}{3}\right]_{0}^{1}=\frac{1}{6}.
+\]
+于是 $(X,Y)$ 的联合概率密度函数为
+\[
+f(x,y)=
+\begin{cases}
+6, & (x,y)\in D, \\[0.3em]
+0, & (x,y)\notin D.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_region_D.png}
+    \caption{区域 $D$ 由 $y=x^{2}$ 与 $y=x$ 围成}
+    \label{fig:region_D}
+\end{figure}
+
+求 $X$ 的边缘密度函数：
+\[
+f_{X}(x)=\int_{x^{2}}^{x}6\,dy=6(x-x^{2}),\quad 0\leq x\leq 1.
+\]
+于是
+\[
+f_{X}(x)=
+\begin{cases}
+6(x-x^{2}), & 0\leq x\leq 1, \\[0.3em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+类似地，求 $Y$ 的边缘密度函数：
+\[
+f_{Y}(y)=\int_{y}^{\sqrt{y}}6\,dx=6(\sqrt{y}-y),\quad 0\leq y\leq 1.
+\]
+于是
+\[
+f_{Y}(y)=
+\begin{cases}
+6(\sqrt{y}-y), & 0\leq y\leq 1, \\[0.3em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+\begin{example}[例10：二维正态分布的边缘分布]
+设二维随机变量 $(X,Y)$ 服从参数为 $(\mu_{1},\mu_{2},\sigma_{1}^{2},\sigma_{2}^{2},\rho)$ 的正态分布，即密度函数为
+\[
+\begin{aligned}
+f(x,y)&=\frac{1}{2\pi\sigma_{1}\sigma_{2}\sqrt{1-\rho^{2}}} \\
+&\quad\cdot\exp\left\{-\frac{1}{2(1-\rho^{2})}\left[\frac{(x-\mu_{1})^{2}}{\sigma_{1}^{2}}-\frac{2\rho(x-\mu_{1})(y-\mu_{2})}{\sigma_{1}\sigma_{2}}+\frac{(y-\mu_{2})^{2}}{\sigma_{2}^{2}}\right]\right\},
+\end{aligned}
+\]
+给出 $X$ 和 $Y$ 的边缘分布。
+\end{example}
+
+\textbf{解}：先求 $Y$ 的边缘密度函数
+\[
+f_{Y}(y)=\int_{-\infty}^{+\infty}f(x,y)\,dx.
+\]
+记 $C=\dfrac{1}{2\pi\sigma_{1}\sigma_{2}\sqrt{1-\rho^{2}}}$，则
+\begin{align*}
+f_{Y}(y)&=C\int_{-\infty}^{\infty}\exp\left\{-\frac{1}{2(1-\rho^{2})}\left[\frac{(x-\mu_{1})^{2}}{\sigma_{1}^{2}}-\frac{2\rho(x-\mu_{1})(y-\mu_{2})}{\sigma_{1}\sigma_{2}}+\frac{(y-\mu_{2})^{2}}{\sigma_{2}^{2}}\right]\right\}dx \\
+&=C\exp\left\{-\frac{(y-\mu_{2})^{2}}{2(1-\rho^{2})\sigma_{2}^{2}}\right\}\int_{-\infty}^{\infty}\exp\left\{-\frac{1}{2(1-\rho^{2})}\left[\frac{(x-\mu_{1})^{2}}{\sigma_{1}^{2}}-\frac{2\rho(x-\mu_{1})(y-\mu_{2})}{\sigma_{1}\sigma_{2}}\right]\right\}dx.
+\end{align*}
+对指数部分配方，令
+\[
+x'=\frac{x-\mu_{1}}{\sigma_{1}}-\frac{\rho(y-\mu_{2})}{\sigma_{2}},
+\]
+则
+\[
+f_{Y}(y)=C\sigma_{1}\exp\left\{-\frac{(y-\mu_{2})^{2}}{2\sigma_{2}^{2}}\right\}\int_{-\infty}^{\infty}\exp\left\{-\frac{1}{2(1-\rho^{2})}x'^{2}\right\}dx'.
+\]
+注意到
+\[
+\int_{-\infty}^{\infty}\exp\left\{-\frac{1}{2(1-\rho^{2})}x'^{2}\right\}dx'=\sqrt{2(1-\rho^{2})\pi},
+\]
+于是
+\[
+f_{Y}(y)=C\sigma_{1}\exp\left\{-\frac{(y-\mu_{2})^{2}}{2\sigma_{2}^{2}}\right\}\sqrt{2(1-\rho^{2})\pi}
+=\frac{1}{\sqrt{2\pi}\sigma_{2}}\exp\left\{-\frac{(y-\mu_{2})^{2}}{2\sigma_{2}^{2}}\right\}.
+\]
+
+类似地，
+\[
+f_{X}(x)=\frac{1}{\sqrt{2\pi}\sigma_{1}}\exp\left\{-\frac{(x-\mu_{1})^{2}}{2\sigma_{1}^{2}}\right\}.
+\]
+
+于是
+\[
+X\sim N(\mu_{1},\sigma_{1}^{2}),\qquad Y\sim N(\mu_{2},\sigma_{2}^{2}).
+\]
+
+\begin{note}[几点有关的结论]
+\begin{enumerate}[leftmargin=2em]
+    \item 二维正态分布的边缘分布还是正态分布，且与相关系数 $\rho$ 无关；
+    \item 相同的两个边缘分布不能唯一决定联合分布，这时 $\rho$ 可以不同；
+    \item 甚至两个正态的边缘可以来自一个非正态的二维分布。
+\end{enumerate}
+\end{note}
+
+关于第三点的一个例子：
+\[
+f(x,y)=\frac{1}{2\pi}\exp\left\{-\frac{x^{2}+y^{2}}{2}\right\}(1+\sin x\sin y),\quad -\infty<x,y<+\infty,
+\]
+其边缘分布为 $X\sim N(0,1)$，$Y\sim N(0,1)$。
+
+\subsection{从二维到\texorpdfstring{$n$}{n}维}
+
+设 $(X_{1},X_{2},\dots,X_{n})$ 是一个 $n$ 维随机变量，若存在非负函数 $f(x_{1},x_{2},\dots,x_{n})$，使得对任意实数 $x_{1},x_{2},\dots,x_{n}$ 有
+\[
+F(x_{1},x_{2},\dots,x_{n})=\int_{-\infty}^{x_{n}}\cdots\int_{-\infty}^{x_{2}}\int_{-\infty}^{x_{1}}f(x_{1},x_{2},\dots,x_{n})\,dx_{1}\,dx_{2}\dots dx_{n},
+\]
+称 $f(x_{1},x_{2},\dots,x_{n})$ 为 $n$ 维随机变量 $(X_{1},X_{2},\dots,X_{n})$ 的分布密度函数。
+
+相应地，一个 $k$-维分布函数的例子为
+\[
+F_{(X_{1},X_{2},\dots,X_{k})}(x_{1},x_{2},\dots,x_{k})=F(x_{1},x_{2},\dots,x_{k},+\infty,\dots,+\infty).
+\]
+一个 $k$-维分布密度函数的例子为
+\[
+\begin{aligned}
+&f_{(X_{1},X_{2},\dots,X_{k})}(x_{1},x_{2},\dots,x_{k}) \\
+&\qquad=\int_{-\infty}^{+\infty}\cdots\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(\dots,x_{k+1},x_{k+2},\dots,x_{n})\,dx_{k+1}\,dx_{k+2}\dots dx_{n}.
+\end{aligned}
+\]
+
+\section*{作业}
+
+\addcontentsline{toc}{section}{作业}
+
+教材《概率论与数理统计》第三章（pp.~84--86）：\#1, \#5, \#6, \#9.
 
 \end{document}
