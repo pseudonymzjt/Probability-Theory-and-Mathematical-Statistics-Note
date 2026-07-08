@@ -1,0 +1,417 @@
+\documentclass[11pt,a4paper]{article}
+
+% ==================== 导言区 ====================
+\usepackage[UTF8]{ctex}              % 中文支持
+\usepackage{geometry}                % 页面边距
+\usepackage{amsmath,amssymb,amsthm}  % 数学环境
+\usepackage{mathtools}               % 数学工具
+\usepackage{enumitem}                % 列表定制
+\usepackage{xcolor}                  % 颜色
+\usepackage{graphicx}                % 图片插入
+\usepackage{booktabs}                % 三线表
+\usepackage{hyperref}                % 超链接
+\usepackage{fancyhdr}                % 页眉页脚
+\usepackage{titlesec}                % 标题格式
+\usepackage{multicol}                % 多栏排版
+\usepackage{tikz}                    % 绘图
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+
+% 页面设置
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% 颜色定义
+\definecolor{maincolor}{RGB}{0,82,147}
+\definecolor{accentcolor}{RGB}{230,126,34}
+\definecolor{lightgray}{RGB}{245,245,245}
+
+% 标题格式
+\titleformat{\section}{\Large\bfseries\color{maincolor}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{maincolor!80}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{maincolor!60}}{\thesubsubsection}{1em}{}
+
+% 定理环境
+\theoremstyle{definition}
+\newtheorem{definition}{定义}[section]
+\newtheorem{example}{例}[section]
+\newtheorem{note}{注}[section]
+
+% 页眉页脚
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 概率论与数理统计 · 笔记}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% 超链接设置
+\hypersetup{colorlinks=true,linkcolor=maincolor,citecolor=maincolor,urlcolor=maincolor}
+
+% 自定义命令
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\diff}{\,\mathrm{d}}
+\newcommand{\iid}{\stackrel{\text{i.i.d.}}{\sim}}
+
+\begin{document}
+
+% ==================== 封面 ====================
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\Huge\bfseries\color{maincolor} 概率论与数理统计}\\[0.8cm]
+{\Large\color{gray} 课程笔记}\\[2cm]
+{\large 主讲：陈熙霖、常虹 \quad 助教：闵越聪、李彦辰}\\[0.5cm]
+{\large 2025年春季学期}\\[3cm]
+\begin{tikzpicture}
+\node[draw=maincolor, rounded corners=10pt, inner sep=15pt, line width=1.5pt] {
+\begin{minipage}{0.6\textwidth}
+\centering
+\textit{``概率是相对的，部分出于某种无知，部分出于我们的知识所限。''}\\[0.3cm]
+\hfill --- 拉普拉斯
+\end{minipage}
+};
+\end{tikzpicture}
+\vfill
+{\small 整理日期：\today}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ==================== 绪论 ====================
+\section{绪论}
+
+\subsection{概率论的研究对象}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{必然现象}：在一定条件下必然出现的现象。
+    \item \textbf{随机现象}：在一定条件下可能出现也可能不出现的现象。
+\end{itemize}
+
+\begin{note}
+概率论是研究客观世界\textbf{随机现象数量规律}的学科。
+\end{note}
+
+\subsection{发展简史}
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{16世纪}：意大利学者开始研究掷骰子（Chevalier de M\'{e}r\'{e}问题）。
+    \item \textbf{17世纪}：帕斯卡、费马等解决``赌徒分金''问题，标志概率论诞生。
+    \item \textbf{17--18世纪}：伯努利奠定概率论基础；拉普拉斯引入\textbf{分析概率}。
+    \item \textbf{20世纪}：柯尔莫哥洛夫建立\textbf{公理化概率理论体系}。
+\end{enumerate}
+
+\subsection{三类概率意义}
+\begin{table}[htbp]
+\centering
+\caption{三类概率的比较}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{类型} & \textbf{核心思想} & \textbf{典型例子} \\
+\midrule
+古典概率/先验概率 & 等可能结果，$P = k/n$ & 掷骰子、抛硬币 \\
+频率概率/统计概率 & 大量重复观察的频率稳定值 & 统计估计 \\
+分析概率 & 以数学分析（测度论）为基础 & 公理化体系 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{数理统计}
+数理统计研究如何有效地\textbf{收集、整理和分析}带有随机性的数据，并对所考察的问题作出推断或预测，为决策提供依据。
+
+\begin{note}
+概率是数理统计的\textbf{基础}，数理统计是概率的\textbf{应用}。
+\end{note}
+
+\subsection{概率的应用领域}
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=1em,itemsep=0pt]
+    \item 机器学习、模式识别
+    \item 电子系统、航空航天（可靠性）
+    \item 制造业（产品抽样）
+    \item 保险业（赔付赔率）
+    \item 医学（治疗有效性检验）
+    \item 人口调查（抽样）
+    \item 传染病流行（生灭过程）
+\end{itemize}
+\end{multicols}
+
+% ==================== 经典问题 ====================
+\section{经典概率问题}
+
+\subsection{非传递骰子（Non-transitive Dice）}
+类似于``石头剪刀布''的骰子构造：存在一组骰子 $A,B,C,D$，使得
+\[
+P(A>B) > \frac{1}{2},\quad P(B>C) > \frac{1}{2},\quad P(C>D) > \frac{1}{2},\quad P(D>A) > \frac{1}{2}.
+\]
+即骰子间形成\textbf{非传递}的循环优势关系。
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.5\textwidth]{fig_ntdice.png}
+% \caption{非传递骰子示意图（红、黄、蓝、绿四色骰子）}
+% \label{fig:ntdice}
+% \end{figure}
+
+\subsection{Monty Hall 问题}
+\textbf{设定}：三扇门后分别是一辆车和两只羊。参赛者选定一扇门后，主持人（知道门后情况）从剩余两扇门中打开一扇有羊的门。
+
+\textbf{问题}：参赛者应坚持原选择还是换门？
+
+\textbf{分析}：设参赛者最初选择门1。
+\begin{itemize}[leftmargin=2em]
+    \item 若车在门1（概率 $1/3$），换门失败。
+    \item 若车在门2或门3（概率 $2/3$），主持人必打开另一扇有羊的门，换门成功。
+\end{itemize}
+\[
+\boxed{P(\text{换门获胜}) = \frac{2}{3},\quad P(\text{坚持获胜}) = \frac{1}{3}}
+\]
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.6\textwidth]{fig_montyhall.png}
+% \caption{Monty Hall问题示意图（三扇门与山羊）}
+% \label{fig:montyhall}
+% \end{figure}
+
+\subsection{独生子女问题}
+\textbf{问题1}：若老大是女儿，允许生第二个孩子，是否会破坏男女比例？
+
+\textbf{答}：不会。每次生育的性别独立，条件概率不改变总体比例。
+
+\textbf{问题2}：一个家庭有两个孩子，已知其中一个是女孩，另一个也是女孩的概率是多少？
+
+\textbf{答}：样本空间为 $\{GG, GB, BG\}$（排除 $BB$），故 $P = \dfrac{1}{3}$。
+
+\subsection{抛硬币决定命运}
+连续抛硬币，直到最近三次出现``正反反''（HTT）或``反反正''（TTH）为止。
+
+\textbf{关键}：前两次结果决定命运。若前两次为``反反''，则后者（TTH）必胜；否则前者（HTT）有优势。
+
+\subsection{路边游戏（公平性分析）}
+\textbf{游戏1（抛硬币）}：双方各抛一枚硬币。
+\begin{itemize}[leftmargin=2em]
+    \item 两正：艺人付参与者 3 元
+    \item 两反：艺人付参与者 1 元
+    \item 一正一反：参与者付艺人 2 元
+\end{itemize}
+
+\textbf{游戏2（亮硬币）}：规则同上，但双方主动亮出硬币。
+
+\textbf{分析}：设参与者选择正面概率为 $p$，艺人选择正面概率为 $q$。
+\[
+\E[\text{收益}] = 3pq + 1(1-p)(1-q) - 2[p(1-q)+(1-p)q].
+\]
+在亮硬币游戏中，参与者可根据对方策略调整；抛硬币游戏则纯随机。两者公平性不同，\textbf{亮硬币游戏}可通过策略占优。
+
+\subsection{俄罗斯轮盘赌}
+左轮手枪有6个弹仓，$k$ 颗连续子弹，双方轮流对自己开枪。
+
+\textbf{核心}：计算先手与后手的生存概率，关键在于子弹的连续分布与位置轮换。
+
+\subsection{统计的障眼法——辛普森悖论}
+\textbf{背景}：1986年肾结石手术成功率统计。
+
+\begin{table}[htbp]
+\centering
+\caption{手术成功率对比}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{手术A} & \textbf{手术B} \\
+\midrule
+小块结石 & 93\% (81/87) & 87\% (234/270) \\
+大块结石 & 73\% (192/263) & 69\% (55/80) \\
+\midrule
+\textbf{合计} & 78\% (273/350) & 83\% (289/350) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{悖论}：分组比较中手术A更优，但合计时手术B更优。原因在于两组样本量差异大（混杂变量）。
+
+\subsection{计数与空间的骗局}
+\textbf{问题}：妈妈随机去两个兄弟家做饭，哪边地铁先到就去哪边。哥哥比弟弟吃到妈妈做的饭次数多很多，为什么？
+
+\textbf{原因}：\textbf{计数空间不均匀}。例如地铁时刻表：
+\begin{itemize}[leftmargin=2em]
+    \item 去哥哥家：10:00, 10:10, 10:20, \dots（间隔10分钟）
+    \item 去弟弟家：10:02, 10:12, 10:22, \dots（间隔10分钟）
+\end{itemize}
+妈妈在随机时刻到达，更可能赶上先到的哥哥家地铁（因为时间窗口更大）。
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\textwidth]{fig_timeaxis.png}
+% \caption{时间轴上的不均匀计数示意图}
+% \label{fig:timeaxis}
+% \end{figure}
+
+% ==================== 课程概览 ====================
+\section{课程概览}
+
+\subsection{主要内容}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{第一部分：概率论}
+    \begin{enumerate}[label=\arabic*.,leftmargin=1em]
+        \item 随机事件与概率
+        \item 随机变量及其分布
+        \item 多维随机变量及其分布
+        \item 随机变量的数字特征
+        \item 大数定律及中心极限定理
+    \end{enumerate}
+    \item \textbf{第二部分：数理统计}
+    \begin{enumerate}[label=\arabic*.,leftmargin=1em]
+        \item 样本及抽样分布
+        \item 参数估计
+        \item 假设检验
+        \item 方差分析
+        \item $*$ 随机过程、马尔可夫链、平稳过程
+        \item $*$ Bayes统计推断、因果推断
+    \end{enumerate}
+\end{itemize}
+
+\subsection{教材与参考书}
+\begin{enumerate}[leftmargin=2em]
+    \item 盛聚、谢式千、潘承毅. \textit{概率论与数理统计}. 高等教育出版社, 2014.
+    \item 威廉·费勒. \textit{概率论及其应用}. 人民邮电出版社, 2014.
+    \item 拉普拉斯. \textit{关于概率的哲学随笔}（龚光鲁、钱敏平译）. 高等教育出版社.
+\end{enumerate}
+
+\subsection{成绩构成}
+\begin{itemize}[leftmargin=2em]
+    \item 作业：30\%
+    \item 期中考试：30\%
+    \item 期末考试：40\%
+\end{itemize}
+
+% ==================== 第一章 ====================
+\section{第一章：随机事件与概率}
+
+\subsection{随机事件及其概率}
+
+\subsubsection{随机试验}
+满足以下三个条件的试验称为\textbf{随机试验}（记为 $E$）：
+\begin{enumerate}[leftmargin=2em]
+    \item 可在相同条件下重复进行；
+    \item 一次试验前无法确定具体结果；
+    \item 能确定所有可能结果。
+\end{enumerate}
+
+\subsubsection{样本空间与样本点}
+\begin{definition}[样本空间]
+随机试验的所有可能结果组成的集合称为\textbf{样本空间}，记为 $\Omega$（或 $S$）。
+\end{definition}
+
+\begin{definition}[样本点与事件]
+\begin{itemize}[leftmargin=1em]
+    \item \textbf{样本点}：样本空间的单个元素，记为 $e$ 或 $\omega$。
+    \item \textbf{随机事件}：样本空间的任意子集，记为 $A,B,C$ 等。
+    \item \textbf{基本事件}：由单个样本点组成的集合。
+\end{itemize}
+\end{definition}
+
+\textbf{两个特殊事件}：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{必然事件}：$\Omega$（一定发生）
+    \item \textbf{不可能事件}：$\varnothing$（一定不发生）
+\end{itemize}
+
+\subsubsection{事件的关系与运算}
+设 $A,B \subseteq \Omega$，则：
+
+\begin{table}[htbp]
+\centering
+\caption{事件的集合运算}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{运算} & \textbf{符号} & \textbf{含义} \\
+\midrule
+包含 & $A \subseteq B$ & $A$发生必导致$B$发生 \\
+并（和） & $A \cup B$ & $A$与$B$至少一个发生 \\
+交（积） & $A \cap B$（或 $AB$） & $A$与$B$同时发生 \\
+差 & $A \setminus B$（或 $A-B$） & $A$发生而$B$不发生 \\
+对立（补） & $\bar{A}$（或 $A^c$） & $A$不发生 \\
+互斥 & $A \cap B = \varnothing$ & $A$与$B$不能同时发生 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{运算律}：
+\begin{align*}
+&\text{交换律：} && A \cup B = B \cup A,\quad A \cap B = B \cap A \\
+&\text{结合律：} && (A \cup B) \cup C = A \cup (B \cup C) \\
+&\text{分配律：} && A \cup (B \cap C) = (A \cup B) \cap (A \cup C) \\
+&\text{De Morgan律：} && \overline{A \cup B} = \bar{A} \cap \bar{B},\quad \overline{A \cap B} = \bar{A} \cup \bar{B}
+\end{align*}
+
+\begin{example}[掷三枚硬币]
+设 $A,B,C$ 分别表示三枚硬币正面朝上。则：
+\begin{itemize}[leftmargin=2em]
+    \item ``至少一枚正面''：$A \cup B \cup C$
+    \item ``恰有一枚正面''：$A\bar{B}\bar{C} \cup \bar{A}B\bar{C} \cup \bar{A}\bar{B}C$
+    \item ``三次同一面''：$AB C \cup \bar{A}\bar{B}\bar{C}$
+\end{itemize}
+\end{example}
+
+\subsection{频率与概率}
+
+\subsubsection{频率的定义}
+在 $n$ 次重复试验中，事件 $A$ 发生 $n_A$ 次，则
+\[
+f_n(A) = \frac{n_A}{n}
+\]
+称为 $A$ 发生的\textbf{频率}。
+
+\textbf{基本性质}：
+\begin{enumerate}[leftmargin=2em]
+    \item $0 \leq f_n(A) \leq 1$；
+    \item $f_n(\Omega) = 1$；
+    \item 若 $A_1, A_2, \dots, A_k$ 两两互斥，则
+    \[
+    f_n\left(\bigcup_{i=1}^k A_i\right) = \sum_{i=1}^k f_n(A_i).
+    \]
+\end{enumerate}
+
+\subsubsection{蒲丰投针（Buffon's Needle）}
+\textbf{问题}：平面上画有间距为 $d$ 的平行线，随机投掷长度为 $l$ 的针，求针与线相交的概率。
+
+\textbf{思路}：
+\begin{enumerate}[leftmargin=2em]
+    \item 设针中点到最近平行线距离为 $y \in [0, d/2]$，针与线夹角为 $\theta \in [0, \pi]$。
+    \item 相交条件：$y \leq \dfrac{l}{2}\sin\theta$。
+    \item 由几何概型：
+    \[
+    P = \frac{\int_0^\pi \frac{l}{2}\sin\theta \,\diff\theta}{\frac{d}{2} \cdot \pi} = \frac{2l}{\pi d}.
+    \]
+\end{enumerate}
+
+\textbf{应用}：通过大量投针实验，统计交点数 $m$，可估算圆周率：
+\[
+\boxed{\pi \approx \frac{2l \cdot n}{m \cdot d}}
+\]
+其中 $n$ 为投针次数。
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.7\textwidth]{fig_buffon.png}
+% \caption{蒲丰投针示意图（针与平行线相交）}
+% \label{fig:buffon}
+% \end{figure}
+
+% ==================== 后续章节框架 ====================
+\section*{后续章节框架（待补充）}
+\addcontentsline{toc}{section}{后续章节框架（待补充）}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{\S3 古典概型与几何概型}：等可能概型、排列组合、几何测度。
+    \item \textbf{\S4 条件概率}：条件概率公式、乘法公式、全概率公式、Bayes公式。
+    \item \textbf{\S5 独立性}：两两独立、相互独立、Bernoulli概型。
+\end{itemize}
+
+% ==================== 结尾 ====================
+\vfill
+\begin{center}
+\rule{0.6\textwidth}{0.4pt}\\[0.5em]
+\textit{``生活中最重要的问题，其中绝大多数在实质上只是概率的问题。''}\\
+--- 拉普拉斯
+\end{center}
+
+\end{document}
