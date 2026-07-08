@@ -4829,7 +4829,7 @@ f_{X+Y}(z)&=\int_{-\infty}^{\infty}f_{X}(z-y)f_{Y}(y)\,dy
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/fig_chapter3_summary.png}
+    \includegraphics[width=0.3\textwidth]{figures/fig_chapter3_summary.png}
     \caption{第三章知识结构总图}
     \label{fig:chapter3_summary}
 \end{figure}
@@ -4867,5 +4867,888 @@ f_{X+Y}(z)&=\int_{-\infty}^{\infty}f_{X}(z-y)f_{Y}(y)\,dy
 \addcontentsline{toc}{section}{作业}
 
 教材《概率论与数理统计》第三章（pp.~86--88）：\#18, \#21, \#24, \#29, \#34.
+
+\newpage
+\chapter{随机变量的数字特征}
+
+\section{数字特征}
+
+研究概率的目的很大程度在于关心其总体特性。
+
+\begin{example}[投资回报率]
+对于投资而言，关心平均回报率。
+\end{example}
+
+\begin{example}[学校升学率]
+对中学而言，关心学生的升学率；对大学而言，关心毕业生受社会欢迎的程度。
+\end{example}
+
+\begin{example}[企业返修率]
+对于企业而言，关心产品的返修率。
+\end{example}
+
+可以有多种不同的数字特征，本章将关注一些常用的数字特征：
+\begin{itemize}[leftmargin=2em]
+    \item 数学期望（Expectation）
+    \item 方差（Variance）
+    \item 协方差（Covariance）
+    \item 相关系数（Correlation Coefficient）
+    \item 矩（Moment）
+\end{itemize}
+
+\section{数学期望}
+
+\subsection{日常生活中的``期望''}
+
+日常生活中的对``期望''的使用：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 高考的总分；
+    \item 长途旅行时关心目的地平均温度；
+    \item 定飞机票时如果连接多个航班，考虑准点率；
+    \item 公平问题——赌徒分金问题；
+    \item 设计分类器或学习模型时关心错误率/正确率。
+\end{enumerate}
+
+\subsubsection*{回顾赌徒分金问题}
+
+梅累和赌友各人下赌注$32$个金币，先赢三局为胜。赌博进行至梅累已赢了两局，而赌友赢了一局时，需要终止赌博，此时的这$64$个金币两人应该怎样分才算合理呢？（假设两人赌技相当）
+
+分析：记梅累赢得次数为$M(n)$，其赌友赢得次数为$F(n)$。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_gambler_tree.png}
+    \caption{赌徒分金问题的树状图}
+    \label{fig:gambler_tree}
+\end{figure}
+
+故在赌技相同的情况下，梅累有$3/4$的希望赢得赌博，梅累的赌友赢得的机会为$1/4$。
+
+因此，梅累能``期望''得到的金币为
+\[
+64\times\frac{3}{4}+0\times\frac{1}{4}=48.
+\]
+梅累赌友``期望''得到的金币为
+\[
+64\times\frac{1}{4}+0\times\frac{3}{4}=16.
+\]
+
+从期望的角度，要考虑每种可能的收益/风险。
+
+\subsection{离散型随机变量的数学期望}
+
+\begin{definition}[离散型随机变量的数学期望]
+设离散型随机变量$X$的分布律为
+\[
+P\{X=x_{k}\}=p_{k},\quad k=1,2,\ldots
+\]
+如果$\sum_{k=1}^{\infty}x_{k}p_{k}$绝对收敛（即$\sum_{k=1}^{\infty}|x_{k}|p_{k}<\infty$），则称级数$\sum_{k=1}^{\infty}x_{k}p_{k}$为随机变量$X$的数学期望（又称均值），记为$E(X)$，即
+\[
+E(X)=\sum_{k=1}^{\infty}x_{k}p_{k}.
+\]
+\end{definition}
+
+\begin{note}
+$E(X)$是一个实数，而非变量——回到普通大众关心的本质。
+\end{note}
+
+\subsubsection*{均值与幸存者偏见}
+
+幸存者偏见意思是指，采样的样本仅来自于幸存者时，存在与实际情况不同的偏差。
+\begin{itemize}[leftmargin=2em]
+    \item 喝葡萄酒的人长寿；
+    \item 二战中的飞机；
+    \item 要不要读博士。
+\end{itemize}
+
+对策：
+\begin{itemize}[leftmargin=2em]
+    \item 建立``概率论''思维；
+    \item 避免陷入``简单逻辑''。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_survivor_bias.png}
+    \caption{二战中返航飞机弹孔分布示意图（幸存者偏见）}
+    \label{fig:survivor_bias}
+\end{figure}
+
+\subsubsection*{常见离散型分布的期望}
+
+\textbf{1. 0--1分布}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$X$ & $0$ & $1$ \\
+\midrule
+$p_{X}$ & $1-p$ & $p$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\[
+E(X)=1\times p+0\times(1-p)=p.
+\]
+
+\textbf{2. 二项分布}
+
+设$X\sim B(n,p)$，即
+\[
+P(X=k)=\binom{n}{k}p^{k}(1-p)^{n-k},\quad k=0,1,\ldots,n.
+\]
+则
+\[
+E(X)=\sum_{k=0}^{n}k\binom{n}{k}p^{k}(1-p)^{n-k}.
+\]
+注意到$k\binom{n}{k}=n\binom{n-1}{k-1}$，于是
+\[
+E(X)=np\sum_{k=1}^{n}\binom{n-1}{k-1}p^{k-1}(1-p)^{n-k}=np.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_binomial_pmf.png}
+    \caption{二项分布 $b(20,p)$ 的概率质量函数图（$p=0.1,0.2,\ldots,0.9$）}
+    \label{fig:binomial_pmf}
+\end{figure}
+
+\textbf{3. 几何分布}
+
+设$X\sim g(k,p)$，即
+\[
+P(X=k)=p(1-p)^{k-1},\quad k=1,2,\ldots
+\]
+则
+\[
+E(X)=\sum_{k=1}^{\infty}kp(1-p)^{k-1}=p\sum_{k=1}^{\infty}k(1-p)^{k-1}=\frac{1}{p}.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_geometric_pmf.png}
+    \caption{几何分布 $g(k,p)$ 的概率质量函数图}
+    \label{fig:geometric_pmf}
+\end{figure}
+
+\textbf{附：几何分布均值推导}
+
+令$Z_{n}=\sum_{k=1}^{n}kq^{k-1}$（其中$q=1-p$），于是有$Z_{1}=1$，且
+\begin{align*}
+Z_{n}&=\sum_{k=1}^{n}q^{k-1}+q\sum_{k=2}^{n}(k-1)q^{k-2}\\
+&=\sum_{k=1}^{n}q^{k-1}+q\sum_{k=1}^{n-1}kq^{k-1}\\
+&=\frac{1-q^{n}}{1-q}+qZ_{n-1}.
+\end{align*}
+递推可得
+\[
+\lim_{n\to\infty}Z_{n}=\frac{1}{p^{2}},
+\]
+故
+\[
+E(X)=p\cdot\frac{1}{p^{2}}=\frac{1}{p}.
+\]
+
+\textbf{4. 泊松分布}
+
+设$X\sim P(\lambda)$，即
+\[
+P(X=k)=\frac{\lambda^{k}e^{-\lambda}}{k!},\quad k=0,1,2,\ldots
+\]
+则
+\[
+E(X)=\sum_{k=1}^{\infty}k\frac{\lambda^{k}e^{-\lambda}}{k!}
+=\lambda e^{-\lambda}\sum_{k=1}^{\infty}\frac{\lambda^{k-1}}{(k-1)!}
+=\lambda e^{-\lambda}e^{\lambda}=\lambda.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_poisson_pmf.png}
+    \caption{泊松分布概率质量函数示意图}
+    \label{fig:poisson_pmf}
+\end{figure}
+
+\subsubsection*{例子}
+
+\begin{example}[车站候车时间]
+按规定，某车站每天$8{:}00$--$9{:}00$，$9{:}00$--$10{:}00$都恰有一辆客车出发，但发车是在三个随机的时刻，且两者发车时间相互独立，其规律为：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+到站时刻 & $8{:}10$ & $8{:}30$ & $8{:}50$ \\
+\midrule
+概率 & $1/6$ & $1/2$ & $1/3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+（车2对应$9{:}10,9{:}30,9{:}50$，概率相同）
+
+一旅客$8{:}20$到车站，求他候车时间的数学期望。
+\end{example}
+
+\textbf{解}：设旅客的候车时间为$X$（以分计），$X$的分布律为：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+$X$ & $10$ ($8{:}30$) & $30$ ($8{:}50$) & $50$ ($9{:}10$) & $70$ ($9{:}30$) & $90$ ($9{:}50$) \\
+\midrule
+$p_{k}$ & $1/2$ & $1/3$ & $1/6\times 1/6$ & $1/6\times 1/2$ & $1/6\times 1/3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+注意：其中$9{:}00$--$10{:}00$之间车的前提之一是$8{:}00$--$9{:}00$之间的车在$8{:}10$出发。
+
+于是候车的数学期望为
+\[
+E(X)=10\times\frac{1}{2}+30\times\frac{1}{3}+50\times\frac{1}{36}+70\times\frac{1}{12}+90\times\frac{1}{18}=27.22.
+\]
+
+\begin{example}[商店的销售策略]
+某商店对某种家用电器的销售采用先使用后付款的方式，记使用寿命为$X$（以年计），规定：
+\[
+\begin{cases}
+X\leq 1, & \text{一台付款}1500\text{元},\\[0.3em]
+1<X\leq 2, & \text{一台付款}2000\text{元},\\[0.3em]
+2<X\leq 3, & \text{一台付款}2500\text{元},\\[0.3em]
+3<X, & \text{一台付款}3000\text{元}.
+\end{cases}
+\]
+设寿命$X$服从指数分布，概率密度为
+\[
+f(x)=
+\begin{cases}
+\dfrac{1}{10}e^{-x/10}, & x>0,\\[0.5em]
+0, & x\leq 0,
+\end{cases}
+\]
+求该商店一台家电收费$Y$的数学期望。
+\end{example}
+
+\textbf{解}：
+\begin{align*}
+P\{X\leq 1\}&=\int_{0}^{1}\frac{1}{10}e^{-x/10}\,dx=1-e^{-0.1}=0.0952,\\
+P\{1<X\leq 2\}&=\int_{1}^{2}\frac{1}{10}e^{-x/10}\,dx=e^{-0.1}-e^{-0.2}=0.0861,\\
+P\{2<X\leq 3\}&=\int_{2}^{3}\frac{1}{10}e^{-x/10}\,dx=e^{-0.2}-e^{-0.3}=0.0779,\\
+P\{X>3\}&=\int_{3}^{+\infty}\frac{1}{10}e^{-x/10}\,dx=e^{-0.3}=0.7408.
+\end{align*}
+
+因而收费的分布律为
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$Y$ & $1500$ & $2000$ & $2500$ & $3000$ \\
+\midrule
+$p_{k}$ & $0.0952$ & $0.0861$ & $0.0779$ & $0.7408$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+于是
+\[
+E(Y)=1500\times 0.0952+2000\times 0.0861+2500\times 0.0779+3000\times 0.7408=2732.15,
+\]
+即每台的数学期望为$2732.15$元。
+
+\begin{example}[机场爆炸物检查]
+机场进行爆炸物检查，可以用两种方法进行：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 每个人分别用试纸检测，这就需验$N$次；
+    \item $k$个人一组，每组用同一试纸擦拭，然后检查。
+    \begin{itemize}
+        \item 若呈阴性，直接放行，$k$个人只需验一次；
+        \item 若呈阳性，则再对这$k$个人分别进行检查，$k$个人共要$k+1$次。
+    \end{itemize}
+\end{enumerate}
+设每个人接触过爆炸品的概率为$p$，且相互独立。试说明当$p$较小时，选取适当的$k$，按第二种方法可以减少次数，并说明$k$取什么值时最适宜。
+\end{example}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_airport_security.png}
+    \caption{机场安检示意图}
+    \label{fig:airport_security}
+\end{figure}
+
+\textbf{解}：每个人未接触过爆炸品的概率为$q=1-p$。
+
+设以$k$个人为一组时，组内每人化验的次数为$X$，则：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$X$ & $1/k$ & $(k+1)/k$ \\
+\midrule
+$p_{k}$ & $q^{k}$ & $1-q^{k}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+于是
+\[
+E(X)=\frac{1}{k}q^{k}+\frac{k+1}{k}(1-q^{k})=1+\frac{1}{k}-q^{k}.
+\]
+
+于是只要$\frac{1}{k}-q^{k}<0$，即可减少平均次数。
+
+最佳分组大小与$q$的关系如下图所示。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_optimal_group_size.png}
+    \caption{最佳分组大小与 $q$ 的关系图（平均次数随分组大小 $k$ 变化的曲线，$q$ 取不同值）}
+    \label{fig:optimal_group_size}
+\end{figure}
+
+可见当$p$较小（例如，$\leq 0.01$）时，$10\sim 20$人的分组是非常有效的。
+
+\subsection{连续型随机变量的数学期望}
+
+\begin{definition}[连续型随机变量的数学期望]
+设连续型随机变量$X$的概率密度函数为$f(x)$，如果
+\[
+\int_{-\infty}^{+\infty}|x|f(x)\,dx
+\]
+绝对收敛，则称
+\[
+\int_{-\infty}^{+\infty}xf(x)\,dx
+\]
+的值为随机变量$X$的数学期望，记为
+\[
+E(X)=\int_{-\infty}^{+\infty}xf(x)\,dx.
+\]
+\end{definition}
+
+\begin{example}[服务等待时间]
+设顾客在某银行的窗口等待服务的时间$X$（以分计）服从指数分布，其概率密度为
+\[
+f(x)=
+\begin{cases}
+\dfrac{e^{-x/5}}{5}, & x>0,\\[0.5em]
+0, & x\leq 0.
+\end{cases}
+\]
+试求顾客等待服务的平均时间。
+\end{example}
+
+\textbf{解}：
+\[
+E(X)=\int_{-\infty}^{+\infty}xf(x)\,dx=\int_{0}^{+\infty}\frac{x e^{-x/5}}{5}\,dx
+=5\left(-\frac{x}{5}-1\right)e^{-x/5}\Big|_{0}^{\infty}=5.
+\]
+
+\subsubsection*{常见连续型分布的期望}
+
+\textbf{1. 均匀分布}
+
+设$X\sim U(a,b)$，即
+\[
+f(x)=
+\begin{cases}
+\dfrac{1}{b-a}, & a<x<b,\\[0.5em]
+0, & \text{其他}.
+\end{cases}
+\]
+则
+\[
+E(X)=\int_{-\infty}^{+\infty}xf(x)\,dx=\int_{a}^{b}\frac{x}{b-a}\,dx=\frac{b^{2}-a^{2}}{2(b-a)}=\frac{a+b}{2}.
+\]
+
+\textbf{2. 指数分布}
+
+设$X\sim\text{Exponential}(\lambda)$，即
+\[
+f(x)=
+\begin{cases}
+\lambda e^{-\lambda x}, & x>0,\\[0.3em]
+0, & x\leq 0.
+\end{cases}
+\]
+则
+\[
+E(X)=\int_{0}^{+\infty}x\lambda e^{-\lambda x}\,dx
+=\lambda\left(-\frac{x}{\lambda}-\frac{1}{\lambda^{2}}\right)e^{-\lambda x}\Big|_{0}^{+\infty}
+=\frac{1}{\lambda}.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_exponential_pdf_params.png}
+    \caption{指数分布概率密度函数图（$\lambda=0.5,1,1.5$）}
+    \label{fig:exponential_pdf_params}
+\end{figure}
+
+\textbf{3. 正态分布}
+
+设$X\sim N(\mu,\sigma^{2})$，即
+\[
+f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}}.
+\]
+则
+\begin{align*}
+E(X)&=\int_{-\infty}^{+\infty}x\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}}\,dx\\
+&=\int_{-\infty}^{+\infty}\frac{x-\mu}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}}\,dx
++\int_{-\infty}^{+\infty}\frac{\mu}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}}\,dx\\
+&=\frac{\mu}{\sqrt{2\pi}\sigma}\int_{-\infty}^{+\infty}e^{-\frac{u^{2}}{2\sigma^{2}}}\,du\quad(u=x-\mu)\\
+&=\mu.
+\end{align*}
+（其中利用了极坐标代换计算$[E(X)]^{2}=\mu^{2}$以验证归一性）
+
+\subsection{随机变量函数的数学期望}
+
+\begin{theorem}[一维随机变量函数的期望]
+设$Y$是随机变量$X$的函数，即$Y=g(X)$，$g(x)$是连续函数。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若$X$是离散型随机变量，且其概率分布为$P\{X=x_{i}\}=p_{i}$，$i=1,2,\ldots$。若$\sum_{i=1}^{\infty}g(x_{i})p_{i}$绝对收敛，则$Y$的数学期望为
+    \[
+    E(Y)=E[g(X)]=\sum_{i=1}^{\infty}g(x_{i})p_{i}.
+    \]
+    \item 若$X$是连续型随机变量，且其概率密度为$f(x)$。若$\int_{-\infty}^{+\infty}g(x)f(x)\,dx$绝对收敛，则$Y$的数学期望为
+    \[
+    E(Y)=E[g(X)]=\int_{-\infty}^{+\infty}g(x)f(x)\,dx.
+    \]
+\end{enumerate}
+\end{theorem}
+
+\begin{note}
+这一定理的价值在于给出了求$E(Y)$时，不必算出$Y$的分布律或概率密度，而是直接利用$X$的分布律或概率密度即可。
+\end{note}
+
+从一维到二维随机变量的扩展，有下面的定理：
+
+\begin{theorem}[二维随机变量函数的期望]
+设$Z$是随机变量$X,Y$的函数，即$Z=g(X,Y)$，$g(x,y)$是连续函数。
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若二维离散型随机变量$(X,Y)$的分布律为
+    \[
+    P(X=x_{i},Y=y_{j})=p_{ij},\quad i,j=1,2,\ldots
+    \]
+    若$\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}g(x_{i},y_{j})p_{ij}$绝对收敛，则$Z$的数学期望为
+    \[
+    E(Z)=E[g(X,Y)]=\sum_{i=1}^{\infty}\sum_{j=1}^{\infty}g(x_{i},y_{j})p_{ij}.
+    \]
+    \item 若二维连续型随机变量$(X,Y)$的概率密度为$f(x,y)$，若
+    \[
+    \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}g(x,y)f(x,y)\,dx\,dy
+    \]
+    绝对收敛，则$Z$的数学期望为
+    \[
+    E(Z)=E[g(X,Y)]=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}g(x,y)f(x,y)\,dx\,dy.
+    \]
+\end{enumerate}
+\end{theorem}
+
+\begin{example}[飞机机翼的正压力]
+设风速$V$在$(0,a)$上服从均匀分布，即具有概率密度
+\[
+f(v)=
+\begin{cases}
+\dfrac{1}{a}, & 0<v<a,\\[0.5em]
+0, & \text{其他}.
+\end{cases}
+\]
+又设飞机机翼受到的正压力$W$是$V$的函数，$W=kV^{2}$，$k>0$是常数，求$W$的数学期望。
+\end{example}
+
+\textbf{解}：由上述定理有
+\[
+E(W)=\int_{0}^{a}kv^{2}f(v)\,dv=\int_{0}^{a}\frac{kv^{2}}{a}\,dv=\frac{1}{3}ka^{2}.
+\]
+
+\begin{example}[二维随机变量函数的期望]
+设随机变量$(X,Y)$的概率密度为
+\[
+f(x,y)=
+\begin{cases}
+\dfrac{3}{2x^{3}y^{2}}, & \dfrac{1}{x}<y<x,\;x>1,\\[0.5em]
+0, & \text{其他}.
+\end{cases}
+\]
+求数学期望$E(Y)$，$E\!\left(\dfrac{1}{XY}\right)$。
+\end{example}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_integration_region.png}
+    \caption{积分区域示意图（$y=1/x, y=x, x=1$ 围成的区域）}
+    \label{fig:integration_region}
+\end{figure}
+
+\textbf{解}：
+\[
+E(Y)=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}yf(x,y)\,dy\,dx
+=\int_{1}^{+\infty}\int_{1/x}^{x}\frac{3}{2x^{3}y}\,dy\,dx
+=3\int_{1}^{+\infty}\frac{\ln x}{x^{3}}\,dx=\frac{3}{4}.
+\]
+
+另外，
+\[
+E\!\left(\frac{1}{XY}\right)=\int_{1}^{+\infty}\int_{1/x}^{x}\frac{3}{2x^{4}y^{3}}\,dy\,dx
+=\frac{3}{4}\int_{1}^{+\infty}\left(\frac{1}{x^{2}}-\frac{1}{x^{6}}\right)dx=\frac{3}{5}.
+\]
+
+\begin{note}
+另外的解法，按照定义，先求出$f_{Y}(y)$，之后再求出$E(Y)=\int_{-\infty}^{+\infty}yf_{Y}(y)\,dy$。
+\end{note}
+
+\begin{example}[生产决策]
+某航空公司打算开辟新航线，并考虑航班的运力，估计每售出一张机票可获利$300$元，而出现一个空座将导致$700$元的损失，预计每周旅行的乘客数$Y$服从指数分布
+\[
+f_{Y}(y)=
+\begin{cases}
+\lambda e^{-\lambda y}, & y>0,\\[0.3em]
+0, & y\leq 0.
+\end{cases}
+\]
+试为这条航线确定每周需要的座位数。
+\end{example}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_production_decision.png}
+    \caption{生产决策示意图}
+    \label{fig:production_decision}
+\end{figure}
+
+\textbf{解}：设安排的座位数为$x$，则获利（损失）函数如下
+\[
+g(y)=
+\begin{cases}
+300y-700(x-y), & y<x,\\[0.3em]
+300x, & y\geq x.
+\end{cases}
+\]
+
+预期获益（损失）$E[g(y)]$为
+\[
+E[g(y)]=\int_{0}^{x}[300y-700(x-y)]\lambda e^{-\lambda y}\,dy+\int_{x}^{\infty}300x\lambda e^{-\lambda y}\,dy.
+\]
+计算得
+\[
+E[g(y)]=\frac{1000}{\lambda}(1-e^{-\lambda x})-700x.
+\]
+
+令
+\[
+\frac{dE(g(y))}{dx}=1000e^{-\lambda x}-700=0,
+\]
+得
+\[
+x=-\frac{1}{\lambda}\ln 0.7\approx\frac{0.3567}{\lambda}.
+\]
+
+由于
+\[
+\frac{d^{2}E(g(y))}{dx^{2}}=-1000\lambda e^{-\lambda x}<0,
+\]
+故此时有最大收益（最小损失）。
+
+于是收益（损失）为
+\[
+\frac{1000}{\lambda}(1-e^{-0.3567})-700x=\frac{300.0173711}{\lambda}-700x.
+\]
+
+如果$\lambda=0.0001$，则每周安排大约$3567$个座位，预计可以取得最佳效益，大约获利$503{,}273.71$元。
+
+\subsubsection*{数学期望的特性}
+
+\begin{property}[数学期望的基本性质]
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 设$C$是常数，则有$E(C)=C$。
+    
+    \item 设$X$是一个随机变量，$C$是常数，则有
+    \[
+    E(CX)=CE(X).
+    \]
+    
+    \item 设$X,Y$是两个随机变量，则有
+    \[
+    E(X+Y)=E(X)+E(Y).
+    \]
+    
+    \item 设$X,Y$是相互独立的随机变量，则有
+    \[
+    E(XY)=E(X)E(Y).
+    \]
+\end{enumerate}
+\end{property}
+
+\textbf{证明}（性质3）：
+\[
+E(X+Y)=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}(x+y)f(x,y)\,dx\,dy
+=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}xf(x,y)\,dx\,dy
++\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}yf(x,y)\,dx\,dy
+=E(X)+E(Y).
+\]
+
+\textbf{证明}（性质4）：
+\[
+E(XY)=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}xyf(x,y)\,dx\,dy
+=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}xyf_{X}(x)f_{Y}(y)\,dx\,dy
+=E(X)E(Y).
+\]
+
+将上述性质结合有：
+\[
+E(aX+bY+c)=aE(X)+bE(Y)+c.
+\]
+这一性质可推广至任意有限个随机变量线性组合的情况。
+
+\begin{example}[电梯停留层数]
+酒店客房均匀分布在$2$--$11$层，电梯从一层出发载有$20$位客人，假定没有来自电梯外部的停留请求，以$X$表示停的次数，求$X$的数学期望（设各位客人在各层离开电梯是等可能的，并设各客人是相互独立的）。
+\end{example}
+
+\textbf{解}：引入随机变量
+\[
+X_{i}=
+\begin{cases}
+0, & \text{第}i+1\text{层无人离开},\\[0.3em]
+1, & \text{第}i+1\text{层有人离开},
+\end{cases}
+\quad i=1,2,\ldots,10.
+\]
+
+于是
+\[
+X=X_{1}+X_{2}+\cdots+X_{10}.
+\]
+\[
+E(X_{i})=P(X_{i}=1)=1-\left(\frac{9}{10}\right)^{20}.
+\]
+故
+\[
+E(X)=\sum_{i=1}^{10}E(X_{i})=10\left[1-\left(\frac{9}{10}\right)^{20}\right]\approx 8.784.
+\]
+
+\begin{note}
+将$X$分解成数个随机变量之和，然后利用随机变量和的数学期望等于随机变量数学期望之和来求数学期望。
+\end{note}
+
+\subsubsection*{关于期望的直觉理解}
+
+\begin{itemize}[leftmargin=2em]
+    \item 期望就是加权平均；
+    \item 加权的对象就是随机变量或随机变量的函数；
+    \item ``权''就是概率的分布律，或概率密度函数。
+\end{itemize}
+
+\subsubsection*{期望的统一表达}
+
+\begin{definition}[期望的统一表达]
+$X$的期望值定义为
+\[
+E(X)=\int x\,dF(x)=
+\begin{cases}
+\sum_{k=1}^{\infty}x_{k}p_{k}, & \text{离散型},\\[0.5em]
+\int_{-\infty}^{+\infty}xf(x)\,dx, & \text{连续型}.
+\end{cases}
+\]
+如果上式绝对收敛，则称其值为随机变量$X$的数学期望。
+\end{definition}
+
+\section{方差}
+
+\begin{example}[投资与风险]
+对于投资而言，关心平均回报率，但也关心可能的风险。
+\end{example}
+
+\begin{example}[学校教育的质量]
+对中学而言，关心学生的升学率，但也关心最好考取好学校的人数，和落在最差的那一部分人数；对大学而言关心毕业生受社会欢迎的程度，但也关心产生的各类领袖人数等。
+\end{example}
+
+\begin{example}[企业产品质量]
+对于企业而言，关心产品的返修率，但也关心极端故障（需要危机公关），和极端的优秀产品（用来做广告）。
+\end{example}
+
+考虑一个问题：如果你是射击队教练，有两个队员，一个肯定能进前$8$名，另一位发挥好能拿冠军，发挥失常则无缘决赛，现在只有一个参赛名额，你会选择哪一位？
+
+\begin{example}[灯泡质量]
+设有一批灯泡寿命为：一半约$950$小时，另一半约$1050$小时，平均寿命为$1000$小时；另一批灯泡寿命为：一半约$1300$小时，另一半约$700$小时，平均寿命为$1000$小时。哪批灯泡的质量更好？
+\end{example}
+
+单从平均寿命这一指标无法判断，进一步考察灯泡寿命$X$与均值$1000$小时的偏离程度。
+
+方差——正是体现这种意义的数学特征。
+
+\begin{definition}[方差]
+设$X$是一个随机变量，若$E\{[X-E(X)]^{2}\}$存在，则称其为$X$的\textbf{方差}，记为$D(X)$或$\mathrm{Var}(X)$，即
+\[
+D(X)=\mathrm{Var}(X)=E\{[X-E(X)]^{2}\}.
+\]
+将$\sqrt{D(X)}$记为$\sigma(X)$，称为$X$的\textbf{标准差}或\textbf{均方差}，它是与随机变量$X$具有相同量纲的量。
+\end{definition}
+
+方差$D(X)$刻画了$X$取值的分散程度，它是衡量$X$取值分散程度的度量。若$X$取值集中，则$D(X)$较小；反之，若$X$取值比较分散，则$D(X)$较大。
+
+\subsubsection*{方差的几何解释}
+
+考虑分布$(2,4,4,4,5,5,7,9)$：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 分布的几何图示；
+    \item 分布的均值；
+    \item 每个点到均值的距离为边的正方形；
+    \item 将所有正方形重排成一边长为$n$（样本点数）的矩形，另一边长为方差$\sigma^{2}$。
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_variance_geometry.png}
+    \caption{方差的几何解释示意图}
+    \label{fig:variance_geometry}
+\end{figure}
+
+对离散型随机变量$X$，其分布律为$P(X=x_{k})=p_{k}$，对应的方差为
+\[
+D(X)=\sum_{k=1}^{\infty}[x_{k}-E(X)]^{2}p_{k}.
+\]
+对连续型随机变量$X$，其概率密度为$f(x)$，对应的方差为
+\[
+D(X)=\int_{-\infty}^{+\infty}[x-E(X)]^{2}f(x)\,dx.
+\]
+统一表达：
+\[
+D(X)=\int[x-E(X)]^{2}\,dF(x).
+\]
+
+注意下面的方法推导过程，由此产生另一个计算的方法：
+\begin{align*}
+D(X)&=E\{[X-E(X)]^{2}\}\\
+&=E\{X^{2}-2XE(X)+[E(X)]^{2}\}\\
+&=E(X^{2})-2E(X)E(X)+[E(X)]^{2}\\
+&=E(X^{2})-[E(X)]^{2}.
+\end{align*}
+
+\begin{example}[随机变量的标准化]
+设随机变量$X$具有数学期望$E(X)=\mu$，方差$D(X)=\sigma^{2}\neq 0$，记
+\[
+X^{*}=\frac{X-\mu}{\sigma},
+\]
+并称为$X$的\textbf{标准化变量}，证明$E(X^{*})=0$，$D(X^{*})=1$。
+\end{example}
+
+\textbf{证明}：
+\[
+E(X^{*})=\frac{1}{\sigma}E(X-\mu)=\frac{1}{\sigma}[E(X)-\mu]=0.
+\]
+\[
+D(X^{*})=E[(X^{*})^{2}]-[E(X^{*})]^{2}
+=E\left[\left(\frac{X-\mu}{\sigma}\right)^{2}\right]
+=\frac{1}{\sigma^{2}}E[(X-\mu)^{2}]
+=\frac{\sigma^{2}}{\sigma^{2}}=1.
+\]
+
+\subsubsection*{常见分布的方差}
+
+\textbf{1. 0--1分布}
+
+已知$E(X)=p$，且
+\[
+E(X^{2})=0^{2}\cdot(1-p)+1^{2}\cdot p=p.
+\]
+故
+\[
+D(X)=E(X^{2})-[E(X)]^{2}=p-p^{2}=p(1-p).
+\]
+
+\textbf{2. 二项分布}
+
+设$X\sim B(n,p)$，已知$E(X)=np$。
+\[
+E(X^{2})=\sum_{k=0}^{n}k^{2}\binom{n}{k}p^{k}(1-p)^{n-k}.
+\]
+利用$k\binom{n}{k}=n\binom{n-1}{k-1}$，有
+\begin{align*}
+E(X^{2})&=\sum_{k=1}^{n}nk\binom{n-1}{k-1}p^{k}(1-p)^{n-k}\\
+&=np\sum_{k=1}^{n}(k-1)\binom{n-1}{k-1}p^{k-1}(1-p)^{n-k}+np\\
+&=n(n-1)p^{2}\sum_{k=2}^{n}\binom{n-2}{k-2}p^{k-2}(1-p)^{n-k}+np\\
+&=n(n-1)p^{2}+np.
+\end{align*}
+故
+\[
+D(X)=E(X^{2})-[E(X)]^{2}=n(n-1)p^{2}+np-(np)^{2}=np(1-p).
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_binomial_variance.png}
+    \caption{二项分布方差示意图}
+    \label{fig:binomial_variance}
+\end{figure}
+
+\textbf{3. 泊松分布}
+
+设$X\sim P(\lambda)$，已知$E(X)=\lambda$。
+\[
+E(X^{2})=\sum_{k=1}^{\infty}k^{2}\frac{\lambda^{k}e^{-\lambda}}{k!}
+=\sum_{k=1}^{\infty}k(k-1)\frac{\lambda^{k}e^{-\lambda}}{k!}
++\sum_{k=1}^{\infty}k\frac{\lambda^{k}e^{-\lambda}}{k!}
+=\lambda^{2}+\lambda.
+\]
+故
+\[
+D(X)=E(X^{2})-[E(X)]^{2}=\lambda^{2}+\lambda-\lambda^{2}=\lambda.
+\]
+
+\begin{note}
+泊松分布的期望和方差均是$\lambda$。
+\end{note}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_poisson_pmf.png}
+    \caption{泊松分布概率质量函数示意图}
+    \label{fig:poisson_pmf}
+\end{figure}
+
+\textbf{4. 均匀分布}
+
+设$X\sim U(a,b)$，已知$E(X)=\dfrac{a+b}{2}$。
+\[
+E(X^{2})=\int_{a}^{b}\frac{x^{2}}{b-a}\,dx=\frac{b^{3}-a^{3}}{3(b-a)}=\frac{a^{2}+b^{2}+ab}{3}.
+\]
+故
+\[
+D(X)=E(X^{2})-[E(X)]^{2}
+=\frac{a^{2}+b^{2}+ab}{3}-\frac{(a+b)^{2}}{4}
+=\frac{(b-a)^{2}}{12}.
+\]
+
+\textbf{5. 指数分布}
+
+设$X\sim\text{Exponential}(\lambda)$，已知$E(X)=\dfrac{1}{\lambda}$。
+\[
+E(X^{2})=\int_{0}^{+\infty}x^{2}\lambda e^{-\lambda x}\,dx
+=\lambda e^{-\lambda x}\left(-\frac{x^{2}}{\lambda}-\frac{2x}{\lambda^{2}}-\frac{2}{\lambda^{3}}\right)\Big|_{0}^{+\infty}
+=\frac{2}{\lambda^{2}}.
+\]
+故
+\[
+D(X)=E(X^{2})-[E(X)]^{2}=\frac{2}{\lambda^{2}}-\frac{1}{\lambda^{2}}=\frac{1}{\lambda^{2}}.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_exponential_pdf_variance.png}
+    \caption{指数分布概率密度函数图}
+    \label{fig:exponential_pdf_variance}
+\end{figure}
+
+\section*{作业}
+
+\addcontentsline{toc}{section}{作业}
+
+教材《概率论与数理统计》第四章（pp.~114--115）：\#9，\#14，\#18。
+
+教材《概率论及其应用》（pp.~182--183/197--201）：\#8，\#19，\#38。
 
 \end{document}
