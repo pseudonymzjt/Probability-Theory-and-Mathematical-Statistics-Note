@@ -11048,7 +11048,7 @@ p\text{ 值}=P_{\mu_{0}}\{Z\geq 2.795\}=1-\Phi(2.795)=0.0026.
 
 分布拟合检验——检验总体是否具有某一个指定的分布或属于某一个分布族。
 
-\subsection[单个分布的 χ² 拟合检验]{单个分布的\ $\chi^{2}$ 拟合检验}
+\subsection{单个分布的拟合检验}
 
 设总体 $X$ 的分布未知，$X_{1},X_{2},\ldots,X_{n}$ 是来自 $X$ 的样本值。检验假设：
 \[
@@ -11563,5 +11563,743 @@ $0.053$ \\
 P.~216--217, \#6, \#8, \#10, \#17
 
 P.~219--220, \#25, \#27, \#29
+
+\newpage
+\chapter{方差分析及回归分析}
+
+\section{单因素试验的方差分析}
+
+\subsection{基本概念}
+
+试验结果（试验指标）：考察事物的结果。
+
+因素：影响试验指标的条件。
+
+单因素试验：为了考虑某个因素$A$对所考察的随机变量$X$的影响，在试验中让其他因素保持不变，仅让因素$A$改变。因素$A$所处的状态称为水平。
+
+一些例子：
+\begin{itemize}[leftmargin=2em]
+    \item 温度变化对疾病传染的影响；
+    \item 电池充满时间对电池容量的影响。
+\end{itemize}
+
+\subsection{单因素试验的数学模型}
+
+设在单因素试验中，所考察的因素$A$有$s$个水平$A_{1},\ldots,A_{s}$，在水平$A_{j}$下进行$n_{j}\,(n_{j}\geq 2)$次独立试验，得到结果如表所示。
+
+\begin{table}[htbp]
+\centering
+\caption{单因素试验数据}
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+水平 & $A_{1}$ & $A_{2}$ & $\cdots$ & $A_{s}$ & \\
+\midrule
+样本观测 & $X_{11},X_{21},\ldots,X_{n_{1}1}$ & $X_{12},X_{22},\ldots,X_{n_{2}2}$ & $\cdots$ & $X_{1s},X_{2s},\ldots,X_{n_{s}s}$ & \\
+样本总和 & $T_{\cdot 1}$ & $T_{\cdot 2}$ & $\cdots$ & $T_{\cdot s}$ & $T_{\cdot\cdot}=\displaystyle\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}X_{ij}$ \\
+样本均值 & $\bar{X}_{\cdot 1}$ & $\bar{X}_{\cdot 2}$ & $\cdots$ & $\bar{X}_{\cdot s}$ & \\
+总体均值 & $\mu_{1}$ & $\mu_{2}$ & $\cdots$ & $\mu_{s}$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+其中
+\[
+\bar{X}_{\cdot j}=\frac{1}{n_{j}}\sum_{i=1}^{n_{j}}X_{ij},\quad j=1,2,\ldots,s.
+\]
+
+假设：各水平$A_{j}\,(j=1,\ldots,s)$下的样本$X_{ij}\sim N(\mu_{j},\sigma^{2})$，$i=1,2,\ldots,n_{j}$，$j=1,2,\ldots,s$，且相互独立。
+
+故$X_{ij}-\mu_{j}$可看成随机误差，记$X_{ij}-\mu_{j}=\varepsilon_{ij}$，则
+\[
+\begin{cases}
+X_{ij}=\mu_{j}+\varepsilon_{ij},\\[0.3em]
+\varepsilon_{ij}\sim N(0,\sigma^{2}),\quad\text{各}\varepsilon_{ij}\text{独立},\\[0.3em]
+i=1,2,\ldots,n_{j},\;j=1,2,\ldots,s,
+\end{cases}
+\]
+其中$\mu_{j}$与$\sigma^{2}$均为未知参数，上式即为单因素试验方差分析的数学模型。
+
+检验$s$个总体$N(\mu_{1},\sigma^{2}),\ldots,N(\mu_{s},\sigma^{2})$的均值是否相等，即检验：
+\[
+H_{0}\colon\mu_{1}=\mu_{2}=\cdots=\mu_{s},\qquad H_{1}\colon\mu_{1},\ldots,\mu_{s}\text{ 不全相等}.
+\]
+
+总平均：
+\[
+\mu=\frac{1}{n}\sum_{j=1}^{s}n_{j}\mu_{j}\quad\left(\text{其中 }n=\sum_{j=1}^{s}n_{j}\right).
+\]
+
+水平$A_{j}$的效应：$\delta_{j}=\mu_{j}-\mu\;(j=1,2,\ldots,s)$，即$A_{j}$的平均值与总平均的差异。
+
+数学模型可写为：
+\[
+\begin{cases}
+X_{ij}=\mu+\delta_{j}+\varepsilon_{ij},\\[0.3em]
+\varepsilon_{ij}\sim N(0,\sigma^{2}),\quad\text{各}\varepsilon_{ij}\text{独立},\\[0.3em]
+\displaystyle\sum_{j=1}^{s}n_{j}\delta_{j}=0,\\[0.5em]
+i=1,2,\ldots,n_{j},\;j=1,2,\ldots,s,
+\end{cases}
+\]
+其中$\mu,\delta_{j},\sigma^{2}$均为未知参数。
+
+假设检验：
+\[
+\begin{cases}
+H_{0}\colon\delta_{1}=\delta_{2}=\cdots=\delta_{s}=0,\\[0.3em]
+H_{1}\colon\delta_{1},\delta_{2},\ldots,\delta_{s}\text{ 不全为零}.
+\end{cases}
+\]
+
+\subsection{平方和的分解}
+
+总偏差平方和（全部试验数据间的差异）：
+\[
+S_{T}=\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X})^{2},
+\]
+其中样本总平均值
+\[
+\bar{X}=\frac{1}{n}\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}X_{ij}.
+\]
+
+将$S_{T}$分解：
+\[
+\begin{aligned}
+S_{T}&=\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X})^{2}\\
+&=\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}\left[(X_{ij}-\bar{X}_{\cdot j})+(\bar{X}_{\cdot j}-\bar{X})\right]^{2}\\
+&=\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X}_{\cdot j})^{2}+\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}(\bar{X}_{\cdot j}-\bar{X})^{2}\\
+&\quad+2\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X}_{\cdot j})(\bar{X}_{\cdot j}-\bar{X})\\
+&=\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X}_{\cdot j})^{2}+\sum_{j=1}^{s}n_{j}(\bar{X}_{\cdot j}-\bar{X})^{2},
+\end{aligned}
+\]
+其中交叉项为零，因为$\displaystyle\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X}_{\cdot j})=0$。
+
+记
+\[
+S_{E}=\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X}_{\cdot j})^{2},
+\]
+称为\textbf{误差平方和}；
+
+\[
+S_{A}=\sum_{j=1}^{s}n_{j}(\bar{X}_{\cdot j}-\bar{X})^{2}=\sum_{j=1}^{s}n_{j}\bar{X}_{\cdot j}^{2}-n\bar{X}^{2},
+\]
+称为\textbf{效应平方和}（或组间平方和）。
+
+于是有平方和分解公式：
+\[
+S_{T}=S_{A}+S_{E}.
+\]
+
+\subsection{\texorpdfstring{$S_{E},S_{A}$}{SE,SA}的统计性质}
+
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item $S_{E}/\sigma^{2}\sim\chi^{2}(n-s)$。
+    
+    事实上，由$\displaystyle\frac{\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X}_{\cdot j})^{2}}{\sigma^{2}}\sim\chi^{2}(n_{j}-1)$及分布的可加性得
+    \[
+    \frac{S_{E}}{\sigma^{2}}=\sum_{j=1}^{s}\frac{\sum_{i=1}^{n_{j}}(X_{ij}-\bar{X}_{\cdot j})^{2}}{\sigma^{2}}\sim\chi^{2}\left(\sum_{j=1}^{s}(n_{j}-1)\right)=\chi^{2}(n-s).
+    \]
+    
+    \item $E[S_{E}]=(n-s)\sigma^{2}$。
+    
+    \item $E[S_{A}]=\displaystyle\sum_{j=1}^{s}n_{j}\delta_{j}^{2}+(s-1)\sigma^{2}$。
+    
+    （利用$\bar{X}_{\cdot j}\sim N\!\left(\mu_{j},\frac{\sigma^{2}}{n_{j}}\right)$，$\bar{X}\sim N\!\left(\mu,\frac{\sigma^{2}}{n}\right)$及$S_{A}$的定义。）
+    
+    \item $S_{A}$与$S_{E}$相互独立。
+    
+    \item 当$H_{0}$为真时，$\displaystyle\frac{S_{A}}{\sigma^{2}}\sim\chi^{2}(s-1)$。
+    
+    \item 当$H_{0}$为真时，
+    \[
+    F=\frac{S_{A}/(s-1)}{S_{E}/(n-s)}\sim F(s-1,n-s).
+    \]
+\end{enumerate}
+
+\subsection{假设检验的拒绝域}
+
+检验问题：
+\[
+\begin{cases}
+H_{0}\colon\delta_{1}=\delta_{2}=\cdots=\delta_{s}=0,\\[0.3em]
+H_{1}\colon\delta_{1},\delta_{2},\ldots,\delta_{s}\text{ 不全为零}.
+\end{cases}
+\]
+
+$H_{0}$为真时，$\displaystyle\frac{S_{A}}{s-1}$是$\sigma^{2}$的无偏估计；无论$H_{0}$是否为真，$\displaystyle\frac{S_{E}}{n-s}$是$\sigma^{2}$的无偏估计。
+
+检验问题的拒绝域为：
+\[
+F=\frac{S_{A}/(s-1)}{S_{E}/(n-s)}\geq F_{\alpha}(s-1,n-s).
+\]
+
+\subsection{单因素试验方差分析表}
+
+\begin{table}[htbp]
+\centering
+\caption{单因素试验方差分析表}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{方差来源} & \textbf{平方和} & \textbf{自由度} & \textbf{均方} & \textbf{$F$比} \\
+\midrule
+因素$A$ & $S_{A}$ & $s-1$ & $\bar{S}_{A}=\dfrac{S_{A}}{s-1}$ & $F=\dfrac{\bar{S}_{A}}{\bar{S}_{E}}$ \\[0.8em]
+误差 & $S_{E}$ & $n-s$ & $\bar{S}_{E}=\dfrac{S_{E}}{n-s}$ & \\[0.8em]
+总和 & $S_{T}$ & $n-1$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+通过检验样本的$F$比是否落在拒绝域中来决定是否拒绝原假设。
+
+计算$S_{T},S_{A},S_{E}$的简便公式：
+
+记$T_{\cdot j}=\displaystyle\sum_{i=1}^{n_{j}}X_{ij}$，$j=1,2,\ldots,s$，$T_{\cdot\cdot}=\displaystyle\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}X_{ij}$，则
+\[
+\begin{aligned}
+S_{T}&=\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}X_{ij}^{2}-\frac{T_{\cdot\cdot}^{2}}{n},\\[0.3em]
+S_{A}&=\sum_{j=1}^{s}\frac{T_{\cdot j}^{2}}{n_{j}}-\frac{T_{\cdot\cdot}^{2}}{n},\\[0.3em]
+S_{E}&=S_{T}-S_{A}.
+\end{aligned}
+\]
+
+\begin{example}[药物疗效比较]
+为了比较5种治疗某疾病的药，将30个病人分成5组，每组6人，每组病人使用一种药，记录病人从使用药物开始至痊愈所需的时间，得下表：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+药物 & \multicolumn{6}{c}{治愈所需天数} \\
+\midrule
+1 & 5 & 8 & 7 & 7 & 10 & 8 \\
+2 & 4 & 6 & 6 & 3 & 5 & 6 \\
+3 & 6 & 4 & 4 & 5 & 4 & 3 \\
+4 & 7 & 4 & 6 & 6 & 3 & 5 \\
+5 & 9 & 3 & 5 & 7 & 7 & 6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+问：所有药物的效果是否有差别？
+
+\textbf{解}：设
+\[
+H_{0}\colon\mu_{1}=\mu_{2}=\cdots=\mu_{5},\qquad H_{1}\colon\mu_{1},\ldots,\mu_{5}\text{ 不全相等}.
+\]
+
+$s=5$，$n_{1}=\cdots=n_{5}=6$，$n=30$，$\displaystyle\sum_{j=1}^{s}\sum_{i=1}^{n_{j}}X_{ij}^{2}=1047$。
+
+$T_{\cdot 1}=45$，$T_{\cdot 2}=30$，$T_{\cdot 3}=26$，$T_{\cdot 4}=31$，$T_{\cdot 5}=37$，$T_{\cdot\cdot}=169$。
+
+\begin{table}[htbp]
+\centering
+\caption{方差分析表}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+方差来源 & 平方和 & 自由度 & 均方 & $F$比 \\
+\midrule
+因素$A$ & $S_{A}=36.467$ & $s-1=4$ & $\bar{S}_{A}=9.117$ & $3.90$ \\
+误差 & $S_{E}=58.500$ & $n-s=25$ & $\bar{S}_{E}=2.34$ & \\
+总和 & $S_{T}=94.967$ & $n-1=29$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+而$F_{0.05}(4,25)=2.76$，因此$F=3.90>2.76$，故拒绝$H_{0}$，认为所有药物的效果有显著差别。
+\end{example}
+
+\subsection{未知参数的估计}
+
+\[
+\widehat{\sigma^{2}}=\frac{S_{E}}{n-s}
+\]
+是$\sigma^{2}$的无偏估计。
+
+\[
+\widehat{\mu}=\bar{X},\quad\widehat{\mu}_{j}=\bar{X}_{\cdot j}
+\]
+分别是$\mu,\mu_{j}$的无偏估计。
+
+\[
+\widehat{\delta}_{j}=\bar{X}_{\cdot j}-\bar{X}
+\]
+是$\delta_{j}$的无偏估计，且有$\displaystyle\sum_{j=1}^{s}n_{j}\widehat{\delta}_{j}=0$。
+
+当拒绝$H_{0}$时，需要作出总体$N(\mu_{j},\sigma^{2})$和$N(\mu_{k},\sigma^{2})$的均值差$\mu_{j}-\mu_{k}=\delta_{j}-\delta_{k}$的区间估计。
+
+由于
+\[
+E[\bar{X}_{\cdot j}-\bar{X}_{\cdot k}]=\mu_{j}-\mu_{k},\quad D[\bar{X}_{\cdot j}-\bar{X}_{\cdot k}]=\sigma^{2}\left(\frac{1}{n_{j}}+\frac{1}{n_{k}}\right),
+\]
+且
+\[
+\widehat{\sigma^{2}}=\frac{S_{E}}{n-s},\quad\frac{S_{E}}{\sigma^{2}}\sim\chi^{2}(n-s),
+\]
+可得$\mu_{j}-\mu_{k}=\delta_{j}-\delta_{k}$的置信度为$1-\alpha$的置信区间为：
+\[
+\left(\bar{X}_{\cdot j}-\bar{X}_{\cdot k}\pm t_{\alpha/2}(n-s)\sqrt{\bar{S}_{E}\left(\frac{1}{n_{j}}+\frac{1}{n_{k}}\right)}\right).
+\]
+
+\begin{example}[参数估计]
+求例1中未知参数$\sigma^{2},\mu,\delta_{j}\,(j=1,2,3,4,5)$的点估计，以及$\mu_{1}-\mu_{2},\mu_{3}-\mu_{5}$的置信度为0.95的置信区间。
+
+\textbf{解}：
+\[
+\widehat{\sigma^{2}}=\frac{S_{E}}{n-s}=2.34,\qquad\widehat{\mu}=\bar{X}=5.633.
+\]
+$\widehat{\mu}_{j}$的估计分别为：$7.5,5,4.333,5.167,6.167$。
+
+$\widehat{\delta}_{j}$的估计分别为：$1.867,-0.633,-1.3,-0.467,0.534$。
+
+\[
+\sqrt{\bar{S}_{E}\left(\frac{1}{n_{j}}+\frac{1}{n_{k}}\right)}=0.8832,\qquad t_{0.025}(25)=2.0595.
+\]
+
+$\mu_{1}-\mu_{2},\mu_{3}-\mu_{5}$的置信度为0.95的置信区间分别为：
+\[
+(0.681,\,4.319)\quad\text{和}\quad(-3.653,\,-0.015).
+\]
+这说明$\mu_{1}$与$\mu_{2}$、$\mu_{3}$与$\mu_{5}$的差异都很显著。
+\end{example}
+
+\section{双因素试验的方差分析}
+
+\subsection{双因素等重复试验的方差分析}
+
+有两个因素作用于试验指标。因素$A$有$r$个水平$A_{1},\ldots,A_{r}$，因素$B$有$s$个水平$B_{1},\ldots,B_{s}$。对每对组合$(A_{i},B_{j})$都做$t\,(t\geq 2)$次试验，称为双因素等重复试验。假定所有试验相互独立。
+
+例：机票价格与服务质量对航空运输的影响。
+
+\begin{table}[htbp]
+\centering
+\caption{双因素等重复试验数据}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+水平 & $B_{1}$ & $B_{2}$ & $\cdots$ & $B_{s}$ \\
+\midrule
+$A_{1}$ & $X_{111},X_{112},\ldots,X_{11t}$ & $X_{121},X_{122},\ldots,X_{12t}$ & $\cdots$ & $X_{1s1},X_{1s2},\ldots,X_{1st}$ \\
+$A_{2}$ & $X_{211},X_{212},\ldots,X_{21t}$ & $X_{221},X_{222},\ldots,X_{22t}$ & $\cdots$ & $X_{2s1},X_{2s2},\ldots,X_{2st}$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ \\
+$A_{r}$ & $X_{r11},X_{r12},\ldots,X_{r1t}$ & $X_{r21},X_{r22},\ldots,X_{r2t}$ & $\cdots$ & $X_{rs1},X_{rs2},\ldots,X_{rst}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+其中$X_{ijk}\sim N(\mu_{ij},\sigma^{2})$，$i=1,\ldots,r$，$j=1,\ldots,s$，$k=1,\ldots,t$。
+
+\textbf{数学模型}：
+\[
+\begin{cases}
+X_{ijk}=\mu_{ij}+\varepsilon_{ijk},\\[0.3em]
+\varepsilon_{ijk}\sim N(0,\sigma^{2}),\quad\text{各}\varepsilon_{ijk}\text{独立},\\[0.3em]
+i=1,\ldots,r,\;j=1,\ldots,s,\;k=1,\ldots,t,
+\end{cases}
+\]
+其中$\mu_{ij}$与$\sigma^{2}$均为未知参数。
+
+总平均：
+\[
+\mu=\frac{1}{rs}\sum_{i=1}^{r}\sum_{j=1}^{s}\mu_{ij}.
+\]
+
+\[
+\mu_{i\cdot}=\frac{1}{s}\sum_{j=1}^{s}\mu_{ij},\quad i=1,\ldots,r;\qquad
+\mu_{\cdot j}=\frac{1}{r}\sum_{i=1}^{r}\mu_{ij},\quad j=1,\ldots,s.
+\]
+
+水平$A_{i}$的效应：$\alpha_{i}=\mu_{i\cdot}-\mu$。
+
+水平$B_{j}$的效应：$\beta_{j}=\mu_{\cdot j}-\mu$。
+
+于是：
+\[
+\mu_{ij}=\mu+\alpha_{i}+\beta_{j}+\gamma_{ij},
+\]
+其中$\gamma_{ij}=\mu_{ij}-\mu_{i\cdot}-\mu_{\cdot j}+\mu$称为水平$A_{i}$和$B_{j}$的\textbf{交互效应}。
+
+数学模型可写为：
+\[
+\begin{cases}
+X_{ijk}=\mu+\alpha_{i}+\beta_{j}+\gamma_{ij}+\varepsilon_{ijk},\\[0.3em]
+\varepsilon_{ijk}\sim N(0,\sigma^{2}),\quad\text{各}\varepsilon_{ijk}\text{独立},\\[0.3em]
+\displaystyle\sum_{i=1}^{r}\alpha_{i}=\sum_{j=1}^{s}\beta_{j}=\sum_{i=1}^{r}\gamma_{ij}=\sum_{j=1}^{s}\gamma_{ij}=0,\\[0.5em]
+i=1,\ldots,r,\;j=1,\ldots,s,\;k=1,\ldots,t,
+\end{cases}
+\]
+其中$\mu,\alpha_{i},\beta_{j},\gamma_{ij},\sigma^{2}$均为未知参数。
+
+\textbf{假设检验}：
+\[
+\begin{cases}
+H_{01}\colon\alpha_{1}=\alpha_{2}=\cdots=\alpha_{r}=0,\\[0.3em]
+H_{11}\colon\alpha_{1},\alpha_{2},\ldots,\alpha_{r}\text{ 不全为零};
+\end{cases}
+\quad
+\begin{cases}
+H_{02}\colon\beta_{1}=\beta_{2}=\cdots=\beta_{s}=0,\\[0.3em]
+H_{12}\colon\beta_{1},\beta_{2},\ldots,\beta_{s}\text{ 不全为零};
+\end{cases}
+\]
+
+\[
+\begin{cases}
+H_{03}\colon\gamma_{11}=\gamma_{12}=\cdots=\gamma_{rs}=0,\\[0.3em]
+H_{13}\colon\gamma_{11},\gamma_{12},\ldots,\gamma_{rs}\text{ 不全为零}.
+\end{cases}
+\]
+
+\textbf{平方和分解}：
+\[
+S_{T}=S_{E}+S_{A}+S_{B}+S_{A\times B}.
+\]
+
+总偏差平方和：
+\[
+S_{T}=\sum_{i=1}^{r}\sum_{j=1}^{s}\sum_{k=1}^{t}(X_{ijk}-\bar{X})^{2}.
+\]
+
+误差平方和：
+\[
+S_{E}=\sum_{i=1}^{r}\sum_{j=1}^{s}\sum_{k=1}^{t}(X_{ijk}-\bar{X}_{ij\cdot})^{2}.
+\]
+
+效应平方和：
+\[
+S_{A}=st\sum_{i=1}^{r}(\bar{X}_{i\cdot\cdot}-\bar{X})^{2},\qquad
+S_{B}=rt\sum_{j=1}^{s}(\bar{X}_{\cdot j\cdot}-\bar{X})^{2}.
+\]
+
+交互效应平方和：
+\[
+S_{A\times B}=t\sum_{i=1}^{r}\sum_{j=1}^{s}(\bar{X}_{ij\cdot}-\bar{X}_{i\cdot\cdot}-\bar{X}_{\cdot j\cdot}+\bar{X})^{2}.
+\]
+
+可以证明，$S_{T},S_{E},S_{A},S_{B},S_{A\times B}$的自由度分别为$rst-1$，$rs(t-1)$，$r-1$，$s-1$，$(r-1)(s-1)$。
+
+当$H_{01}\colon\alpha_{1}=\alpha_{2}=\cdots=\alpha_{r}=0$为真时，
+\[
+F_{A}=\frac{S_{A}/(r-1)}{S_{E}/(rs(t-1))}\sim F(r-1,rs(t-1)).
+\]
+在显著性水平$\alpha$下，假设$H_{01}$的拒绝域为：
+\[
+F_{A}\geq F_{\alpha}(r-1,rs(t-1)).
+\]
+
+类似地，$H_{02}\colon\beta_{1}=\beta_{2}=\cdots=\beta_{s}=0$的拒绝域为：
+\[
+F_{B}=\frac{S_{B}/(s-1)}{S_{E}/(rs(t-1))}\geq F_{\alpha}(s-1,rs(t-1)).
+\]
+
+当$H_{03}\colon\gamma_{11}=\gamma_{12}=\cdots=\gamma_{rs}=0$为真时，
+\[
+F_{A\times B}=\frac{S_{A\times B}/((r-1)(s-1))}{S_{E}/(rs(t-1))}\sim F((r-1)(s-1),rs(t-1)).
+\]
+在显著性水平$\alpha$下，假设$H_{03}$的拒绝域为：
+\[
+F_{A\times B}\geq F_{\alpha}((r-1)(s-1),rs(t-1)).
+\]
+
+\begin{table}[htbp]
+\centering
+\caption{双因素等重复试验方差分析表}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{方差来源} & \textbf{平方和} & \textbf{自由度} & \textbf{均方} & \textbf{$F$比} \\
+\midrule
+因素$A$ & $S_{A}$ & $r-1$ & $\bar{S}_{A}=\dfrac{S_{A}}{r-1}$ & $F_{A}=\dfrac{\bar{S}_{A}}{\bar{S}_{E}}$ \\[0.8em]
+因素$B$ & $S_{B}$ & $s-1$ & $\bar{S}_{B}=\dfrac{S_{B}}{s-1}$ & $F_{B}=\dfrac{\bar{S}_{B}}{\bar{S}_{E}}$ \\[0.8em]
+交互作用 & $S_{A\times B}$ & $(r-1)(s-1)$ & $\bar{S}_{A\times B}=\dfrac{S_{A\times B}}{(r-1)(s-1)}$ & $F_{A\times B}=\dfrac{\bar{S}_{A\times B}}{\bar{S}_{E}}$ \\[0.8em]
+误差 & $S_{E}$ & $rs(t-1)$ & $\bar{S}_{E}=\dfrac{S_{E}}{rs(t-1)}$ & \\[0.8em]
+总和 & $S_{T}$ & $rst-1$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{example}[化工产量]
+某化工企业为了提高产量，选了3种不同浓度、4种不同温度做试验。在同一浓度与温度组合下各做2次试验，其数据如下表所示。在显著性水平$\alpha=0.05$下，不同浓度和不同温度以及它们之间的交叉作用对产量有无显著性影响？
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$A\backslash B$ & $B_{1}$ & $B_{2}$ & $B_{3}$ & $B_{4}$ \\
+\midrule
+$A_{1}$ & 14, 10 & 11, 11 & 13, 9 & 10, 12 \\
+$A_{2}$ & 9, 7 & 10, 8 & 7, 11 & 6, 10 \\
+$A_{3}$ & 5, 11 & 13, 14 & 12, 13 & 14, 10 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{解}：$r=3$，$s=4$，$t=2$。
+
+\begin{table}[htbp]
+\centering
+\caption{方差分析表}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+方差来源 & 平方和 & 自由度 & 均方 & $F$比 \\
+\midrule
+$A$ & 44.33 & 2 & 22.17 & $F_{A}=4.09$ \\
+$B$ & 11.50 & 3 & 3.83 & $F_{B}=0.71$ \\
+$A\times B$ & 37.00 & 6 & 6.17 & $F_{A\times B}=1.14$ \\
+误差 & 65.00 & 12 & 5.42 & \\
+总和 & 147.83 & 23 & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+而$F_{0.05}(2,12)=3.89$，因此只有因素$A$的$F$比$F_{A}=4.09>3.89$，即只有因素$A$是显著的，浓度不同对产量有显著影响，而温度以及浓度和温度交互作用对产量无显著性影响，所以为了提高产量必须控制好浓度。
+\end{example}
+
+\begin{example}[火箭射程]
+火箭使用四种燃料、三种推进器实验，每种燃料和推进器的组合各发射两次，在显著性水平0.05的条件下，检验不同燃料、不同推进器下的射程是否有显著差异？交互作用是否显著？
+
+\begin{table}[htbp]
+\centering
+\caption{火箭射程试验数据}
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+ & & \multicolumn{3}{c}{推进器（$B$）} & $T_{i\cdot\cdot}$ \\
+\midrule
+ & & $B_{1}$ & $B_{2}$ & $B_{3}$ & \\
+\multirow{2}{*}{$A_{1}$} & & 58.2 & 56.2 & 65.3 & \multirow{2}{*}{334.3} \\
+ & & 52.6 & 41.2 & 60.8 & \\
+\multirow{2}{*}{$A_{2}$} & & 49.1 & 54.1 & 51.6 & \multirow{2}{*}{296.5} \\
+ & & 42.8 & 50.5 & 48.4 & \\
+\multirow{2}{*}{$A_{3}$} & & 60.1 & 70.9 & 39.2 & \multirow{2}{*}{342.4} \\
+ & & 58.3 & 73.2 & 40.7 & \\
+\multirow{2}{*}{$A_{4}$} & & 75.8 & 58.2 & 48.7 & \multirow{2}{*}{346.6} \\
+ & & 71.5 & 51.0 & 41.4 & \\
+\midrule
+$T_{\cdot j\cdot}$ & & 468.4 & 455.3 & 396.1 & 1319.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{解}：需要检验假设：
+\[
+\begin{cases}
+H_{01}\colon\alpha_{1}=\alpha_{2}=\alpha_{3}=\alpha_{4}=0,\\[0.3em]
+H_{02}\colon\beta_{1}=\beta_{2}=\beta_{3}=0,\\[0.3em]
+H_{03}\colon\gamma_{11}=\gamma_{12}=\cdots=\gamma_{43}=0.
+\end{cases}
+\]
+
+总偏差平方和：
+\[
+S_{T}=\sum_{i=1}^{4}\sum_{j=1}^{3}\sum_{k=1}^{2}(X_{ijk}-\bar{X})^{2}=2638.29833.
+\]
+
+效应平方和：
+\[
+S_{A}=6\sum_{i=1}^{4}(\bar{X}_{i\cdot\cdot}-\bar{X})^{2}=261.67500,\qquad
+S_{B}=8\sum_{j=1}^{3}(\bar{X}_{\cdot j\cdot}-\bar{X})^{2}=370.98083.
+\]
+
+交互效应平方和：
+\[
+S_{A\times B}=2\sum_{i=1}^{4}\sum_{j=1}^{3}(\bar{X}_{ij\cdot}-\bar{X}_{i\cdot\cdot}-\bar{X}_{\cdot j\cdot}+\bar{X})^{2}=1768.69250.
+\]
+
+误差平方和：
+\[
+S_{E}=S_{T}-S_{A}-S_{B}-S_{A\times B}=236.95000.
+\]
+
+\begin{table}[htbp]
+\centering
+\caption{方差分析表}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+方差来源 & 平方和 & 自由度 & 均方 & $F$比 \\
+\midrule
+因素$A$（燃料） & 261.67500 & 3 & 87.2250 & $F_{A}=4.42$ \\
+因素$B$（推进器） & 370.98083 & 2 & 185.4904 & $F_{B}=9.39$ \\
+交互作用 & 1768.69250 & 6 & 294.7821 & $F_{A\times B}=14.9$ \\
+误差 & 236.95000 & 12 & 19.7458 & \\
+总和 & 2638.29833 & 23 & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+结论：
+\[
+F_{0.05}(3,12)=3.49<F_{A},\quad F_{0.05}(2,12)=3.89<F_{B},
+\]
+所以在显著性水平0.05下拒绝假设$H_{01}$和$H_{02}$，即推进器和燃料的影响都是显著的。
+
+\[
+F_{0.05}(6,12)=3.00<F_{A\times B},
+\]
+因此拒绝假设$H_{03}$，交互作用也是显著的。
+\end{example}
+
+\subsection{双因素无重复试验的方差分析}
+
+双因素试验中，对每对水平组合只做一次试验（因素之间的交互作用不存在或可以忽略）。
+
+\textbf{数学模型}：
+\[
+\begin{cases}
+X_{ij}=\mu+\alpha_{i}+\beta_{j}+\varepsilon_{ij},\\[0.3em]
+\varepsilon_{ij}\sim N(0,\sigma^{2}),\quad\text{各}\varepsilon_{ij}\text{独立},\\[0.3em]
+\displaystyle\sum_{i=1}^{r}\alpha_{i}=\sum_{j=1}^{s}\beta_{j}=0,\\[0.5em]
+i=1,\ldots,r,\;j=1,\ldots,s,
+\end{cases}
+\]
+其中$\mu,\alpha_{i},\beta_{j},\sigma^{2}$均为未知参数。
+
+\textbf{假设检验}：
+\[
+\begin{cases}
+H_{01}\colon\alpha_{1}=\alpha_{2}=\cdots=\alpha_{r}=0,\\[0.3em]
+H_{11}\colon\alpha_{1},\alpha_{2},\ldots,\alpha_{r}\text{ 不全为零};
+\end{cases}
+\quad
+\begin{cases}
+H_{02}\colon\beta_{1}=\beta_{2}=\cdots=\beta_{s}=0,\\[0.3em]
+H_{12}\colon\beta_{1},\beta_{2},\ldots,\beta_{s}\text{ 不全为零}.
+\end{cases}
+\]
+
+\begin{table}[htbp]
+\centering
+\caption{双因素无重复试验方差分析表}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{方差来源} & \textbf{平方和} & \textbf{自由度} & \textbf{均方} & \textbf{$F$比} \\
+\midrule
+因素$A$ & $S_{A}$ & $r-1$ & $\bar{S}_{A}=\dfrac{S_{A}}{r-1}$ & $F_{A}=\dfrac{\bar{S}_{A}}{\bar{S}_{E}}$ \\[0.8em]
+因素$B$ & $S_{B}$ & $s-1$ & $\bar{S}_{B}=\dfrac{S_{B}}{s-1}$ & $F_{B}=\dfrac{\bar{S}_{B}}{\bar{S}_{E}}$ \\[0.8em]
+误差 & $S_{E}$ & $(r-1)(s-1)$ & $\bar{S}_{E}=\dfrac{S_{E}}{(r-1)(s-1)}$ & \\[0.8em]
+总和 & $S_{T}$ & $rs-1$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+当$H_{01}\colon\alpha_{1}=\alpha_{2}=\cdots=\alpha_{r}=0$为真时，可以证明
+\[
+F_{A}=\frac{S_{A}/(r-1)}{S_{E}/((r-1)(s-1))}\sim F(r-1,(r-1)(s-1)).
+\]
+在显著性水平$\alpha$下，假设$H_{01}$的拒绝域为：
+\[
+F_{A}\geq F_{\alpha}(r-1,(r-1)(s-1)).
+\]
+
+类似地，$H_{02}\colon\beta_{1}=\beta_{2}=\cdots=\beta_{s}=0$的拒绝域为：
+\[
+F_{B}=\frac{S_{B}/(s-1)}{S_{E}/((r-1)(s-1))}\geq F_{\alpha}(s-1,(r-1)(s-1)).
+\]
+
+\subsection{方差分析的作用}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 通过对试验数据的统计分析，推断造成试验数据间差异的原因是试验水平差异还是随机误差的影响。
+    \item 推断哪些因素的影响是显著的。
+    \item 分析出最佳的试验水平（固定模型），或估计总体变量的参数（随机模型）。
+\end{enumerate}
+
+\subsection{方差分析与假设检验的区别}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 方差分析能同时检验多个总体的某个参数（如均值）是否相等；
+    \item 假设检验每次只能检验两个总体的某个参数是否相等。
+\end{enumerate}
+
+\subsection{正交试验设计}
+
+正交试验设计：研究和处理多因素试验的一种方法，利用正交表安排试验，通过少量试验获得满意的试验结果。
+
+\textbf{基本方法}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 安排试验方案；
+    \item 分析试验结果。
+\end{enumerate}
+
+\textbf{全面试验法 vs.\ 正交试验法}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/fig_orthogonal_comparison_1.png}
+    \hfill
+    \includegraphics[width=0.45\textwidth]{figures/fig_orthogonal_comparison_2.png}
+    \caption{全面试验法（左）与正交试验法（右）对比示意图（3因素3水平）}
+    \label{fig:orthogonal_comparison}
+\end{figure}
+
+正交表：$L_{9}(3^{3})$
+
+\begin{table}[htbp]
+\centering
+\caption{正交表$L_{9}(3^{3})$}
+\begin{tabular}{@{}cccc@{}}
+\toprule
+编号 & 因素$A$ & 因素$B$ & 因素$C$ \\
+\midrule
+1 & 1 & 1 & 1 \\
+2 & 1 & 2 & 2 \\
+3 & 1 & 3 & 3 \\
+4 & 2 & 1 & 2 \\
+5 & 2 & 2 & 3 \\
+6 & 2 & 3 & 1 \\
+7 & 3 & 1 & 3 \\
+8 & 3 & 2 & 1 \\
+9 & 3 & 3 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+正交表：$L_{9}(3^{4})$
+
+\begin{table}[htbp]
+\centering
+\caption{正交表$L_{9}(3^{4})$}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+编号 & 因素$A$ & 因素$B$ & 因素$C$ & 因素$D$ \\
+\midrule
+1 & 1 & 1 & 3 & 2 \\
+2 & 2 & 1 & 1 & 1 \\
+3 & 3 & 1 & 2 & 3 \\
+4 & 1 & 2 & 2 & 1 \\
+5 & 2 & 2 & 3 & 3 \\
+6 & 3 & 2 & 1 & 2 \\
+7 & 1 & 3 & 1 & 3 \\
+8 & 2 & 3 & 2 & 2 \\
+9 & 3 & 3 & 3 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_orthogonal_table_L9.png}
+    \caption{正交表 $L_{9}(3^{4})$ 示意图}
+    \label{fig:orthogonal_table_L9}
+\end{figure}
+
+\textbf{正交表的特点}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 每一列中，不同数字出现的次数相同；
+    \item 任意两列中，将同一行的两个数字看成有序数对时，每种数对出现的次数相等；
+    \item 一般正交表$L_{p}(n^{m})$中，$p=m(n-1)+1$。
+\end{enumerate}
+
+\textbf{正交表的优点}：用正交表安排试验时，各因素的各种水平搭配是均衡的。
+
+\textbf{正交试验的设计步骤}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 确定试验要考虑的因素，对所做的试验了解少，因素应多取一些，反之可以少取一些；
+    \item 确定每个因素的变化水平，重要的因素水平可以多一些；
+    \item 根据试验条件、成本等，估算试验次数；
+    \item 选取正交表。当试验精度要求高、因素多、交互作用多时，应选择大的正交表；
+    \item 进行试验，测定试验指标；
+    \item 对试验结果进行计算分析，得出合理结论。
+\end{enumerate}
+
+\textbf{作业}：
+\begin{itemize}[leftmargin=2em]
+    \item 概率论与数理统计 pp.~261--262, \#2, \#4
+\end{itemize}
 
 \end{document}
