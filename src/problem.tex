@@ -44,7 +44,7 @@
 \begin{remark}
 先验：$P(\text{常见错误})$；后验：$P(\text{常见错误}\mid\text{作业情况})$
 \end{remark}
-
+\newpage
 \chapter{随机事件与概率}
 
 \begin{figure}[htbp]
@@ -743,7 +743,7 @@ P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A\mid B)P(B)+P(A\mid\bar{B})P(\bar{B})}=\frac
 \end{example}
 
 \newpage
-\newpage\chapter{随机变量及其分布}
+\chapter{随机变量及其分布}
 
 \section{从随机事件到随机变量}
 
@@ -1515,9 +1515,16 @@ P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A)}=\frac{0.1587\times 0.7}{0.1129}=\frac{0.1
 \end{example}
 
 \newpage
-\newpage\chapter{多维随机变量及其分布}
 
-% 图片：知识结构图。上方"二维随机变量(x,y)"，下方分五个模块：1联合分布F(x,y)（联合分布函数、联合分布律、联合概率密度），2边缘分布F_X(x)（边缘分布函数、边缘分布律、边缘概率密度），3条件分布F_{X|Y}(x|y)（条件分布函数、条件分布律、条件概率密度），4随机变量的相互独立性，5随机变量的函数的分布。底部指向"贝叶斯公式"，右侧指向"推广至n维"
+\newpage
+\chapter{多维随机变量及其分布}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/fig_ch3_structure.png}
+    \caption{第三章知识结构图}
+    \label{fig:ch3_structure}
+\end{figure}
 
 \section{二维随机变量}
 
@@ -1525,7 +1532,12 @@ P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A)}=\frac{0.1587\times 0.7}{0.1129}=\frac{0.1
 设\(E\)是一个随机试验，它的样本空间是\(S=\{e\}\)，设\(X=X(e)\)和\(Y=Y(e)\)是定义在\(S\)上的随机变量。由它们构成的一个向量\((X,Y)\)，叫做二维随机向量，或\textbf{二维随机变量}。
 \end{definition}
 
-% 图片：样本空间S（蓝色圆形）中有一个样本点e，通过两条箭头分别指向两个正八边形，分别标注X(e)和Y(e)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_rv_mapping_2d.png}
+    \caption{样本空间到二维随机变量的映射}
+    \label{fig:rv_mapping_2d}
+\end{figure}
 
 \begin{definition}[二维随机变量的分布函数]
 设\((X,Y)\)是一个二维随机变量，则对于任意一对实数\(x,y\)，二元函数
@@ -1537,7 +1549,12 @@ F(x,y)=P\{X\leq x,Y\leq y\}
 
 \textbf{几何意义}：\(F(x,y)\)可看成是平面上的随机点\((X,Y)\)落在以点\((x,y)\)为右上顶点的左下方的无穷矩形域内的概率。
 
-% 图片：平面直角坐标系，阴影区域为左下方无穷矩形域，右上角点为(x,y)，随机点(X,Y)落在该区域内
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_joint_dist_region.png}
+    \caption{联合分布函数的几何意义：无穷矩形域}
+    \label{fig:joint_dist_region}
+\end{figure}
 
 \textbf{重要公式}：
 
@@ -1546,7 +1563,12 @@ F(x,y)=P\{X\leq x,Y\leq y\}
 P\{x_1<X\leq x_2,y_1<Y\leq y_2\}=F(x_2,y_2)-F(x_2,y_1)-F(x_1,y_2)+F(x_1,y_1)
 \]
 
-% 图片：平面矩形区域，四个顶点标注(x_1,y_1)、(x_2,y_1)、(x_1,y_2)、(x_2,y_2)，阴影为矩形内部
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_rect_prob_region.png}
+    \caption{矩形区域概率计算示意图}
+    \label{fig:rect_prob_region}
+\end{figure}
 
 \begin{definition}[\(n\)维随机变量]
 设\(E\)是一个随机试验，它的样本空间是\(S=\{e\}\)，设\(X_1=X_1(e),X_2=X_2(e),\cdots,X_n=X_n(e)\)是定义在\(S\)上的随机变量，由它们构成的一个\(n\)维向量\((X_1,X_2,\cdots,X_n)\)叫做\(n\)维随机向量或\textbf{\(n\)维随机变量}。
@@ -1632,7 +1654,12 @@ f(x,y)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}\exp\left\{-\frac{1}{2(1-\rh
 \]
 其中\(-\infty<\mu_i<+\infty\)（\(i=1,2\)），\(\sigma_i>0\)（\(i=1,2\)），\(-1<\rho<1\)。
 
-% 图片：二维正态分布密度曲面图
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_2d_normal_surface.png}
+    \caption{二维正态分布密度曲面图}
+    \label{fig:2d_normal_surface}
+\end{figure}
 
 \section{边缘分布}
 
@@ -1642,7 +1669,12 @@ f(x,y)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}\exp\left\{-\frac{1}{2(1-\rh
 边缘分布也称为边沿分布或边际分布。
 \end{definition}
 
-% 图片：联合分布F(x,y)与边缘分布F_X(x),F_Y(y)的关系示意图。绿色箭头表示联合→边缘，红色箭头表示边缘→联合（双向但条件受限）
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_joint_margin_relation.png}
+    \caption{联合分布与边缘分布的关系}
+    \label{fig:joint_margin_relation}
+\end{figure}
 
 \subsubsection{已知联合分布函数求边缘分布函数}
 
@@ -1741,7 +1773,12 @@ f_{Y\mid X}(y\mid x)=\frac{f(x,y)}{f_X(x)}
 
 \subsubsection{联合分布、边缘分布、条件分布的关系}
 
-% 图片：关系图。联合分布F(X,Y)通过双向箭头（绿色可逆，红色不可逆）连接边缘分布F_X(x),F_Y(y)和条件分布F_{X|Y}(x|y),F_{Y|X}(y|x)。公式框标注：f(x,y)=f_X(x)f_{Y|X}(y|x)=f_Y(y)f_{X|Y}(x|y)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_dist_relation_diagram.png}
+    \caption{联合分布、边缘分布、条件分布的关系}
+    \label{fig:dist_relation_diagram}
+\end{figure}
 
 \[
 f(x,y)=f_X(x)f_{Y\mid X}(y\mid x)=f_Y(y)f_{X\mid Y}(x\mid y)
@@ -1994,7 +2031,12 @@ c x^2 y, & x^2\leq y\leq 1 \\[6pt]
 \iint_{x^2\leq y\leq 1}c x^2 y\,\mathrm{d}x\,\mathrm{d}y=1
 \]
 
-% 图片：积分区域图，抛物线y=x^2与直线y=1围成的区域
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_parabola_integral.png}
+    \caption{积分区域：$y=x^{2}$ 与 $y=1$ 围成}
+    \label{fig:parabola_integral}
+\end{figure}
 
 或
 \[
@@ -2105,7 +2147,12 @@ f(x,y)=\begin{cases}
 \]
 (2) 求边缘概率密度。
 
-% 图片：积分区域图，抛物线y=x^2与直线y=1围成的区域
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_parabola_integral_2.png}
+    \caption{积分区域：$y=x^{2}$ 与 $y=1$ 围成}
+    \label{fig:parabola_integral_2}
+\end{figure}
 
 \(x\)的取值范围是\(-1\leq x\leq 1\)。
 
@@ -2218,7 +2265,12 @@ x+y, & 0<x<1,\,0<y<1 \\[6pt]
 F_Z(z)=P\{Z\leq z\}=P\{X+Y\leq z\}=\iint_{X+Y\leq z}f(x,y)\,\mathrm{d}x\,\mathrm{d}y
 \]
 
-% 图片：单位正方形[0,1]×[0,1]，绿色虚线表示x+y=z(0<z<1)，红色实线表示x+y=z(1<z<2)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_unit_square_sum.png}
+    \caption{单位正方形上的和分布区域}
+    \label{fig:unit_square_sum}
+\end{figure}
 
 \[
 F_Z(z)=\begin{cases}
@@ -2254,7 +2306,12 @@ z-1<x<z
 \end{cases}
 \]
 
-% 图片：z-x坐标系，阴影区域为平行四边形，顶点(0,0),(1,1),(1,2),(0,1)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_zx_parallelogram.png}
+    \caption{$z-x$ 坐标系下的积分区域（平行四边形）}
+    \label{fig:zx_parallelogram}
+\end{figure}
 
 \[
 f_Z(z)=\begin{cases}
@@ -2281,7 +2338,12 @@ Z=XY\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}\frac{1}{|x|}f\left(x,\
 \end{cases}
 \]
 
-% 图片：z-x坐标系，阴影区域为三角形，顶点(0,0),(1,0),(1,1)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_zx_triangle.png}
+    \caption{$z-x$ 坐标系下的积分区域（三角形）}
+    \label{fig:zx_triangle}
+\end{figure}
 
 \[
 f_Z(z)=\begin{cases}
@@ -2382,7 +2444,12 @@ f(x,y)=f_X(x)f_Y(y)=\begin{cases}
 
 \textbf{解}(2)：二次方程\(a^2+2Xa+Y=0\)有实根的充要条件为：\(4X^2-4Y\geq 0\)，即\(X^2\geq Y\)。
 
-% 图片：区域G为曲线y=x^2、y=0、x=1所围成的区域，阴影部分
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_region_G.png}
+    \caption{区域 $G$：$y=x^{2}$、$y=0$、$x=1$ 围成}
+    \label{fig:region_G}
+\end{figure}
 
 \[
 \begin{aligned}
@@ -2499,7 +2566,12 @@ x<z-x<+\infty
 \end{cases}
 \]
 
-% 图片：z-x坐标系，阴影区域为三角形，顶点(0,0),(z/2,z),(0,z)
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig_zx_triangle_2.png}
+    \caption{$z-x$ 坐标系下的积分区域}
+    \label{fig:zx_triangle_2}
+\end{figure}
 
 当\(z<0\)时，\(f_Z(z)=0\)。
 
