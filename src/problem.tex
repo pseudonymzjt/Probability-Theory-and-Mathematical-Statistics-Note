@@ -4809,12 +4809,6 @@ P\{H_0\text{实际为真，但是拒绝}H_0\}\leq\alpha.
     \item 经过一次抽样后，如果事件$A$发生了，根据“小概率几乎不可能发生”原则，拒绝$H_0$；否则，接受$H_0$。
 \end{itemize}
 
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{figures/fig_hypothesis_idea.png}
-%     \caption{假设检验基本思想示意图}
-%     \label{fig:hypothesis_idea}
-% \end{figure}
 
 \subsection{参数的假设检验一般步骤（临界值法）}
 
@@ -5733,21 +5727,50 @@ Excel中形式如\texttt{XXX.INV}的统计函数，是形如\texttt{XXX.DIST}的
 \textbf{常用函数}：
 \begin{itemize}[leftmargin=2em]
     \item \texttt{NORM.S.INV(probability)}：返回标准正态分布的区间点。
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.5\textwidth]{figures/fig_excel_norm_inv.png}
+        \caption{NORM.S.INV 函数示意图}
+        \label{fig:excel_norm_inv}
+    \end{figure}
+
     \item \texttt{T.INV(probability, deg\_freedom)}：返回$t$分布的左尾区间点。
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.45\textwidth]{figures/fig_excel_t_inv_left.png}
+        \hfill
+        \includegraphics[width=0.45\textwidth]{figures/fig_excel_t_inv_right.png}
+        \caption{T.INV 函数示意图}
+        \label{fig:excel_t_inv}
+    \end{figure}
+
     \item \texttt{F.INV(probability, deg\_freedom1, deg\_freedom2)}：返回（左尾）$F$分布的逆函数值。
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.45\textwidth]{figures/fig_excel_f_inv.png}
+        \hfill
+        \includegraphics[width=0.45\textwidth]{figures/fig_excel_f_inv_rt.png}
+        \caption{F.INV 与 F.INV.RT 函数示意图}
+        \label{fig:excel_f_inv}
+    \end{figure}
+
     \item \texttt{F.INV.RT(probability, deg\_freedom1, deg\_freedom2)}：返回（右尾）$F$分布的逆函数值。
     \item \texttt{CHISQ.INV(probability, deg\_freedom)}：返回具有给定概率的左尾$\chi^2$分布的区间点。
+
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.45\textwidth]{figures/fig_excel_chi2_inv.png}
+        \hfill
+        \includegraphics[width=0.45\textwidth]{figures/fig_excel_chi2_inv_rt.png}
+        \caption{CHISQ.INV 与 CHISQ.INV.RT 函数示意图}
+        \label{fig:excel_chi2_inv}
+    \end{figure}
+
     \item \texttt{CHISQ.INV.RT(probability, deg\_freedom)}：返回具有给定概率的右尾$\chi^2$分布的区间点。
 \end{itemize}
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includegraphics[width=0.45\textwidth]{figures/fig_excel_norm_inv.png}
-%     \hfill
-%     \includegraphics[width=0.45\textwidth]{figures/fig_excel_t_inv.png}
-%     \caption{Excel分位数函数示意图}
-%     \label{fig:excel_inv}
-% \end{figure}
 
 \subsection{使用Excel做假设检验}
 
@@ -5777,7 +5800,23 @@ Excel中形式如\texttt{XXX.INV}的统计函数，是形如\texttt{XXX.DIST}的
 \textbf{方法1：使用统计函数}
 \begin{enumerate}[label=\arabic*.,leftmargin=2em]
     \item 使用\texttt{F.TEST}计算方差无明显差异的双尾概率：\texttt{=F.TEST(A3:A12,B3:B12)}。$P$值$=0.0315$。在显著性水平$0.05$下，方差有显著差异；在$0.01$下，方差无明显差异。
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figures/fig_excel_f_test.png}
+        \caption{F.TEST 结果示意图}
+        \label{fig:excel_f_test}
+    \end{figure}
+    
     \item 若方差相等，使用\texttt{T.TEST}计算均值差的$p$值：\texttt{=T.TEST(A3:A12,B3:B12,2,2)}。$P$值$=0.8615>0.05$，因此均值无明显差异。
+    
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[width=0.6\textwidth]{figures/fig_excel_t_test.png}
+        \caption{T.TEST 结果示意图}
+        \label{fig:excel_t_test}
+    \end{figure}
+    
     \item 若方差不相等，使用\texttt{=T.TEST(A3:A12,B3:B12,2,3)}。$P$值$=0.8623>0.05$，因此均值无明显差异。
 \end{enumerate}
 
