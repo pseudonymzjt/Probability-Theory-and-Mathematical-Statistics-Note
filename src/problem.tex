@@ -4229,4 +4229,509 @@ Lyapunov & -- & $\mu_i$ & $\sigma_k^2>0$且满足Lyapunov条件 \\
 
 % 预祝期中考试顺利！
 
+\newpage
+\chapter{样本及抽样分布}
+
+\section{重点与难点}
+
+\textbf{重点}：
+\begin{itemize}[leftmargin=2em]
+    \item 抽样分布中的常用统计量、经验分布函数。
+    \item 数理统计中的三个重要分布（$\chi^2$分布、$t$分布、$F$分布）及性质。
+    \item 正确理解分位数的概念并会查表求其数值。
+\end{itemize}
+
+\textbf{难点}：
+\begin{itemize}[leftmargin=2em]
+    \item $\chi^2$变量、$t$变量、$F$变量的构造及性质。
+    \item 运用与正态总体有关的样本数字特征解决实际问题。
+\end{itemize}
+
+\section{总体、个体与样本}
+
+\begin{definition}[总体与个体]
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{总体}：试验的全部可能的观察值。
+    \item \textbf{个体}：总体中每一个可能的观察值。
+\end{itemize}
+\end{definition}
+
+\begin{definition}[简单随机样本]
+设$X$是具有分布函数$F$的随机变量，$X_1,X_2,\ldots,X_n$是具有同一分布函数$F$、相互独立的随机变量，则称$X_1,X_2,\ldots,X_n$为从分布函数$F$（或总体$F$、或总体$X$）得到的容量为$n$的\textbf{简单随机样本}，简称\textbf{样本}。
+\end{definition}
+
+\section{经验分布函数}
+
+\begin{definition}[经验分布函数]
+设$X_1,X_2,\ldots,X_n$是总体$F$的一个样本。用$S(x)$（$-\infty<x<+\infty$）表示$X_1,X_2,\ldots,X_n$中不大于$x$的随机变量个数，定义\textbf{经验分布函数}（样本分布函数）为：
+\[
+F_n(x)=\frac{1}{n}S(x),\quad -\infty<x<+\infty.
+\]
+\end{definition}
+
+\textbf{经验分布函数的观察值}：一般地，设$x_1,x_2,\ldots,x_n$是总体$F$的一个样本值，先将$x_1,x_2,\ldots,x_n$按自小到大排序，并重新编号满足：
+\[
+x_{(1)}\leq x_{(2)}\leq\cdots\leq x_{(n)}.
+\]
+则经验分布函数$F_n(x)$的观察值为：
+\[
+F_n(x)=
+\begin{cases}
+0, & \text{若 }x<x_{(1)},\\[4pt]
+\dfrac{k}{n}, & \text{若 }x_{(k)}\leq x<x_{(k+1)},\\[8pt]
+1, & \text{若 }x\geq x_{(n)}.
+\end{cases}
+\]
+
+\section{统计量}
+
+\begin{definition}[统计量]
+完全由样本所决定的量，叫做\textbf{统计量}。
+\end{definition}
+
+设$X_1,X_2,\ldots,X_n$是来自总体$X$的一个样本，常用的样本数字特征统计量如下：
+
+\textbf{样本均值}：
+\[
+\bar{X}=\frac{1}{n}\sum_{i=1}^{n}X_i
+\quad\text{（反映了总体均值的信息）}
+\]
+
+\textbf{样本方差}：
+\[
+S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar{X})^2
+=\frac{1}{n-1}\left(\sum_{i=1}^{n}X_i^2-n\bar{X}^2\right)
+\quad\text{（反映了总体方差的信息）}
+\]
+
+\textbf{样本标准差}：
+\[
+S=\sqrt{S^2}
+\quad\text{（反映了总体标准差的信息）}
+\]
+
+\textbf{$k$阶样本原点矩}：
+\[
+A_k=\frac{1}{n}\sum_{i=1}^{n}X_i^k,\quad k=1,2,\ldots
+\quad\text{（反映了总体$k$阶原点矩的信息）}
+\]
+
+\textbf{$k$阶样本中心矩}：
+\[
+B_k=\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^k,\quad k=1,2,\ldots
+\quad\text{（反映了总体$k$阶中心矩的信息）}
+\]
+
+\begin{remark}
+\textbf{统计量与数字特征的区别}：样本数字特征统计量是随机变量；而（随机变量的）数字特征是常数。
+\end{remark}
+
+\begin{table}[htbp]
+\centering
+\caption{概念对比——概率、统计与计算机科学}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{概率} & \textbf{数理统计} & \textbf{计算机科学(PR\&ML)} \\
+\midrule
+样本空间 & 总体 & \\
+随机事件 & 样本 & 训练样本集 \\
+样本点 & 个体 & 单个样本 \\
+方差 & 方差 & 类内距离 \\
+& 估计 & 学习 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{三大抽样分布}
+
+\subsection{$\chi^2$分布}
+
+\begin{definition}[$\chi^2$分布]
+设$X_1,X_2,\ldots,X_n$是来自总体$N(0,1)$的样本，则称统计量
+\[
+\chi^2=\sum_{i=1}^{n}X_i^2
+\]
+服从自由度为$n$的\textbf{$\chi^2$分布}，记为$\chi^2\sim\chi^2(n)$。
+\end{definition}
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{可加性}：设$\chi_1^2\sim\chi^2(n_1)$，$\chi_2^2\sim\chi^2(n_2)$，且$\chi_1^2$与$\chi_2^2$相互独立，则
+    \[
+    \chi_1^2+\chi_2^2\sim\chi^2(n_1+n_2).
+    \]
+    \item \textbf{数字特征}：若$\chi^2\sim\chi^2(n)$，则
+    \[
+    E(\chi^2)=n,\quad D(\chi^2)=2n.
+    \]
+\end{enumerate}
+
+\subsection{$t$分布（Student分布）}
+
+\begin{definition}[$t$分布]
+设$X\sim N(0,1)$，$Y\sim\chi^2(n)$，且$X$与$Y$相互独立，则称随机变量
+\[
+t=\frac{X}{\sqrt{Y/n}}
+\]
+服从自由度为$n$的\textbf{$t$分布}，记为$t\sim t(n)$。
+\end{definition}
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $t$分布关于$x=0$对称。
+    \item $n=1$时，$E(t)$不存在；$n\geq 2$时，$E(t)=0$。
+    \item $n\to\infty$时，$t$分布趋向于标准正态分布。实际应用中，当$n\geq 45$时，可用标准正态分布近似。
+\end{enumerate}
+
+\subsection{$F$分布}
+
+\begin{definition}[$F$分布]
+设$U\sim\chi^2(n_1)$，$V\sim\chi^2(n_2)$，且$U$与$V$相互独立，则称随机变量
+\[
+F=\frac{U/n_1}{V/n_2}
+\]
+服从自由度为$(n_1,n_2)$的\textbf{$F$分布}，记为$F\sim F(n_1,n_2)$。
+\end{definition}
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 若$F\sim F(n_1,n_2)$，则$\dfrac{1}{F}\sim F(n_2,n_1)$。
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/fig_three_dist_1.png}
+    \hfill
+    \includegraphics[width=0.45\textwidth]{figures/fig_three_dist_2.png}
+    \caption{三大抽样分布}
+    \label{fig:three_dist}
+\end{figure}
+
+\section{正态总体的样本均值与样本方差的分布}
+
+\subsection{单个正态总体}
+
+\begin{theorem}
+设$X_1,\ldots,X_n$是来自总体$X\sim N(\mu,\sigma^2)$的随机样本，则
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{样本均值的分布}：
+    \[
+    \bar{X}=\frac{1}{n}\sum_{i=1}^{n}X_i\sim N\left(\mu,\frac{\sigma^2}{n}\right),
+    \quad\text{即}\quad
+    \frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\sim N(0,1).
+    \]
+    \item \textbf{样本方差的分布}（总体方差$\sigma^2$已知）：
+    \[
+    \frac{(n-1)S^2}{\sigma^2}
+    =\frac{\sum_{i=1}^{n}(X_i-\bar{X})^2}{\sigma^2}
+    \sim\chi^2(n-1).
+    \]
+    \item \textbf{独立性}：样本均值$\bar{X}$与样本方差$S^2$相互独立。
+    \item \textbf{样本均值与样本方差的联合分布}（总体方差$\sigma^2$未知）：
+    \[
+    \frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1).
+    \]
+\end{enumerate}
+\end{theorem}
+
+\subsection{两个正态总体}
+
+\begin{theorem}
+设$X_1,\ldots,X_{n_1}$与$Y_1,\ldots,Y_{n_2}$分别是来自正态总体$N(\mu_1,\sigma_1^2)$和$N(\mu_2,\sigma_2^2)$的随机样本，且两样本相互独立，则
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{样本的方差比分布}：
+    \[
+    \frac{S_1^2/S_2^2}{\sigma_1^2/\sigma_2^2}\sim F(n_1-1,n_2-1).
+    \]
+    \item \textbf{样本的均值差分布}（当$\sigma_1^2=\sigma_2^2=\sigma^2$时）：
+    \[
+    \frac{(\bar{X}-\bar{Y})-(\mu_1-\mu_2)}{S_w\sqrt{\dfrac{1}{n_1}+\dfrac{1}{n_2}}}
+    \sim t(n_1+n_2-2),
+    \]
+    其中
+    \[
+    S_w^2=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2},\quad
+    S_w=\sqrt{S_w^2}.
+    \]
+\end{enumerate}
+\end{theorem}
+
+\section{分布的分位数（分位点）}
+
+\begin{definition}[上$\alpha$分位数]
+设总体$X$的分布函数为$F(x)$，密度函数为$f(x)$。对于给定正数$\alpha$（$0<\alpha<1$），满足条件
+\[
+P\{X>x_\alpha\}=\alpha
+\quad\text{或}\quad
+F(x_\alpha)=1-\alpha
+\]
+的数$x_\alpha$称为分布函数$F(x)$的\textbf{上侧$\alpha$分位数}（上$\alpha$分位点）。
+\end{definition}
+
+\textbf{$\chi^2$分布的分位数}：
+\[
+P\{\chi^2>\chi_\alpha^2(n)\}=\alpha.
+\]
+R.A.\ Fisher证明当$n$充分大时（$n>40$），
+\[
+\chi_\alpha^2(n)\approx\frac{1}{2}\left(z_\alpha+\sqrt{2n-1}\right)^2,
+\]
+其中$z_\alpha$是标准正态分布的上$\alpha$分位点。
+
+\textbf{$t$分布的分位数}：
+\[
+P\{t>t_\alpha(n)\}=\alpha.
+\]
+由概率密度函数的对称性知
+\[
+t_{1-\alpha}(n)=-t_\alpha(n).
+\]
+当$n$充分大时（$n>45$），$t_\alpha(n)\approx z_\alpha$。
+
+\textbf{$F$分布的分位数}：
+\[
+P\{F>F_\alpha(n_1,n_2)\}=\alpha.
+\]
+且有性质
+\[
+F_{1-\alpha}(n_1,n_2)=\frac{1}{F_\alpha(n_2,n_1)}.
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_quantile_exercise.png}
+    \caption{分位数示意图}
+    \label{fig:quantile_exercise}
+\end{figure}
+
+\section{典型例题}
+
+\begin{example}[例1]
+设$X_1,X_2,X_3,Y_1,Y_2,Y_3,Y_4$是来自正态总体$N(0,1)$的独立样本，判断下列统计量的分布：
+\[
+X_1^2+X_2^2+X_3^2,\qquad
+\frac{4\sum_{i=1}^{3}X_i^2}{3\sum_{i=1}^{4}Y_i^2},\qquad
+\frac{\sqrt{3}X_1}{\sqrt{Y_1^2+Y_2^2+Y_3^2}}.
+\]
+
+\textbf{解}：根据$\chi^2$变量、$t$变量、$F$变量的构成模式：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $X_1^2+X_2^2+X_3^2\sim\chi^2(3)$。
+    \item $\sum_{i=1}^{3}X_i^2\sim\chi^2(3)$，$\sum_{i=1}^{4}Y_i^2\sim\chi^2(4)$，且相互独立，故
+    \[
+    \frac{4\sum_{i=1}^{3}X_i^2}{3\sum_{i=1}^{4}Y_i^2}
+    =\frac{\sum X_i^2/3}{\sum Y_i^2/4}
+    \sim F(3,4).
+    \]
+    \item $X_1\sim N(0,1)$，$Y_1^2+Y_2^2+Y_3^2\sim\chi^2(3)$，且相互独立，故
+    \[
+    \frac{\sqrt{3}X_1}{\sqrt{Y_1^2+Y_2^2+Y_3^2}}
+    =\frac{X_1}{\sqrt{(Y_1^2+Y_2^2+Y_3^2)/3}}
+    \sim t(3).
+    \]
+\end{enumerate}
+\end{example}
+
+\begin{example}[例2]
+设$X_1,X_2,\ldots,X_{10}$独立同分布，$X_i\sim N(0,0.3^2)$，求$c$的值，使$c\sum_{i=1}^{10}X_i^2$服从$\chi^2$分布，并求自由度$n$。
+
+\textbf{解}：由于$X_i\sim N(0,0.3^2)$，则$\dfrac{X_i}{0.3}\sim N(0,1)$。于是
+\[
+\left(\frac{X_1}{0.3}\right)^2+\left(\frac{X_2}{0.3}\right)^2+\cdots+\left(\frac{X_{10}}{0.3}\right)^2
+=\frac{1}{0.09}\sum_{i=1}^{10}X_i^2
+\sim\chi^2(10).
+\]
+故$c=\dfrac{1}{0.09}=\dfrac{100}{9}$，自由度$n=10$。
+\end{example}
+
+\begin{example}[例3]
+求总体$N(20,3)$的容量分别为$10,15$的两独立样本均值差的绝对值大于$0.3$的概率。
+
+\textbf{解}：设两样本均值分别为$\bar{X},\bar{Y}$，则
+\[
+\bar{X}\sim N\left(20,\frac{3}{10}\right),\quad
+\bar{Y}\sim N\left(20,\frac{3}{15}\right).
+\]
+由于两样本独立，故
+\[
+\bar{X}-\bar{Y}\sim N\left(0,\frac{3}{10}+\frac{3}{15}\right)=N\left(0,\frac{1}{2}\right).
+\]
+因此
+\[
+\begin{aligned}
+P\{|\bar{X}-\bar{Y}|>0.3\}
+&=1-P\left\{\frac{-0.3}{\sqrt{1/2}}\leq\frac{\bar{X}-\bar{Y}}{\sqrt{1/2}}\leq\frac{0.3}{\sqrt{1/2}}\right\}\\
+&=1-[2\Phi(0.424)-1]\approx 0.6744.
+\end{aligned}
+\]
+\end{example}
+
+\begin{example}[例4]
+从总体$X\sim N(5,2^2)$中随机抽取一容量为$25$的样本，求样本均值$\bar{X}$落在$4.2$到$5.8$之间的概率，以及样本方差$S^2$大于$6.07$的概率。
+
+\textbf{解}：由于总体$X\sim N(5,4)$，$n=25$，故
+\[
+\bar{X}\sim N\left(5,\frac{4}{25}\right),\qquad
+\frac{(25-1)S^2}{2^2}\sim\chi^2(24).
+\]
+
+样本均值落在$4.2$到$5.8$之间的概率：
+\[
+P\{4.2<\bar{X}<5.8\}
+=P\left\{-2<\frac{\bar{X}-5}{2/5}<2\right\}
+=2\Phi(2)-1=0.908.
+\]
+
+样本方差$S^2$大于$6.07$的概率：
+\[
+P\{S^2>6.07\}
+=P\left\{\frac{24S^2}{4}>\frac{6.07\times 24}{4}\right\}
+=P\{\chi^2(24)>36.42\}=0.05.
+\]
+其中$36.42=\chi_{0.05}^2(24)$，即自由度为$24$的$\chi^2$分布的上侧$0.05$分位数。
+\end{example}
+
+\begin{example}[例5]
+设总体$X\sim N(\mu,\sigma^2)$，从总体中取一个容量为$n=16$的样本$(X_1,X_2,\ldots,X_{16})$，求：
+\[
+\text{(1)}\ P\left\{\frac{\sigma^2}{2}\leq\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2\leq 2\sigma^2\right\};
+\qquad
+\text{(2)}\ P\left\{\frac{\sigma^2}{2}\leq\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^2\leq 2\sigma^2\right\}.
+\]
+
+\textbf{解}：(1) 因为$\sum_{i=1}^{n}\left(\dfrac{X_i-\mu}{\sigma}\right)^2\sim\chi^2(16)$，于是
+\[
+\begin{aligned}
+P\left\{\frac{\sigma^2}{2}\leq\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2\leq 2\sigma^2\right\}
+&=P\left\{8\leq\sum_{i=1}^{16}\frac{(X_i-\mu)^2}{\sigma^2}\leq 32\right\}\\
+&=P\{8\leq\chi^2(16)\leq 32\}\\
+&=P\{\chi^2(16)\leq 32\}-P\{\chi^2(16)\leq 8\}\\
+&=(1-0.01)-(1-0.95)=0.94.
+\end{aligned}
+\]
+
+(2) 因为$\sum_{i=1}^{n}\left(\dfrac{X_i-\bar{X}}{\sigma}\right)^2=\dfrac{(n-1)S^2}{\sigma^2}\sim\chi^2(15)$，于是
+\[
+\begin{aligned}
+P\left\{\frac{\sigma^2}{2}\leq\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^2\leq 2\sigma^2\right\}
+&=P\left\{8\leq\sum_{i=1}^{16}\frac{(X_i-\bar{X})^2}{\sigma^2}\leq 32\right\}\\
+&=P\{8\leq\chi^2(15)\leq 32\}\\
+&=P\{\chi^2(15)\geq 8\}-P\{\chi^2(15)\geq 32\}\\
+&\approx 0.92-0.005=0.915.
+\end{aligned}
+\]
+\end{example}
+
+\begin{example}[例6]
+为了估计灯泡寿命，抽取$10$个灯泡测试。求得样品均值$\bar{X}=1500$小时，样品标准差$S=20$小时。若灯泡寿命服从正态分布$N(\mu,\sigma_0^2)$，以$\bar{X}$作为$\mu$的估计，试求：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若已知$\sigma_0^2=400$，$\bar{X}$偏离总体均值$\mu$不超过$12$小时的概率。
+    \item 若未知$\sigma_0^2$，$\bar{X}$偏离总体均值$\mu$不超过$12$小时的概率。
+\end{enumerate}
+
+\textbf{解}：(1) 已知$\sigma_0^2=400$，则$\dfrac{\bar{X}-\mu}{\sigma_0/\sqrt{n}}\sim N(0,1)$，
+\[
+\begin{aligned}
+P\{|\bar{X}-\mu|\leq 12\}
+&=P\left\{\left|\frac{\bar{X}-\mu}{20/\sqrt{10}}\right|\leq\frac{12}{20/\sqrt{10}}\right\}\\
+&=P\{|Z|\leq 1.897\}=2\Phi(1.897)-1\approx 0.94.
+\end{aligned}
+\]
+
+(2) 未知$\sigma_0^2$，利用$\dfrac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1)$，
+\[
+P\{|\bar{X}-\mu|\leq 12\}
+=P\left\{\left|\frac{\bar{X}-\mu}{20/\sqrt{10}}\right|\leq 1.897\right\}.
+\]
+查表得$t_{0.05}(9)=1.8331$，由$t$分布的对称性，
+\[
+P\{|t(9)|\leq 1.897\}\approx 1-2\times 0.05=0.9.
+\]
+\end{example}
+
+\section{Excel实验}
+
+\subsection{常见统计分布的分位数点}
+
+Excel中形式如\texttt{XXX.INV}的统计函数，是形如\texttt{XXX.DIST}的反函数。
+
+\textbf{常用函数}：
+\begin{itemize}[leftmargin=2em]
+    \item \texttt{NORM.S.INV(probability)}：返回标准正态分布的区间点。
+    \item \texttt{T.INV(probability, deg\_freedom)}：返回$t$分布的左尾区间点。
+    \item \texttt{F.INV(probability, deg\_freedom1, deg\_freedom2)}：返回（左尾）$F$分布的逆函数值。
+    \item \texttt{F.INV.RT(probability, deg\_freedom1, deg\_freedom2)}：返回（右尾）$F$分布的逆函数值。
+    \item \texttt{CHISQ.INV(probability, deg\_freedom)}：返回具有给定概率的左尾$\chi^2$分布的区间点。
+    \item \texttt{CHISQ.INV.RT(probability, deg\_freedom)}：返回具有给定概率的右尾$\chi^2$分布的区间点。
+\end{itemize}
+
+\begin{example}[实验1]
+用Excel求下列分位数：
+\[
+z_{0.1},\quad t_{0.975}(4),\quad t_{0.05}(55),\quad F_{0.9}(14,10),\quad \chi_{0.975}^2(200).
+\]
+
+\textbf{Excel公式}：
+\begin{itemize}[leftmargin=2em]
+    \item \texttt{=NORM.S.INV(0.9)}
+    \item \texttt{=T.INV(1-0.975, 4)}
+    \item \texttt{=T.INV(1-0.05, 55)} 或 \texttt{=T.INV.2T(0.1,55)}
+    \item \texttt{=F.INV(1-0.9, 14, 10)} 或 \texttt{=F.INV.RT(0.9, 14, 10)}
+    \item \texttt{=CHISQ.INV.RT(0.975, 200)} 或 \texttt{=CHISQ.INV(1-0.975, 200)}
+\end{itemize}
+\end{example}
+
+\subsection{使用Excel做区间估计}
+
+\begin{example}[实验2]
+已知某种灯泡的寿命服从正态分布，现从一批灯泡中抽取$16$只，测得其寿命（单位：小时）如下：
+\begin{center}
+\begin{tabular}{cccccccc}
+1510 & 1450 & 1480 & 1460 & 1520 & 1480 & 1490 & 1460\\
+1480 & 1510 & 1530 & 1470 & 1500 & 1520 & 1510 & 1470
+\end{tabular}
+\end{center}
+求该灯泡平均使用寿命置信度为$90\%$，$95\%$，$99\%$的置信区间。
+
+\textbf{分析}：总体方差未知，关于总体均值$\mu$的置信度为$1-\alpha$的置信区间为
+\[
+\left(\bar{X}\pm\frac{S}{\sqrt{n}}t_{\alpha/2}(n-1)\right).
+\]
+
+\textbf{Excel操作}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 样本容量：\texttt{=COUNT(A2:B9)}
+    \item 样本均值：\texttt{=AVERAGE(A2:B9)}
+    \item 样本方差：\texttt{=VAR(A2:B9)}
+    \item $t$值：\texttt{=T.INV(1-E5, E2-1)}（其中\texttt{TINV($\alpha,n$)}返回的是$t_{\alpha/2}(n)$）
+    \item 置信区间下限：\texttt{=E3-SQRT(E4/E2)*E6}
+    \item 置信区间上限：\texttt{=E3+SQRT(E4/E2)*E6}
+\end{enumerate}
+\end{example}
+
+\section{Python实验}
+
+\begin{example}[使用Python计算置信区间]
+\begin{verbatim}
+import numpy as np
+from scipy import stats
+
+# 示例数据
+data = [1510, 1450, 1480, 1460, 1520, 1480, 1490, 1460,
+        1480, 1510, 1530, 1470, 1500, 1520, 1510, 1470]
+
+# 计算均值和标准误差
+mean = np.mean(data)
+sem = stats.sem(data)
+
+# 设定置信水平（例如95%）
+confidence = 0.95
+
+# 计算置信区间
+interval = stats.t.interval(confidence, len(data)-1, loc=mean, scale=sem)
+
+print(f"{confidence*100}%的置信区间为: {interval}")
+\end{verbatim}
+\end{example}
+
 \end{document}
