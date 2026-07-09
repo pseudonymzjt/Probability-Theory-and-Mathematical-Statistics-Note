@@ -7944,8 +7944,8 @@ $X\sim\Gamma(r,\lambda)$中：
     \centering
     \includegraphics[width=0.45\textwidth]{figures/fig_gamma_shape.png}
     \hfill
-    % \includegraphics[width=0.45\textwidth]{figures/fig_gamma_scale.png}
-    \caption{$\Gamma$分布：不同形状参数（左）与不同尺度参数（右，暂缺）}
+    \includegraphics[width=0.45\textwidth]{figures/fig_gamma_scale.png}
+    \caption{$\Gamma$分布：不同形状参数（右）与不同尺度参数（左）}
     \label{fig:gamma_params}
 \end{figure}
 
@@ -8402,5 +8402,1820 @@ V=\frac{(n_{1}-1)S_{1}^{2}}{\sigma^{2}}+\frac{(n_{2}-1)S_{2}^{2}}{\sigma^{2}}\si
 \addcontentsline{toc}{section}{作业}
 
 教材《概率论与数理统计》（pp.~147--148）：\#4, \#6, \#7, \#9.
+
+\newpage
+\chapter{参数估计}
+
+\section{点估计}
+
+\subsection{参数估计与非参数估计}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{参数估计}——总体分布的类型是已知的，通过样本估计其中的未知参数；
+    \item \textbf{非参数估计}——总体分布的类型是未知的，通过样本估计总体的分布。
+\end{itemize}
+
+\subsection{点估计问题}
+
+设总体$X$的分布函数$F(x,\theta)$的形式已知（例如：正态分布），$\theta$是待估计参数（例如：期望$\mu$）。
+
+$X_{1},X_{2},\ldots,X_{n}$是$X$的一个样本，$x_{1},x_{2},\ldots,x_{n}$是相应的样本值。
+
+构造一个适当的统计量$\hat{\theta}(X_{1},X_{2},\ldots,X_{n})$，用它的观察值$\hat{\theta}(x_{1},x_{2},\ldots,x_{n})$来估计未知参数$\theta$，称$\hat{\theta}(X_{1},X_{2},\ldots,X_{n})$为$\theta$的\textbf{估计量}，$\hat{\theta}(x_{1},x_{2},\ldots,x_{n})$为$\theta$的\textbf{估计值}。
+
+这种对未知参数进行定值估计的问题就是\textbf{点估计问题}。
+
+\textbf{概念区分}：
+\begin{itemize}[leftmargin=2em]
+    \item 估计量与估计值：估计量是统计量，因而是随机变量；估计值则是一个标量或向量；
+    \item 在不会导致混淆的情况下，统称估计量与估计值为未知变量$\theta$的估计；
+    \item 由于估计量是样本的函数，是随机变量，故对不同的样本值，得到的参数值往往不同，如何构造和求解估计量是关键问题。
+\end{itemize}
+
+\textbf{常用构造估计量的方法}：
+\begin{itemize}[leftmargin=2em]
+    \item 矩估计法
+    \item 最大似然估计法
+    \item 贝叶斯估计法
+\end{itemize}
+
+\subsection{矩估计法}
+
+若$X$为连续型随机变量，其概率密度函数为
+\[
+f(x;\theta_{1},\theta_{2},\ldots,\theta_{k});
+\]
+若$X$为离散型随机变量，其分布律为
+\[
+P\{X=x\}=p(x;\theta_{1},\theta_{2},\ldots,\theta_{k}),
+\]
+其中，$\theta_{1},\theta_{2},\ldots,\theta_{k}$是待估计参数，$X_{1},X_{2},\ldots,X_{n}$为来自$X$的样本。
+
+设相应的$l$阶矩$E[X^{l}]=\mu_{l}$存在，$l=1,2,\ldots,k$，则
+\[
+\mu_{l}=\mu_{l}(\theta_{1},\theta_{2},\ldots,\theta_{k}),\quad l=1,2,\ldots,k.
+\]
+
+从样本获得的相应的$l$阶矩为
+\[
+A_{l}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{l},\quad l=1,2,\ldots,k.
+\]
+
+于是有包含$\theta$的联立方程组：
+\[
+\left\{
+\begin{aligned}
+A_{1}&=\mu_{1}(\theta_{1},\theta_{2},\ldots,\theta_{k}),\\
+A_{2}&=\mu_{2}(\theta_{1},\theta_{2},\ldots,\theta_{k}),\\
+&\vdots\\
+A_{k}&=\mu_{k}(\theta_{1},\theta_{2},\ldots,\theta_{k}),
+\end{aligned}
+\right.
+\]
+从中解出方程组的解，记为$\hat{\theta}_{1},\hat{\theta}_{2},\ldots,\hat{\theta}_{k}$，即
+\[
+\left\{
+\begin{aligned}
+\hat{\theta}_{1}&=\hat{\theta}_{1}(X_{1},X_{2},\ldots,X_{k}),\\
+\hat{\theta}_{2}&=\hat{\theta}_{2}(X_{1},X_{2},\ldots,X_{k}),\\
+&\vdots\\
+\hat{\theta}_{k}&=\hat{\theta}_{k}(X_{1},X_{2},\ldots,X_{k}).
+\end{aligned}
+\right.
+\]
+
+用$\hat{\theta}_{1},\hat{\theta}_{2},\ldots,\hat{\theta}_{k}$分别作为$\theta_{1},\theta_{2},\ldots,\theta_{k}$的估计量，这种利用矩求估计量的方法称为\textbf{矩估计法}，这种估计量称为\textbf{矩估计量}；相应的观察值称为\textbf{矩估计值}。
+
+\subsubsection*{矩估计法的理论分析}
+
+由于$X_{1},X_{2},\ldots,X_{n}$相互独立，且与总体$X$同分布，于是有$X_{1}^{l},X_{2}^{l},\ldots,X_{n}^{l}$相互独立，且与总体$X^{l}$同分布，故有
+\[
+E(X_{1}^{l})=E(X_{2}^{l})=\cdots=E(X_{n}^{l})=\mu_{l},\quad l=1,2,\ldots,k.
+\]
+
+由辛钦大数定律知
+\[
+A_{l}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{l}\stackrel{P}{\longrightarrow}\mu_{l},\quad l=1,2,\ldots,k.
+\]
+
+因此可以假设
+\[
+A_{l}=\mu_{l},\quad l=1,2,\ldots,k.
+\]
+
+\subsubsection*{矩估计法求估计量的步骤}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 求$\mu_{1}=E[X]$，$\mu_{2}=E[X^{2}]$，$\ldots$
+    \item 设$A_{1}=\mu_{1}$，$A_{2}=\mu_{2}$，$\ldots$
+    \item 解上面的方程（组），得$\hat{\theta}_{1}=\hat{\theta}_{1}(X_{1},X_{2},\ldots,X_{k})$，$\hat{\theta}_{2}=\hat{\theta}_{2}(X_{1},X_{2},\ldots,X_{k})$，$\ldots$
+\end{enumerate}
+
+\begin{example}[泊松分布的矩估计]
+设某炸药厂一天中发生着火现象的次数$X$服从参数为$\lambda$的泊松分布$\left(P\{X=k\}=\dfrac{\lambda^{k}}{k!}e^{-\lambda}\right)$，$\lambda$未知，样本如下：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccccccc@{}}
+\toprule
+着火的次数$k$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+\midrule
+发生$k$次着火天数$n_{k}$ & 75 & 90 & 54 & 22 & 6 & 2 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\[
+\sum n_{k}=250.
+\]
+
+试用矩估计估计参数$\lambda$。
+
+\textbf{解}：因为泊松分布有：$\mu_{1}=E[X]=\lambda$。
+
+样本的一阶矩为：
+\[
+A_{1}=\frac{1}{n}\sum_{i=1}^{n}X_{i}=\bar{X}.
+\]
+
+于是
+\[
+\hat{\lambda}=\bar{X}=\frac{1}{250}\left(0\times75+1\times90+\cdots+6\times1\right)=1.22.
+\]
+\end{example}
+
+\begin{example}[均匀分布的矩估计]
+设总体$X\sim U[a,b]$，$a,b$未知，$X_{1},X_{2},\ldots,X_{n}$是一个样本，求$a,b$的矩估计量。
+
+\textbf{解}：
+\[
+\mu_{1}=E[X]=\frac{a+b}{2},
+\]
+\[
+\mu_{2}=E[X^{2}]=D[X]+(E[X])^{2}=\frac{(b-a)^{2}}{12}+\frac{(a+b)^{2}}{4}.
+\]
+
+令
+\[
+\left\{
+\begin{aligned}
+A_{1}&=\frac{a+b}{2},\\[0.3em]
+A_{2}&=\frac{(b-a)^{2}}{12}+\frac{(a+b)^{2}}{4},
+\end{aligned}
+\right.
+\]
+即
+\[
+\left\{
+\begin{aligned}
+a+b&=2A_{1},\\
+b-a&=\sqrt{12\left(A_{2}-A_{1}^{2}\right)}.
+\end{aligned}
+\right.
+\]
+
+解得
+\[
+\left\{
+\begin{aligned}
+\hat{a}&=A_{1}-\sqrt{3\left(A_{2}-A_{1}^{2}\right)}=\bar{X}-\sqrt{\frac{3}{n}\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}},\\[0.3em]
+\hat{b}&=A_{1}+\sqrt{3\left(A_{2}-A_{1}^{2}\right)}=\bar{X}+\sqrt{\frac{3}{n}\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}}.
+\end{aligned}
+\right.
+\]
+
+另外，注意对样本方差的有偏估计
+\[
+A_{2}-A_{1}^{2}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2}-\bar{X}^{2}=\frac{1}{n}\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}.
+\]
+\end{example}
+
+\begin{example}[均值与方差的矩估计]
+设总体$X$的均值$\mu$、方差$\sigma^{2}$均存在，且$\sigma^{2}>0$，但$\mu$、$\sigma^{2}$未知，$X_{1},X_{2},\ldots,X_{n}$是来自$X$的一个样本。求$\mu$、$\sigma^{2}$的矩估计量。
+
+\textbf{解}：
+\[
+\mu_{1}=E[X]=\mu,\qquad \mu_{2}=E[X^{2}]=D[X]+(E[X])^{2}=\sigma^{2}+\mu^{2}.
+\]
+
+令$\mu_{1}=A_{1}$，$\mu_{2}=A_{2}$，即有
+\[
+\left\{
+\begin{aligned}
+\mu&=A_{1},\\
+\sigma^{2}+\mu^{2}&=A_{2}.
+\end{aligned}
+\right.
+\]
+
+于是解得
+\[
+\left\{
+\begin{aligned}
+\hat{\mu}&=A_{1}=\bar{X},\\[0.3em]
+\hat{\sigma}^{2}&=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2}-\bar{X}^{2}=\frac{1}{n}\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}.
+\end{aligned}
+\right.
+\]
+\end{example}
+
+\begin{example}[指数分布的矩估计]
+设总体$X$服从参数为$\lambda\ (\lambda>0)$的指数分布，其中$\lambda$未知，$X_{1},X_{2},\ldots,X_{n}$是一个样本，试求参数$\lambda$的矩估计。
+
+\textbf{解}：总体$X$的密度函数为
+\[
+f(x)=
+\begin{cases}
+\lambda e^{-\lambda x}, & x>0,\\[0.3em]
+0, & x\leq 0.
+\end{cases}
+\]
+
+于是
+\[
+E[X]=\int_{-\infty}^{+\infty}x f(x)\,dx=\int_{0}^{+\infty}x\lambda e^{-\lambda x}\,dx=\frac{1}{\lambda}.
+\]
+
+令$\bar{X}=\dfrac{1}{\lambda}$，于是得到$\lambda$的矩估计量为
+\[
+\hat{\lambda}=\frac{1}{\bar{X}}.
+\]
+\end{example}
+
+\begin{example}[幂分布的矩估计]
+设总体$X$的密度函数为
+\[
+f(x)=
+\begin{cases}
+(\alpha+1)x^{\alpha}, & 0<x<1,\\[0.3em]
+0, & \text{其他},
+\end{cases}
+\]
+其中$\alpha>0$为未知参数，试求参数$\alpha$的矩估计量。
+
+\textbf{解}：
+\[
+E[X]=\int_{0}^{1}x(\alpha+1)x^{\alpha}\,dx=\frac{\alpha+1}{\alpha+2}.
+\]
+
+于是令
+\[
+\bar{X}=\frac{\alpha+1}{\alpha+2},
+\]
+由此解得$\alpha$的矩估计量为：
+\[
+\hat{\alpha}=\frac{2\bar{X}-1}{1-\bar{X}}.
+\]
+\end{example}
+
+\subsection{最大似然估计}
+
+\subsubsection*{问题引出}
+
+\begin{example}[黑球与白球]
+已知某盒中装有一些黑球和白球，不知道哪种球多，但知道它们的数目比是$1:2$。从中有放回地抽取$5$个球，发现黑球有$2$只，白球$3$只。问盒中哪种球多？
+
+\textbf{解}：设$X$表示抽取的$5$个球中黑球的数目，则$X\sim B(5,p)$。由于数目比为$1:2$，因此$p=1/3$或$p=2/3$。
+
+若$p=1/3$，则
+\[
+P\{X=2\}=C_{5}^{2}\left(\frac{1}{3}\right)^{2}\left(\frac{2}{3}\right)^{3}=\frac{80}{243};
+\]
+
+若$p=2/3$，则
+\[
+P\{X=2\}=C_{5}^{2}\left(\frac{2}{3}\right)^{2}\left(\frac{1}{3}\right)^{3}=\frac{40}{243}.
+\]
+
+据此，认为$p=1/3$，则黑球数目少。
+\end{example}
+
+\subsubsection*{基本假设}
+
+设某一随机试验共有$A_{1},A_{2},\ldots,A_{k},\ldots$若干种可能结果，若在一次试验中$A_{m}$出现，则认为$A_{m}$出现概率最大。
+
+\subsubsection*{离散型分布的最大似然估计}
+
+若总体$X$属离散型，其分布律
+\[
+P\{X=x\}=p(x;\theta),\qquad \theta\in\Theta
+\]
+的形式已知，$\theta$为待估计参数，$\Theta$是$\theta$的取值范围。设$X_{1},X_{2},\ldots,X_{n}$是来自$X$的一个样本，则$X_{1},X_{2},\ldots,X_{n}$的联合分布律为
+\[
+\prod_{i=1}^{n}p(x_{i};\theta).
+\]
+
+又设$x_{1},x_{2},\ldots,x_{n}$是$X_{1},X_{2},\ldots,X_{n}$的一个样本值，事件$\{X_{1}=x_{1},X_{2}=x_{2},\ldots,X_{n}=x_{n}\}$发生的概率为：
+\[
+L(\theta)=L(x_{1},x_{2},\ldots,x_{n};\theta)=\prod_{i=1}^{n}p(x_{i};\theta).
+\]
+$L(\theta)$称为样本的\textbf{似然函数}。
+
+\subsubsection*{连续型分布的最大似然估计}
+
+若总体$X$属连续型，其概率密度$f(x;\theta)$，$\theta\in\Theta$的形式已知，$\theta$为待估计参数，$\Theta$是$\theta$的取值范围。设$X_{1},X_{2},\ldots,X_{n}$是来自$X$的一个样本，则$(X_{1},X_{2},\ldots,X_{n})$的联合概率密度为
+\[
+\prod_{i=1}^{n}f(x_{i};\theta).
+\]
+
+又设$x_{1},x_{2},\ldots,x_{n}$是$X_{1},X_{2},\ldots,X_{n}$的一个样本值，则随机点$(X_{1},X_{2},\ldots,X_{n})$落在$(x_{1},x_{2},\ldots,x_{n})$的邻域（$dx_{i}$为边长的$n$维立方体）内的概率近似为：
+\[
+\prod_{i=1}^{n}f(x_{i};\theta)\,dx_{i}.
+\]
+
+选取得到观察值$(x_{1},x_{2},\ldots,x_{n})$最大化上式情况下的$\theta$作为其估计值$\hat{\theta}$。
+
+注意到，$\displaystyle\prod_{i=1}^{n}dx_{i}$不随$\theta$改变，故只需考虑
+\[
+L(\theta)=L(x_{1},x_{2},\ldots,x_{n};\theta)=\prod_{i=1}^{n}f(x_{i};\theta).
+\]
+$L(\theta)$同样称为样本的\textbf{似然函数}。
+
+\subsubsection*{最大似然估计原理}
+
+固定$x_{1},x_{2},\ldots,x_{n}$，选择使概率$L(x_{1},x_{2},\ldots,x_{n};\theta)$达到最大的参数$\theta$作为对$\theta$的估计值，即取$\hat{\theta}$使得：
+\[
+L(x_{1},x_{2},\ldots,x_{n};\hat{\theta})=\max_{\theta\in\Theta}L(x_{1},x_{2},\ldots,x_{n};\theta).
+\]
+
+$\hat{\theta}$与$x_{1},x_{2},\ldots,x_{n}$有关，记为$\hat{\theta}(x_{1},x_{2},\ldots,x_{n})$，称其为参数$\theta$的\textbf{最大似然估计值}。
+
+这种求未知参数$\theta$的方法称为\textbf{最大似然法}。
+
+若
+\[
+L(x_{1},x_{2},\ldots,x_{n};\hat{\theta})=\max_{\theta\in\Theta}L(x_{1},x_{2},\ldots,x_{n};\theta),
+\]
+则称$\hat{\theta}(x_{1},x_{2},\ldots,x_{n})$为$\theta$的\textbf{最大似然估计值}，称$\hat{\theta}(X_{1},X_{2},\ldots,X_{n})$为$\theta$的\textbf{最大似然估计量}。
+
+一般情况下$p(x_{i};\theta)$，$f(x_{i};\theta)$关于$\theta$可导，故$\hat{\theta}$可由下式求得：
+\[
+\frac{dL(\theta)}{d\theta}=0\quad\text{——似然方程}.
+\]
+
+又因为$L(\theta)$与$\ln L(\theta)$在同一$\theta$处取得极值，因此有等价的\textbf{对数似然方程}：
+\[
+\frac{d}{d\theta}\ln L(\theta)=0.
+\]
+
+\subsubsection*{样本的联合密度函数与似然函数的异同}
+
+\textbf{相同点}——形式上一致，都是$\displaystyle\prod_{i=1}^{n}f(x_{i};\theta)$。
+
+\textbf{不同点}——在联合密度函数中$\theta$看作是固定数；在似然函数中将$\theta$看作是变量。
+
+\subsubsection*{从单一参数到多参数}
+
+若总体的分布中包含多个参数，则可令
+\[
+\frac{\partial L}{\partial\theta_{i}}=0,\qquad i=1,2,\ldots,k,
+\]
+或
+\[
+\frac{\partial\ln L}{\partial\theta_{i}}=0,\qquad i=1,2,\ldots,k,
+\]
+解$k$个方程组求得$\theta_{1},\theta_{2},\ldots,\theta_{k}$的最大似然估计值。
+
+一般而言，最大似然估计优于矩估计。
+
+注意：若似然方程（组）无解，或似然函数不可导，此法失效，改用其它方法。
+
+\begin{example}[两点分布的MLE]
+设$X\sim B(1,p)$，$X_{1},X_{2},\ldots,X_{n}$是来自$X$的一个样本，试求参数$p$的MLE。
+
+\textbf{解}：设$x_{1},x_{2},\ldots,x_{n}$是一个样本值，$X$的分布律为：
+\[
+P\{X=x\}=p^{x}(1-p)^{1-x},\qquad x=0,1.
+\]
+
+故似然函数为：
+\[
+L(p)=\prod_{i=1}^{n}p^{x_{i}}(1-p)^{1-x_{i}}=p^{\sum_{i=1}^{n}x_{i}}(1-p)^{n-\sum_{i=1}^{n}x_{i}}.
+\]
+
+而
+\[
+\ln L(p)=\ln p\sum_{i=1}^{n}x_{i}+\ln(1-p)\left(n-\sum_{i=1}^{n}x_{i}\right).
+\]
+
+令
+\[
+\frac{d\ln L(p)}{dp}=0,
+\]
+得到
+\[
+\frac{\sum_{i=1}^{n}x_{i}}{p}-\frac{n-\sum_{i=1}^{n}x_{i}}{1-p}=0.
+\]
+
+解得$p$的MLE值为
+\[
+\hat{p}=\frac{1}{n}\sum_{i=1}^{n}x_{i}=\bar{x}.
+\]
+
+$p$的MLE量为
+\[
+\hat{p}=\frac{1}{n}\sum_{i=1}^{n}X_{i}=\bar{X}.
+\]
+
+注意：与矩估计量是相同的。
+\end{example}
+
+\begin{example}[正态分布的MLE]
+设总体$X\sim N(\mu,\sigma^{2})$，但$\mu$、$\sigma^{2}$未知，$x_{1},x_{2},\ldots,x_{n}$是一个样本。求$\mu$、$\sigma^{2}$的最大似然估计量。
+
+\textbf{解}：$X$的概率密度为
+\[
+f(x;\mu,\sigma^{2})=\frac{1}{\sqrt{2\pi}\sigma}\exp\left\{-\frac{(x-\mu)^{2}}{2\sigma^{2}}\right\}.
+\]
+
+于是似然函数为：
+\[
+L(\mu,\sigma^{2})=\prod_{i=1}^{n}\frac{1}{\sqrt{2\pi}\sigma}\exp\left\{-\frac{(x_{i}-\mu)^{2}}{2\sigma^{2}}\right\}
+=(2\pi\sigma^{2})^{-\frac{n}{2}}\exp\left\{-\frac{\sum_{i=1}^{n}(x_{i}-\mu)^{2}}{2\sigma^{2}}\right\}.
+\]
+
+\[
+\ln L(\mu,\sigma^{2})=-\frac{n}{2}\ln 2\pi-\frac{n}{2}\ln\sigma^{2}-\frac{\sum_{i=1}^{n}(x_{i}-\mu)^{2}}{2\sigma^{2}}.
+\]
+
+令
+\[
+\left\{
+\begin{aligned}
+\frac{\partial}{\partial\mu}\ln L(\mu,\sigma^{2})&=0,\\[0.3em]
+\frac{\partial}{\partial\sigma^{2}}\ln L(\mu,\sigma^{2})&=0,
+\end{aligned}
+\right.
+\]
+得
+\[
+\left\{
+\begin{aligned}
+\frac{\sum_{i=1}^{n}x_{i}-n\mu}{\sigma^{2}}&=0,\\[0.3em]
+-\frac{n}{2\sigma^{2}}+\frac{\sum_{i=1}^{n}(x_{i}-\mu)^{2}}{2\sigma^{4}}&=0.
+\end{aligned}
+\right.
+\]
+
+解得
+\[
+\left\{
+\begin{aligned}
+\hat{\mu}&=\frac{1}{n}\sum_{i=1}^{n}x_{i}=\bar{x},\\[0.3em]
+\hat{\sigma}^{2}&=\frac{1}{n}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}.
+\end{aligned}
+\right.
+\]
+
+即
+\[
+\left\{
+\begin{aligned}
+\hat{\mu}&=\bar{X},\\[0.3em]
+\hat{\sigma}^{2}&=\frac{1}{n}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}.
+\end{aligned}
+\right.
+\]
+
+与相应的矩估计量是相同的。
+\end{example}
+
+\begin{example}[泊松分布的MLE]
+设总体$X$服从参数为$\lambda\ (\lambda>0)$的泊松分布，$X_{1},X_{2},\ldots,X_{n}$是来自$X$的一个样本，试求参数$\lambda$的最大似然估计量。
+
+\textbf{解}：$X$的分布律为
+\[
+P\{X=x\}=\frac{\lambda^{x}}{x!}e^{-\lambda},\qquad x=0,1,\ldots
+\]
+
+于是$\lambda$的似然函数为
+\[
+L(\lambda)=\prod_{i=1}^{n}\left(\frac{\lambda^{x_{i}}}{x_{i}!}e^{-\lambda}\right)=e^{-n\lambda}\frac{\lambda^{\sum_{i=1}^{n}x_{i}}}{\prod_{i=1}^{n}x_{i}!}.
+\]
+
+\[
+\ln L(\lambda)=-n\lambda+\ln\lambda\sum_{i=1}^{n}x_{i}-\sum_{i=1}^{n}\ln x_{i}!.
+\]
+
+令
+\[
+\frac{d}{d\lambda}\ln L(\lambda)=-n+\frac{\sum_{i=1}^{n}x_{i}}{\lambda}=0.
+\]
+
+解得$\lambda$的MLE值为
+\[
+\hat{\lambda}=\frac{1}{n}\sum_{i=1}^{n}x_{i}=\bar{x}.
+\]
+
+$\lambda$的最大似然估计量为
+\[
+\hat{\lambda}=\frac{1}{n}\sum_{i=1}^{n}X_{i}=\bar{X}.
+\]
+
+与相应的矩估计量是相同的。
+\end{example}
+
+\begin{example}[幂分布的MLE]
+设总体$X$的密度函数为
+\[
+f(x)=
+\begin{cases}
+\theta x^{\theta-1}, & 0<x<1,\\[0.3em]
+0, & \text{其他},
+\end{cases}
+\]
+其中$\theta$未知，$\theta>1$，$X_{1},X_{2},\ldots,X_{n}$是来自$X$的一个样本，试求参数$\theta$的最大似然估计。
+
+\textbf{解}：似然函数为：
+\[
+L(\theta)=\theta^{n}\left(\prod_{i=1}^{n}x_{i}\right)^{\theta-1}.
+\]
+
+于是
+\[
+\ln L(\theta)=n\ln\theta+(\theta-1)\sum_{i=1}^{n}\ln x_{i}.
+\]
+
+令$\dfrac{d}{d\theta}\ln L=0$，有似然方程
+\[
+\frac{n}{\theta}+\sum_{i=1}^{n}\ln x_{i}=0.
+\]
+
+解得
+\[
+\hat{\theta}=-\frac{n}{\sum_{i=1}^{n}\ln x_{i}}.
+\]
+
+因此$\theta$的最大似然估计量为
+\[
+\hat{\theta}=-\frac{n}{\sum_{i=1}^{n}\ln X_{i}}.
+\]
+\end{example}
+
+\begin{example}[均匀分布的MLE]
+设总体$X\sim U[a,b]$，$a,b$未知，$X_{1},X_{2},\ldots,X_{n}$是一个样本，求$a,b$的最大似然估计量。
+
+\textbf{解}：$X$的概率密度为
+\[
+f(x;a,b)=
+\begin{cases}
+\dfrac{1}{b-a}, & a\leq x\leq b,\\[0.5em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+似然函数为
+\[
+L(a,b)=
+\begin{cases}
+\dfrac{1}{(b-a)^{n}}, & a\leq x_{i}\leq b\ (i=1,2,\ldots,n),\\[0.5em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+显然，似然方程组无解，但这不能说明不存在最大似然估计量，只是不能由似然方程组求解。
+
+将$x_{1},x_{2},\ldots,x_{n}$排序$x_{(1)}\leq x_{(2)}\leq\cdots\leq x_{(n)}$，则
+\[
+L(a,b)=
+\begin{cases}
+\dfrac{1}{(b-a)^{n}}, & a\leq x_{(1)}\leq\cdots\leq x_{(n)}\leq b,\\[0.5em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+对于满足$a\leq x_{(1)}\leq\cdots\leq x_{(n)}\leq b$的任意$a,b$有
+\[
+L(a,b)=\frac{1}{(b-a)^{n}}\leq\frac{1}{\left(x_{(n)}-x_{(1)}\right)^{n}}.
+\]
+
+即$L(a,b)$在$b=x_{(n)}$，$a=x_{(1)}$时，取最大值。
+
+MLE值为：
+\[
+\hat{b}=x_{(n)}=\max x_{i},\qquad \hat{a}=x_{(1)}=\min x_{i}.
+\]
+
+MLE量为：
+\[
+\hat{b}=\max X_{i},\qquad \hat{a}=\min X_{i}.
+\]
+\end{example}
+
+\begin{example}[湖中鱼数的MLE]
+为了估计湖中有多少条鱼，从湖中捞出$1000$条鱼，标上记号后又放回湖中，过一段时间后，再捞出$150$条鱼，发现其中有$10$条鱼带有标记，估计湖中鱼的总数为多少时使上述事件的概率为最大？
+
+\textbf{解}：设湖中鱼的总数为$N$，则带记号的鱼所占比例为$1000/N$。令$X$为从湖中捞起一条鱼所带有的记号数，则
+\[
+P\{X=x\}=
+\begin{cases}
+\dfrac{1000}{N}, & x=1,\\[0.5em]
+1-\dfrac{1000}{N}, & x=0.
+\end{cases}
+\]
+
+设
+\[
+X_{i}=
+\begin{cases}
+1, & \text{第}i\text{条鱼有标记},\\
+0, & \text{否则},
+\end{cases}
+\qquad i=1,2,\ldots,150.
+\]
+
+由于湖中鱼的数量众多，第二次捞鱼可近似为有放回抽样。
+
+于是令
+\[
+Y=\sum_{i=1}^{150}X_{i}\sim B\left(150,\frac{1000}{N}\right).
+\]
+
+则题中的事件为$\{Y=10\}$，取似然函数为：
+\[
+L(N)=P\{Y=10\}=C_{150}^{10}\left(\frac{1000}{N}\right)^{10}\left(\frac{N-1000}{N}\right)^{140}.
+\]
+
+于是，
+\[
+L(N)=C_{150}^{10}\frac{1000^{10}(N-1000)^{140}}{N^{150}}.
+\]
+
+\[
+\ln L(N)=\ln C_{150}^{10}+10\ln 1000+140\ln(N-1000)-150\ln N.
+\]
+
+令
+\[
+\frac{d}{dN}\ln L(N)=\frac{140}{N-1000}-\frac{150}{N}=0.
+\]
+
+解得$N=15000$。
+
+即当湖中的鱼数为$15000$条时，概率$P\{Y=10\}$为最大。
+\end{example}
+
+\subsubsection*{最大似然估计量的不变性}
+
+设$\theta$的函数$u=u(\theta)$，$\theta\in\Theta$具有单值反函数，$\hat{\theta}$是$\theta$的最大似然估计，则
+\[
+\hat{u}=u(\hat{\theta})
+\]
+是$u(\theta)$的最大似然估计。
+
+例：$\hat{\sigma}^{2}=\dfrac{1}{n}\displaystyle\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}$是$\sigma^{2}$的最大似然估计，
+\[
+u=u(\sigma^{2})=\sqrt{\sigma^{2}}=\sigma
+\]
+有单值反函数$\sigma^{2}=u^{2}\ (u\geq 0)$，故
+\[
+\hat{\sigma}=\sqrt{\hat{\sigma}^{2}}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}}
+\]
+是$\sigma$的最大似然估计。
+
+\begin{example}[正态分布分位点的MLE]
+设$X\sim N(\mu,\sigma^{2})$，$\mu,\sigma^{2}$未知，求使$P\{X>A\}=0.05$的点$A$的最大似然估计量。
+
+\textbf{解}：
+\[
+P\{X>A\}=1-\Phi\left(\frac{A-\mu}{\sigma}\right)=0.05.
+\]
+
+查表有$\dfrac{A-\mu}{\sigma}=1.645$，故有$A=\mu+1.645\sigma$。
+
+由前面知$\mu,\sigma^{2}$的最大似然估计量分别为：
+\[
+\hat{\mu}=\bar{X},\qquad \hat{\sigma}^{2}=\frac{1}{n}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}.
+\]
+
+故$A$的最大似然估计量为
+\[
+\hat{A}=\hat{\mu}+1.645\hat{\sigma}=\bar{X}+1.645\sqrt{\frac{1}{n}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}}.
+\]
+\end{example}
+
+\section{估计量的评选标准}
+
+缘起：对于同一个参数，用不同的估计方法求出的估计量可能不相同。而且，很明显，原则上任何统计量都可以作为未知参数的估计量。
+
+\textbf{问题}：
+\begin{itemize}[leftmargin=2em]
+    \item 对于同一个参数究竟采用哪一个估计量好？
+    \item 评价估计量的标准是什么？
+\end{itemize}
+
+\textbf{考虑估计的性质}：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 无偏性
+    \item 有效性
+    \item 相合性（一致性）
+\end{enumerate}
+
+\subsection{无偏性}
+
+若$X_{1},X_{2},\ldots,X_{n}$为总体$X$的一个样本，$\theta\in\Theta$是包含在总体$X$的分布中的待估计参数，
+
+若估计量$\hat{\theta}=\hat{\theta}(X_{1},X_{2},\ldots,X_{n})$的数学期望$E(\hat{\theta})$存在且对于任意$\theta\in\Theta$有$E(\hat{\theta})=\theta$，则称$\hat{\theta}$为$\theta$的\textbf{无偏估计量}。
+
+无偏估计意味着无系统性误差。
+
+\begin{example}[样本矩的无偏性]
+设总体$X$的$k$阶矩$\mu_{k}=E[X^{k}]\ (k\geq 1)$存在，又设$X_{1},X_{2},\ldots,X_{n}$为总体$X$的一个样本，试证明不论总体服从何种分布，$k$阶样本矩$A_{k}=\dfrac{1}{n}\displaystyle\sum_{i=1}^{n}X_{i}^{k}$是$k$阶总体矩$\mu_{k}$的无偏估计。
+
+\textbf{证明}：因为$X_{1},X_{2},\ldots,X_{n}$与$X$同分布，故有
+\[
+E(X_{i}^{k})=E(X^{k})=\mu_{k}.
+\]
+
+即
+\[
+E(A_{k})=\frac{1}{n}\sum_{i=1}^{n}E(X_{i}^{k})=\mu_{k},
+\]
+
+故$k$阶样本矩$A_{k}$是$k$阶总体矩$\mu_{k}$的无偏估计。
+
+注意：不论总体$X$服从什么分布，只要它的数学期望存在，$\bar{X}$总是总体$X$的数学期望$\mu_{1}=E(X)$的无偏估计。
+\end{example}
+
+\begin{example}[样本方差的有偏性]
+对于均值$\mu$，方差$\sigma^{2}$都存在的总体，若$\mu$和$\sigma^{2}$均为未知，则$\sigma^{2}$的估计量$\hat{\sigma}^{2}=\dfrac{1}{n}\displaystyle\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}$是有偏的。
+
+\textbf{解}：
+\[
+\hat{\sigma}^{2}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2}-\bar{X}^{2}=A_{2}-\bar{X}^{2}.
+\]
+
+而
+\[
+E(A_{2})=\mu_{2}=\sigma^{2}+\mu^{2},
+\]
+\[
+E(\bar{X}^{2})=D(\bar{X})+[E(\bar{X})]^{2}=\frac{\sigma^{2}}{n}+\mu^{2}.
+\]
+
+于是有
+\[
+E(\hat{\sigma}^{2})=E(A_{2}-\bar{X}^{2})=E(A_{2})-E(\bar{X}^{2})=\sigma^{2}+\mu^{2}-\frac{\sigma^{2}}{n}-\mu^{2}=\frac{n-1}{n}\sigma^{2}\neq\sigma^{2}.
+\]
+
+故是有偏的。
+
+若以$\dfrac{n}{n-1}$乘以$\hat{\sigma}^{2}$，所得到的估计量就是无偏的（这种方法称为\textbf{无偏化}）：
+\[
+\frac{n}{n-1}\hat{\sigma}^{2}=S^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}.
+\]
+
+因为
+\[
+E\left(\frac{n}{n-1}\hat{\sigma}^{2}\right)=\frac{n}{n-1}E(\hat{\sigma}^{2})=\sigma^{2},
+\]
+
+即$S^{2}$是$\sigma^{2}$的无偏估计，通常取$S^{2}$作为$\sigma^{2}$的估计量。
+\end{example}
+
+\begin{example}[正态分布方差的MLE（$\mu$已知）]
+设$X\sim N(\mu,\sigma^{2})$，$\mu$已知，$\sigma^{2}$未知，$x_{1},x_{2},\ldots,x_{n}$是来自$X$的一个样本值，求$\sigma^{2}$的最大似然估计量。
+
+\textbf{解}：$X$的概率密度函数为：
+\[
+f(x;\sigma^{2})=\frac{1}{\sqrt{2\pi}\sigma}\exp\left\{-\frac{(x-\mu)^{2}}{2\sigma^{2}}\right\}.
+\]
+
+似然函数为：
+\[
+L(\sigma^{2})=(2\pi\sigma^{2})^{-\frac{n}{2}}\exp\left\{-\frac{\sum_{i=1}^{n}(x_{i}-\mu)^{2}}{2\sigma^{2}}\right\}.
+\]
+
+\[
+\ln L=-\frac{n}{2}\ln 2\pi-\frac{n}{2}\ln\sigma^{2}-\frac{\sum_{i=1}^{n}(x_{i}-\mu)^{2}}{2\sigma^{2}}.
+\]
+
+令
+\[
+\frac{d}{d\sigma^{2}}\ln L=-\frac{n}{2\sigma^{2}}+\frac{\sum_{i=1}^{n}(x_{i}-\mu)^{2}}{2\sigma^{4}}=0.
+\]
+
+解得：
+\[
+\hat{\sigma}^{2}=\frac{1}{n}\sum_{i=1}^{n}(x_{i}-\mu)^{2}.
+\]
+
+注意到
+\[
+E(\hat{\sigma}^{2})=E\left(\frac{1}{n}\sum_{i=1}^{n}(x_{i}-\mu)^{2}\right)=\frac{1}{n}\sum_{i=1}^{n}E[(x_{i}-\mu)^{2}]=\frac{1}{n}\times n\sigma^{2}=\sigma^{2}.
+\]
+
+故，$\hat{\sigma}^{2}=\dfrac{1}{n}\displaystyle\sum_{i=1}^{n}(x_{i}-\mu)^{2}$是总体方差的无偏估计。
+\end{example}
+
+\begin{example}[指数分布的无偏估计]
+设总体$X$服从参数为$\theta$的指数分布，概率密度
+\[
+f(x;\theta)=
+\begin{cases}
+\dfrac{1}{\theta}e^{-\frac{x}{\theta}}, & x>0,\\[0.5em]
+0, & \text{其他},
+\end{cases}
+\]
+参数$\theta>0$，又设$X_{1},X_{2},\ldots,X_{n}$是来自总体$X$的样本，试证$\bar{X}$和$nZ=n\min(X_{1},X_{2},\ldots,X_{n})$都是$\theta$的无偏估计。
+
+\textbf{证明}：因为$E(\bar{X})=E(X)=\theta$，所以$\bar{X}$是$\theta$的无偏估计量。
+
+而$Z=\min(X_{1},X_{2},\ldots,X_{n})$服从参数为$\dfrac{\theta}{n}$的指数分布，
+\[
+f_{\min}(x;\theta)=
+\begin{cases}
+\dfrac{n}{\theta}e^{-\frac{nx}{\theta}}, & x>0,\\[0.5em]
+0, & \text{其他},
+\end{cases}
+\]
+
+故
+\[
+E(Z)=\frac{\theta}{n},\qquad E(nZ)=\theta,
+\]
+
+所以$nZ$也是$\theta$的无偏估计量。
+
+由此可知，一个参数可以有不同的无偏估计量。
+
+注意：如果未知参数$\theta$有两个不同的无偏估计量$\hat{\theta}_{1}$和$\hat{\theta}_{2}$，则一定有无穷多个无偏估计
+\[
+\alpha\hat{\theta}_{1}+(1-\alpha)\hat{\theta}_{2}.
+\]
+\end{example}
+
+\subsection{有效性}
+
+比较参数$\theta$的两个无偏估计量$\hat{\theta}_{1}$和$\hat{\theta}_{2}$，如果在样本容量$n$相同的情况下，$\hat{\theta}_{1}$的观察值在真值$\theta$的附近较$\hat{\theta}_{2}$更为密集，则认为$\hat{\theta}_{1}$较$\hat{\theta}_{2}$有效。
+
+由于方差是随机变量取值与其数学期望的偏离程度，所以无偏估计以方差小者为好。
+
+\textbf{形式化}：
+
+设$\hat{\theta}_{1}=\hat{\theta}_{1}(X_{1},X_{2},\ldots,X_{n})$和$\hat{\theta}_{2}=\hat{\theta}_{2}(X_{1},X_{2},\ldots,X_{n})$都是$\theta$的无偏估计量，若有$D(\hat{\theta}_{1})\leq D(\hat{\theta}_{2})$，则称$\hat{\theta}_{1}$较$\hat{\theta}_{2}$有效。
+
+\begin{example}[指数分布估计量的有效性]
+设总体$X$服从参数为$\theta$的指数分布，概率密度
+\[
+f(x;\theta)=
+\begin{cases}
+\dfrac{1}{\theta}e^{-\frac{x}{\theta}}, & x>0,\\[0.5em]
+0, & \text{其他},
+\end{cases}
+\]
+参数$\theta>0$，又设$X_{1},X_{2},\ldots,X_{n}$是来自总体$X$的样本，试证$\theta$的无偏估计中，当$n>1$时$\bar{X}$较$nZ$更为有效。
+
+\textbf{证明}：由于$D(X)=\theta^{2}$，故有$D(\bar{X})=\dfrac{\theta^{2}}{n}$。
+
+又因为$D(Z)=\dfrac{\theta^{2}}{n^{2}}$，故有$D(nZ)=\theta^{2}$。
+
+$n>1$时，
+\[
+D(nZ)>D(\bar{X}),
+\]
+
+所以$\theta$的无偏估计中，当$n>1$时$\bar{X}$较$nZ$更为有效。
+\end{example}
+
+\subsection{相合性（一致性）}
+
+若$\hat{\theta}=\hat{\theta}(X_{1},X_{2},\ldots,X_{n})$为参数$\theta$的估计量，如果对于任意$\theta\in\Theta$，当$n\to\infty$时$\hat{\theta}\stackrel{P}{\longrightarrow}\theta$，则称$\hat{\theta}$是$\theta$的\textbf{一致估计}（或\textbf{相合估计}）。
+
+\begin{example}[样本矩的相合性]
+若$X_{1},X_{2},\ldots,X_{n}$是总体$X$的样本，$E[X]=\mu$，$E[X^{k}]=\mu_{k}$，由辛钦大数定理，知对任意给定的$\epsilon>0$，有
+\[
+\lim_{n\to\infty}P\left\{\left|\frac{1}{n}\sum_{i=1}^{n}X_{i}-\mu\right|\geq\epsilon\right\}=0.
+\]
+
+因此，样本均值$\bar{X}$是总体期望$\mu$的相合（一致）估计量；更一般地，样本的$k$阶矩是总体$k$阶矩的相合（一致）估计量。
+\end{example}
+
+\section*{作业}
+\addcontentsline{toc}{section}{作业}
+
+教材《概率论与数理统计》（pp.~176--178）：\#2，\#5，\#10，\#12。
+
+\section{区间估计}
+
+\subsection{区间估计的基本概念}
+
+点估计提供了对未知参数$\theta$基于样本观察值$(x_{1},x_{2},\ldots,x_{n})$的估计值$\hat{\theta}(x_{1},x_{2},\ldots,x_{n})$。
+
+\textbf{优点}：明确的数量概念。
+
+\textbf{缺点}：这是个不知道偏离误差有多远的近似值。
+
+区间估计就是根据样本给出未知参数的一个范围，并希望知道这个范围包含该参数的可信程度。
+
+\begin{definition}[置信区间]
+对于总体$X$的分布函数$F(x;\theta)$含有一个未知参数，对于给定值$\alpha\ (0<\alpha<1)$，若由样本$X_{1},X_{2},\ldots,X_{n}$确定的两个统计量
+\[
+\underline{\theta}=\underline{\theta}(X_{1},X_{2},\ldots,X_{n})\quad\text{和}\quad\bar{\theta}=\bar{\theta}(X_{1},X_{2},\ldots,X_{n})
+\]
+满足
+\[
+P\{\underline{\theta}(X_{1},X_{2},\ldots,X_{n})<\theta<\bar{\theta}(X_{1},X_{2},\ldots,X_{n})\}=1-\alpha,
+\]
+则称随机区间$(\underline{\theta},\bar{\theta})$是$\theta$的\textbf{置信度}为$1-\alpha$的\textbf{置信区间}，$\underline{\theta}$和$\bar{\theta}$分别为置信度为$1-\alpha$的双侧置信区间的\textbf{置信下限}和\textbf{置信上限}。
+
+$1-\alpha$为\textbf{置信度}。
+\end{definition}
+
+\textbf{说明}：
+
+被估计的参数$\theta$虽然是未知的，但它是一个常数，没有随机性，而区间$(\underline{\theta},\bar{\theta})$是随机的。
+
+\begin{note}
+定义中的表达式
+\[
+P\{\underline{\theta}(X_{1},X_{2},\ldots,X_{n})<\theta<\bar{\theta}(X_{1},X_{2},\ldots,X_{n})\}=1-\alpha
+\]
+还可以理解为：
+
+若反复抽样多次（各次的样本容量相等），每个样本确定一个区间$(\underline{\theta},\bar{\theta})$，这样的区间可能包含或不包含$\theta$的真值。
+
+按伯努利大数定律，在众多这样的区间中，包含$\theta$真值的约占$100(1-\alpha)\%$，不包含$\theta$真值的约占$100\alpha\%$。
+
+通常，采用$95\%$的置信度，有时也取$99\%$或$90\%$。
+
+例如，若$\alpha=0.01$，反复抽样$1000$次，则得到的$1000$个区间中不包含$\theta$真值的约为$10$个。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_confidence_intervals.png}
+    \caption{置信区间套圈示意图（反复抽样$1000$次，约$10$个区间不包含真值）}
+    \label{fig:confidence_intervals}
+\end{figure}
+\end{note}
+
+可见，对参数$\theta$作区间估计，就是要设法找出两个只依赖于样本的界限（构造统计量）
+\[
+\hat{\theta}_{1}=\hat{\theta}_{1}(X_{1},X_{2},\ldots,X_{n}),\qquad \hat{\theta}_{2}=\hat{\theta}_{2}(X_{1},X_{2},\ldots,X_{n}).
+\]
+
+一旦有了样本，就以较高的概率把$\theta$估计在区间$(\hat{\theta}_{1},\hat{\theta}_{2})$内，这里有两个要求：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 要求$\theta$以很大的可能被包含在区间$(\hat{\theta}_{1},\hat{\theta}_{2})$内，就是说概率$P\{\hat{\theta}_{1}<\theta<\hat{\theta}_{2}\}$要尽可能大，即要求估计尽量可靠；
+    \item 估计的精度要尽可能的高。如要求区间长度$\hat{\theta}_{2}-\hat{\theta}_{1}$尽可能短（有效），或能体现该要求的其它准则。
+\end{enumerate}
+
+可靠程度与精度是一对矛盾，一般是在保证可靠程度的条件下尽可能提高精度。
+
+\subsubsection*{精度与样本容量的关系}
+
+\begin{itemize}[leftmargin=2em]
+    \item 样本容量固定——置信水平$1-\alpha$增大，置信区间长度相应增大；可信程度增大，区间估计精度相应下降。
+    \item 置信水平$1-\alpha$固定——样本容量增大，置信区间长度相应减小；可信程度不变，区间估计精度相应提高。
+\end{itemize}
+
+\subsubsection*{求置信区间的一般步骤}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 寻求一个样本$X_{1},X_{2},\ldots,X_{n}$的函数：
+    \[
+    Z=Z(X_{1},X_{2},\ldots,X_{n};\theta),
+    \]
+    其中仅包含待估计参数$\theta$，并且$Z$的分布已知，且不依赖于任何未知参数（包括$\theta$）。
+    \item 对于给定的置信度$1-\alpha$，定出两个常数$a,b$，使得
+    \[
+    P\{a<Z(X_{1},X_{2},\ldots,X_{n};\theta)<b\}=1-\alpha.
+    \]
+    \item 若能从$a<Z(X_{1},X_{2},\ldots,X_{n};\theta)<b$得到等价的不等式$\underline{\theta}<\theta<\bar{\theta}$，其中$\underline{\theta}=\underline{\theta}(X_{1},X_{2},\ldots,X_{n})$，$\bar{\theta}=\bar{\theta}(X_{1},X_{2},\ldots,X_{n})$都是统计量，那么，$(\underline{\theta},\bar{\theta})$就是$\theta$的一个置信度为$1-\alpha$的置信区间。
+\end{enumerate}
+
+\begin{example}[正态总体均值的置信区间（方差已知）]
+设总体$X\sim N(\mu,\sigma^{2})$，$\sigma^{2}$已知，$\mu$未知，$X_{1},X_{2},\ldots,X_{n}$是来自$X$的样本，求$\mu$的置信水平为$1-\alpha$的置信区间。
+
+\textbf{解}：因为$\bar{X}$是$\mu$的无偏估计，且
+\[
+U=\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\sim N(0,1),
+\]
+不依赖于任何未知参数。
+
+由标准正态分布的上$\alpha$分位点的定义知
+\[
+P\left\{\left|\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\right|<z_{\alpha/2}\right\}=1-\alpha,
+\]
+即
+\[
+P\left\{\bar{X}-\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}<\mu<\bar{X}+\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}\right\}=1-\alpha.
+\]
+
+于是得$\mu$的一个置信水平为$1-\alpha$的置信区间
+\[
+\left(\bar{X}-\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}},\ \bar{X}+\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}\right).
+\]
+
+这样的置信区间常写成
+\[
+\bar{X}\pm\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}.
+\]
+
+其置信区间的长度为
+\[
+\frac{2\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}.
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_normal_quantile.png}
+    \caption{标准正态分布双侧分位点示意图}
+    \label{fig:normal_quantile}
+\end{figure}
+\end{example}
+
+\textbf{关于：一个置信水平为$1-\alpha$的置信区间}
+
+注意：置信区间是不唯一的。
+
+如果在上例中取$n=16$，$\sigma=1$，$\alpha=0.05$，查表得：
+\[
+z_{\frac{\alpha}{2}}=z_{0.025}=1.96.
+\]
+
+得一个置信水平为$0.95$的置信区间
+\[
+\left(\bar{X}\pm\frac{1.96}{\sqrt{16}}\right).
+\]
+
+由一个样本值算得样本均值的观察值$\bar{x}=5.20$，则置信区间为$5.20\pm0.49$，即$(4.71,5.69)$。
+
+在例中如果给定$\alpha=0.05$，又可以有
+\[
+P\left\{-z_{0.04}<\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}<z_{0.01}\right\}=0.95,
+\]
+则
+\[
+\left(\bar{X}-\frac{\sigma}{\sqrt{n}}z_{0.01},\ \bar{X}+\frac{\sigma}{\sqrt{n}}z_{0.04}\right)
+\]
+也是$\mu$的置信水平为$0.95$的置信区间，其置信区间的长度为
+\[
+\frac{\sigma}{\sqrt{n}}(z_{0.01}+z_{0.04}).
+\]
+
+比较两个置信区间的长度
+\[
+L_{1}=\frac{2\sigma}{\sqrt{n}}z_{0.025}=3.92\times\frac{\sigma}{\sqrt{n}},\qquad
+L_{2}=\frac{\sigma}{\sqrt{n}}(z_{0.01}+z_{0.04})=4.08\times\frac{\sigma}{\sqrt{n}}.
+\]
+
+显然，$L_{1}<L_{2}$。
+
+说明：对于概率密度的图形是单峰且关于纵坐标轴对称的情况，易证取$a$和$b$关于原点对称时，能使置信区间长度最小。
+
+\begin{example}[工件长度的置信区间]
+设某工件的长度$X$服从正态分布$N(\mu,16)$，今抽$9$件测量其长度，得数据如下（单位：mm）：$142,138,150,165,156,148,132,135,160$。试求参数$\mu$的置信水平为$95\%$的置信区间。
+
+\textbf{解}：根据上例得$\mu$的置信度为$1-\alpha$的置信区间为
+\[
+\left(\bar{X}-\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}},\ \bar{X}+\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}\right).
+\]
+
+由$n=9$，$\sigma=4$，$\alpha=0.05$，$z_{0.025}=1.96$，$\bar{X}=147.333$知
+
+$\mu$的置信度为$0.95$的置信区间为$(144.720,149.946)$。
+\end{example}
+
+\section{正态总体均值与方差的区间估计}
+
+\subsection{单个正态总体参数的区间估计}
+
+设给定置信水平为$1-\alpha$，并设$X_{1},X_{2},\ldots,X_{n}$为总体$N(\mu,\sigma^{2})$的样本，$\bar{X},S^{2}$分别是样本均值和样本方差。
+
+\subsubsection{均值\texorpdfstring{$\mu$}{mu}的置信区间}
+
+\textbf{情形1：$\sigma^{2}$为已知}
+
+由上节例1可知：
+
+$\mu$的一个置信水平为$1-\alpha$的置信区间
+\[
+\left(\bar{X}\pm\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}\right).
+\]
+
+\begin{example}[包糖机的置信区间]
+包糖机某日开工包了$12$包糖，称得质量（单位：克）分别为$506,500,495,488,504,486,505,513,521,520,512,485$。假设重量服从正态分布，且标准差为$\sigma=10$，试求糖包的平均质量$\mu$的$1-\alpha$置信区间（分别取$\alpha=0.10$和$\alpha=0.05$）。
+
+\textbf{解}：$n=12$，$\sigma=10$，计算得$\bar{x}=502.92$。
+
+(1) 当$\alpha=0.10$时，$1-\alpha/2=0.95$，查表得$z_{\alpha/2}=z_{0.05}=1.645$。
+
+于是
+\[
+\bar{X}-\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}=502.92-\frac{10}{\sqrt{12}}\times1.645=498.17,
+\]
+\[
+\bar{X}+\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}=502.92+\frac{10}{\sqrt{12}}\times1.645=507.67.
+\]
+
+即$\mu$的置信度为$90\%$的置信区间为$(498.17,507.67)$。
+
+(2) 当$\alpha=0.05$时，$1-\alpha/2=0.975$，查表得$z_{\alpha/2}=z_{0.025}=1.96$。
+
+于是
+\[
+\bar{X}-\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}=502.92-\frac{10}{\sqrt{12}}\times1.96=497.26,
+\]
+\[
+\bar{X}+\frac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}=502.92+\frac{10}{\sqrt{12}}\times1.96=508.58.
+\]
+
+从此例可以看出，当置信度$1-\alpha$较大时，置信区间也较大；当置信度$1-\alpha$较小时，置信区间也较小。
+\end{example}
+
+\textbf{情形2：$\sigma^{2}$为未知}
+
+结论：$\mu$的一个置信水平为$1-\alpha$的置信区间
+\[
+\left(\bar{X}\pm\frac{S}{\sqrt{n}}t_{\frac{\alpha}{2}}(n-1)\right).
+\]
+
+\textbf{导出过程}：
+
+由于区间$\bar{X}\pm\dfrac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}$中含有未知参数$\sigma$，不能直接使用此区间，考虑到$S^{2}$是$\sigma^{2}$的无偏估计，可用$S=\sqrt{S^{2}}$代替$\sigma$，又由第六章\S3中定理三知
+\[
+\frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1).
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_t_distribution_ci.png}
+    \caption{$t$分布密度函数曲线（不同自由度）}
+    \label{fig:t_distribution_ci}
+\end{figure}
+
+于是，
+\[
+P\left\{-t_{\frac{\alpha}{2}}(n-1)<\frac{\bar{X}-\mu}{S/\sqrt{n}}<t_{\frac{\alpha}{2}}(n-1)\right\}=1-\alpha.
+\]
+
+即
+\[
+P\left\{\bar{X}-\frac{S}{\sqrt{n}}t_{\frac{\alpha}{2}}(n-1)<\mu<\bar{X}+\frac{S}{\sqrt{n}}t_{\frac{\alpha}{2}}(n-1)\right\}=1-\alpha.
+\]
+
+于是得$\mu$的置信度为$1-\alpha$的置信区间为
+\[
+\left(\bar{X}\pm\frac{S}{\sqrt{n}}t_{\frac{\alpha}{2}}(n-1)\right).
+\]
+
+\begin{example}[糖果重量的置信区间]
+有一大批糖果，现从中随机地取$16$袋，称得重量（克）如下：
+\[
+506,508,499,503,504,510,497,512,514,505,493,496,506,502,509,496.
+\]
+设袋装糖果的重量服从正态分布，试求总体均值$\mu$的置信度为$0.95$的置信区间。
+
+\textbf{解}：$\alpha=0.05$，$n-1=15$，
+
+查$t(n-1)$分布表可知：$t_{0.025}(15)=2.1315$，
+
+同时计算得到：$\bar{x}=503.75$，$s=6.2022$。
+
+得$\mu$的置信度为$95\%$的置信区间
+\[
+\left(503.75\pm\frac{6.2022}{\sqrt{16}}\times2.1315\right)=(500.4,507.1).
+\]
+
+就是说估计袋装糖果重量的均值在$500.4$克与$507.1$克之间，这个估计的可信程度为$95\%$。
+
+若依此区间内任一值作为$\mu$的近似值，其误差不大于
+\[
+\frac{6.2022}{\sqrt{16}}\times2.1315\times2=6.61\ (\text{g}),
+\]
+这个误差的可信度为$95\%$。
+\end{example}
+
+\begin{example}[置信区间长度的期望]
+设$X\sim N(\mu,\sigma^{2})$，其中$\mu,\sigma^{2}$未知，设随机变量$L$是关于$\mu$的置信度为$1-\alpha$的置信区间的长度，求$E(L^{2})$。
+
+\textbf{解}：当$\sigma^{2}$未知时，$\mu$的置信度为$1-\alpha$的置信区间为
+\[
+\left(\bar{X}\pm\frac{S}{\sqrt{n}}t_{\frac{\alpha}{2}}(n-1)\right).
+\]
+
+置信区间长度
+\[
+L=\frac{2S}{\sqrt{n}}t_{\frac{\alpha}{2}}(n-1),
+\]
+\[
+L^{2}=\frac{4S^{2}}{n}\left[t_{\frac{\alpha}{2}}(n-1)\right]^{2}.
+\]
+
+又因为
+\[
+E(S^{2})=\sigma^{2}.
+\]
+
+于是
+\[
+E(L^{2})=E\left(\frac{4S^{2}}{n}\left[t_{\frac{\alpha}{2}}(n-1)\right]^{2}\right)=\frac{4}{n}\left[t_{\frac{\alpha}{2}}(n-1)\right]^{2}\sigma^{2}.
+\]
+\end{example}
+
+\subsubsection{方差\texorpdfstring{$\sigma^{2}$}{sigma^2}的置信区间}
+
+\textbf{情形1：$\mu$为已知}
+
+结论：方差$\sigma^{2}$的置信度为$1-\alpha$的置信区间
+\[
+\left(\frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n)},\ \frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n)}\right).
+\]
+
+\textbf{导出过程}：
+
+由第六章\S3中$\chi^{2}$分布的推论知
+\[
+\frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\sigma^{2}}\sim\chi^{2}(n).
+\]
+
+于是，
+\[
+P\left\{\chi_{1-\frac{\alpha}{2}}^{2}(n)<\frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\sigma^{2}}<\chi_{\frac{\alpha}{2}}^{2}(n)\right\}=1-\alpha.
+\]
+
+即
+\[
+P\left\{\frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n)}<\sigma^{2}<\frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n)}\right\}=1-\alpha.
+\]
+
+于是得方差$\sigma^{2}$的置信度为$1-\alpha$的置信区间为
+\[
+\left(\frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n)},\ \frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n)}\right).
+\]
+
+\textbf{情形2：$\mu$为未知}
+
+结论：方差$\sigma^{2}$的置信度为$1-\alpha$的置信区间
+\[
+\left(\frac{(n-1)S^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n-1)},\ \frac{(n-1)S^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)}\right).
+\]
+
+\textbf{导出过程}：
+
+因为$S^{2}$是$\sigma^{2}$的无偏估计，由第六章\S3中定理二知
+\[
+\frac{(n-1)S^{2}}{\sigma^{2}}\sim\chi^{2}(n-1).
+\]
+
+于是，
+\[
+P\left\{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)<\frac{(n-1)S^{2}}{\sigma^{2}}<\chi_{\frac{\alpha}{2}}^{2}(n-1)\right\}=1-\alpha.
+\]
+
+即
+\[
+P\left\{\frac{(n-1)S^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n-1)}<\sigma^{2}<\frac{(n-1)S^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)}\right\}=1-\alpha.
+\]
+
+于是得方差$\sigma^{2}$的置信度为$1-\alpha$的置信区间为
+\[
+\left(\frac{(n-1)S^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n-1)},\ \frac{(n-1)S^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)}\right).
+\]
+
+进一步可得，标准差$\sigma$的一个置信度为$1-\alpha$的置信区间
+\[
+\left(\frac{\sqrt{(n-1)}S}{\sqrt{\chi_{\frac{\alpha}{2}}^{2}(n-1)}},\ \frac{\sqrt{(n-1)}S}{\sqrt{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)}}\right).
+\]
+
+注意：通常，即使在密度函数不对称时，如$\chi^{2}$分布和$F$分布，习惯上仍取对称的分位点来确定置信区间。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_chi2_quantile.png}
+    \caption{$\chi^{2}$分布双侧分位点示意图}
+    \label{fig:chi2_quantile}
+\end{figure}
+
+\begin{example}[糖果标准差的置信区间]
+从一大批糖果中随机取$16$袋，重量（克）如下：
+\[
+506,508,499,503,504,510,497,512,514,505,493,496,506,502,509,496.
+\]
+设袋装糖果的重量服从正态分布，试求总体标准差$\sigma$的置信度为$0.95$的置信区间。
+
+\textbf{解}：
+\[
+\frac{\alpha}{2}=0.025,\quad 1-\frac{\alpha}{2}=0.975,\quad n-1=15,
+\]
+
+查$\chi^{2}(n-1)$分布表可知：
+\[
+\chi_{0.025}^{2}(15)=27.488,\quad \chi_{0.975}^{2}(15)=6.262.
+\]
+
+计算得到：$s=6.2022$。
+
+代入公式
+\[
+\left(\frac{\sqrt{(n-1)}S}{\sqrt{\chi_{\frac{\alpha}{2}}^{2}(n-1)}},\ \frac{\sqrt{(n-1)}S}{\sqrt{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)}}\right),
+\]
+得到标准差的置信区间为$(4.58,9.60)$。
+\end{example}
+
+\begin{example}[包糖机方差的置信区间]
+包糖机某日开工包了$12$包糖，称得质量（单位：克）分别为$506,500,495,488,504,486,505,513,521,520,512,485$。假设重量服从正态分布，试求总体方差$\sigma^{2}$和标准差$\sigma$的置信度为$0.95$的置信区间。
+
+\textbf{解}：
+\[
+\frac{\alpha}{2}=0.025,\quad 1-\frac{\alpha}{2}=0.975,\quad n-1=11,
+\]
+
+查$\chi^{2}(n-1)$表得
+\[
+\chi_{0.025}^{2}(11)=21.920,\quad \chi_{0.975}^{2}(11)=3.816.
+\]
+
+计算得：$s^{2}=157.4$。
+
+方差$\sigma^{2}$的置信区间为
+\[
+\left(\frac{(n-1)S^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n-1)},\ \frac{(n-1)S^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)}\right)=(83.97,453.64).
+\]
+
+标准差$\sigma$的置信区间$(8.87,21.30)$。
+\end{example}
+
+\subsubsection*{单个正态总体参数的区间估计汇总}
+
+\begin{table}[htbp]
+\centering
+\caption{单个正态总体参数的区间估计}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{待估参数} & \textbf{条件} & \textbf{随机变量} & \textbf{分布} & \textbf{双侧置信区间} \\
+\midrule
+\multirow{2}{*}{$\mu$} & $\sigma^{2}$已知 & $\dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}$ & $N(0,1)$ & $\bar{X}\pm\dfrac{\sigma}{\sqrt{n}}z_{\frac{\alpha}{2}}$ \\
+\cmidrule{2-5}
+ & $\sigma^{2}$未知 & $\dfrac{\bar{X}-\mu}{S/\sqrt{n}}$ & $t(n-1)$ & $\bar{X}\pm\dfrac{S}{\sqrt{n}}t_{\frac{\alpha}{2}}(n-1)$ \\
+\midrule
+\multirow{2}{*}{$\sigma^{2}$} & $\mu$已知 & $\dfrac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\sigma^{2}}$ & $\chi^{2}(n)$ & $\left(\dfrac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n)},\dfrac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n)}\right)$ \\
+\cmidrule{2-5}
+ & $\mu$未知 & $\dfrac{(n-1)S^{2}}{\sigma^{2}}$ & $\chi^{2}(n-1)$ & $\left(\dfrac{(n-1)S^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n-1)},\dfrac{(n-1)S^{2}}{\chi_{1-\frac{\alpha}{2}}^{2}(n-1)}\right)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{两个正态总体\texorpdfstring{$N(\mu_{1},\sigma_{1}^{2}),N(\mu_{2},\sigma_{2}^{2})$}{N(mu1,sigma1^2),N(mu2,sigma2^2)}的情况}
+
+\textbf{前提}：
+
+设给定置信度为$1-\alpha$，并设$X_{1},X_{2},\ldots,X_{n_{1}}$为第一个总体$N(\mu_{1},\sigma_{1}^{2})$的样本，$Y_{1},Y_{2},\ldots,Y_{n_{2}}$为第二个总体$N(\mu_{2},\sigma_{2}^{2})$的样本，$\bar{X},\bar{Y}$分别是第一、二个总体的样本均值，$S_{1}^{2},S_{2}^{2}$分别是第一、二个总体的样本方差。
+
+讨论两个正态总体均值差和方差比的估计问题。
+
+\subsubsection{两个总体均值差\texorpdfstring{$\mu_{1}-\mu_{2}$}{mu1-mu2}的置信区间}
+
+\textbf{情形1：$\sigma_{1}^{2}$和$\sigma_{2}^{2}$均为已知}
+
+结论：$\mu_{1}-\mu_{2}$的一个置信度为$1-\alpha$的置信区间
+\[
+\left(\bar{X}-\bar{Y}\pm z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma_{1}^{2}}{n_{1}}+\frac{\sigma_{2}^{2}}{n_{2}}}\right).
+\]
+
+\textbf{导出过程}：
+
+由$\bar{X},\bar{Y}$的独立性及
+\[
+\bar{X}\sim N\left(\mu_{1},\frac{\sigma_{1}^{2}}{n_{1}}\right),\qquad \bar{Y}\sim N\left(\mu_{2},\frac{\sigma_{2}^{2}}{n_{2}}\right),
+\]
+有
+\[
+\bar{X}-\bar{Y}\sim N\left(\mu_{1}-\mu_{2},\frac{\sigma_{1}^{2}}{n_{1}}+\frac{\sigma_{2}^{2}}{n_{2}}\right),
+\]
+或
+\[
+\frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{\sqrt{\dfrac{\sigma_{1}^{2}}{n_{1}}+\dfrac{\sigma_{2}^{2}}{n_{2}}}}\sim N(0,1).
+\]
+
+于是得$\mu_{1}-\mu_{2}$的一个置信度为$1-\alpha$的置信区间
+\[
+\left(\bar{X}-\bar{Y}\pm z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma_{1}^{2}}{n_{1}}+\frac{\sigma_{2}^{2}}{n_{2}}}\right).
+\]
+
+\textbf{情形2：$\sigma_{1}^{2}=\sigma_{2}^{2}=\sigma^{2}$，但$\sigma^{2}$未知}
+
+结论：$\mu_{1}-\mu_{2}$的一个置信度为$1-\alpha$的置信区间
+\[
+\left(\bar{X}-\bar{Y}\pm t_{\frac{\alpha}{2}}(n_{1}+n_{2}-2)S_{w}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}\right),
+\]
+其中
+\[
+S_{w}^{2}=\frac{(n_{1}-1)S_{1}^{2}+(n_{2}-1)S_{2}^{2}}{n_{1}+n_{2}-2},\qquad S_{w}=\sqrt{S_{w}^{2}}.
+\]
+
+\textbf{导出过程}：
+
+由$\bar{X},\bar{Y}$的独立性及
+\[
+\bar{X}\sim N\left(\mu_{1},\frac{\sigma^{2}}{n_{1}}\right),\qquad \bar{Y}\sim N\left(\mu_{2},\frac{\sigma^{2}}{n_{2}}\right),
+\]
+有
+\[
+\bar{X}-\bar{Y}\sim N\left(\mu_{1}-\mu_{2},\frac{\sigma^{2}}{n_{1}}+\frac{\sigma^{2}}{n_{2}}\right).
+\]
+
+考虑到
+\[
+S_{w}^{2}=\frac{(n_{1}-1)S_{1}^{2}+(n_{2}-1)S_{2}^{2}}{n_{1}+n_{2}-2}
+\]
+是$\sigma^{2}$的无偏估计，可用$S_{w}^{2}\left(\dfrac{1}{n_{1}}+\dfrac{1}{n_{2}}\right)$代替$\dfrac{\sigma^{2}}{n_{1}}+\dfrac{\sigma^{2}}{n_{2}}$。
+
+又由第六章\S3中定理四知
+\[
+\frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{S_{w}\sqrt{\dfrac{1}{n_{1}}+\dfrac{1}{n_{2}}}}\sim t(n_{1}+n_{2}-2).
+\]
+
+于是得$\mu_{1}-\mu_{2}$的一个置信度为$1-\alpha$的置信区间为
+\[
+\left(\bar{X}-\bar{Y}\pm t_{\frac{\alpha}{2}}(n_{1}+n_{2}-2)S_{w}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}\right).
+\]
+
+\begin{example}[步枪子弹的置信区间]
+为比较I, II两种型号步枪子弹的枪口速度，随机地取I型子弹$10$发，得到枪口速度的平均值为$\bar{x}_{1}=500\ (\text{m/s})$，标准差$s_{1}=1.10\ (\text{m/s})$，随机地取II型子弹$20$发，得枪口速度平均值为$\bar{x}_{2}=496\ (\text{m/s})$，标准差$s_{2}=1.20\ (\text{m/s})$。
+
+假设两总体都可认为近似地服从正态分布，且由生产过程可认为它们的方差相等，求两总体均值差$\mu_{1}-\mu_{2}$的置信度为$0.95$的置信区间。
+
+\textbf{解}：由题意，两总体样本独立且方差相等（但未知），$\alpha=0.05$。
+
+$n_{1}=10$，$n_{2}=20$，$n_{1}+n_{2}-2=28$。
+
+查$t(n-1)$分布表可知：$t_{0.025}(28)=2.0484$。
+
+\[
+S_{w}^{2}=\frac{9\times1.10^{2}+19\times1.20^{2}}{28},\qquad S_{w}=\sqrt{S_{w}^{2}}=1.1688.
+\]
+
+于是得$\mu_{1}-\mu_{2}$的一个置信度为$0.95$的置信区间
+\[
+\left(\bar{x}_{1}-\bar{x}_{2}\pm S_{w}\times t_{0.025}(28)\sqrt{\frac{1}{10}+\frac{1}{20}}\right)=(4\pm0.93).
+\]
+
+即所求置信区间为$(3.07,4.93)$。
+\end{example}
+
+\textbf{情形3：$\sigma_{1}^{2}$和$\sigma_{2}^{2}$均未知，且$\sigma_{1}^{2}\neq\sigma_{2}^{2}$，但$n_{1}=n_{2}=n$}
+
+结论：$\mu_{1}-\mu_{2}$的一个置信度为$1-\alpha$的置信区间
+\[
+\left(\bar{X}-\bar{Y}\pm\frac{t_{\frac{\alpha}{2}}(n-1)S_{Z}}{\sqrt{n}}\right),
+\]
+其中
+\[
+S_{Z}^{2}=\frac{1}{n-1}\sum_{i=1}^{n}\left(Z_{i}-\bar{Z}\right)^{2},\qquad Z_{i}=X_{i}-Y_{i}.
+\]
+
+\subsubsection{两个总体方差比\texorpdfstring{$\sigma_{1}^{2}/\sigma_{2}^{2}$}{sigma1^2/sigma2^2}的置信区间}
+
+仅讨论总体均值$\mu_{1},\mu_{2}$为未知的情况。
+
+结论：$\sigma_{1}^{2}/\sigma_{2}^{2}$的一个置信度为$1-\alpha$的置信区间
+\[
+\left(\frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)},\ \frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{1-\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)}\right).
+\]
+
+\textbf{推导过程如下}：
+
+由于
+\[
+\frac{(n_{1}-1)S_{1}^{2}}{\sigma_{1}^{2}}\sim\chi^{2}(n_{1}-1),\qquad \frac{(n_{2}-1)S_{2}^{2}}{\sigma_{2}^{2}}\sim\chi^{2}(n_{2}-1),
+\]
+
+由假设知相互独立，根据$F$分布的定义，知
+\[
+\frac{\dfrac{(n_{1}-1)S_{1}^{2}}{\sigma_{1}^{2}}\Big/(n_{1}-1)}{\dfrac{(n_{2}-1)S_{2}^{2}}{\sigma_{2}^{2}}\Big/(n_{2}-1)}=\frac{S_{1}^{2}/\sigma_{1}^{2}}{S_{2}^{2}/\sigma_{2}^{2}}\sim F(n_{1}-1,n_{2}-1).
+\]
+
+即
+\[
+P\left\{F_{1-\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)<\frac{S_{1}^{2}/\sigma_{1}^{2}}{S_{2}^{2}/\sigma_{2}^{2}}<F_{\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)\right\}=1-\alpha.
+\]
+
+于是
+\[
+P\left\{\frac{S_{1}^{2}}{S_{2}^{2}F_{\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)}<\frac{\sigma_{1}^{2}}{\sigma_{2}^{2}}<\frac{S_{1}^{2}}{S_{2}^{2}F_{1-\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)}\right\}=1-\alpha.
+\]
+
+故$\sigma_{1}^{2}/\sigma_{2}^{2}$的一个置信度为$1-\alpha$的置信区间
+\[
+\left(\frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)},\ \frac{S_{1}^{2}}{S_{2}^{2}}\frac{1}{F_{1-\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)}\right).
+\]
+
+\begin{example}[机器方差比的置信区间]
+研究由机器A和机器B生产的钢管内径，随机抽取机器A生产的管子$18$只，测得样本方差为$s_{1}^{2}=0.34\ \text{mm}^{2}$，抽取机器B生产的管子$13$只，测得样本方差为$s_{2}^{2}=0.29\ \text{mm}^{2}$。设两样本相互独立，且设由机器A和机器B生产的钢管内径分别服从正态分布$N(\mu_{1},\sigma_{1}^{2}),N(\mu_{2},\sigma_{2}^{2})$，$\mu_{i},\sigma_{i}^{2}$均未知，求方差比$\sigma_{1}^{2}/\sigma_{2}^{2}$的置信度为$0.90$的置信区间。
+
+\textbf{解}：$n_{1}=18$，$n_{2}=13$，$\alpha=0.10$。
+
+$s_{1}^{2}=0.34$，$s_{2}^{2}=0.29$。
+
+于是
+\[
+F_{\frac{\alpha}{2}}(n_{1}-1,n_{2}-1)=F_{0.05}(17,12)=2.59,
+\]
+\[
+F_{1-\frac{\alpha}{2}}(17,12)=\frac{1}{F_{0.05}(12,17)}=\frac{1}{2.38}.
+\]
+
+$\sigma_{1}^{2}/\sigma_{2}^{2}$的置信度为$0.90$的置信区间
+\[
+\left(\frac{0.34}{0.29}\times\frac{1}{2.59},\ \frac{0.34}{0.29}\times2.38\right)=(0.45,2.79).
+\]
+\end{example}
+
+\subsubsection*{两个正态总体未知参数的置信区间汇总}
+
+\begin{table}[htbp]
+\centering
+\caption{两个正态总体未知参数的置信区间}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+\textbf{待估参数} & \textbf{条件} & \textbf{随机变量} & \textbf{分布} & \textbf{双侧置信区间} \\
+\midrule
+\multirow{3}{*}{$\mu_{1}-\mu_{2}$} & $\sigma_{1}^{2},\sigma_{2}^{2}$均已知 & $\dfrac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{\sqrt{\dfrac{\sigma_{1}^{2}}{n_{1}}+\dfrac{\sigma_{2}^{2}}{n_{2}}}}$ & $N(0,1)$ & $\bar{X}-\bar{Y}\pm z_{\frac{\alpha}{2}}\sqrt{\dfrac{\sigma_{1}^{2}}{n_{1}}+\dfrac{\sigma_{2}^{2}}{n_{2}}}$ \\
+\cmidrule{2-5}
+ & $\sigma_{1}^{2}=\sigma_{2}^{2}$但未知 & $\dfrac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{S_{w}\sqrt{\dfrac{1}{n_{1}}+\dfrac{1}{n_{2}}}}$ & $t(n_{1}+n_{2}-2)$ & $\bar{X}-\bar{Y}\pm t_{\frac{\alpha}{2}}(n_{1}+n_{2}-2)S_{w}\sqrt{\dfrac{1}{n_{1}}+\dfrac{1}{n_{2}}}$ \\
+\cmidrule{2-5}
+ & $\sigma_{1}^{2}\neq\sigma_{2}^{2}$，$n_{1}=n_{2}=n$ & $\dfrac{\bar{X}-\bar{Y}}{S_{Z}/\sqrt{n}}$ & $t(n-1)$ & $\bar{X}-\bar{Y}\pm\dfrac{t_{\frac{\alpha}{2}}(n-1)S_{Z}}{\sqrt{n}}$ \\
+\midrule
+$\dfrac{\sigma_{1}^{2}}{\sigma_{2}^{2}}$ & $\mu_{1},\mu_{2}$未知 & $\dfrac{S_{1}^{2}/\sigma_{1}^{2}}{S_{2}^{2}/\sigma_{2}^{2}}$ & $F(n_{1}-1,n_{2}-1)$ & $\left(\dfrac{S_{1}^{2}}{S_{2}^{2}}\dfrac{1}{F_{\frac{\alpha}{2}}},\dfrac{S_{1}^{2}}{S_{2}^{2}}\dfrac{1}{F_{1-\frac{\alpha}{2}}}\right)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{(0-1)分布参数的区间估计}
+
+\textbf{前提}：
+
+设有一容量$n>50$的样本，它来自$(0-1)$分布的总体$X$，$X$的分布律为$f(x;p)=p^{x}(1-p)^{1-x}$，$x=0,1$，其中$p$为未知参数，则$p$的置信度为$1-\alpha$的置信区间是
+\[
+\left(\frac{-b-\sqrt{b^{2}-4ac}}{2a},\ \frac{-b+\sqrt{b^{2}-4ac}}{2a}\right),
+\]
+其中
+\[
+a=n+z_{\frac{\alpha}{2}}^{2},\quad b=-(2n\bar{X}+z_{\frac{\alpha}{2}}^{2}),\quad c=n\bar{X}^{2}.
+\]
+
+\textbf{导出过程}：
+
+因为$(0-1)$分布的均值和方差分别为
+\[
+\mu=p,\qquad \sigma^{2}=p(1-p).
+\]
+
+设$X_{1},X_{2},\ldots,X_{n}$是一个样本，因为容量$n$较大，由中心极限定理知
+\[
+\frac{\sum_{i=1}^{n}X_{i}-np}{\sqrt{np(1-p)}}=\frac{n\bar{X}-np}{\sqrt{np(1-p)}}
+\]
+近似地服从$N(0,1)$分布。
+
+于是
+\[
+P\left\{-z_{\frac{\alpha}{2}}<\frac{n\bar{X}-np}{\sqrt{np(1-p)}}<z_{\frac{\alpha}{2}}\right\}\approx1-\alpha.
+\]
+
+不等式
+\[
+-z_{\frac{\alpha}{2}}<\frac{n\bar{X}-np}{\sqrt{np(1-p)}}<z_{\frac{\alpha}{2}}
+\]
+等价于
+\[
+\left(n+z_{\frac{\alpha}{2}}^{2}\right)p^{2}-\left(2n\bar{X}+z_{\frac{\alpha}{2}}^{2}\right)p+n\bar{X}^{2}<0.
+\]
+
+令
+\[
+p_{1}=\frac{-b-\sqrt{b^{2}-4ac}}{2a},\qquad p_{2}=\frac{-b+\sqrt{b^{2}-4ac}}{2a},
+\]
+其中
+\[
+a=n+z_{\frac{\alpha}{2}}^{2},\quad b=-(2n\bar{X}+z_{\frac{\alpha}{2}}^{2}),\quad c=n\bar{X}^{2}.
+\]
+
+则$p$的近似置信水平为$1-\alpha$的置信区间是$(p_{1},p_{2})$。
+
+\begin{example}[一级品率的置信区间]
+设从一大批产品的$100$个样品中，得一级品$60$个，求这批产品的一级品率$p$的置信水平为$0.95$的置信区间。
+
+\textbf{解}：一级品率$p$是$(0-1)$分布的参数。
+
+$n=100$，$\bar{x}=\dfrac{60}{100}=0.6$，$1-\alpha=0.95$，$z_{\frac{\alpha}{2}}=z_{0.025}=1.96$。
+
+则
+\[
+a=n+z_{\frac{\alpha}{2}}^{2}=103.84,
+\]
+\[
+b=-(2n\bar{x}+z_{\frac{\alpha}{2}}^{2})=-123.84,
+\]
+\[
+c=n\bar{x}^{2}=36.
+\]
+
+于是
+\[
+p_{1}=\frac{-b-\sqrt{b^{2}-4ac}}{2a}=0.50,\qquad p_{2}=\frac{-b+\sqrt{b^{2}-4ac}}{2a}=0.69.
+\]
+
+一级品率$p$的置信水平为$0.95$的置信区间$(0.50,0.69)$。
+\end{example}
+
+\section{单侧置信区间}
+
+在以上各节的讨论中对于未知参数$\theta$，我们给出两个统计量$\underline{\theta},\bar{\theta}$，得到的双侧置信区间$(\underline{\theta},\bar{\theta})$。
+
+在某些实际问题中，例如，
+\begin{itemize}[leftmargin=2em]
+    \item 对于设备、元件的寿命来说，关心的是平均寿命的"下限"；
+    \item 考虑产品的废品率$p$时，关心参数$p$的"上限"，
+\end{itemize}
+这些都是单侧的，于是有单侧置信区间的概念。
+
+\begin{definition}[单侧置信区间]
+对于给定值$\alpha\ (0<\alpha<1)$，若由样本$X_{1},X_{2},\ldots,X_{n}$确定的统计量$\underline{\theta}=\underline{\theta}(X_{1},X_{2},\ldots,X_{n})$，对于任意$\theta\in\Theta$满足
+\[
+P\{\theta>\underline{\theta}(X_{1},X_{2},\ldots,X_{n})\}\geq1-\alpha,
+\]
+则称随机区间$(\underline{\theta},+\infty)$是$\theta$的置信度为$1-\alpha$的\textbf{单侧置信区间}，$\underline{\theta}$称为$\theta$的置信水平为$1-\alpha$的单侧置信区间的\textbf{置信下限}。
+
+对于给定值$\alpha\ (0<\alpha<1)$，若由样本$X_{1},X_{2},\ldots,X_{n}$确定的统计量$\bar{\theta}=\bar{\theta}(X_{1},X_{2},\ldots,X_{n})$，对于任意$\theta\in\Theta$满足
+\[
+P\{\theta<\bar{\theta}(X_{1},X_{2},\ldots,X_{n})\}\geq1-\alpha,
+\]
+则称随机区间$(-\infty,\bar{\theta})$是$\theta$的置信度为$1-\alpha$的\textbf{单侧置信区间}，$\bar{\theta}$称为$\theta$的置信水平为$1-\alpha$的单侧置信区间的\textbf{置信上限}。
+\end{definition}
+
+\subsection{正态总体均值与方差的单侧置信区间}
+
+设$X\sim N(\mu,\sigma^{2})$，$X_{1},X_{2},\ldots,X_{n}$是一个样本，由
+\[
+\frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1),
+\]
+有
+\[
+P\left\{\frac{\bar{X}-\mu}{S/\sqrt{n}}<t_{\alpha}(n-1)\right\}=1-\alpha,
+\]
+即
+\[
+P\left\{\mu>\bar{X}-\frac{S}{\sqrt{n}}t_{\alpha}(n-1)\right\}=1-\alpha.
+\]
+
+于是得$\mu$的一个置信水平为$1-\alpha$的单侧置信区间
+\[
+\left(\bar{X}-\frac{S}{\sqrt{n}}t_{\alpha}(n-1),\ +\infty\right).
+\]
+
+$\mu$的置信水平为$1-\alpha$的置信下限
+\[
+\underline{\mu}=\bar{X}-\frac{S}{\sqrt{n}}t_{\alpha}(n-1).
+\]
+
+又根据
+\[
+\frac{(n-1)S^{2}}{\sigma^{2}}\sim\chi^{2}(n-1),
+\]
+有
+\[
+P\left\{\frac{(n-1)S^{2}}{\sigma^{2}}>\chi_{1-\alpha}^{2}(n-1)\right\}=1-\alpha.
+\]
+
+即
+\[
+P\left\{\sigma^{2}<\frac{(n-1)S^{2}}{\chi_{1-\alpha}^{2}(n-1)}\right\}=1-\alpha.
+\]
+
+于是得$\sigma^{2}$的一个置信水平为$1-\alpha$的单侧置信区间
+\[
+\left(0,\ \frac{(n-1)S^{2}}{\chi_{1-\alpha}^{2}(n-1)}\right).
+\]
+
+$\sigma^{2}$的置信水平为$1-\alpha$的置信上限
+\[
+\bar{\sigma}^{2}=\frac{(n-1)S^{2}}{\chi_{1-\alpha}^{2}(n-1)}.
+\]
+
+\begin{example}[灯泡寿命的单侧置信下限]
+设从一批灯泡中，随机地取$5$只作寿命试验，测得寿命（以小时计）为$1050,1100,1120,1250,1280$，设灯泡寿命服从正态分布，求灯泡寿命平均值的置信水平为$0.95$的单侧置信下限。
+
+\textbf{解}：$1-\alpha=0.95$，$n=5$，$\bar{x}=1160$，$s^{2}=9950$。
+
+$t_{\alpha}(n-1)=t_{0.05}(4)=2.1318$。
+
+$\mu$的置信水平为$0.95$的置信下限
+\[
+\underline{\mu}=\bar{x}-\frac{s}{\sqrt{n}}t_{\alpha}(n-1)=1065.
+\]
+\end{example}
+
+\begin{example}[均匀分布的单侧置信区间]
+设总体$X$在$[0,\theta]$上服从均匀分布，其中$\theta>0$，$X_{1},X_{2},\ldots,X_{n}$是一个样本，给定$\alpha$，求$\theta$的置信水平为$1-\alpha$的置信下限和置信上限。
+
+\textbf{解}：令$X_{h}=\max\{X_{1},X_{2},\ldots,X_{n}\}$。
+
+对于给定的$\alpha$，找到$0<\hat{\theta}<1$，使得
+\[
+1-\alpha=\int_{0}^{\hat{\theta}}nz^{n-1}\,dz=\hat{\theta}^{n}.
+\]
+
+令$Z=\dfrac{X_{h}}{\theta}$，则
+\[
+P\left\{\frac{X_{h}}{\theta}<\hat{\theta}\right\}=1-\alpha,
+\]
+即
+\[
+P\left\{\theta>\frac{X_{h}}{\hat{\theta}}\right\}=1-\alpha.
+\]
+
+于是$\hat{\theta}=\sqrt[n]{1-\alpha}$。
+
+所以，
+\[
+P\left\{\theta>\frac{X_{h}}{\sqrt[n]{1-\alpha}}\right\}=1-\alpha.
+\]
+
+$\theta$的置信水平为$1-\alpha$的置信下限
+\[
+\underline{\theta}=\frac{X_{h}}{\sqrt[n]{1-\alpha}}.
+\]
+
+对于给定的$\alpha$，找到$0<\hat{\theta}<1$，使得
+\[
+P\left\{\theta<\frac{X_{h}}{\hat{\theta}}\right\}=1-\alpha,
+\]
+\[
+1-\alpha=\int_{\hat{\theta}}^{1}nz^{n-1}\,dz=1-\hat{\theta}^{n}.
+\]
+
+于是$\hat{\theta}=\sqrt[n]{\alpha}$。
+
+所以
+\[
+P\left\{\theta<\frac{X_{h}}{\sqrt[n]{\alpha}}\right\}=1-\alpha.
+\]
+
+$\theta$的置信水平为$1-\alpha$的置信上限
+\[
+\bar{\theta}=\frac{X_{h}}{\sqrt[n]{\alpha}}.
+\]
+\end{example}
+
+\section*{小结}
+\addcontentsline{toc}{section}{小结}
+
+% 跳过：fig_summary_estimation 在C21中无对应图片
+
+参数估计包括点估计和区间估计。
+
+\textbf{点估计}：
+\begin{itemize}[leftmargin=2em]
+    \item 矩估计
+    \item 极大似然估计
+\end{itemize}
+
+\textbf{区间估计}：
+\begin{itemize}[leftmargin=2em]
+    \item 置信区间和上下限
+    \item 正态总体均值方差的置信区间与上下限
+\end{itemize}
+
+\textbf{基础}：
+\begin{itemize}[leftmargin=2em]
+    \item 第6章：三大抽样分布（$\chi^{2}$分布、$t$分布、$F$分布）
+    \item 四个关于样本和方差的定理
+\end{itemize}
+
+\textbf{矩估计步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 求$\mu_{1}=E[X]$，$\mu_{2}=E[X^{2}]$，$\ldots$
+    \item 设$A_{1}=\mu_{1}$，$A_{2}=\mu_{2}$，$\ldots$
+    \item 解上面的方程（组），得$\hat{\theta}_{1}=\hat{\theta}_{1}(X_{1},X_{2},\ldots,X_{k})$，$\ldots$
+\end{enumerate}
+
+\textbf{极大似然估计}：
+
+选取得到观察值$(x_{1},x_{2},\ldots,x_{n})$，构造
+\[
+L(\theta)=L(x_{1},x_{2},\ldots,x_{n};\theta).
+\]
+
+由
+\[
+\frac{dL(\theta)}{d\theta}=0\quad\text{或}\quad\frac{d}{d\theta}\ln L(\theta)=0
+\]
+获得对$\theta$的估计值$\hat{\theta}$。
+
+\textbf{求置信区间的一般步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 寻求一个样本$X_{1},X_{2},\ldots,X_{n}$的函数：
+    \[
+    Z=Z(X_{1},X_{2},\ldots,X_{n};\theta),
+    \]
+    其中仅包含待估计参数$\theta$，并且$Z$的分布已知，且不依赖于任何未知参数（包括$\theta$）。
+    \item 对于给定的置信度$1-\alpha$，定出两个常数$a,b$，使得
+    \[
+    P\{a<Z(X_{1},X_{2},\ldots,X_{n};\theta)<b\}=1-\alpha.
+    \]
+    \item 若能从$a<Z(X_{1},X_{2},\ldots,X_{n};\theta)<b$得到等价的不等式$\underline{\theta}<\theta<\bar{\theta}$，其中$\underline{\theta}=\underline{\theta}(X_{1},X_{2},\ldots,X_{n})$，$\bar{\theta}=\bar{\theta}(X_{1},X_{2},\ldots,X_{n})$都是统计量，那么，$(\underline{\theta},\bar{\theta})$就是$\theta$的一个置信度为$1-\alpha$的置信区间。
+\end{enumerate}
+
+\section*{作业}
+\addcontentsline{toc}{section}{作业}
+
+教材《概率论与数理统计》（pp.~178--179）：\#16，\#19，\#22，\#25。
 
 \end{document}
