@@ -9752,7 +9752,7 @@ P\left\{\frac{(n-1)S^{2}}{\chi_{\frac{\alpha}{2}}^{2}(n-1)}<\sigma^{2}<\frac{(n-
 \end{tabular}
 \end{table}
 
-\subsection{两个正态总体\texorpdfstring{$N(\mu_{1},\sigma_{1}^{2}),N(\mu_{2},\sigma_{2}^{2})$}{N(mu1,sigma1^2),N(mu2,sigma2^2)}的情况}
+\subsection{两个正态总体\texorpdfstring{$N(\mu_{1},\sigma_{1}^{2}),N(\mu_{2},\sigma_{2}^{2})$}{N(mu1,sigma12),N(mu2,sigma22)}的情况}
 
 \textbf{前提}：
 
@@ -10222,5 +10222,676 @@ L(\theta)=L(x_{1},x_{2},\ldots,x_{n};\theta).
 \addcontentsline{toc}{section}{作业}
 
 教材《概率论与数理统计》（pp.~178--179）：\#16，\#19，\#22，\#25。
+
+\newpage
+\chapter{假设检验}
+
+\section{假设检验}
+
+\subsection{假设检验的基本概念}
+
+假设检验或“显著性检验（Test of statistical significance）”是用来判断样本与样本、样本与总体的差异是由抽样误差引起还是本质差别造成的统计推断方法。
+
+先对总体的特征作出某种假设，然后通过抽样研究的统计推理，据此对假设做出拒绝或接受的推断。
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{参数检验}——在总体分布类型已知的前提下对总体参数及有关性质进行判断；
+    \item \textbf{非参数检验}——总体分布的类型部分或全部未知，检验的目的是做出一般性的推断，例如分布的类型、两变量是否相互独立、分布是否相同等。
+\end{itemize}
+
+\begin{example}[新冠疫苗对预防新冠是否有效？]
+将被试随机分成两组，其中一组注射疫苗，另一组注射葡萄糖。
+\begin{itemize}[leftmargin=2em]
+    \item 原假设/零假设 $H_{0}$：疫苗无效；
+    \item 备择假设 $H_{1}$：疫苗有效。
+\end{itemize}
+若注射疫苗的一组的发病率远远低于另一组，则我们拒绝原假设，得到结论为：证据更支持备择假设。换句话说，证据表明疫苗对预防新冠有效。
+\end{example}
+
+\begin{example}[炼铁厂铁水含碳量]
+已知某炼铁厂的铁水含碳量 $X$ 在某种工艺条件下服从正态分布 $N(4.55,0.108^{2})$。现在改变了工艺条件，又测了五炉铁水，其含碳量分别为：
+\[
+4.28,\quad 4.40,\quad 4.42,\quad 4.35,\quad 4.37
+\]
+根据以往的经验，总体的方差 $\sigma^{2}=0.108^{2}$ 一般不会改变。试问工艺条件改变后，铁水含碳量的均值有无改变？
+
+\textbf{分析}：需解决的问题是如何根据样本判断现在铁水的含碳量是服从 $\mu\neq 4.55$ 的正态分布，还是仍然服从 $\mu=4.55$ 的正态分布。为此，选择其中之一作为假设，再利用样本检验假设的真伪。
+\end{example}
+
+\begin{example}[铁钉长度]
+某工厂生产一批铁钉，从中随机抽取 $11$ 根，测得长度（单位：mm）数据为：
+\[
+10.41,\ 10.32,\ 10.62,\ 10.18,\ 10.77,\ 10.64,\ 10.82,\ 10.49,\ 10.38,\ 10.59,\ 10.54
+\]
+试问铁钉的长度 $X$ 是否服从正态分布？
+
+\textbf{分析}：需解决的问题是总体 $X$ 是否服从正态分布。为此，选择是或否作为假设，然后利用样本对假设的真伪做出判断。
+\end{example}
+
+\subsection{原假设与备择假设}
+
+问题中涉及到的假设称为\textbf{原假设}，记为 $H_{0}$；与原假设对立的假设称为\textbf{备择假设}，记为 $H_{1}$。
+
+如上述炼铁厂问题，若原假设为 $H_{0}\colon\mu=\mu_{0}=4.55$，则备择假设为 $H_{1}\colon\mu\neq 4.55$。
+
+如上述铁钉长度问题，若原假设为 $H_{0}\colon X$ 服从正态分布，则备择假设为 $H_{1}\colon X$ 不服从正态分布。
+
+\subsection{假设检验的基本思想}
+
+假设检验：事先对总体参数或分布形式做出某种假设，然后利用样本信息来判断原假设是否成立的过程。
+
+一般采用反证法；结论的合理性依据统计学的\textbf{小概率原理}。
+
+在给定备择假设 $H_{1}$ 下，利用样本对原假设 $H_{0}$ 做出判断，若拒绝原假设 $H_{0}$，则意味着接受备择假设 $H_{1}$；否则，就不拒绝原假设 $H_{0}$。
+
+\subsection{小概率事件原理}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{小概率事件}：统计学指在一次试验中，一个几乎不可能发生的事件。其概率称为小概率事件。
+    \item \textbf{实际不可能原理}：在一次试验中小概率事件一旦发生，原假设就是错误的。
+\end{itemize}
+
+\begin{example}[炼铁厂铁水含碳量——详细解答]
+已知某炼铁厂的铁水含碳量 $X$ 在某种工艺条件下服从正态分布 $N(4.55,0.108^{2})$。现在改变了工艺条件，又测了五炉铁水，其含碳量分别为 $4.28, 4.40, 4.42, 4.35, 4.37$。根据以往的经验，总体的方差 $\sigma^{2}=0.108^{2}$ 一般不会改变。试问工艺条件改变后，铁水含碳量的均值有无改变？
+
+\textbf{解}：首先建立假设
+\[
+H_{0}\colon\mu=\mu_{0}=4.55,\qquad H_{1}\colon\mu\neq 4.55.
+\]
+
+其次，从总体中随机抽样得到样本观察值 $(x_{1},x_{2},\ldots,x_{n})$。
+
+注意到 $\bar{X}=\frac{1}{n}\sum_{i=1}^{n}X_{i}$ 是 $\mu$ 的无偏估计量。因此，若 $H_{0}$ 正确，则 $\bar{X}$ 与 $\mu_{0}$ 的偏差一般不应太大，即 $|\bar{X}-\mu_{0}|$ 不应太大。由于
+\[
+Z=\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\sim N(0,1),
+\]
+因此，考察 $|\bar{X}-\mu_{0}|$ 的大小等价于考察 $\frac{|\bar{X}-\mu_{0}|}{\sigma/\sqrt{n}}$ 的大小。
+
+对于给定的小正数 $\alpha$，
+\[
+P\left\{\frac{|\bar{X}-\mu_{0}|}{\sigma/\sqrt{n}}\geq z_{\alpha/2}\right\}=\alpha.
+\]
+事件 $\left\{\frac{|\bar{X}-\mu_{0}|}{\sigma/\sqrt{n}}\geq z_{\alpha/2}\right\}$ 是小概率事件。
+
+因此，当用样本值代入统计量 $Z=\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}$，具体计算得到其观察值 $|z|=\frac{|\bar{x}-\mu_{0}|}{\sigma/\sqrt{n}}$ 时，
+\begin{itemize}[leftmargin=2em]
+    \item 若 $|z|\geq z_{\alpha/2}$，即说明在一次抽样中，小概率事件发生了。因此依据小概率原理，有理由拒绝 $H_{0}$，接受 $H_{1}$；
+    \item 若 $|z|<z_{\alpha/2}$，则没有理由拒绝 $H_{0}$。
+\end{itemize}
+\end{example}
+
+\subsection{检验统计量与拒绝域}
+
+统计量 $Z$ 称为\textbf{检验统计量}。当检验统计量取某个区域中的值时就拒绝 $H_{0}$，则称该区域为 $H_{0}$ 的\textbf{拒绝域}，拒绝域的边界点称为\textbf{临界点}。
+
+在 $H_{0}$ 和 $H_{1}$ 之间，我们倾向于保护 $H_{0}$，即 $H_{0}$ 确实成立时，做出拒绝 $H_{0}$ 的概率应是一个很小的正数，这类假设检验称为\textbf{显著性假设检验}，小正数 $\alpha$ 称为\textbf{检验水平}或\textbf{显著性水平}。
+
+\subsection{参数的假设检验的一般步骤}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 根据实际问题建立原假设 $H_{0}$ 和备择假设 $H_{1}$；
+    \item 确定检验统计量 $Z$，并明确其分布；
+    \item 给定显著性水平 $\alpha>0$，根据统计量的分布，由 $P\{|Z|\geq z_{\alpha/2}\}\leq\alpha$ 确定拒绝域（临界值 $z_{\alpha/2}$）；
+    \item 由样本值具体计算统计量 $Z$ 的观察值 $z$，并做出判断：
+    \begin{itemize}
+        \item 若 $|z|\geq z_{\alpha/2}$，则拒绝 $H_{0}$，接受 $H_{1}$；
+        \item 若 $|z|<z_{\alpha/2}$，则不拒绝 $H_{0}$。
+    \end{itemize}
+\end{enumerate}
+
+\begin{example}[炼铁厂铁水含碳量——计算]
+依上述步骤解决炼铁厂问题：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 假设 $H_{0}\colon\mu=\mu_{0}=4.55$， $H_{1}\colon\mu\neq 4.55$；
+    \item 选择检验用统计量 $Z=\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\sim N(0,1)$；
+    \item 对于给定的小正数 $\alpha=0.05$，查标准正态分布表得到临界值 $z_{\alpha/2}=z_{0.025}=1.96$；
+    \item 具体计算：这里 $n=5$， $\bar{x}=4.364$， $\sigma^{2}=0.108^{2}$，故 $Z$ 的观察值
+    \[
+    z=\frac{\bar{x}-\mu_{0}}{\sigma/\sqrt{n}}=\frac{4.364-4.55}{0.108/\sqrt{5}}=-3.9.
+    \]
+\end{enumerate}
+因为 $|z|=3.9>1.96$，所以拒绝 $H_{0}$，接受 $H_{1}$，即认为新工艺改变了铁水的平均含碳量。
+\end{example}
+
+\begin{example}[天然牛奶掺水检验]
+天然牛奶的冰点温度近似服从正态分布，均值 $\mu_{0}=-0.545^{\circ}\mathrm{C}$，标准差 $\sigma=0.008^{\circ}\mathrm{C}$。牛奶掺水可以使冰点温度升高至水的冰点温度（$0^{\circ}\mathrm{C}$）。测得生产商提交的 $5$ 批牛奶的冰点温度，其均值为 $\bar{x}=-0.535^{\circ}\mathrm{C}$，问是否可以认为生产商在牛奶中掺了水？取 $\alpha=0.05$。
+
+\textbf{解}：设 $H_{0}\colon\mu\leq\mu_{0}$（未掺水）， $H_{1}\colon\mu>\mu_{0}$（已掺水）。
+
+这是\textbf{单边检验}问题，其拒绝域为
+\[
+z=\frac{\bar{x}-\mu_{0}}{\sigma/\sqrt{n}}\geq z_{0.05}=1.645.
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_right_tailed_rejection.png}
+    \caption{右边检验拒绝域示意图（正态分布右侧尾部，临界值 $z_{\alpha}=1.645$）}
+    \label{fig:right_tailed_rejection}
+\end{figure}
+
+现有
+\[
+z=\frac{-0.535-(-0.545)}{0.008/\sqrt{5}}=2.7951>1.645.
+\]
+$z$ 的值落在拒绝域中，所以在显著性水平 $\alpha=0.05$ 下拒绝 $H_{0}$，即认为牛奶商在牛奶中掺了水。
+\end{example}
+
+\subsection{假设检验中的注意事项}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{原假设和备择假设地位不平等}
+
+    假设检验是显著性检验。当显著性水平很小时检验推断“偏向”原假设。
+
+    在 $H_{0}$ 和 $H_{1}$ 之间，我们倾向于保护 $H_{0}$，即 $H_{0}$ 确实成立时，做出拒绝 $H_{0}$ 的概率应是一个很小的正数，即显著性水平 $\alpha$。
+
+    对原假设的肯定缺乏说服力，但是否定原假设是有说服力的。
+
+    \item \textbf{显著性水平 $\alpha$ 是一个事先确定的小概率值。}
+
+    其取值事先确定，一般取 $\alpha=0.01$ 或 $\alpha=0.05$。
+
+    \item \textbf{假设的形式分为单边检验和双边检验}
+
+    以方差已知，单个样本均值的显著性检验为例：
+    \begin{table}[htbp]
+    \centering
+    \caption{双边检验与单边检验}
+    \begin{tabular}{@{}cccc@{}}
+    \toprule
+    \textbf{假设} & \textbf{双边检验} & \textbf{左边检验} & \textbf{右边检验} \\
+    \midrule
+    $H_{0}$ & $\mu=\mu_{0}$ & $\mu\geq\mu_{0}$ & $\mu\leq\mu_{0}$ \\
+    $H_{1}$ & $\mu\neq\mu_{0}$ & $\mu<\mu_{0}$ & $\mu>\mu_{0}$ \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+
+    % 图片：双边检验与单边检验拒绝域示意图
+    % 上图：双边检验，拒绝域在两侧，各为 $\alpha/2$，临界值 $\pm z_{\alpha/2}=\pm 1.96$
+    % 中图：右边检验，拒绝域在右侧，面积为 $\alpha$，临界值 $z_{\alpha}=1.645$
+    % 下图：左边检验，拒绝域在左侧，面积为 $\alpha$，临界值 $-z_{\alpha}=-1.645$
+
+    \item \textbf{如何选择统计量}
+
+    明确要检验的是总体的什么参数；寻找与该参数近似的分布已知的统计量。
+
+    \item \textbf{与区间估计的关系：原理相同，方法不同}
+
+    \textbf{原理}：根据样本信息以抽样分布为理论依据在概率的基础上对总体参数进行推断，推断结果具有一定的可信程度和风险。
+
+    \textbf{相关性}：假设检验等价于检验原假设的值是否落在置信区间。若落在置信区间内，则不拒绝 $H_{0}$，否则拒绝 $H_{0}$。
+
+    \textbf{方法}：区间估计立足于大概率；假设检验立足于小概率。
+
+    \item \textbf{假设检验中的两类错误}
+
+    \textbf{第 I 类错误（弃真错误）}：由于样本的随机性，犯这类错误是不可避免的。若将犯这一类错误的概率记为 $\alpha$，则有
+    \[
+    P\{\text{拒绝 }H_{0}\mid H_{0}\text{ 为真}\}=\alpha.
+    \]
+
+    \textbf{第 II 类错误（取伪错误）}：这类错误同样不可避免。若将犯这一类错误的概率记为 $\beta$，则有
+    \[
+    P\{\text{接受 }H_{0}\mid H_{0}\text{ 不真}\}=\beta.
+    \]
+
+    假设检验将犯第一类（弃真）错误的概率控制在给定的范围内，即显著性假设检验。
+\end{enumerate}
+
+\section{正态总体均值和方差的检验}
+
+\subsection{三大抽样分布回顾}
+
+\subsubsection*{$\chi^{2}$ 分布}
+
+设 $X_{1},X_{2},\ldots,X_{n}\stackrel{\text{i.i.d.}}{\sim}N(0,1)$，则称统计量
+\[
+\chi^{2}=X_{1}^{2}+X_{2}^{2}+\cdots+X_{n}^{2}\sim\chi^{2}(n)
+\]
+服从自由度为 $n$ 的 $\chi^{2}$（卡方）分布。
+
+\textbf{性质}：
+\[
+E(\chi^{2})=n,\quad D(\chi^{2})=2n,\quad \chi_{1}^{2}+\chi_{2}^{2}\sim\chi^{2}(n_{1}+n_{2}).
+\]
+
+\subsubsection*{$t$ 分布（Student's $t$）}
+
+设 $X\sim N(0,1)$，$Y\sim\chi^{2}(n)$，且 $X$、$Y$ 相互独立，则
+\[
+t=\frac{X}{\sqrt{Y/n}}\sim t(n).
+\]
+
+\subsubsection*{$F$ 分布}
+
+设 $U\sim\chi^{2}(n_{1})$，$V\sim\chi^{2}(n_{2})$，且 $U$、$V$ 相互独立，则
+\[
+F=\frac{U/n_{1}}{V/n_{2}}\sim F(n_{1},n_{2}).
+\]
+
+$F$ 分布的上 $\alpha$ 分位点的性质：
+\[
+F_{1-\alpha}(n_{1},n_{2})=\frac{1}{F_{\alpha}(n_{2},n_{1})}.
+\]
+
+\subsection{正态总体的抽样定理回顾}
+
+\begin{theorem}[定理1]
+设 $X_{1},X_{2},\ldots,X_{n}$ 是来自总体 $X\sim N(\mu,\sigma^{2})$ 的样本，则
+\[
+\bar{X}\sim N\!\left(\mu,\frac{\sigma^{2}}{n}\right).
+\]
+\end{theorem}
+
+\begin{theorem}[定理2]
+设 $X_{1},X_{2},\ldots,X_{n}$ 是来自总体 $X\sim N(\mu,\sigma^{2})$ 的样本，$\bar{X}$ 和 $S^{2}$ 分别为样本均值与样本方差，则有
+\[
+\frac{(n-1)S^{2}}{\sigma^{2}}\sim\chi^{2}(n-1).
+\]
+\end{theorem}
+
+\begin{theorem}[定理3]
+设 $X_{1},X_{2},\ldots,X_{n}$ 是来自总体 $X\sim N(\mu,\sigma^{2})$ 的样本，$\bar{X}$ 和 $S^{2}$ 分别为样本的均值与样本方差，则有
+\[
+\frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1).
+\]
+\end{theorem}
+
+\begin{theorem}[定理4]
+设 $X_{1},X_{2},\ldots,X_{n_{1}}$ 与 $Y_{1},Y_{2},\ldots,Y_{n_{2}}$ 分别是来自总体 $X\sim N(\mu_{1},\sigma_{1}^{2})$ 和 $Y\sim N(\mu_{2},\sigma_{2}^{2})$ 的样本，且两样本分别独立，两样本均值与样本方差分别为 $\bar{X},\bar{Y},S_{1}^{2},S_{2}^{2}$，则有
+\[
+\frac{S_{1}^{2}/\sigma_{1}^{2}}{S_{2}^{2}/\sigma_{2}^{2}}\sim F(n_{1}-1,n_{2}-1).
+\]
+当 $\sigma_{1}^{2}=\sigma_{2}^{2}=\sigma^{2}$ 时，
+\[
+\frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{S_{w}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}}\sim t(n_{1}+n_{2}-2),
+\]
+其中
+\[
+S_{w}^{2}=\frac{(n_{1}-1)S_{1}^{2}+(n_{2}-1)S_{2}^{2}}{n_{1}+n_{2}-2},\qquad S_{w}=\sqrt{S_{w}^{2}}.
+\]
+\end{theorem}
+
+\subsection{单个正态总体均值的检验}
+
+\subsubsection*{(1) $\sigma^{2}$ 已知：$Z$ 检验}
+
+原假设 $H_{0}\colon\mu=\mu_{0}$，备择假设 $H_{1}\colon\mu\neq\mu_{0}$。
+
+在 $H_{0}$ 成立的条件下，选用检验统计量
+\[
+Z=\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\sim N(0,1).
+\]
+
+对于给定的检验水平 $\alpha$，查正态分布表得到临界值 $z_{\alpha/2}$，再由样本值具体计算统计量 $Z$ 的观察值 $z$ 并与 $z_{\alpha/2}$ 比较。
+
+\begin{itemize}[leftmargin=2em]
+    \item 若 $|z|\geq z_{\alpha/2}$，则拒绝 $H_{0}$，接受 $H_{1}$；
+    \item 若 $|z|<z_{\alpha/2}$，则接受 $H_{0}$。
+\end{itemize}
+这种检验法称为\textbf{$Z$ 检验法}。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/fig_rejection_regions.png}
+    \caption{不同原假设和备择假设形式下的拒绝域示意图}
+    \label{fig:rejection_regions}
+\end{figure}
+
+\subsubsection*{(2) $\sigma^{2}$ 未知：$t$ 检验}
+
+样本方差 $S^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}$ 是 $\sigma^{2}$ 的无偏估计，因此用 $S^{2}$ 代替 $\sigma^{2}$。
+
+在 $H_{0}$ 成立的条件下，统计量
+\[
+T=\frac{\bar{X}-\mu_{0}}{S/\sqrt{n}}\sim t(n-1).
+\]
+
+给定显著性水平 $\alpha>0$，查 $t$ 分布表可得临界值 $t_{\alpha/2}(n-1)$，使 $P\{|t|\geq t_{\alpha/2}(n-1)\}=\alpha$ 成立。再由样本值具体计算统计量 $T$ 的观察值 $t$，并与 $t_{\alpha/2}(n-1)$ 比较：
+\begin{itemize}[leftmargin=2em]
+    \item 若 $|t|\geq t_{\alpha/2}(n-1)$，则拒绝 $H_{0}$，接受 $H_{1}$；
+    \item 若 $|t|<t_{\alpha/2}(n-1)$，则接受 $H_{0}$。
+\end{itemize}
+这种检验法称为\textbf{$t$ 检验法}。
+
+\begin{example}[元器件寿命]
+某元器件的寿命 $X$（以 h 计）服从正态分布 $N(\mu,\sigma^{2})$，$\mu,\sigma^{2}$ 均未知。现测得 $16$ 只元器件寿命如下：
+\[
+\begin{aligned}
+&159,\ 280,\ 101,\ 212,\ 224,\ 379,\ 179,\ 264,\\
+&222,\ 362,\ 168,\ 250,\ 149,\ 260,\ 485,\ 170.
+\end{aligned}
+\]
+问：是否有理由认为元件的平均寿命大于 $225\,\mathrm{h}$。
+
+\textbf{解}：设 $H_{0}\colon\mu\leq\mu_{0}=225$， $H_{1}\colon\mu>225$。
+
+检验问题的拒绝域为：
+\[
+t=\frac{\bar{x}-\mu_{0}}{s/\sqrt{n}}\geq t_{\alpha}(n-1).
+\]
+
+取 $\alpha=0.05$， $t_{0.05}(15)=1.7531$。
+
+由样本算得：$\bar{x}=241.5$， $s=98.7259$，即有
+\[
+t=\frac{241.5-225}{98.7259/\sqrt{16}}=0.6685<1.7531.
+\]
+$t$ 没有落在拒绝域中，故接受 $H_{0}$，即认为元器件的平均寿命不大于 $225\,\mathrm{h}$。
+\end{example}
+
+\subsection{两个正态总体均值差的检验}
+
+\subsubsection*{(1) $\sigma_{1}^{2},\sigma_{2}^{2}$ 已知：$Z$ 检验}
+
+原假设 $H_{0}\colon\mu_{1}-\mu_{2}=\delta$，备择假设 $H_{1}\colon\mu_{1}-\mu_{2}\neq\delta$。
+
+在 $H_{0}$ 成立的条件下，检验统计量
+\[
+Z=\frac{\bar{X}-\bar{Y}-\delta}{\sqrt{\frac{\sigma_{1}^{2}}{n_{1}}+\frac{\sigma_{2}^{2}}{n_{2}}}}\sim N(0,1).
+\]
+
+\subsubsection*{(2) $\sigma_{1}^{2}=\sigma_{2}^{2}$ 未知：$t$ 检验}
+
+原假设 $H_{0}\colon\mu_{1}-\mu_{2}=\delta$，备择假设 $H_{1}\colon\mu_{1}-\mu_{2}\neq\delta$。
+
+在 $H_{0}$ 成立的条件下，检验统计量
+\[
+T=\frac{\bar{X}-\bar{Y}-\delta}{S_{w}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}}\sim t(n_{1}+n_{2}-2),
+\]
+其中
+\[
+S_{w}^{2}=\frac{(n_{1}-1)S_{1}^{2}+(n_{2}-1)S_{2}^{2}}{n_{1}+n_{2}-2}.
+\]
+
+对于给定的检验水平 $\alpha$，查 $t$ 分布表得到临界值 $t_{\alpha/2}(n_{1}+n_{2}-2)$，再由样本值具体计算统计量 $T$ 的观察值 $t$。
+
+\begin{itemize}[leftmargin=2em]
+    \item 若 $|t|\geq t_{\alpha/2}(n_{1}+n_{2}-2)$，则拒绝 $H_{0}$，接受 $H_{1}$；
+    \item 若 $|t|<t_{\alpha/2}(n_{1}+n_{2}-2)$，则接受 $H_{0}$。
+\end{itemize}
+
+\begin{example}[融化热测定]
+用方法 A 和 B 测定冰自 $-0.72^{\circ}\mathrm{C}$ 转变为 $0^{\circ}\mathrm{C}$ 的水的融化热（以 $\mathrm{cal/g}$ 计）如下：
+
+方法 A：$80.05, 80.03, 80.02, 80.00, 80.02$
+
+方法 B：$80.02, 79.94, 79.98, 79.97, 79.97, 80.03, 79.95, 79.97$
+
+设样本相互独立，且服从正态分布 $N(\mu_{1},\sigma^{2})$ 和 $N(\mu_{2},\sigma^{2})$，$\mu_{1},\mu_{2},\sigma^{2}$ 均未知。试比较两组测量结果的均值（取 $\alpha=0.05$），即检验假设：
+\[
+H_{0}\colon\mu_{1}-\mu_{2}\leq 0,\quad H_{1}\colon\mu_{1}-\mu_{2}>0.
+\]
+
+\textbf{解}：方法 A 和 B 的箱线图如下（略）。
+
+由样本计算得：
+\[
+\begin{aligned}
+&n_{1}=13,\quad \bar{x}_{A}=80.02,\quad s_{A}^{2}=0.024^{2},\\
+&n_{2}=8,\quad \bar{x}_{B}=79.98,\quad s_{B}^{2}=0.031^{2},\\
+&S_{w}^{2}=\frac{12\times s_{A}^{2}+7\times s_{B}^{2}}{19}=0.0007178.
+\end{aligned}
+\]
+
+于是
+\[
+t=\frac{\bar{x}_{A}-\bar{x}_{B}}{s_{w}\sqrt{1/13+1/8}}=3.333>t_{0.05}(13+8-2)=1.7291.
+\]
+故拒绝 $H_{0}$，认为方法 A 比方法 B 测得的融化热要大。
+\end{example}
+
+\subsection{成对数据的均值差的检验}
+
+$n$ 对相互独立的样本：$(X_{1},Y_{1}),(X_{2},Y_{2}),\ldots,(X_{n},Y_{n})$，令 $D_{i}=X_{i}-Y_{i}\sim N(\mu_{D},\sigma_{D}^{2})$。
+
+原假设 $H_{0}\colon\mu_{D}=0$，备择假设 $H_{1}\colon\mu_{D}\neq 0$。
+
+样本均值和方差记作 $\bar{D},S_{D}^{2}$。
+
+在 $H_{0}$ 成立的条件下，检验统计量
+\[
+\frac{\bar{D}}{S_{D}/\sqrt{n}}\sim t(n-1).
+\]
+
+\begin{example}[光谱仪测量]
+用两台光谱仪 $I_{x}$ 和 $I_{y}$ 测量 $9$ 件材料试块中的金属含量，得到以下 $9$ 对观察值：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccccccccc@{}}
+\toprule
+$x(\%)$ & $0.20$ & $0.30$ & $0.40$ & $0.50$ & $0.60$ & $0.70$ & $0.80$ & $0.90$ & $1.00$ \\
+\midrule
+$y(\%)$ & $0.10$ & $0.21$ & $0.52$ & $0.32$ & $0.78$ & $0.59$ & $0.68$ & $0.77$ & $0.89$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+问：能否认为这两台仪器的测量结果有显著的差异（$\alpha=0.01$）？
+
+\textbf{解}：设 $D=X-Y$，则 $D_{1},D_{2},\ldots,D_{n}$ 独立并服从同一分布。假设 $D_{i}\sim N(\mu_{D},\sigma_{D}^{2})$，$i=1,\ldots,n$。
+
+检验统计量
+\[
+t=\frac{\bar{D}}{S_{D}/\sqrt{n}}\sim t(n-1).
+\]
+
+由 $n=9$，$t_{0.005}(8)=3.3554$ 可算得拒绝域为
+\[
+|t|=\left|\frac{\bar{d}}{s_{D}/\sqrt{n}}\right|\geq 3.3554.
+\]
+
+由样本观察值得 $\bar{d}=0.06$，$s_{D}=0.122$，$|t|=1.467<3.3554$。
+
+$t$ 值没有落在拒绝域中，故接受 $H_{0}$，即认为两台仪器的测量结果无明显差异。
+\end{example}
+
+\subsection{单个正态总体方差的检验}
+
+\subsubsection*{(1) $\mu$ 已知}
+
+原假设 $H_{0}\colon\sigma^{2}=\sigma_{0}^{2}$，备择假设 $H_{1}\colon\sigma^{2}\neq\sigma_{0}^{2}$。
+
+检验统计量
+\[
+\chi^{2}=\frac{\sum_{i=1}^{n}(X_{i}-\mu)^{2}}{\sigma_{0}^{2}}\sim\chi^{2}(n).
+\]
+
+\subsubsection*{(2) $\mu$ 未知}
+
+原假设 $H_{0}\colon\sigma^{2}=\sigma_{0}^{2}$，备择假设 $H_{1}\colon\sigma^{2}\neq\sigma_{0}^{2}$。
+
+在 $H_{0}$ 成立的条件下，统计量
+\[
+\chi^{2}=\frac{\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}}{\sigma_{0}^{2}}=\frac{(n-1)S^{2}}{\sigma_{0}^{2}}\sim\chi^{2}(n-1).
+\]
+
+对于给定的检验水平 $\alpha$，查 $\chi^{2}$ 分布表得到临界值 $\chi_{\alpha/2}^{2}(n-1)$ 及 $\chi_{1-\alpha/2}^{2}(n-1)$，使得
+\[
+P\left\{\chi^{2}\geq\chi_{\alpha/2}^{2}(n-1)\right\}=P\left\{\chi^{2}\leq\chi_{1-\alpha/2}^{2}(n-1)\right\}=\frac{\alpha}{2}.
+\]
+
+再由样本值具体计算统计量 $\chi^{2}$ 的观察值 $\frac{(n-1)S^{2}}{\sigma_{0}^{2}}$。
+\begin{itemize}[leftmargin=2em]
+    \item 若 $\frac{(n-1)S^{2}}{\sigma_{0}^{2}}\leq\chi_{1-\alpha/2}^{2}(n-1)$ 或 $\frac{(n-1)S^{2}}{\sigma_{0}^{2}}\geq\chi_{\alpha/2}^{2}(n-1)$，则拒绝 $H_{0}$，接受 $H_{1}$；
+    \item 否则接受 $H_{0}$。
+\end{itemize}
+这种检验法称为\textbf{$\chi^{2}$ 检验法}。
+
+\textbf{注意}：对于给定的检验水平 $\alpha$，单个正态总体的方差检验也可能是单边检验问题。
+\begin{itemize}[leftmargin=2em]
+    \item 右边检验（$H_{0}\colon\sigma^{2}\leq\sigma_{0}^{2}, H_{1}\colon\sigma^{2}>\sigma_{0}^{2}$）的拒绝域为：
+    \[
+    \frac{(n-1)S^{2}}{\sigma_{0}^{2}}\geq\chi_{\alpha}^{2}(n-1).
+    \]
+    \item 左边检验（$H_{0}\colon\sigma^{2}\geq\sigma_{0}^{2}, H_{1}\colon\sigma^{2}<\sigma_{0}^{2}$）的拒绝域为：
+    \[
+    \frac{(n-1)S^{2}}{\sigma_{0}^{2}}\leq\chi_{1-\alpha}^{2}(n-1).
+    \]
+\end{itemize}
+
+\subsection{两个正态总体方差的检验}
+
+\subsubsection*{(1) $\mu_{1},\mu_{2}$ 已知}
+
+原假设 $H_{0}\colon\sigma_{1}^{2}=\sigma_{2}^{2}$，备择假设 $H_{1}\colon\sigma_{1}^{2}\neq\sigma_{2}^{2}$。
+
+在 $H_{0}$ 成立的条件下，检验统计量
+\[
+F=\frac{\frac{1}{n_{1}}\sum_{i=1}^{n_{1}}(X_{i}-\mu_{1})^{2}}{\frac{1}{n_{2}}\sum_{i=1}^{n_{2}}(Y_{i}-\mu_{2})^{2}}\sim F(n_{1},n_{2}).
+\]
+
+\subsubsection*{(2) $\mu_{1},\mu_{2}$ 未知}
+
+原假设 $H_{0}\colon\sigma_{1}^{2}=\sigma_{2}^{2}$，备择假设 $H_{1}\colon\sigma_{1}^{2}\neq\sigma_{2}^{2}$。
+
+在 $H_{0}$ 成立的条件下，检验统计量
+\[
+F=\frac{S_{1}^{2}/\sigma_{1}^{2}}{S_{2}^{2}/\sigma_{2}^{2}}=\frac{S_{1}^{2}}{S_{2}^{2}}\sim F(n_{1}-1,n_{2}-1).
+\]
+
+对于给定的检验水平 $\alpha$，由
+\[
+P\left\{F\geq F_{\alpha/2}(n_{1}-1,n_{2}-1)\right\}=P\left\{F\leq F_{1-\alpha/2}(n_{1}-1,n_{2}-1)\right\}=\frac{\alpha}{2}
+\]
+可以得到临界值 $F_{\alpha/2}(n_{1}-1,n_{2}-1)$ 和 $F_{1-\alpha/2}(n_{1}-1,n_{2}-1)$。
+
+再由样本值具体计算统计量 $F$ 的观察值 $f$。
+\begin{itemize}[leftmargin=2em]
+    \item 若 $f\geq F_{\alpha/2}(n_{1}-1,n_{2}-1)$ 或 $f\leq F_{1-\alpha/2}(n_{1}-1,n_{2}-1)$，则拒绝 $H_{0}$，接受 $H_{1}$；
+    \item 否则接受 $H_{0}$。
+\end{itemize}
+这种检验法称为\textbf{$F$ 检验法}。
+
+\textbf{单边检验}：原假设 $H_{0}\colon\sigma_{1}^{2}\leq\sigma_{2}^{2}$，备择假设 $H_{1}\colon\sigma_{1}^{2}>\sigma_{2}^{2}$。
+
+在 $H_{0}$ 成立的条件下，$E(S_{1}^{2})=\sigma_{1}^{2}\leq\sigma_{2}^{2}=E(S_{2}^{2})$。检验统计量
+\[
+F=\frac{S_{1}^{2}/S_{2}^{2}}{\sigma_{1}^{2}/\sigma_{2}^{2}}\sim F(n_{1}-1,n_{2}-1).
+\]
+由于
+\[
+P\{F\geq F_{\alpha}(n_{1}-1,n_{2}-1)\}=\alpha,\qquad \frac{S_{1}^{2}/S_{2}^{2}}{\sigma_{1}^{2}/\sigma_{2}^{2}}\geq\frac{S_{1}^{2}}{S_{2}^{2}},
+\]
+所以拒绝域为：
+\[
+\frac{S_{1}^{2}}{S_{2}^{2}}\geq F_{\alpha}(n_{1}-1,n_{2}-1).
+\]
+
+\begin{example}[融化热方差比较]
+用方法 A 和 B 测定冰自 $-0.72^{\circ}\mathrm{C}$ 转变为 $0^{\circ}\mathrm{C}$ 的水的融化热（以 $\mathrm{cal/g}$ 计）如下：
+
+方法 A：$79.98, 80.04, 80.02, 80.04, 80.03, 80.03, 80.04, 79.97, 80.05, 80.03, 80.02, 80.00, 80.02$
+
+方法 B：$80.02, 79.94, 79.98, 79.97, 79.97, 80.03, 79.95, 79.97$
+
+设样本相互独立，且服从正态分布 $N(\mu_{A},\sigma_{A}^{2})$ 和 $N(\mu_{B},\sigma_{B}^{2})$，试检验假设 $H_{0}\colon\sigma_{A}^{2}=\sigma_{B}^{2}$，$H_{1}\colon\sigma_{A}^{2}\neq\sigma_{B}^{2}$（取 $\alpha=0.01$）。
+
+\textbf{解}：此处
+\[
+n_{1}=13,\quad \bar{x}_{A}=80.02,\quad s_{A}^{2}=0.024^{2},\qquad
+n_{2}=8,\quad \bar{x}_{B}=79.98,\quad s_{B}^{2}=0.031^{2}.
+\]
+
+拒绝域为
+\[
+\frac{s_{A}^{2}}{s_{B}^{2}}\geq F_{0.005}(12,7)=8.18
+\quad\text{或}\quad
+\frac{s_{A}^{2}}{s_{B}^{2}}\leq F_{0.995}(12,7)=\frac{1}{F_{0.005}(7,12)}=\frac{1}{5.52}=0.18.
+\]
+
+而
+\[
+\frac{s_{A}^{2}}{s_{B}^{2}}=\frac{0.024^{2}}{0.031^{2}}=0.64.
+\]
+
+因为 $0.18<0.64<8.18$，故接受 $H_{0}$，即认为两总体方差相等。
+\end{example}
+
+\subsection{小结}
+
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 检验统计量的构造及其分布与原假设 $H_{0}$ 有关，均值用 $Z$ 检验（$\sigma^{2}$ 已知）或 $t$ 检验（$\sigma^{2}$ 未知）；方差检验用 $\chi^{2}$ 检验（单总体）或 $F$ 检验（两个总体）。
+    \item 拒绝域的选取与备择假设 $H_{1}$ 有关，应该在对备择假设有利的方向上选取拒绝域（单边或双边）。
+\end{enumerate}
+
+\begin{table}[htbp]
+\centering
+\caption{正态总体均值检验（单个总体）}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+& \textbf{原假设 $H_{0}$} & \textbf{备择假设 $H_{1}$} & \textbf{检验统计量} & \textbf{拒绝域} \\
+\midrule
+\multirow{3}{*}{($\sigma^{2}$已知)} & $\mu\leq\mu_{0}$ & $\mu>\mu_{0}$ & \multirow{3}{*}{$Z=\dfrac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}$} & $z\geq z_{\alpha}$ \\
+& $\mu\geq\mu_{0}$ & $\mu<\mu_{0}$ & & $z\leq -z_{\alpha}$ \\
+& $\mu=\mu_{0}$ & $\mu\neq\mu_{0}$ & & $|z|\geq z_{\alpha/2}$ \\
+\midrule
+\multirow{3}{*}{($\sigma^{2}$未知)} & $\mu\leq\mu_{0}$ & $\mu>\mu_{0}$ & \multirow{3}{*}{$t=\dfrac{\bar{X}-\mu_{0}}{S/\sqrt{n}}$} & $t\geq t_{\alpha}(n-1)$ \\
+& $\mu\geq\mu_{0}$ & $\mu<\mu_{0}$ & & $t\leq -t_{\alpha}(n-1)$ \\
+& $\mu=\mu_{0}$ & $\mu\neq\mu_{0}$ & & $|t|\geq t_{\alpha/2}(n-1)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{正态总体均值检验（两个总体、成对数据）}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+& \textbf{原假设 $H_{0}$} & \textbf{备择假设 $H_{1}$} & \textbf{检验统计量} & \textbf{拒绝域} \\
+\midrule
+\multirow{3}{*}{\shortstack{($\sigma_{1}^{2},\sigma_{2}^{2}$\\已知)}} & $\mu_{1}-\mu_{2}\leq\delta$ & $\mu_{1}-\mu_{2}>\delta$ & \multirow{3}{*}{$Z=\dfrac{\bar{X}-\bar{Y}-\delta}{\sqrt{\dfrac{\sigma_{1}^{2}}{n_{1}}+\dfrac{\sigma_{2}^{2}}{n_{2}}}}$} & $z\geq z_{\alpha}$ \\
+& $\mu_{1}-\mu_{2}\geq\delta$ & $\mu_{1}-\mu_{2}<\delta$ & & $z\leq -z_{\alpha}$ \\
+& $\mu_{1}-\mu_{2}=\delta$ & $\mu_{1}-\mu_{2}\neq\delta$ & & $|z|\geq z_{\alpha/2}$ \\
+\midrule
+\multirow{3}{*}{\shortstack{($\sigma_{1}^{2}=\sigma_{2}^{2}$\\未知)}} & $\mu_{1}-\mu_{2}\leq\delta$ & $\mu_{1}-\mu_{2}>\delta$ & \multirow{3}{*}{\shortstack{$T=\dfrac{\bar{X}-\bar{Y}-\delta}{S_{w}\sqrt{\dfrac{1}{n_{1}}+\dfrac{1}{n_{2}}}}$\\[1em]$S_{w}^{2}=\dfrac{(n_{1}-1)S_{1}^{2}+(n_{2}-1)S_{2}^{2}}{n_{1}+n_{2}-2}$}} & $t\geq t_{\alpha}(n_{1}+n_{2}-2)$ \\
+& $\mu_{1}-\mu_{2}\geq\delta$ & $\mu_{1}-\mu_{2}<\delta$ & & $t\leq -t_{\alpha}(n_{1}+n_{2}-2)$ \\
+& $\mu_{1}-\mu_{2}=\delta$ & $\mu_{1}-\mu_{2}\neq\delta$ & & $|t|\geq t_{\alpha/2}(n_{1}+n_{2}-2)$ \\
+\midrule
+\multirow{3}{*}{(成对数据)} & $\mu_{D}\leq 0$ & $\mu_{D}>0$ & \multirow{3}{*}{$t=\dfrac{\bar{D}-0}{S_{D}/\sqrt{n}}$} & $t\geq t_{\alpha}(n-1)$ \\
+& $\mu_{D}\geq 0$ & $\mu_{D}<0$ & & $t\leq -t_{\alpha}(n-1)$ \\
+& $\mu_{D}=0$ & $\mu_{D}\neq 0$ & & $|t|\geq t_{\alpha/2}(n-1)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{正态总体方差检验（单个、两个总体）}
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+& \textbf{原假设 $H_{0}$} & \textbf{备择假设 $H_{1}$} & \textbf{检验统计量} & \textbf{拒绝域} \\
+\midrule
+\multirow{3}{*}{($\mu$未知)} & $\sigma^{2}\leq\sigma_{0}^{2}$ & $\sigma^{2}>\sigma_{0}^{2}$ & \multirow{3}{*}{$\chi^{2}=\dfrac{(n-1)S^{2}}{\sigma_{0}^{2}}$} & $\chi^{2}\geq\chi_{\alpha}^{2}(n-1)$ \\
+& $\sigma^{2}\geq\sigma_{0}^{2}$ & $\sigma^{2}<\sigma_{0}^{2}$ & & $\chi^{2}\leq\chi_{1-\alpha}^{2}(n-1)$ \\
+& $\sigma^{2}=\sigma_{0}^{2}$ & $\sigma^{2}\neq\sigma_{0}^{2}$ & & \shortstack{$\chi^{2}\geq\chi_{\alpha/2}^{2}(n-1)$ 或\\$\chi^{2}\leq\chi_{1-\alpha/2}^{2}(n-1)$} \\
+\midrule
+\multirow{3}{*}{\shortstack{($\mu_{1},\mu_{2}$\\未知)}} & $\sigma_{1}^{2}\leq\sigma_{2}^{2}$ & $\sigma_{1}^{2}>\sigma_{2}^{2}$ & \multirow{3}{*}{$F=\dfrac{S_{1}^{2}}{S_{2}^{2}}$} & $F\geq F_{\alpha}(n_{1}-1,n_{2}-1)$ \\
+& $\sigma_{1}^{2}\geq\sigma_{2}^{2}$ & $\sigma_{1}^{2}<\sigma_{2}^{2}$ & & $F\leq F_{1-\alpha}(n_{1}-1,n_{2}-1)$ \\
+& $\sigma_{1}^{2}=\sigma_{2}^{2}$ & $\sigma_{1}^{2}\neq\sigma_{2}^{2}$ & & \shortstack{$F\geq F_{\alpha/2}(n_{1}-1,n_{2}-1)$ 或\\$F\leq F_{1-\alpha/2}(n_{1}-1,n_{2}-1)$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{假设检验的注意事项}
+
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 对于 $H_{0}$ 只能说拒绝与不拒绝，而对 $H_{1}$ 只能说接受。
+    \item $P\leq\alpha$，则拒绝 $H_{0}$，接受 $H_{1}$，差异有统计学意义，即有足够的证据可认为……不同或不等。
+    \item $P>\alpha$，则不拒绝 $H_{0}$，差距无统计学意义，尚不能认为……不同或不等。
+    \item 做统计检验结论时只能说有无统计学意义，而不能说明专业上的差异大小。$P$ 值越小只能说明拒绝 $H_{0}$ 的统计学证据越充分，推论时犯错误的机会越小，与专业上 $|\mu-\mu_{0}|$ 差异的大小无直接关系。
+    \item 事先确定显著性水平 $\alpha$。选择 $\alpha=0.05$ 只是一种习惯，而不是绝对的标准。
+\end{enumerate}
+
+\subsection{参数的假设检验的一般步骤（临界值法）}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 根据实际问题建立原假设 $H_{0}$ 和备择假设 $H_{1}$；
+    \item 确定检验统计量 $Z$，并明确其分布；
+    \item 给定显著性水平 $\alpha>0$，根据统计量的分布，由 $P\{|Z|\geq z_{\alpha/2}\}\leq\alpha$ 确定拒绝域（临界值 $z_{\alpha/2}$）；
+    \item 由样本值具体计算统计量 $Z$ 的观察值 $z$，并做出判断，若 $|z|\geq z_{\alpha/2}$，则拒绝 $H_{0}$，接受 $H_{1}$；若 $|z|<z_{\alpha/2}$，则不拒绝 $H_{0}$。
+\end{enumerate}
 
 \end{document}
