@@ -7339,4 +7339,516 @@ N\!\left(\frac{1}{3},\frac{4}{45n}\right).
 
 教材《概率论与数理统计》（pp.~125--126）：\#2，\#4，\#6，\#12。
 
+\newpage
+\chapter{样本及抽样分布}
+
+\section{从概率到数理统计}
+
+\begin{note}
+概率论与数理统计的关系：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{概率}：由数据生成过程到观测数据；
+    \item \textbf{统计推断}：由观测数据到数据生成过程。
+\end{itemize}
+\end{note}
+
+\section*{数理统计的研究内容}
+\addcontentsline{toc}{section}{数理统计的研究内容}
+
+\begin{itemize}[leftmargin=2em]
+    \item 怎样有效地收集、整理和分析带有随机性的数据；
+    \item 如何量化不确定性；
+    \item 怎样对所考察的问题作出推断或预测；
+    \item 为决策和行动提供依据和建议。
+\end{itemize}
+
+数理统计的基本任务是从大量随机现象中解释其背后的规律。从理论上讲，只要对随机现象进行足够多次观察，被研究的随机现象的规律性一定能清楚地呈现出来。然而实际中只能获得有限的局部观察资料，因此数理统计的任务就是研究怎样有效地收集、整理、分析所获得的有限的资料，对所研究的问题尽可能地作出精确而可靠的结论。
+
+\section*{数理统计的基本方法}
+\addcontentsline{toc}{section}{数理统计的基本方法}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{参数估计}：根据数据，用一些方法对分布的未知参数进行估计；
+    \item \textbf{假设检验}：根据数据，用一些方法对分布的未知参数进行检验。
+\end{enumerate}
+
+统计推断的两个重要基础：
+\begin{itemize}[leftmargin=2em]
+    \item 收集数据——从总体$X\sim F(x)$抽取样本$X_{1},X_{2},\ldots,X_{n}$；
+    \item 加工整理数据——统计量。
+\end{itemize}
+
+\section{随机样本}
+
+\subsection{基本概念}
+
+\begin{definition}[总体]
+试验的全部可能的观察值称为\textbf{总体}。
+\begin{itemize}[leftmargin=2em]
+    \item 一个总体对应一个随机变量$X$；
+    \item 对总体的研究就是对一个随机变量$X$的研究；
+    \item $X$的分布函数和数字特征就称为总体的分布函数和数字特征；
+    \item 总体可以是具体事物的集合（如一批产品），也可以是关于事物的度量数据集合（如长度测量）。
+\end{itemize}
+\end{definition}
+
+\begin{definition}[个体]
+总体中的每个可能观察值称为\textbf{个体}。
+\begin{itemize}[leftmargin=2em]
+    \item 个体是随机试验的观察值；
+    \item 总体中的个体，应当有共同的可观察的特征；
+    \item 该特征与研究目的有关。
+\end{itemize}
+\end{definition}
+
+\begin{table}[htbp]
+\centering
+\caption{总体、个体与特征示例}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{总体} & \textbf{个体} & \textbf{特征} \\
+\midrule
+一批产品 & 每件产品 & 等级 \\
+一批灯泡 & 每个灯泡 & 寿命 \\
+一年的日空气质量 & 每天的日空气质量 & PM2.5 \\
+数轴上某一线段 & 线段中每一点 & 坐标 \\
+一批彩票 & 每张彩票 & 号码 \\
+全国人口寿命 & 每个人的寿命 & 寿命 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{definition}[容量]
+总体中包含个体的数量称为\textbf{总体容量}。
+\begin{itemize}[leftmargin=2em]
+    \item 容量有限的总体称为\textbf{有限总体}；
+    \item 容量无限的总体称为\textbf{无限总体}。
+\end{itemize}
+\end{definition}
+
+\begin{example}[有限总体与无限总体]
+某工厂10月份生产的灯泡寿命所组成的总体中，个体的总数就是10月份生产的灯泡数，这是一个有限总体。该工厂生产的所有灯泡寿命所组成的总体是一个无限总体，它包括以往生产和今后生产的灯泡寿命。当有限总体包含的个体的总数很大时，可近似地将它看成是无限总体。
+\end{example}
+
+\begin{definition}[总体分布]
+把数量指标取不同数值的比率叫做\textbf{总体分布}。
+\end{definition}
+
+\begin{example}[学生年龄分布]
+在2000名大学一年级学生的年龄中，年龄指标值为``15''，``16''，``17''，``18''，``19''，``20''的依次有9，21，132，1207，588，43名。总体就是数集$\{15,16,17,18,19,20\}$，总体分布为：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccc@{}}
+\toprule
+年龄 & 15 & 16 & 17 & 18 & 19 & 20 \\
+\midrule
+比率 & $\dfrac{9}{2000}$ & $\dfrac{21}{2000}$ & $\dfrac{132}{2000}$ & $\dfrac{1207}{2000}$ & $\dfrac{588}{2000}$ & $\dfrac{43}{2000}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{example}
+
+\begin{definition}[样本]
+设$X$是具有分布函数$F$的随机变量，若$X_{1},X_{2},\ldots,X_{n}$是具有同一分布函数$F$、相互独立的随机变量，则称$X_{1},X_{2},\ldots,X_{n}$为从分布函数$F$（或总体$F$、或总体$X$）得到的容量为$n$的\textbf{简单随机样本}，简称\textbf{样本}。
+\begin{itemize}[leftmargin=2em]
+    \item 观察值$x_{1},x_{2},\ldots,x_{n}$称为\textbf{样本值}，又称为$X$的$n$个独立的观察值；
+    \item 样本中所含个体的个数，称为\textbf{样本容量}。
+\end{itemize}
+\end{definition}
+
+\subsection{样本选取}
+
+选取样本的目的——从样本的特征对总体特征做出估计和推断。因此，抽样必须尽可能多地反映总体的特征。
+
+选取样本时需要考虑的因素：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item \textbf{独立性}：抽样时互不影响；
+    \item \textbf{代表性}：样本的分布与总体相同。
+\end{enumerate}
+
+抽样方式：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 不重复抽样（不放回）；
+    \item 重复抽样（放回）。
+\end{enumerate}
+
+\begin{definition}[简单随机抽样]
+获得简单随机样本的抽样方法称为\textbf{简单随机抽样}。
+\begin{itemize}[leftmargin=2em]
+    \item 一般地，对于有限总体采用放回抽样就能得到简单随机样本；
+    \item 当总体的个数比样本容量大得多时，可将不放回抽样近似地当成放回抽样。
+\end{itemize}
+\end{definition}
+
+由定义，若$X_{1},X_{2},\ldots,X_{n}$为$F$的一个样本，则$(X_{1},X_{2},\ldots,X_{n})$的联合分布函数为
+\[
+F^{*}(x_{1},x_{2},\ldots,x_{n})=\prod_{i=1}^{n}F(x_{i}).
+\]
+
+若设$X$的分布律为$P\{X=x\}=p(x)$，则$(X_{1},X_{2},\ldots,X_{n})$的联合分布律为
+\[
+P\{X_{1}=x_{1},X_{2}=x_{2},\ldots,X_{n}=x_{n}\}=\prod_{i=1}^{n}p(x_{i}).
+\]
+
+又若$X$具有概率密度$f$，则$X_{1},X_{2},\ldots,X_{n}$的联合概率密度为
+\[
+f^{*}(x_{1},x_{2},\ldots,x_{n})=\prod_{i=1}^{n}f(x_{i}).
+\]
+
+\begin{example}[指数分布样本的联合密度]
+设总体$X$服从参数为$\lambda\ (\lambda>0)$的指数分布，$(X_{1},X_{2},\ldots,X_{n})$是来自总体的样本，求样本的联合概率密度。
+
+\textbf{解}：总体$X$的概率密度为
+\[
+f(x)=
+\begin{cases}
+\lambda e^{-\lambda x}, & x>0,\\[0.3em]
+0, & x\leq 0.
+\end{cases}
+\]
+因为$X_{1},X_{2},\ldots,X_{n}$相互独立，且与$X$有相同的分布，所以$(X_{1},X_{2},\ldots,X_{n})$的联合概率密度为
+\[
+f_{n}(x_{1},x_{2},\ldots,x_{n})=\prod_{i=1}^{n}f(x_{i})=
+\begin{cases}
+\lambda^{n}e^{-\lambda\sum_{i=1}^{n}x_{i}}, & x_{i}>0,\ i=1,2,\ldots,n,\\[0.3em]
+0, & \text{其他}.
+\end{cases}
+\]
+\end{example}
+
+\begin{example}[两点分布样本的联合分布律]
+设总体$X$服从两点分布$B(1,p)$，其中$0<p<1$，$(X_{1},X_{2},\ldots,X_{n})$是来自总体的样本，求样本的联合分布律。
+
+\textbf{解}：总体$X$的分布律为
+\[
+P\{X=i\}=p^{i}(1-p)^{1-i},\qquad i=0,1.
+\]
+所以
+\[
+P\{X_{1}=x_{1},X_{2}=x_{2},\ldots,X_{n}=x_{n}\}=p^{\sum_{i=1}^{n}x_{i}}(1-p)^{n-\sum_{i=1}^{n}x_{i}},
+\]
+其中$x_{1},x_{2},\ldots,x_{n}$在集合$\{0,1\}$中取值。
+\end{example}
+
+\begin{example}[泊松分布样本的联合分布律]
+若$X_{1},X_{2},\ldots,X_{n}$是参数为$\lambda$的泊松分布总体$X$的样本，求$(X_{1},X_{2},\ldots,X_{n})$的联合分布律。
+
+\textbf{解}：总体$X$的分布律为
+\[
+p(x)=P\{X=x\}=\frac{\lambda^{x}}{x!}e^{-\lambda},\qquad x=0,1,2,\ldots
+\]
+所以$(X_{1},X_{2},\ldots,X_{n})$的联合分布律为
+\[
+P\{X_{1}=x_{1},X_{2}=x_{2},\ldots,X_{n}=x_{n}\}=\prod_{i=1}^{n}\frac{\lambda^{x_{i}}}{x_{i}!}e^{-\lambda}=\frac{\lambda^{\sum_{i=1}^{n}x_{i}}}{\prod_{i=1}^{n}x_{i}!}e^{-n\lambda},
+\]
+其中$x_{i}=0,1,\ldots,\ i=1,2,\ldots,n$。
+\end{example}
+
+\begin{example}[正态分布样本的联合密度]
+若$X_{1},X_{2},\ldots,X_{n}$是总体$X\sim N(\mu,\sigma^{2})$的样本，求$(X_{1},X_{2},\ldots,X_{n})$的联合概率密度。
+
+\textbf{解}：总体$X$的概率密度为
+\[
+f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^{2}}{2\sigma^{2}}},\qquad -\infty<x<+\infty.
+\]
+于是$(X_{1},X_{2},\ldots,X_{n})$的联合概率密度为
+\[
+f(x_{1},x_{2},\ldots,x_{n})=\prod_{i=1}^{n}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x_{i}-\mu)^{2}}{2\sigma^{2}}}=\frac{1}{(2\pi)^{\frac{n}{2}}\sigma^{n}}e^{-\frac{\sum_{i=1}^{n}(x_{i}-\mu)^{2}}{2\sigma^{2}}},
+\]
+其中$-\infty<x_{i}<+\infty,\ i=1,2,\ldots,n$。
+\end{example}
+
+\begin{table}[htbp]
+\centering
+\caption{概念对比——概率与数理统计}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{概率} & \textbf{数理统计} \\
+\midrule
+样本空间 & 总体 \\
+随机事件 & 样本 \\
+样本点 & 个体 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{直方图、分位数与箱线图}
+
+\subsection{直方图}
+
+直方图是数值分布的一种图形化表示手段，可以很好地表达概率分布，便于从总体上把握分布。由Karl Pearson在1895年首次引入。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_histogram_example.png}
+    \caption{成绩分布直方图示例}
+    \label{fig:histogram_example}
+\end{figure}
+
+直方图在图像处理中有重要应用，例如图像色彩直方图、HOG（Histogram of Oriented Gradients）特征提取等。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/fig_image_histogram.png}
+    \caption{图像中的直方图应用}
+    \label{fig:image_histogram}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/fig_hog_feature.png}
+    \caption{HOG特征提取流程}
+    \label{fig:hog_feature}
+\end{figure}
+
+\subsection{分位数}
+
+设有容量为$n$的样本观察值$x_{1},x_{2},\ldots,x_{n}$，样本的$p$分位数（$0<p<1$）记为$x_{p}$，它具有以下性质：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 至少有$np$个观察值小于或等于$x_{p}$；
+    \item 至少有$n(1-p)$个观察值大于或等于$x_{p}$。
+\end{enumerate}
+
+将$x_{1},x_{2},\ldots,x_{n}$排序，保证$x_{(1)}\leq x_{(2)}\leq\cdots\leq x_{(n)}$，则
+\[
+x_{p}=
+\begin{cases}
+x_{([np])}, & np\text{不是整数},\\[0.3em]
+\dfrac{1}{2}\left[x_{(np)}+x_{(np+1)}\right], & np\text{为整数}.
+\end{cases}
+\]
+
+特别地：
+\begin{itemize}[leftmargin=2em]
+    \item $p=0.5$时，$x_{0.5}$记为$Q_{2}$或$M$，称为\textbf{样本中位数}，即
+    \[
+    x_{0.5}=
+    \begin{cases}
+    x_{\left(\left[\frac{n}{2}\right]\right)}, & n\text{是奇数},\\[0.3em]
+    \dfrac{1}{2}\left[x_{\left(\frac{n}{2}\right)}+x_{\left(\frac{n}{2}+1\right)}\right], & n\text{是偶数};
+    \end{cases}
+    \]
+    \item $x_{0.25}$记为$Q_{1}$，称为\textbf{第一四分位数}；
+    \item $x_{0.75}$记为$Q_{3}$，称为\textbf{第三四分位数}。
+\end{itemize}
+
+\subsection{箱线图}
+
+箱线图由最小值$\mathrm{Min}$、第一四分位数$Q_{1}$、样本中位数$M$、第三四分位数$Q_{3}$和最大值$\mathrm{Max}$构成。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_boxplot.png}
+    \caption{箱线图示意图}
+    \label{fig:boxplot}
+\end{figure}
+
+由箱线图可以看出数据集的以下性质：中心位置、散布程度、对称性。
+
+\begin{definition}[四分位数间距]
+第一四分位数$Q_{1}$与第三四分位数$Q_{3}$的间距，记为$\mathrm{IQR}$（Interquartile Range），即
+\[
+\mathrm{IQR}=Q_{3}-Q_{1}.
+\]
+\end{definition}
+
+如果数据小于$Q_{1}-1.5\,\mathrm{IQR}$或大于$Q_{3}+1.5\,\mathrm{IQR}$，则认为异常，此时的箱线图需要做出修正，排除异常值。
+
+\begin{example}[修正箱线图]
+下面是21个病人住院的时间（天），试画出修正的箱线图：
+\[
+1,2,3,3,4,4,5,6,6,7,7,9,9,10,12,12,13,15,18,23,55.
+\]
+
+\textbf{解}：
+\[
+M=7\ (21\times 0.5=11\text{th}),\quad Q_{1}=4\ (21\times 0.25=6\text{th}),\quad Q_{3}=12\ (21\times 0.75=16\text{th}).
+\]
+\[
+\mathrm{Min}=1,\quad \mathrm{Max}=55,\quad \mathrm{IQR}=8.
+\]
+\[
+Q_{1}-1.5\,\mathrm{IQR}=-8,\quad Q_{3}+1.5\,\mathrm{IQR}=24.
+\]
+于是``55''是异常值（Outlier），修正最大值为23。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_modified_boxplot.png}
+    \caption{修正箱线图示例}
+    \label{fig:modified_boxplot}
+\end{figure}
+\end{example}
+
+\section{抽样分布}
+
+\subsection{统计量}
+
+\begin{definition}[统计量]
+若$X_{1},X_{2},\ldots,X_{n}$是来自总体$X$的一个样本，$g(X_{1},X_{2},\ldots,X_{n})$是$X_{1},X_{2},\ldots,X_{n}$的函数，若$g$中不含任何未知参数，则称$g(X_{1},X_{2},\ldots,X_{n})$是一个\textbf{统计量}。
+\end{definition}
+
+关于统计量的一些理解：
+\begin{itemize}[leftmargin=2em]
+    \item 统计量是由随机变量组成的随机样本的函数，不含任何未知参数；
+    \item 注意：统计量是随机变量；
+    \item 于是$x_{1},x_{2},\ldots,x_{n}$是相应于样本$X_{1},X_{2},\ldots,X_{n}$的样本值，而称$g(x_{1},x_{2},\ldots,x_{n})$是$g(X_{1},X_{2},\ldots,X_{n})$的观察值。
+\end{itemize}
+
+\begin{example}[判断统计量]
+设$X_{1},X_{2},\ldots,X_{n}$为来自总体$X\sim N(\mu,\sigma^{2})$的一个样本，其中$\mu$未知，$\sigma^{2}$已知，问下列随机变量中哪些是统计量：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item $\dfrac{X_{1}+X_{2}}{2}$；
+    \item $\dfrac{X_{1}+\cdots+X_{n}}{n}-\mu$；
+    \item $\dfrac{(X_{1}+X_{2})^{2}}{\sigma^{2}}$。
+\end{enumerate}
+
+\textbf{解}：(1)和(3)是统计量，因为它们不含未知参数；(2)含有未知参数$\mu$，不是统计量。
+\end{example}
+
+\subsubsection*{常用统计量}
+
+\begin{definition}[样本均值]
+\[
+\bar{X}=\frac{1}{n}\sum_{i=1}^{n}X_{i},
+\]
+反映了总体均值的信息。
+\end{definition}
+
+\begin{definition}[样本方差]
+\[
+S^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}=\frac{1}{n-1}\left(\sum_{i=1}^{n}X_{i}^{2}-n\bar{X}^{2}\right),
+\]
+反映了总体方差的信息。
+\end{definition}
+
+\begin{definition}[样本标准差]
+\[
+S=\sqrt{\frac{1}{n-1}\left(\sum_{i=1}^{n}X_{i}^{2}-n\bar{X}^{2}\right)}.
+\]
+\end{definition}
+
+\begin{definition}[样本$k$阶原点矩]
+\[
+A_{k}=\frac{1}{n}\sum_{i=1}^{n}X_{i}^{k},\qquad k=1,2,\ldots
+\]
+反映了总体$k$阶矩的信息。
+\end{definition}
+
+\begin{definition}[样本$k$阶中心矩]
+\[
+B_{k}=\frac{1}{n}\sum_{i=1}^{n}(X_{i}-\bar{X})^{k},\qquad k=1,2,\ldots
+\]
+反映了总体$k$阶中心矩的信息。
+\end{definition}
+
+上述统计量与数字特征的差异：
+\begin{itemize}[leftmargin=2em]
+    \item 统计量是随机变量；
+    \item 数字特征是常数。
+\end{itemize}
+
+对应观察值：
+\[
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i},\quad s^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2},\quad s=\sqrt{s^{2}},
+\]
+\[
+a_{k}=\frac{1}{n}\sum_{i=1}^{n}x_{i}^{k},\quad b_{k}=\frac{1}{n}\sum_{i=1}^{n}(x_{i}-\bar{x})^{k},\qquad k=1,2,\ldots
+\]
+
+\begin{theorem}[样本矩的收敛性]
+若总体$X$的$k$阶矩$E(X^{k})=\mu_{k}$存在，则当$n\to\infty$时，
+\[
+A_{k}\stackrel{P}{\longrightarrow}\mu_{k},\qquad k=1,2,\ldots
+\]
+\end{theorem}
+
+\textbf{证明}：$X_{1},X_{2},\ldots,X_{n}$独立且与$X$同分布，于是$X_{1}^{k},X_{2}^{k},\ldots,X_{n}^{k}$独立且与$X^{k}$同分布，从而有
+\[
+E(X_{1}^{k})=E(X_{2}^{k})=\cdots=E(X_{n}^{k})=\mu_{k}.
+\]
+由Khinchin大数定律：
+\[
+A_{k}\stackrel{P}{\longrightarrow}\mu_{k},\qquad k=1,2,\ldots
+\]
+进一步，由依概率收敛的序列性质知道，若$g$为连续函数，则有
+\[
+g(A_{1},A_{2},\ldots,A_{k})\stackrel{P}{\longrightarrow}g(\mu_{1},\mu_{2},\ldots,\mu_{k}).
+\]
+这是矩估计法的基础。
+
+\begin{table}[htbp]
+\centering
+\caption{概念对比——概率、统计与计算机科学}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{概率} & \textbf{数理统计} & \textbf{计算机科学(PR\&ML)} \\
+\midrule
+样本空间 & 总体 & \\
+随机事件 & 样本 & 训练样本集 \\
+样本点 & 个体 & 单个样本 \\
+方差 & 方差 & 类内距离 \\
+& 估计 & 学习 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{经验分布函数}
+
+与总体分布函数$F(x)$相对应的统计量。
+
+\begin{definition}[经验分布函数]
+设$X_{1},X_{2},\ldots,X_{n}$是总体$F$的一个样本。用$S(x)$，$-\infty<x<+\infty$表示$X_{1},X_{2},\ldots,X_{n}$中不大于$x$的随机变量个数，定义\textbf{经验分布函数}为
+\[
+F_{n}(x)=\frac{1}{n}S(x),\qquad -\infty<x<+\infty.
+\]
+\end{definition}
+
+\begin{example}[经验分布函数1]
+设总体$F$具有一个样本值$1,2,3$，经验分布函数$F_{3}(x)$的观察值为
+\[
+F_{3}(x)=
+\begin{cases}
+0, & x<1,\\[0.3em]
+\dfrac{1}{3}, & 1\leq x<2,\\[0.3em]
+\dfrac{2}{3}, & 2\leq x<3,\\[0.3em]
+1, & x\geq 3.
+\end{cases}
+\]
+\end{example}
+
+\begin{example}[经验分布函数2]
+设总体$F$具有一个样本值$1,1,2$，经验分布函数$F_{3}(x)$的观察值为
+\[
+F_{3}(x)=
+\begin{cases}
+0, & x<1,\\[0.3em]
+\dfrac{2}{3}, & 1\leq x<2,\\[0.3em]
+1, & x\geq 2.
+\end{cases}
+\]
+\end{example}
+
+一般地，设$x_{1},x_{2},\ldots,x_{n}$是总体$F$的一个样本值，先将$x_{1},x_{2},\ldots,x_{n}$按自小到大排序，并重新编号满足
+\[
+x_{(1)}\leq x_{(2)}\leq\cdots\leq x_{(n)},
+\]
+则经验分布函数$F_{n}(x)$的观察值为
+\[
+F_{n}(x)=
+\begin{cases}
+0, & x<x_{(1)},\\[0.3em]
+\dfrac{k}{n}, & x_{(k)}\leq x<x_{(k+1)},\\[0.3em]
+1, & x\geq x_{(n)}.
+\end{cases}
+\]
+
+\begin{theorem}[格里汶科定理]
+对于经验分布函数$F_{n}(x)$，格里汶科（Glivenko）1933年证明了：对一切实数$x$，当$n\to\infty$时$F_{n}(x)$以概率1一致收敛于分布函数$F(x)$，即
+\[
+P\left\{\lim_{n\to\infty}\sup_{-\infty<x<+\infty}|F_{n}(x)-F(x)|=0\right\}=1.
+\]
+\end{theorem}
+
 \end{document}
