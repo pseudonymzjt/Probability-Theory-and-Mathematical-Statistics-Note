@@ -4809,7 +4809,6 @@ P\{H_0\text{实际为真，但是拒绝}H_0\}\leq\alpha.
     \item 经过一次抽样后，如果事件$A$发生了，根据“小概率几乎不可能发生”原则，拒绝$H_0$；否则，接受$H_0$。
 \end{itemize}
 
-
 \subsection{参数的假设检验一般步骤（临界值法）}
 
 \begin{enumerate}[label=\arabic*.,leftmargin=2em]
@@ -4856,9 +4855,9 @@ H_0:\mu=\mu_0,\quad H_1:\mu\neq\mu_0.
 \midrule
 对应随机变量 & $\chi^2=X_1^2+X_2^2+\cdots+X_n^2$ & $t=\dfrac{X}{\sqrt{Y/n}}$ & $F=\dfrac{U/n_1}{V/n_2}$ \\
 \midrule
-条件 & ① $X_i\sim N(0,1)$；②独立同分布 & ① $X\sim N(0,1),Y\sim\chi^2(n)$；② $X,Y$相互独立 & ① $U\sim\chi^2(n_1),V\sim\chi^2(n_2)$；② $U,V$相互独立 \\
+条件 & 1. $X_i\sim N(0,1)$；2. 独立同分布 & 1. $X\sim N(0,1),Y\sim\chi^2(n)$；2. $X,Y$相互独立 & 1. $U\sim\chi^2(n_1),V\sim\chi^2(n_2)$；2. $U,V$相互独立 \\
 \midrule
-性质 & ①可加性（要求独立）；② $E=n,D=2n$；③ $P\{\chi^2>\chi_\alpha^2(n)\}=\alpha$；$n>40$时：$\chi_\alpha^2(n)\approx\dfrac{1}{2}\left(z_\alpha+\sqrt{2n-1}\right)^2$ & ①对称性；② $n\to\infty$时趋向于标准正态分布；③ $P\{t>t_\alpha(n)\}=\alpha$，$t_{1-\alpha}(n)=-t_\alpha(n)$ & ①若$F\sim F(n_1,n_2)$，则$\dfrac{1}{F}\sim F(n_2,n_1)$；② $P\{F>F_\alpha(n_1,n_2)\}=\alpha$，$F_{1-\alpha}(n_1,n_2)=\dfrac{1}{F_\alpha(n_2,n_1)}$ \\
+性质 & 1. 可加性（要求独立）；2. $E=n,D=2n$；3. $P\{\chi^2>\chi_\alpha^2(n)\}=\alpha$；$n>40$时：$\chi_\alpha^2(n)\approx\dfrac{1}{2}\left(z_\alpha+\sqrt{2n-1}\right)^2$ & 1. 对称性；2. $n\to\infty$时趋向于标准正态分布；3. $P\{t>t_\alpha(n)\}=\alpha$，$t_{1-\alpha}(n)=-t_\alpha(n)$ & 1. 若$F\sim F(n_1,n_2)$，则$\dfrac{1}{F}\sim F(n_2,n_1)$；2. $P\{F>F_\alpha(n_1,n_2)\}=\alpha$，$F_{1-\alpha}(n_1,n_2)=\dfrac{1}{F_\alpha(n_2,n_1)}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -4979,7 +4978,7 @@ t=\frac{\bar{D}}{S_D/\sqrt{n}}\sim t(n-1).
 什么时候检验成对数据的均值差？当两组样本是配对采集的（同一对象前后两次测量）时，使用成对数据检验；当两组样本相互独立且来自不同总体时，检验两个正态总体的均值差。
 \end{remark}
 
-\subsection{$p$值法}
+\subsection{\texorpdfstring{$p$}{p}值法}
 
 \begin{definition}[$p$值]
 假设检验问题的$p$值（probability value）是由检验统计量的样本观察值得出的原假设可被拒绝的最小显著性水平。
