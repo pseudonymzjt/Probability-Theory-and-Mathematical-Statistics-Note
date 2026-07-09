@@ -15,6 +15,7 @@
 \usepackage{multicol}                % 多栏排版
 \usepackage{multirow}                % 表格合并行
 \usepackage{tikz}                    % 绘图
+\usepackage{textgreek}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 
 % 页面设置
@@ -11047,7 +11048,7 @@ p\text{ 值}=P_{\mu_{0}}\{Z\geq 2.795\}=1-\Phi(2.795)=0.0026.
 
 分布拟合检验——检验总体是否具有某一个指定的分布或属于某一个分布族。
 
-\subsection[单个分布的 chi^2 拟合检验]{单个分布的\ $\chi^{2}$ 拟合检验}
+\subsection[单个分布的 χ² 拟合检验]{单个分布的\ $\chi^{2}$ 拟合检验}
 
 设总体 $X$ 的分布未知，$X_{1},X_{2},\ldots,X_{n}$ 是来自 $X$ 的样本值。检验假设：
 \[
@@ -11176,7 +11177,7 @@ X=(315,101,108,32).
 
 $\chi^{2}$ 拟合检验法是在总体 $X$ 的分布未知时，根据来自总体的样本检验关于总体分布的假设的一种试验方法。一般地，我们可以根据样本观察值用直方图和经验分布函数推断出总体可能服从的分布，然后做检验。
 
-\subsection{分布族的\ $\chi^{2}$ 拟合检验}
+\subsection{分布族的\texorpdfstring{$\chi^{2}$}{chi-squared} 拟合检验}
 
 $H_{0}\colon$ 总体 $X$ 的分布函数是 $F(x;\theta_{1},\theta_{2},\ldots,\theta_{r})$。
 
@@ -11534,7 +11535,12 @@ $0.053$ \\
 
 \section*{假设检验小结}
 
-% 跳过：fig_hypothesis_testing_classification 在C24中无对应图片
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/fig_hypothesis_testing_classification.png}
+    \caption{假设检验分类思维导图}
+    \label{fig:hypothesis_testing_classification}
+\end{figure}
 
 \section*{假设检验的类比}
 
