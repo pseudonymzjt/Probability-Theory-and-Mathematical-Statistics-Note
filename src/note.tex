@@ -12302,4 +12302,628 @@ F_{B}=\frac{S_{B}/(s-1)}{S_{E}/((r-1)(s-1))}\geq F_{\alpha}(s-1,(r-1)(s-1)).
     \item 概率论与数理统计 pp.~261--262, \#2, \#4
 \end{itemize}
 
+\section{一元线性回归}
+
+多个变量之间的关系：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{确定性关系}——函数关系；
+    \item \textbf{非确定性关系}——相关关系。
+\end{itemize}
+
+\textbf{回归分析}（regression analysis）：研究变量之间相关关系的数学方法。即用一个或一组变量（自变量）去估计或表达另一个变量（因变量）。
+
+自变量$x$——普通变量；因变量$Y$——随机变量。
+
+回归分析的任务：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 建立相关关系的变量之间数学关系式；
+    \item 检验所建立的关系式是否有效；
+    \item 利用有效的关系式进行预测和控制。
+\end{enumerate}
+
+普通变量$x$取定一组不完全相同的值$x_{1},x_{2},\ldots,x_{n}$，$Y_{1},Y_{2},\ldots,Y_{n}$分别是对应的独立观察结果，称
+\[
+(x_{1},Y_{1}),(x_{2},Y_{2}),\ldots,(x_{n},Y_{n})
+\]
+是一个样本，对应的样本值记为：
+\[
+(x_{1},y_{1}),(x_{2},y_{2}),\ldots,(x_{n},y_{n}).
+\]
+
+$\mu(x)$：$Y$关于$x$的回归函数，简称\textbf{回归}。
+
+利用样本估计$\mu(x)$的问题称为求$Y$关于$x$的回归问题。
+
+\begin{example}[Francis Galton和K.~Pearson的身高数据]
+收集了大量父亲身高和儿子身高的资料，其中的10对数据如下：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccccccc@{}}
+\toprule
+父亲身高($x$) & 60 & 62 & 64 & 65 & 66 & 67 & 68 & 70 & 72 & 74 \\
+\midrule
+儿子身高($Y$) & 63.6 & 65.2 & 66 & 65.5 & 66.9 & 67.1 & 67.4 & 68.3 & 70.1 & 70 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_father_son_scatter.png}
+    \caption{父子身高散点图}
+    \label{fig:father_son_scatter}
+\end{figure}
+\end{example}
+
+一元线性函数：$\mu(x)=a+bx$。
+
+假设对于$x$的每个值，$Y\sim N(a+bx,\sigma^{2})$，其中$a,b,\sigma^{2}$是不依赖于$x$的未知参数。
+
+记$\varepsilon=Y-(a+bx)$，则有一元线性回归模型：
+\[
+Y=a+bx+\varepsilon,\qquad\varepsilon\sim N(0,\sigma^{2}),
+\]
+其中$b$称为\textbf{回归系数}。
+
+\subsection{\texorpdfstring{$a,b$}{a,b}的估计}
+
+通过$n$次独立试验得到样本$(x_{1},Y_{1}),\ldots,(x_{n},Y_{n})$，$Y_{i}\sim N(a+bx_{i},\sigma^{2})$，$i=1,\ldots,n$。
+
+$Y_{1},\ldots,Y_{n}$相互独立，其联合概率密度（样本的似然函数）为：
+\[
+L=\prod_{i=1}^{n}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_{i}-a-bx_{i})^{2}}{2\sigma^{2}}}
+=\left(\frac{1}{\sqrt{2\pi}\sigma}\right)^{n}e^{-\frac{\sum_{i=1}^{n}(y_{i}-a-bx_{i})^{2}}{2\sigma^{2}}}.
+\]
+
+用最大似然估计，即求下面函数的最小值：
+\[
+Q(a,b)=\sum_{i=1}^{n}(y_{i}-a-bx_{i})^{2}.
+\]
+
+为此，令$Q$对于参数$a,b$的偏导数等于0，得：
+\[
+\begin{cases}
+\displaystyle\frac{\partial Q}{\partial a}=-2\sum_{i=1}^{n}(y_{i}-a-bx_{i})=0,\\[0.8em]
+\displaystyle\frac{\partial Q}{\partial b}=-2\sum_{i=1}^{n}(y_{i}-a-bx_{i})x_{i}=0.
+\end{cases}
+\]
+
+$a,b$的最大似然估计值为：
+\[
+\begin{cases}
+\hat{a}=\bar{y}-\hat{b}\bar{x},\\[0.3em]
+\hat{b}=\dfrac{\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})}{\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}},
+\end{cases}
+\qquad\text{其中}\quad
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i},\;\bar{y}=\frac{1}{n}\sum_{i=1}^{n}y_{i}.
+\]
+
+经验回归函数：
+\[
+\hat{\mu}(x)=\hat{a}+\hat{b}x.
+\]
+
+经验回归方程：
+\[
+\hat{y}=\hat{a}+\hat{b}x,
+\]
+其图形称为\textbf{回归直线}。
+
+为了方便计算，引入下述记号：
+\[
+\begin{aligned}
+S_{xx}&=\sum_{i=1}^{n}(x_{i}-\bar{x})^{2},\\
+S_{yy}&=\sum_{i=1}^{n}(y_{i}-\bar{y})^{2},\\
+S_{xy}&=\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y}).
+\end{aligned}
+\]
+
+这样$a,b$的估计值可以写成：
+\[
+\begin{cases}
+\hat{a}=\bar{y}-\hat{b}\bar{x},\\[0.3em]
+\hat{b}=\dfrac{S_{xy}}{S_{xx}}.
+\end{cases}
+\]
+
+\textbf{例1的解}：由所给的数据计算得$\bar{x}=66.8$，$\bar{y}=67.01$，求得$a,b$的估计值为：
+\[
+\begin{cases}
+\hat{a}=35.977,\\[0.3em]
+\hat{b}=0.4646.
+\end{cases}
+\]
+
+故儿子身高关于父亲身高的经验回归方程为：
+\[
+\hat{y}=0.4646x+35.977.
+\]
+
+回归方程可写为：
+\[
+\hat{y}=\bar{y}+\hat{b}(x-\bar{x}).
+\]
+
+即，对于样本值$(x_{1},y_{1}),\ldots,(x_{n},y_{n})$，回归直线通过散点图的几何中心$(\bar{x},\bar{y})$。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_regression_centroid.png}
+    \caption{回归直线通过几何中心 $(\bar{x},\bar{y})=(66.8,67)$ 示意图}
+    \label{fig:regression_centroid}
+\end{figure}
+
+\textbf{备注}：
+\begin{itemize}[leftmargin=2em]
+    \item ``回归''是由英国著名生物学家兼统计学家Francis Galton（1822--1911）在研究人类遗传问题时提出来的。1855年，Galton发表《遗传的身高向平均数方向的回归》。
+    \item \textbf{回归效应}：当父母身高走向极端，子女的身高不会像父母身高那样极端化，其身高要比父母们的身高更接近平均身高，即有``回归''到平均数去的趋势。
+    \item 现代统计学中，回归广泛地指根据一种变量预测另一种变量或多种变量之间关系的描述方法。
+\end{itemize}
+
+\textbf{最小二乘估计}（least squares estimation, LSE）：
+
+如果$Y$不是正态变量，可以直接最小化$Y$的观察值$y_{i}$和回归函数$a+bx_{i}$的偏差的平方和来求参数$a,b$，即最小化：
+\[
+Q(a,b)=\sum_{i=1}^{n}(y_{i}-a-bx_{i})^{2}.
+\]
+非常常用的求经验公式的方法！
+
+当$Y$是正态变量时，与最大似然估计的解相同。
+
+\textbf{注意}：噪声点对结果的影响。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_noise_effect.png}
+    \caption{噪声点对回归结果的影响示意图}
+    \label{fig:noise_effect}
+\end{figure}
+
+\subsection{\texorpdfstring{$\sigma^{2}$}{sigma²}的估计}
+
+由于$\hat{y}_{i}=\hat{a}+\hat{b}x_{i}$，得$x_{i}$处的\textbf{残差}：$y_{i}-\hat{y}_{i}$。
+
+\textbf{残差平方和}：
+\[
+\begin{aligned}
+Q_{e}&=\sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^{2}
+=\sum_{i=1}^{n}\bigl(y_{i}-\bar{y}-\hat{b}(x_{i}-\bar{x})\bigr)^{2}\\
+&=\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}+\hat{b}^{2}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}
+-2\hat{b}\sum_{i=1}^{n}(y_{i}-\bar{y})(x_{i}-\bar{x})\\
+&=S_{yy}+\hat{b}^{2}S_{xx}-2\hat{b}S_{xy}.
+\end{aligned}
+\]
+
+由$\hat{b}=\dfrac{S_{xy}}{S_{xx}}$，得
+\[
+Q_{e}=S_{yy}-\hat{b}S_{xy}.
+\]
+
+可以证明（见本章后附录），统计量
+\[
+\frac{Q_{e}}{\sigma^{2}}\sim\chi^{2}(n-2).
+\]
+
+所以，
+\[
+E\left[\frac{Q_{e}}{\sigma^{2}}\right]=n-2,\qquad
+E\left[\frac{Q_{e}}{n-2}\right]=\sigma^{2}.
+\]
+
+得$\sigma^{2}$的\textbf{无偏估计量}：
+\[
+\hat{\sigma}^{2}=\frac{Q_{e}}{n-2}=\frac{1}{n-2}(S_{yy}-\hat{b}S_{xy}).
+\]
+
+\subsection{线性假设的显著性检验}
+
+$\mu(x)$是否具有形式$a+bx$？
+
+假设检验：
+\[
+H_{0}\colon b=0,\qquad H_{1}\colon b\neq 0.
+\]
+
+可以证明$\hat{b}\sim N\!\left(b,\sigma^{2}/S_{xx}\right)$，则
+\[
+\frac{\hat{b}-b}{\hat{\sigma}}\sqrt{S_{xx}}\sim t(n-2).
+\]
+
+$H_{0}$的拒绝域为：
+\[
+|t|=\frac{|\hat{b}|}{\hat{\sigma}}\sqrt{S_{xx}}\geq t_{\alpha/2}(n-2).
+\]
+
+当拒绝$H_{0}$时，认为回归效果是显著的。
+
+回归效果不显著的原因可能有：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 影响$Y$取值的除了$x$及随机误差外还有其他不可忽略的因素；
+    \item $E[Y]$与$x$的关系不是线性的；
+    \item $Y$与$x$不存在关系。
+\end{enumerate}
+
+\subsection{系数\texorpdfstring{$b$}{b}的置信区间}
+
+回归效果显著时，由
+\[
+\frac{\hat{b}-b}{\hat{\sigma}}\sqrt{S_{xx}}\sim t(n-2)
+\]
+可以得到$b$的置信水平为$1-\alpha$的置信区间：
+\[
+\left(\hat{b}\pm t_{\alpha/2}(n-2)\times\frac{\hat{\sigma}}{\sqrt{S_{xx}}}\right).
+\]
+
+\subsection{回归函数值的点估计和置信区间}
+
+$x_{0}$是自变量$x$的某一指定值，则$\mu(x_{0})=a+bx_{0}$的点估计即为：
+\[
+\hat{\mu}(x_{0})=\hat{a}+\hat{b}x_{0}.
+\]
+
+考虑统计量$\hat{Y}_{0}=\hat{a}+\hat{b}x_{0}$，由于
+\[
+\frac{\hat{Y}_{0}-(a+bx_{0})}{\sigma\sqrt{\dfrac{1}{n}+\dfrac{(x_{0}-\bar{x})^{2}}{S_{xx}}}}\sim N(0,1),\qquad
+\frac{(n-2)\hat{\sigma}^{2}}{\sigma^{2}}=\frac{Q_{e}}{\sigma^{2}}\sim\chi^{2}(n-2),
+\]
+于是
+\[
+\frac{\hat{Y}_{0}-(a+bx_{0})}{\hat{\sigma}\sqrt{\dfrac{1}{n}+\dfrac{(x_{0}-\bar{x})^{2}}{S_{xx}}}}\sim t(n-2).
+\]
+
+所以，$\mu(x_{0})=a+bx_{0}$的置信水平为$1-\alpha$的置信区间为：
+\[
+\left(\hat{a}+\hat{b}x_{0}\pm t_{\alpha/2}(n-2)\hat{\sigma}\sqrt{\frac{1}{n}+\frac{(x_{0}-\bar{x})^{2}}{S_{xx}}}\right).
+\]
+
+置信区间的长度是$x_{0}$的函数，它随$|x_{0}-\bar{x}|$的增加而增加。当$x_{0}=\bar{x}$时为最短。
+
+\subsection{\texorpdfstring{$Y$}{Y}的观察值的点预测和预测区间}
+
+$Y_{0}$是$x=x_{0}$时$Y$的观察值，已知：
+\[
+Y_{0}=a+bx_{0}+\varepsilon_{0},\qquad\varepsilon_{0}\sim N(0,\sigma^{2}).
+\]
+
+$Y_{0}$的\textbf{点预测}：
+\[
+\hat{Y}_{0}=\hat{\mu}(x_{0})=\hat{a}+\hat{b}x_{0}.
+\]
+
+可以证明，
+\[
+\frac{\hat{Y}_{0}-Y_{0}}{\hat{\sigma}\sqrt{1+\dfrac{1}{n}+\dfrac{(x_{0}-\bar{x})^{2}}{S_{xx}}}}\sim t(n-2).
+\]
+
+所以，$Y_{0}$的置信水平为$1-\alpha$的\textbf{预测区间}为：
+\[
+\left(\hat{a}+\hat{b}x_{0}\pm t_{\alpha/2}(n-2)\hat{\sigma}\sqrt{1+\frac{1}{n}+\frac{(x_{0}-\bar{x})^{2}}{S_{xx}}}\right).
+\]
+
+\begin{itemize}[leftmargin=2em]
+    \item 预测区间的长度是$x_{0}$的函数，它随$|x_{0}-\bar{x}|$的增加而增加。当$x_{0}=\bar{x}$时为最短。
+    \item 在相同的置信水平下，回归函数值$\mu(x_{0})$的置信区间要比$Y_{0}$的预测区间短，这是因为$Y_{0}=a+bx_{0}+\varepsilon_{0}$比$\mu(x_{0})=a+bx_{0}$多了一项$\varepsilon_{0}$的缘故。
+\end{itemize}
+
+\subsection{可化为一元线性回归的例子}
+
+通过适当的变量变换，复杂的回归问题可以化为一元线性回归来处理。
+
+例如：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $Y=\alpha e^{\beta x}\cdot\varepsilon$，$\ln\varepsilon\sim N(0,\sigma^{2})$；
+    \item $Y=\alpha x^{\beta}\cdot\varepsilon$，$\ln\varepsilon\sim N(0,\sigma^{2})$；
+    \item $Y=\alpha+\beta h(x)+\varepsilon$，$\varepsilon\sim N(0,\sigma^{2})$。
+\end{enumerate}
+通过变量变换均可化为$Y'=a+bx'+\varepsilon'$，$\varepsilon'\sim N(0,\sigma^{2})$的形式。
+
+\section{多元线性回归}
+
+随机变量$Y$往往与多个普通变量$x_{1},x_{2},\ldots,x_{p}\,(p>1)$有关。对于自变量$x_{1},x_{2},\ldots,x_{p}$的一组确定的值，$Y$的数学期望$\mu(x_{1},x_{2},\ldots,x_{p})$即$Y$关于$x$的回归函数。
+
+假设$\mu(\cdot)$为线性函数，即：
+\[
+Y=b_{0}+b_{1}x_{1}+\cdots+b_{p}x_{p}+\varepsilon,\qquad\varepsilon\sim N(0,\sigma^{2}),
+\]
+其中$b_{0},b_{1},\ldots,b_{p},\sigma^{2}$是与$x_{1},x_{2},\ldots,x_{p}$无关的未知参数。
+
+\subsection{参数的估计}
+
+设$(x_{11},\ldots,x_{1p},y_{1}),\ldots,(x_{n1},\ldots,x_{np},y_{n})$是$Y$和$x$的一个样本。
+
+用最大似然估计法估计参数，即求下面函数的最小值：
+\[
+Q(\boldsymbol{b})=\sum_{i=1}^{n}\bigl(y_{i}-b_{0}-b_{1}x_{i1}-\cdots-b_{p}x_{ip}\bigr)^{2}.
+\]
+
+为此，令$Q$对于参数$b_{0},b_{1},\ldots,b_{p}$的偏导数等于0，得：
+\[
+\begin{cases}
+\displaystyle\frac{\partial Q}{\partial b_{0}}=-2\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i1}-\cdots-b_{p}x_{ip})=0,\\[0.8em]
+\displaystyle\frac{\partial Q}{\partial b_{1}}=-2\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i1}-\cdots-b_{p}x_{ip})x_{i1}=0,\\[0.8em]
+\qquad\vdots\\[0.3em]
+\displaystyle\frac{\partial Q}{\partial b_{p}}=-2\sum_{i=1}^{n}(y_{i}-b_{0}-b_{1}x_{i1}-\cdots-b_{p}x_{ip})x_{ip}=0.
+\end{cases}
+\]
+
+\textbf{引入矩阵表示}：
+\[
+\boldsymbol{X}=\begin{bmatrix}
+1 & x_{11} & \cdots & x_{1p}\\
+1 & x_{21} & \cdots & x_{2p}\\
+\vdots & \vdots & \ddots & \vdots\\
+1 & x_{n1} & \cdots & x_{np}
+\end{bmatrix},\quad
+\boldsymbol{Y}=\begin{bmatrix}
+y_{1}\\ y_{2}\\ \vdots\\ y_{n}
+\end{bmatrix},\quad
+\boldsymbol{B}=\begin{bmatrix}
+b_{0}\\ b_{1}\\ \vdots\\ b_{p}
+\end{bmatrix}.
+\]
+
+所以，有\textbf{正规方程组}：
+\[
+\boldsymbol{X}^{T}\boldsymbol{X}\boldsymbol{B}=\boldsymbol{X}^{T}\boldsymbol{Y}.
+\]
+
+$b_{0},b_{1},\ldots,b_{p}$的最大似然估计：
+\[
+\widehat{\boldsymbol{B}}=\begin{bmatrix}
+\hat{b}_{0}\\ \hat{b}_{1}\\ \vdots\\ \hat{b}_{p}
+\end{bmatrix}
+=(\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{X}^{T}\boldsymbol{Y}.
+\]
+
+取
+\[
+\hat{b}_{0}+\hat{b}_{1}x_{1}+\cdots+\hat{b}_{p}x_{p}\stackrel{\text{def}}{=}\hat{y},
+\]
+$\mu(x_{1},x_{2},\ldots,x_{p})$的估计为：
+\[
+\hat{\mu}(x)=\hat{b}_{0}+\hat{b}_{1}x_{1}+\cdots+\hat{b}_{p}x_{p}.
+\]
+
+此式称为\textbf{$p$元经验回归函数}。
+
+\textbf{$p$元经验回归方程}：
+\[
+\hat{y}=\hat{b}_{0}+\hat{b}_{1}x_{1}+\cdots+\hat{b}_{p}x_{p}.
+\]
+
+\begin{example}[产品平均价格与批量]
+某种产品每件平均价格$Y$（元）与批量$x$（件）之间的关系如下表：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccccccccc@{}}
+\toprule
+$x$ & 20 & 25 & 30 & 35 & 40 & 50 & 60 & 65 & 70 & 75 & 80 & 90 \\
+\midrule
+$y$ & 1.81 & 1.70 & 1.65 & 1.55 & 1.48 & 1.40 & 1.30 & 1.26 & 1.24 & 1.21 & 1.20 & 1.18 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_price_batch_scatter.png}
+    \caption{平均价格与批量的散点图}
+    \label{fig:price_batch_scatter}
+\end{figure}
+
+散点图如上，我们选取模型：
+\[
+Y=b_{0}+b_{1}x+b_{2}x^{2}+\varepsilon,\qquad\varepsilon\sim N(0,\sigma^{2})
+\]
+来拟合，求回归方程？
+
+\textbf{解}：令$x_{1}=x$，$x_{2}=x^{2}$，模型可以转化为二元线性回归模型：
+\[
+Y=b_{0}+b_{1}x_{1}+b_{2}x_{2}+\varepsilon,\qquad\varepsilon\sim N(0,\sigma^{2}).
+\]
+
+由样本值：
+\[
+\boldsymbol{X}=\begin{bmatrix}
+1 & 20 & 400\\
+1 & 25 & 625\\
+\vdots & \vdots & \vdots\\
+1 & 90 & 8100
+\end{bmatrix},\quad
+\boldsymbol{Y}=\begin{bmatrix}
+1.81\\ 1.70\\ \vdots\\ 1.18
+\end{bmatrix},\quad
+\boldsymbol{B}=\begin{bmatrix}
+b_{0}\\ b_{1}\\ b_{2}
+\end{bmatrix}.
+\]
+
+得参数$\boldsymbol{B}$的估计为：
+\[
+\widehat{\boldsymbol{B}}=\begin{bmatrix}
+\hat{b}_{0}\\ \hat{b}_{1}\\ \hat{b}_{2}
+\end{bmatrix}
+=(\boldsymbol{X}^{T}\boldsymbol{X})^{-1}\boldsymbol{X}^{T}\boldsymbol{Y}
+=\begin{bmatrix}
+2.19826629\\ -0.02252236\\ 0.00012507
+\end{bmatrix}.
+\]
+
+故回归方程为：
+\[
+\hat{y}=2.19826629-0.02252236x+0.00012507x^{2}.
+\]
+\end{example}
+
+\subsection{可化为多元线性回归的例子}
+
+\[
+\mu(x)=b_{0}+b_{1}\phi_{1}(x)+\cdots+b_{M}\phi_{M}(x)+\varepsilon
+=\sum_{i=0}^{M}b_{i}\phi_{i}(x)+\varepsilon
+=\boldsymbol{b}^{T}\boldsymbol{\phi}(x)+\varepsilon.
+\]
+
+\begin{itemize}[leftmargin=2em]
+    \item $\boldsymbol{b}^{T}=[b_{0},b_{1},\ldots,b_{M}]$；
+    \item $\boldsymbol{\phi}^{T}=[\phi_{0},\phi_{1},\ldots,\phi_{M}]$；
+    \item 基函数可以是非线性的，例如：
+    \[
+    \boldsymbol{\phi}^{T}=[1,x,x^{2},\ldots,x^{M}],\qquad
+    \phi_{i}=e^{-\frac{(x-\mu_{i})^{2}}{2\sigma^{2}}}.
+    \]
+\end{itemize}
+
+\begin{example}[非线性回归问题]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_nonlinear_data.png}
+    \caption{非线性回归数据散点图与真实曲线 $Y=\sin(2\pi x)$}
+    \label{fig:nonlinear_data}
+\end{figure}
+
+数据产生方式：$Y=\sin(2\pi x)+\varepsilon$，$n=10$。试估计样本的回归函数？
+
+\textbf{解}：建立线性回归模型：
+\[
+\mu(x)=b_{0}+b_{1}x+\cdots+b_{M}x^{M}=\sum_{i=0}^{M}b_{i}x^{i}.
+\]
+
+回归函数$\mu(x)$对于$x$是非线性的，而对于参数$\boldsymbol{b}^{T}=[b_{0},b_{1},\ldots,b_{M}]$是线性的。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_overfitting_M0_M1.png}
+    \caption{不同阶数 $M$ 的回归曲线对比（$M=0,1$）}
+    \label{fig:overfitting_M0_M1}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_overfitting_M3_M9.png}
+    \caption{不同阶数 $M$ 的回归曲线对比（$M=3,9$，过拟合）}
+    \label{fig:overfitting_M3_M9}
+\end{figure}
+
+\textbf{过拟合}（overfitting）！
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_overfitting_n15_n100.png}
+    \caption{拟合结果与样本数量的关系（$M=9,n=15$ vs $M=9,n=100$）}
+    \label{fig:overfitting_n15_n100}
+\end{figure}
+\end{example}
+
+\section*{小结——回归分析}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 建立线性回归函数$\mu(x)=a+bx$，利用样本值$(x_{1},y_{1}),\ldots,(x_{n},y_{n})$计算$a,b$的最大似然估计：
+    \[
+    \hat{\mu}=\hat{a}+\hat{b}x.
+    \]
+    相应的回归方程为：$\hat{y}=\hat{a}+\hat{b}x$。
+    
+    \item 误差$\varepsilon$的无偏估计：
+    \[
+    \hat{\sigma}^{2}=\frac{Q_{e}}{n-2}=\frac{S_{yy}-\hat{b}S_{xy}}{n-2}.
+    \]
+    
+    \item 显著性检验：$H_{0}\colon b=0$，$H_{1}\colon b\neq 0$，拒绝域为：
+    \[
+    |t|=\frac{|\hat{b}|}{\hat{\sigma}}\sqrt{S_{xx}}\geq t_{\alpha/2}(n-2).
+    \]
+    
+    \item 回归系数$b$的置信水平为$1-\alpha$的置信区间为：
+    \[
+    \left(\hat{b}\pm t_{\alpha/2}(n-2)\times\frac{\hat{\sigma}}{\sqrt{S_{xx}}}\right).
+    \]
+    
+    \item 回归函数$\mu(x)$在点$x_{0}$处的函数值$\mu(x_{0})$的置信水平为$1-\alpha$的置信区间为：
+    \[
+    \left(\hat{a}+\hat{b}x_{0}\pm t_{\alpha/2}(n-2)\hat{\sigma}\sqrt{\frac{1}{n}+\frac{(x_{0}-\bar{x})^{2}}{S_{xx}}}\right).
+    \]
+    
+    \item $Y$在$x_{0}$处的观察值$Y_{0}=a+bx_{0}+\varepsilon_{0}$的预测值为：
+    \[
+    \hat{y}_{0}=\hat{a}+\hat{b}x_{0},
+    \]
+    $Y_{0}$的置信水平为$1-\alpha$的预测区间为：
+    \[
+    \left(\hat{a}+\hat{b}x_{0}\pm t_{\alpha/2}(n-2)\hat{\sigma}\sqrt{1+\frac{1}{n}+\frac{(x_{0}-\bar{x})^{2}}{S_{xx}}}\right).
+    \]
+\end{enumerate}
+
+\section*{小结——方差分析}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 建立数学模型：
+    \[
+    \begin{cases}
+    X_{ij}=\mu+\delta_{j}+\varepsilon_{ij},\\[0.3em]
+    \varepsilon_{ij}\sim N(0,\sigma^{2}),\quad\text{各}\varepsilon_{ij}\text{独立},\\[0.3em]
+    \displaystyle\sum_{j=1}^{s}n_{j}\delta_{j}=0,\\[0.5em]
+    i=1,2,\ldots,n_{j},\;j=1,2,\ldots,s.
+    \end{cases}
+    \]
+    
+    \item 假设检验：
+    \[
+    \begin{cases}
+    H_{0}\colon\delta_{1}=\delta_{2}=\cdots=\delta_{s}=0,\\[0.3em]
+    H_{1}\colon\delta_{1},\delta_{2},\ldots,\delta_{s}\text{ 不全为零}.
+    \end{cases}
+    \]
+    拒绝域为：
+    \[
+    F=\frac{S_{A}/(s-1)}{S_{E}/(n-s)}\geq F_{\alpha}(s-1,n-s).
+    \]
+    
+    \item 参数估计：
+    \begin{table}[htbp]
+    \centering
+    \begin{tabular}{@{}cccc@{}}
+    \toprule
+    $\sigma^{2}$ & $\mu$ & $\mu_{j}$ & $\delta_{j}$ \\
+    \midrule
+    $\hat{\sigma}^{2}=\dfrac{S_{E}}{n-s}$ & $\hat{\mu}=\bar{X}$ & $\hat{\mu}_{j}=\bar{X}_{\cdot j}$ & $\hat{\delta}_{j}=\bar{X}_{\cdot j}-\bar{X}$ \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    
+    \item 当拒绝$H_{0}$时，总体$N(\mu_{j},\sigma^{2})$与$N(\mu_{k},\sigma^{2})$均值差$\mu_{j}-\mu_{k}=\delta_{j}-\delta_{k}$的置信水平为$1-\alpha$的置信区间为：
+    \[
+    \left(\bar{X}_{\cdot j}-\bar{X}_{\cdot k}\pm t_{\alpha/2}(n-s)\sqrt{\bar{S}_{E}\left(\frac{1}{n_{j}}+\frac{1}{n_{k}}\right)}\right).
+    \]
+\end{enumerate}
+
+\section*{方差分析与回归分析的比较}
+
+\begin{table}[htbp]
+\centering
+\caption{方差分析与回归分析的比较}
+\begin{tabular}{@{}p{6cm}p{6cm}@{}}
+\toprule
+\textbf{方差分析（ANOVA）} & \textbf{回归分析（Regression）} \\
+\midrule
+\multicolumn{2}{c}{\textbf{相同}} \\
+\multicolumn{2}{c}{采用线性模型；研究变量之间的关系} \\
+\midrule
+\textbf{不同} & \\
+从观测变量的方差入手，研究一个或多个变量对特定变量的影响以及组间的差异 & 确定两种或两种以上变量间相互依赖的定量关系 \\
+因素变量不一定是定量的 & 因素变量是定量的 \\
+只需有选择地对某些试验水平进行试验 & 所有试验水平都进行相应的试验 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{作业}
+
+《概率论与数理统计》
+
+pp.~261--262, \#2, \#4, \#6, \#8, \#9
+
+pp.~263--264, \#11, \#16
+
 \end{document}
