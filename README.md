@@ -11,8 +11,10 @@
 ├── .vscode/               % VS Code 配置
 │   └── settings.json
 ├── src/                   % 笔记与习题源文件
-│   ├── note.tex           % 笔记源文件
-│   ├── note.pdf           % 笔记 PDF
+│   ├── note.tex           % 课堂笔记源文件
+│   ├── note.pdf           % 课堂笔记 PDF
+│   ├── problem.tex        % 习题课笔记源文件
+│   ├── problem.pdf        % 习题课笔记 PDF
 │   └── build/             % 编译输出
 ├── asset/                 % 课程 PPT 与习题课 PDF
 │   ├── 2025Lec00-C01      课程概览
@@ -28,10 +30,4 @@
 │   ├── 2025Lec10-C27      随机过程
 │   ├── 2025Lec11-C29      Markov链
 │   └── 2025习题课1~5      习题课 PDF
-├── embedding/             % PDF 拆分与内容提取
-│   ├── 2025Lec01-...-1.pdf     双栏 PDF 左半
-│   ├── 2025Lec01-...-2.pdf     双栏 PDF 右半
-│   └── notes/                  逐页提取的笔记片段
-└── script/
-    └── transform.py       % 转换脚本
 ```
