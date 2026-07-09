@@ -13817,4 +13817,677 @@ C_X(t_1,t_2)&=R_X(t_1,t_2)-\mu_X(t_1)\mu_X(t_2),\\
 
 P.~321--322, \#3, \#5, \#6, \#10, \#11
 
+\newpage
+\chapter{Markov链}
+
+\section{马尔可夫过程及其概率分布}
+
+\subsection{马尔可夫性（无后效性）}
+
+过程（或系统）在时刻$t_0$所处的状态为已知的条件下，过程在时刻$t>t_0$所处状态的条件分布与过程在时刻$t_0$之前所处的状态无关。
+
+通俗地说，就是在已经知道过程"现在"的条件下，其"将来"不依赖于"过去"。
+
+用分布函数表述马尔可夫性：
+
+设随机过程$\{X(t),t\in T\}$，其状态空间为$I$，对参数集$T$中任意$n$个数值$t_1<t_2<\cdots<t_n$，$n\geq3$，$t\in T$，
+\[
+P\{X(t_n)\leq x_n\mid X(t_1)=x_1,\ldots,X(t_{n-1})=x_{n-1}\}=P\{X(t_n)\leq x_n\mid X(t_{n-1})=x_{n-1}\},
+\]
+则称过程$\{X(t),t\in T\}$具有\textbf{马尔可夫性}或\textbf{无后效性}，并称此过程为\textbf{马尔可夫过程}。
+
+\begin{example}[独立增量过程是马尔可夫过程]
+设$\{X(t),t\geq0\}$是独立增量过程，且$X(0)=0$，证明$\{X(t),t\geq0\}$是一个马尔可夫过程。
+
+\textbf{证明}：对$t_1<t_2<\cdots<t_{n-1}<t_n$，
+\begin{align*}
+&P\{X(t_n)\leq x_n\mid X(t_1)=x_1,\ldots,X(t_{n-1})=x_{n-1}\}\\
+&=P\{X(t_n)-X(t_{n-1})\leq x_n-x_{n-1}\mid X(t_1)=x_1,\ldots,X(t_{n-1})=x_{n-1}\}\\
+&=P\{X(t_n)-X(t_{n-1})\leq x_n-x_{n-1}\}\\
+&=P\{X(t_n)\leq x_n\mid X(t_{n-1})=x_{n-1}\}.
+\end{align*}
+由定义知$\{X(t),t\geq0\}$是一马尔可夫过程。
+\end{example}
+
+由上例知，泊松过程是时间连续状态离散的马氏过程，维纳过程是时间状态都连续的马氏过程。
+
+\subsection{马尔可夫链的定义}
+
+时间和状态都离散的马尔可夫过程称为\textbf{马尔可夫链}，简称\textbf{马氏链}，记为：
+\[
+\{X_n=X(n),n=0,1,2,\ldots\},\quad\text{参数集 }T=\{0,1,2,\ldots\},
+\]
+记链的状态空间为：
+\[
+I=\{a_1,a_2,\ldots\},\quad a_i\in\mathbb{R}.
+\]
+
+马尔可夫链用条件分布律来表示为：
+
+对任意的正整数$n,r$和$0\leq t_1<t_2<\cdots<t_r<m$；$t_i,m,m+n\in T$，有：
+\[
+P\{X_{m+n}=a_j\mid X_{t_1}=a_{i_1},X_{t_2}=a_{i_2},\ldots,X_{t_r}=a_{i_r},X_m=a_i\}=P\{X_{m+n}=a_j\mid X_m=a_i\}\triangleq P_{ij}(m,m+n).
+\]
+
+\begin{definition}[转移概率]
+条件概率$P_{ij}(m,m+n)=P(X_{m+n}=a_j\mid X_m=a_i)$称为马氏链在时间$m$处于状态$a_i$条件下，在时间$m+n$转移到状态$a_j$的\textbf{转移概率}。
+\end{definition}
+
+\textbf{转移概率性质}：
+\[
+\sum_{j=1}^{\infty}P_{ij}(m,m+n)=1,\quad i=1,2,\ldots
+\]
+这是因为链在时刻$m$以任何一个状态$a_i$出发，到另一个时刻$m+n$必然转移到$a_1,a_2,\ldots$诸状态中的某一个。
+
+\textbf{转移概率矩阵}：
+\[
+P(m,m+n)=
+\begin{pmatrix}
+P_{11}(m,m+n) & P_{12}(m,m+n) & \cdots\\
+P_{21}(m,m+n) & P_{22}(m,m+n) & \cdots\\
+\vdots & \vdots & \ddots
+\end{pmatrix}
+\]
+此矩阵的每一行元素之和等于1。
+
+当$P_{ij}(m,m+n)$只与$i,j$及$n$有关时，把它记为$P_{ij}(n)$，即
+\[
+P_{ij}(n)=P_{ij}(m,m+n)=P\{X_{m+n}=a_j\mid X_m=a_i\}=P\{X_n=a_j\mid X_0=a_i\},
+\]
+称此转移概率为马氏链的\textbf{$n$步转移概率}。
+
+当转移概率具有这种平稳性时，称此链是\textbf{齐次马氏链}。
+
+在齐次马氏链中，$n$步转移概率矩阵为：
+\[
+P(n)=
+\begin{pmatrix}
+P_{11}(n) & P_{12}(n) & \cdots\\
+P_{21}(n) & P_{22}(n) & \cdots\\
+\vdots & \vdots & \ddots
+\end{pmatrix}.
+\]
+
+一步转移概率记为：
+\[
+P_{ij}=P_{ij}(1)=P\{X_{m+1}=a_j\mid X_m=a_i\}.
+\]
+
+一步转移概率矩阵记为：
+\[
+P=P(1)=
+\begin{matrix}
+ & a_1 & a_2 & \cdots\\
+a_1 & P_{11} & P_{12} & \cdots\\
+a_2 & P_{21} & P_{22} & \cdots\\
+\vdots & \vdots & \vdots & \ddots
+\end{matrix}
+\]
+
+\begin{example}[0-1传输系统]
+如图所示，只传输数字0和1的串联系统中，设一级的传真率为$p$，误码率为$q=1-p$。并设一个单位时间传输一级，$X_0$是第一级的输入，$X_n$是第$n$级的输出（$n\geq1$），那么$\{X_n,n=0,1,2,\ldots\}$是一随机过程，状态空间$I=\{0,1\}$，而且当$X_n=i$为已知时，$X_{n+1}$所处的状态的概率分布只与$X_n=i$有关，而与时刻$n$以前所处的状态无关。所以它是一个马氏链，而且还是齐次的，它的一步转移概率和一步转移概率矩阵分别为：
+\[
+P_{ij}=P(X_{n+1}=j\mid X_n=i)=
+\begin{cases}
+p, & i=j,\\
+q, & i\neq j,
+\end{cases}
+\quad i,j=0,1.
+\]
+\[
+P=
+\begin{pmatrix}
+p & q\\
+q & p
+\end{pmatrix}.
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_bsc_series.png}
+    \caption{0-1传输系统串联结构示意图}
+    \label{fig:bsc_series}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_bsc_simulation.png}
+    \caption{(a)原图像 (b)从模拟BSC($\\alpha=0.2$)接收的图像 (c)迭代五次的恢复结果}
+    \label{fig:bsc_simulation}
+\end{figure}
+\end{example}
+
+\begin{example}[一维随机游动]
+设一醉汉Q（或看作一随机游动的质点）在直线上的点集$I=\{1,2,3,4,5\}$作随机游动且仅在1秒、2秒等时刻发生游动，游动的概率规则是：如果Q现在位于点$i$（$1<i<5$），则下一时刻各以$1/3$的概率向左或向右移动一格，或以$1/3$的概率留在原处；如果Q现在处于1（或5）这一点上，则下一时刻就以概率1移动到2（或4）这点上，1和5这两点称为\textbf{反射壁}，这种游动称为带有两个反射壁的随机游动。
+
+\textbf{解}：以$X_n$表示时刻$n$时Q的位置，不同的位置就是$X_n$的不同状态；而且当$X_n=i$为已知时，$X_{n+1}$所处的状态的概率分布只与$X_n=i$有关，而与Q在时刻$n$以前如何到达$i$完全无关，所以$\{X_n,n=0,1,2,\ldots\}$是一马氏链，且是齐次的。
+
+它的一步转移概率矩阵为：
+\[
+P=
+\begin{matrix}
+ & 1 & 2 & 3 & 4 & 5\\
+1 & 0 & 1 & 0 & 0 & 0\\
+2 & 1/3 & 1/3 & 1/3 & 0 & 0\\
+3 & 0 & 1/3 & 1/3 & 1/3 & 0\\
+4 & 0 & 0 & 1/3 & 1/3 & 1/3\\
+5 & 0 & 0 & 0 & 1 & 0
+\end{matrix}
+\]
+
+\textbf{解（续）}：如果把1这点改为\textbf{吸收壁}，即Q一旦到达1这一点，则永远留在点1时，此时的转移概率矩阵为：
+\[
+P=
+\begin{matrix}
+ & 1 & 2 & 3 & 4 & 5\\
+1 & 1 & 0 & 0 & 0 & 0\\
+2 & 1/3 & 1/3 & 1/3 & 0 & 0\\
+3 & 0 & 1/3 & 1/3 & 1/3 & 0\\
+4 & 0 & 0 & 1/3 & 1/3 & 1/3\\
+5 & 0 & 0 & 0 & 1 & 0
+\end{matrix}
+\]
+\end{example}
+
+\begin{example}[排队模型]
+设服务系统由一个服务员和只可以容纳两个人的系统等候室组成。服务规则为：先到先服务，后来者需在等候室依次排队，假设一个需要服务的顾客到达系统时发现系统内已有3个顾客，则该顾客立即离去。
+
+设时间间隔$\Delta t$内有一个顾客进入系统的概率为$q$，有一接受服务的顾客离开系统（即服务完毕）的概率为$p$，又设当$\Delta t$充分小时，在这时间间隔内多于一个顾客进入或离开系统实际上是不可能的，再设有无顾客来到与服务是否完毕是相互独立的。
+
+试用马氏链描述这一过程。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_queuing_system.png}
+    \caption{排队系统示意图（随机到达$\to$等候室$\to$服务$\to$随机离开）}
+    \label{fig:queuing_system}
+\end{figure}
+
+\textbf{解}：现用马氏链来描述这个服务系统：
+
+设$X_n=X(n\Delta t)$表示时刻$n\Delta t$时系统内的顾客数，即系统的状态。$\{X_n,n=0,1,2,\ldots\}$是一随机过程，状态空间$I=\{0,1,2,3\}$，且如前例2、例3的分析可知，它是一个齐次马氏链，它的一步转移概率矩阵为：
+\[
+P=
+\begin{matrix}
+ & 0 & 1 & 2 & 3\\
+0 & 1-q & q & 0 & 0\\
+1 & p(1-q) & pq+(1-p)(1-q) & q(1-p) & 0\\
+2 & 0 & p(1-q) & pq+(1-p)(1-q) & q(1-p)\\
+3 & 0 & 0 & p(1-q) & pq+(1-p)
+\end{matrix}
+\]
+\end{example}
+
+\begin{example}[两袋取球模型]
+有甲、乙两袋球，开始时，甲袋有3只球，乙袋有2只球；以后，每次任取一袋，并从袋中取出一球放入另一袋（若袋中无球则不取）。
+
+$X_n$表示第$n$次抽取后甲袋的球数，$n=1,2,\ldots$。
+
+$\{X_n,n=1,2,\ldots\}$是一随机过程，状态空间$I=\{0,1,2,3,4,5\}$。
+
+当$X_n=i$时，$X_{n+1}=j$的概率只与$i$有关，与$n$时刻之前如何取到$i$值是无关的，这是齐次马氏链，其一步转移概率矩阵为
+\[
+P=
+\begin{pmatrix}
+1/2 & 1/2 & 0 & 0 & 0 & 0\\
+1/2 & 0 & 1/2 & 0 & 0 & 0\\
+0 & 1/2 & 0 & 1/2 & 0 & 0\\
+0 & 0 & 1/2 & 0 & 1/2 & 0\\
+0 & 0 & 0 & 1/2 & 0 & 1/2\\
+0 & 0 & 0 & 0 & 1/2 & 1/2
+\end{pmatrix}.
+\]
+\end{example}
+
+\begin{example}[计算机状态观察]
+某计算机机房的一台计算机经常出故障，研究者每隔15分钟观察一次计算机的运行状态，收集了24个小时的数据（共作97次观察），用1表示正常状态，用0表示不正常状态，所得的数据序列如下：
+\[
+1110010011111110011110111111001111111110001101101111011011010111101110111101111110011011111100111
+\]
+设$X_n$为第$n$（$n=1,2,\ldots,97$）个时段的计算机状态，可以认为它是一个齐次马氏链。
+
+求：
+\begin{enumerate}[label=(\arabic*)]
+    \item 一步转移概率矩阵；
+    \item 已知计算机在某一时段（15分钟）的状态为0，问在此条件下，从此时段起，该计算机能连续正常工作45分钟（3个时段）的条件概率。
+\end{enumerate}
+
+\textbf{解}：(1) 设$X_n$为第$n$（$n=1,2,\ldots,97$）个时段的计算机状态，可以认为它是一个齐次马氏链，状态空间$I=\{0,1\}$，96次状态转移情况是：
+
+$0\to0$：8次；\quad$0\to1$：18次；
+
+$1\to0$：18次；\quad$1\to1$：52次；
+
+因此一步转移概率可用频率近似地表示为：
+\[
+P=
+\begin{pmatrix}
+8/26 & 18/26\\
+18/70 & 52/70
+\end{pmatrix}.
+\]
+
+(2) 某一时段的状态为0，定义其为初始状态，所求概率为
+\[
+P(X_1=1,X_2=1,X_3=1\mid X_0=0)=P_{01}P_{11}P_{11}=\frac{18}{26}\times\frac{52}{70}\times\frac{52}{70}=0.382.
+\]
+\end{example}
+
+\subsection{初始分布与有限维分布}
+
+\begin{definition}[初始分布]
+记$p_j(0)=P\{X_0=a_j\}$，$a_j\in I,j=1,2,\ldots$，称它为马氏链的\textbf{初始分布}。
+\end{definition}
+
+马氏链在任一时刻$n\in T=\{0,1,2,\ldots\}$的\textbf{一维分布}：
+\[
+p_j(n)=P\{X_n=a_j\},\quad a_j\in I,\ j=1,2,\ldots
+\]
+
+\textbf{性质}：
+\[
+\sum_{j=1}^{\infty}p_j(n)=1.
+\]
+
+\textbf{公式}：
+\[
+p_j(n)=\sum_{i=1}^{\infty}p_i(0)P_{ij}(n),\quad j=1,2,\ldots
+\]
+即，
+\[
+P\{X_n=a_j\}=\sum_{i=1}^{\infty}P\{X_0=a_i,X_n=a_j\}=\sum_{i=1}^{\infty}P\{X_0=a_i\}P\{X_n=a_j\mid X_0=a_i\}.
+\]
+
+对于任意个时刻$t_1<t_2<\cdots<t_n$，$t_i\in T$以及状态$a_{i_1},a_{i_2},\ldots,a_{i_n}\in I$，马氏链的\textbf{$n$维分布}：
+\begin{align*}
+&P\{X_{t_1}=a_{i_1},X_{t_2}=a_{i_2},\ldots,X_{t_n}=a_{i_n}\}\\
+&=P\{X_{t_1}=a_{i_1}\}P\{X_{t_2}=a_{i_2}\mid X_{t_1}=a_{i_1}\}\cdots P\{X_{t_n}=a_{i_n}\mid X_{t_{n-1}}=a_{i_{n-1}}\}\\
+&=P_{i_1}(t_1)P_{i_1i_2}(t_2-t_1)\ldots P_{i_{n-1}i_n}(t_n-t_{n-1})\\
+&=\sum_{i=0}^{\infty}p_i(0)P_{ii_1}(t_1)P_{i_1i_2}(t_2-t_1)\ldots P_{i_{n-1}i_n}(t_n-t_{n-1}).
+\end{align*}
+
+马尔可夫链的有限维分布完全由初始分布和转移概率所确定。
+
+\section{多步转移概率的确定}
+
+\subsection{Chapman-Kolmogorov方程（C-K方程）}
+
+\begin{theorem}[C-K方程]
+设$\{X_n,n=1,2,\ldots\}$是一齐次马氏链，则对任意的$u,v\in T=\{0,1,2,\ldots\}$，有：
+\[
+P_{ij}(u+v)=\sum_{k=1}^{\infty}P_{ik}(u)P_{kj}(v),\quad i,j=1,2,\ldots
+\]
+\end{theorem}
+
+即"从时刻$s$所处的状态$a_i$出发，经时段$u+v$转移到状态$a_j$"这一事件可分解成："从$X(s)=a_i$出发，先经时段$u$转移到中间状态$a_k$（$k=1,2,\ldots$），再从$a_k$经时段$v$转移到状态$a_j$"这样一些事件和。
+
+\textbf{C-K方程证明}：
+\begin{align*}
+P_{ij}(u+v)&=P\{X(s+u+v)=a_j\mid X(s)=a_i\}\\
+&=\sum_{k=1}^{\infty}P\{X(s+u)=a_k,X(s+u+v)=a_j\mid X(s)=a_i\}\\
+&=\sum_{k=1}^{\infty}P\{X(s+u)=a_k\mid X(s)=a_i\}\times P\{X(s+u+v)=a_j\mid X(s)=a_i,X(s+u)=a_k\}\\
+&=\sum_{k=1}^{\infty}P\{X(s+u)=a_k\mid X(s)=a_i\}\times P\{X(s+u+v)=a_j\mid X(s+u)=a_k\}\\
+&=\sum_{k=1}^{\infty}P_{ik}(u)P_{kj}(v).
+\end{align*}
+
+$P_{ij}(u+v)$是$u+v$步转移概率矩阵的$(i,j)$元。
+
+$(P_{i1}(u)\ P_{i2}(u)\ \ldots)$是$u$步转移概率矩阵的第$i$行，
+
+$(P_{1j}(v)\ P_{2j}(v)\ \ldots)^T$是$v$步转移概率矩阵的第$j$列。
+
+根据矩阵乘法公式，C-K方程可以写成矩阵形式：
+\[
+P(u+v)=P(u)P(v).
+\]
+
+设$P(n)$是$n$步转移概率矩阵，则有：
+\[
+P(n)=P^n.
+\]
+
+事实上，由C-K方程：
+\[
+P(n)=P(1)P(n-1)=PP(n-1)=P^2P(n-2)=\cdots=P^n.
+\]
+
+齐次马尔可夫链的有限维分布可由初始分布与一步转移概率完全确定。
+
+\begin{example}[多步转移概率计算]
+设$\{X_n,n\geq0\}$是具有三个状态$0,1,2$的齐次马氏链，一步转移概率矩阵为：
+\[
+P=
+\begin{pmatrix}
+3/4 & 1/4 & 0\\
+1/4 & 1/2 & 1/4\\
+0 & 3/4 & 1/4
+\end{pmatrix},
+\quad p_i(0)=P\{X_0=i\}=\frac{1}{3},\ i=0,1,2.
+\]
+
+试求：
+\begin{enumerate}[label=(\arabic*)]
+    \item $P\{X_0=0,X_2=1,X_4=1\}$；
+    \item $P\{X_2=0,X_4=1\mid X_0=0\}$；
+    \item $P\{X_1\neq0,X_2\neq0,X_3\neq0,X_4=0\mid X_0=0\}$。
+\end{enumerate}
+
+\textbf{解}：由C-K方程可得二步转移概率矩阵为：
+\[
+P(2)=P^2=
+\begin{pmatrix}
+5/8 & 5/16 & 1/16\\
+5/16 & 1/2 & 3/16\\
+3/16 & 9/16 & 1/4
+\end{pmatrix}.
+\]
+
+(1)
+\[
+P\{X_0=0,X_2=1,X_4=1\}=p_0(0)P_{01}(2)P_{11}(2)=\frac{1}{3}\times\frac{5}{16}\times\frac{1}{2}=\frac{5}{96}.
+\]
+
+(2)
+\[
+P\{X_2=0,X_4=1\mid X_0=0\}=P_{00}(2)P_{01}(2)=\frac{5}{8}\times\frac{5}{16}=\frac{25}{128}.
+\]
+
+(3)
+\begin{align*}
+&P\{X_1\neq0,X_2\neq0,X_3\neq0,X_4=0\mid X_0=0\}\\
+&=P_{01}P_{11}P_{11}P_{10}+P_{01}P_{11}P_{12}P_{20}+P_{01}P_{12}P_{21}P_{10}+P_{01}P_{12}P_{22}P_{20}\\
+&\quad+P_{02}P_{21}P_{11}P_{10}+P_{02}P_{21}P_{12}P_{20}+P_{02}P_{22}P_{21}P_{10}+P_{02}P_{22}P_{22}P_{20}\\
+&=P_{01}P_{11}P_{11}P_{10}+P_{01}P_{12}P_{21}P_{10}\\
+&=\frac{1}{4}\times\frac{1}{2}\times\frac{1}{2}\times\frac{1}{4}+\frac{1}{4}\times\frac{1}{4}\times\frac{3}{4}\times\frac{1}{4}=\frac{7}{256}.
+\end{align*}
+表示从状态0出发经4步首次回到状态0的概率（标注红色的转移概率为0）。
+\end{example}
+
+\section{遍历性}
+
+对于一般的两个状态的马氏链，其一步转移概率矩阵一般可表示为：
+\[
+P=
+\begin{matrix}
+ & 0 & 1\\
+0 & 1-a & a\\
+1 & b & 1-b
+\end{matrix},
+\quad 0<a,b<1.
+\]
+
+\[
+P(n)=P^n=
+\begin{pmatrix}
+P_{00}(n) & P_{01}(n)\\
+P_{10}(n) & P_{11}(n)
+\end{pmatrix}
+=
+\begin{pmatrix}
+\dfrac{b+a(1-a-b)^n}{a+b} & \dfrac{a-a(1-a-b)^n}{a+b}\\[1em]
+\dfrac{b-b(1-a-b)^n}{a+b} & \dfrac{a+b(1-a-b)^n}{a+b}
+\end{pmatrix}.
+\]
+
+注意到，当$n\to\infty$时，$(1-a-b)^n\to0$，于是
+\[
+\lim_{n\to\infty}P_{00}(n)=\lim_{n\to\infty}P_{10}(n)=\frac{b}{a+b},
+\]
+\[
+\lim_{n\to\infty}P_{01}(n)=\lim_{n\to\infty}P_{11}(n)=\frac{a}{a+b},
+\]
+记为$\pi_0$、记为$\pi_1$。
+
+上述极限的意义：
+
+对固定的状态$j$，不管链在某一时刻从什么状态$i$（$=0$或$1$）出发，通过长时间的转移，到达状态$j$的概率都趋近于$\pi_j$，这就是\textbf{遍历性}。
+
+又由于$\pi_0+\pi_1=1$，所以$(\pi_0,\pi_1)$记为$\pi$构成一分布律，称它为链的\textbf{极限分布}。
+
+一般地，设齐次马氏链的状态空间为$I$，若对于所有$a_i,a_j\in I$，转移概率$P_{ij}(n)$存在极限：
+\[
+\lim_{n\to\infty}P_{ij}(n)=\pi_j\quad\text{（不依赖于$i$）},
+\]
+或
+\[
+P(n)=P^n\xrightarrow{n\to\infty}
+\begin{pmatrix}
+\pi_1 & \pi_2 & \cdots\\
+\pi_1 & \pi_2 & \cdots\\
+\vdots & \vdots & \ddots
+\end{pmatrix},
+\]
+则称此链具有\textbf{遍历性}。
+
+又若
+\[
+\sum_j\pi_j=1,
+\]
+则称$\pi=(\pi_1,\pi_2,\ldots)$为链的\textbf{极限分布}。
+
+\begin{theorem}[有限链遍历性的充分条件]
+设齐次马氏链$\{X_n,n\geq1\}$的状态空间为$I=\{a_1,a_2,\ldots,a_N\}$，$P$是它的一步转移概率矩阵，如果存在正整数$m$，使对任意的$a_i,a_j\in I$，都有
+\[
+P_{ij}(m)>0,\quad i,j=1,2,\ldots,N,
+\]
+则此链具有遍历性，且有极限分布$\pi=(\pi_1,\pi_2,\ldots,\pi_N)$，它是方程组
+\[
+\pi=\pi P\quad\left(\text{即 }\pi_j=\sum_{i=1}^{N}\pi_iP_{ij}\right)
+\]
+的满足条件
+\[
+\pi_j>0,\quad \sum_{j=1}^{N}\pi_j=1
+\]
+的唯一解。
+\end{theorem}
+
+在定理的条件下，马氏链的极限分布又是\textbf{平稳分布}，即若用$\pi$作为链的初始分布，
+\[
+p_i(0)=P(X_0=a_i)=\pi_i,\quad i=1,2,\ldots,N,
+\]
+则链在任一时刻$n\in T$的分布$p(n)$永远与$\pi$一致，
+\[
+p_i(n)=P(X_n=a_i)=\pi_i,\quad i=1,2,\ldots,N.
+\]
+
+事实上，
+\[
+p_i(1)=P(X_1=a_i)=\sum_{k=1}^{N}P(X_0=a_k)P_{ki}=\sum_{k=1}^{N}\pi_kP_{ki}=\pi_i,\quad i=1,2,\ldots,N.
+\]
+
+依次类推，
+\[
+p_i(n)=P(X_n=a_i)=\sum_{k=1}^{N}P(X_{n-1}=a_k)P_{ki}=\sum_{k=1}^{N}\pi_kP_{ki}=\pi_i,\quad i=1,2,\ldots,N.
+\]
+
+\begin{example}[反射壁随机游动的遍历性]
+一质点在$1,2,3$三个点上作随机游动，1和3是两个反射壁，当质点处于2时，下一时刻处于$1,2,3$是等可能的。写出一步转移概率矩阵，判断此链是否具有遍历性，若有，求出极限分布。
+
+\textbf{解}：
+\[
+P=
+\begin{pmatrix}
+0 & 1 & 0\\
+1/3 & 1/3 & 1/3\\
+0 & 1 & 0
+\end{pmatrix},
+\quad
+P(2)=
+\begin{pmatrix}
+1/3 & 1/3 & 1/3\\
+1/9 & 7/9 & 1/9\\
+1/3 & 1/3 & 1/3
+\end{pmatrix}.
+\]
+
+由定理知，此链有遍历性；设极限分布$\pi=(\pi_1,\pi_2,\pi_3)$，对应$\pi=\pi P$有
+\[
+\begin{cases}
+\pi_1=\dfrac{1}{3}\pi_2,\\[0.5em]
+\pi_1+\pi_2+\pi_3=1,\\[0.5em]
+\pi_3=\dfrac{1}{3}\pi_2.
+\end{cases}
+\]
+
+解得：
+\[
+\begin{cases}
+\pi_1=\dfrac{1}{5},\\[0.5em]
+\pi_2=\dfrac{3}{5},\\[0.5em]
+\pi_3=\dfrac{1}{5}.
+\end{cases}
+\]
+\end{example}
+
+\begin{example}[非遍历链的例子]
+一质点在$1,2,3$三个点上作随机游动，1和3是两个反射壁，当质点处于2时，下一时刻转移到1和3的概率各为$1/2$。写出一步转移概率矩阵，判断此链是否具有遍历性，若有，求出极限分布。
+
+\textbf{解}：
+\[
+P=
+\begin{pmatrix}
+0 & 1 & 0\\
+1/2 & 0 & 1/2\\
+0 & 1 & 0
+\end{pmatrix},
+\quad
+P(2)=
+\begin{pmatrix}
+1/2 & 0 & 1/2\\
+0 & 1 & 0\\
+1/2 & 0 & 1/2
+\end{pmatrix},
+\quad
+P(3)=P(2)P=
+\begin{pmatrix}
+0 & 1 & 0\\
+1/2 & 0 & 1/2\\
+0 & 1 & 0
+\end{pmatrix}=P.
+\]
+
+注意到$P(2n+1)=P$，$P(2n)=P(2)$。故对任一固定的$j$（$j=1,2,3$），极限$\lim\limits_{n\to\infty}P_{ij}(n)$都不存在，按定义，此链不具有遍历性。
+\end{example}
+
+\begin{example}[吸收壁随机游动]
+一质点在$1,2,3$三个点上作随机游动，1和3是两个吸收壁，当质点处于2时，下一时刻转移到1和3的概率各为$1/2$。写出一步转移概率矩阵，判断此链是否具有遍历性？若有，求出极限分布。
+
+\textbf{解}：
+\[
+P=
+\begin{pmatrix}
+1 & 0 & 0\\
+1/2 & 0 & 1/2\\
+0 & 0 & 1
+\end{pmatrix},
+\quad
+P(2)=
+\begin{pmatrix}
+1 & 0 & 0\\
+1/2 & 0 & 1/2\\
+0 & 0 & 1
+\end{pmatrix}=P,
+\]
+\[
+P(n)=P^n=P.
+\]
+
+因此，$\lim\limits_{n\to\infty}P_{ij}(n)=P_{ij}$，这个极限不仅与$j$有关，还与$i$有关。
+
+所以，此链不具有遍历性。
+\end{example}
+
+\begin{example}[球交换模型的遍历性]
+设有6个球（2个红球，4个白球）随机平分放入甲、乙两个盒中。今每次从两盒中各任取一球并进行交换。$X_0$表示开始时甲盒中的红球数，$X_n$（$n>0$）表示经$n$次交换后甲盒中的红球数。
+\begin{enumerate}[label=(\arabic*)]
+    \item 求此马氏链的初始分布；
+    \item 求一步转移概率矩阵；
+    \item 计算$P(X_0=1,X_2=1,X_4=0)$，$P(X_2=2)$；
+    \item 判断此链是否具有遍历性，若有，求出极限分布。
+\end{enumerate}
+
+\textbf{解}：(1)
+\[
+P(X_0=0)=\frac{C_4^3}{C_6^3}=\frac{1}{5},\quad
+P(X_0=1)=\frac{C_2^1C_4^2}{C_6^3}=\frac{3}{5},\quad
+P(X_0=2)=\frac{C_2^2C_4^1}{C_6^3}=\frac{1}{5}.
+\]
+
+于是，$X_0$的分布是：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccc@{}}
+\toprule
+$X_0$ & 0 & 1 & 2 \\
+\midrule
+$p$ & $1/5$ & $3/5$ & $1/5$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+(2)
+\[
+P=
+\begin{pmatrix}
+1/3 & 2/3 & 0\\
+2/9 & 5/9 & 2/9\\
+0 & 2/3 & 1/3
+\end{pmatrix}.
+\]
+
+(3)
+\[
+P(2)=
+\begin{pmatrix}
+7/27 & 16/27 & 4/27\\
+16/81 & 49/81 & 16/81\\
+4/27 & 16/27 & 7/27
+\end{pmatrix}.
+\]
+
+\begin{align*}
+P(X_0=1,X_2=1,X_4=0)&=P(X_0=1)P_{11}(2)P_{10}(2)\\
+&=\frac{3}{5}\times\frac{49}{81}\times\frac{16}{81}\approx0.072.
+\end{align*}
+
+\begin{align*}
+P(X_2=2)&=P(X_0=0)P_{02}(2)+P(X_0=1)P_{12}(2)+P(X_0=2)P_{22}(2)\\
+&=\frac{1}{5}\times\frac{4}{27}+\frac{3}{5}\times\frac{16}{81}+\frac{1}{5}\times\frac{7}{27}=\frac{1}{5}=0.2.
+\end{align*}
+
+(4)
+\[
+P=
+\begin{pmatrix}
+1/3 & 2/3 & 0\\
+2/9 & 5/9 & 2/9\\
+0 & 2/3 & 1/3
+\end{pmatrix},
+\quad
+P(2)=
+\begin{pmatrix}
+7/27 & 16/27 & 4/27\\
+16/81 & 49/81 & 16/81\\
+4/27 & 16/27 & 7/27
+\end{pmatrix}.
+\]
+
+由定理知，此链有遍历性。设极限分布$\pi=(\pi_0,\pi_1,\pi_2)$，有方程组
+\[
+\begin{cases}
+\pi_0=\dfrac{1}{3}\pi_0+\dfrac{2}{9}\pi_1,\\[0.5em]
+\pi_2=\dfrac{2}{9}\pi_1+\dfrac{1}{3}\pi_2,\\[0.5em]
+\pi_0+\pi_1+\pi_2=1,
+\end{cases}
+\]
+解得
+\[
+\pi_0=\frac{1}{5},\quad\pi_1=\frac{3}{5},\quad\pi_2=\frac{1}{5}.
+\]
+\end{example}
+
+\section*{作业}
+
+《概率论与数理统计》
+
+pp.~333--334, \#4, \#5, \#10
+
 \end{document}
