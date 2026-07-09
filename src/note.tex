@@ -10896,4 +10896,666 @@ n_{2}=8,\quad \bar{x}_{B}=79.98,\quad s_{B}^{2}=0.031^{2}.
     \item 由样本值具体计算统计量 $Z$ 的观察值 $z$，并做出判断，若 $|z|\geq z_{\alpha/2}$，则拒绝 $H_{0}$，接受 $H_{1}$；若 $|z|<z_{\alpha/2}$，则不拒绝 $H_{0}$。
 \end{enumerate}
 
+\section{假设检验中的 \texorpdfstring{$p$}{p} 值法}
+
+\subsection{\texorpdfstring{$p$}{p} 值的定义与计算}
+
+\begin{example}[$Z$ 检验中的 $p$ 值]
+设总体 $X\sim N(\mu,\sigma^{2})$，$\mu$ 未知，$\sigma^{2}=100$，现有样本 $x_{1},x_{2},\ldots,x_{52}$，算得 $\bar{x}=62.75$。现在检验假设
+\[
+H_{0}\colon\mu\leq\mu_{0}=60,\qquad H_{1}\colon\mu>60.
+\]
+采用 $Z$ 检验法，检验统计量为
+\[
+Z=\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}}\sim N(0,1).
+\]
+代入样本值，得 $Z$ 的观察值为
+\[
+z_{0}=\frac{62.75-60}{10/\sqrt{52}}=1.983.
+\]
+于是
+\[
+P\{Z\geq z_{0}\}=P\{Z\geq 1.983\}=1-\Phi(1.983)=0.0238.
+\]
+此概率为 $Z$ 检验法的右边检验的 $p$ 值，记为
+\[
+P\{Z\geq z_{0}\}=p\text{ 值}.
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_p_value.png}
+    \caption{$p$ 值示意图（标准正态分布，右侧尾部面积 $p=0.0238$，临界值 $z_{0}=1.983$）}
+    \label{fig:p_value}
+\end{figure}
+
+若 $\alpha\geq p$，对应临界值 $z_{\alpha}\leq 1.983$，观察值 $z_{0}$ 落在拒绝域内，因而拒绝 $H_{0}$；若 $\alpha<p$，则 $z_{\alpha}>1.983$，观察值 $z_{0}$ 落在拒绝域外，因而接受 $H_{0}$。
+
+$p=0.0238$ 是 $H_{0}$ 被拒绝的最小显著性水平。
+\end{example}
+
+\begin{definition}[$p$ 值]
+假设检验问题的\textbf{$p$ 值}（probability value）是由检验统计量的样本观察值得出的原假设可被拒绝的最小显著性水平。
+
+任何检验问题的 $p$ 值可以根据检验统计量的样本观察值以及检验统计量在 $H_{0}$ 下的一个特定参数值对应的分布求出。
+\end{definition}
+
+例如：正态总体均值检验中，当 $\sigma^{2}$ 未知时，可采用检验统计量
+\[
+t=\frac{\bar{X}-\mu_{0}}{S/\sqrt{n}},\quad t\sim t(n-1).
+\]
+
+如果由样本求得统计量 $t$ 的观察值为 $t_{0}$，那么以下检验问题的 $p$ 值分析如下：
+
+\begin{enumerate}[label=(\arabic*)]
+    \item \textbf{右边检验}：$H_{0}\colon\mu\leq\mu_{0},\ H_{1}\colon\mu>\mu_{0}$
+    \[
+    p\text{ 值}=P_{\mu_{0}}\{t\geq t_{0}\}=t_{0}\text{ 右侧尾部面积}.
+    \]
+    % 图片：$t$ 分布右侧尾部，$t_{0}$ 右侧面积为 $p$ 值
+
+    \item \textbf{左边检验}：$H_{0}\colon\mu\geq\mu_{0},\ H_{1}\colon\mu<\mu_{0}$
+    \[
+    p\text{ 值}=P_{\mu_{0}}\{t\leq t_{0}\}=t_{0}\text{ 左侧尾部面积}.
+    \]
+    % 图片：$t$ 分布左侧尾部，$t_{0}$ 左侧面积为 $p$ 值
+
+    \item \textbf{双边检验}：$H_{0}\colon\mu=\mu_{0},\ H_{1}\colon\mu\neq\mu_{0}$
+    \begin{itemize}
+        \item 当 $t_{0}>0$ 时，
+        \[
+        p\text{ 值}=P_{\mu_{0}}\{|t|\geq t_{0}\}=P_{\mu_{0}}\{(t\leq -t_{0})\cup(t\geq t_{0})\}=2\times(t_{0}\text{ 右侧尾部面积}).
+        \]
+        % 图片：$t$ 分布双侧尾部，$t_{0}$ 右侧面积为 $p/2$
+        \item 当 $t_{0}<0$ 时，
+        \[
+        p\text{ 值}=P_{\mu_{0}}\{|t|\geq -t_{0}\}=P_{\mu_{0}}\{(t\leq t_{0})\cup(t\geq -t_{0})\}=2\times(t_{0}\text{ 左侧尾部面积}).
+        \]
+        % 图片：$t$ 分布双侧尾部，$t_{0}$ 左侧面积为 $p/2$
+    \end{itemize}
+\end{enumerate}
+
+\subsection{\texorpdfstring{$p$}{p} 值法的决策规则}
+
+按照 $p$ 值的定义，对于任意指定的显著性水平 $\alpha$，有
+\begin{enumerate}[label=(\arabic*)]
+    \item 若 $p$ 值 $\leq\alpha$，则在显著性水平 $\alpha$ 下拒绝 $H_{0}$；
+    \item 若 $p$ 值 $>\alpha$，则在显著性水平 $\alpha$ 下接受 $H_{0}$。
+\end{enumerate}
+这种利用 $p$ 值来确定是否拒绝 $H_{0}$ 的方法称为\textbf{$p$ 值法}。
+
+\textbf{注意}：
+\begin{enumerate}[label=(\arabic*)]
+    \item 与临界值法相比，$p$ 值法给出了有关拒绝域的更多的信息。
+    \item $p$ 值表示反对原假设 $H_{0}$ 的依据的强度，$p$ 值越小，反对 $H_{0}$ 的依据越强、越充分。
+\end{enumerate}
+
+\begin{example}[天然牛奶掺水——$p$ 值法]
+天然牛奶的冰点温度近似服从正态分布，均值 $\mu_{0}=-0.545^{\circ}\mathrm{C}$，标准差 $\sigma=0.008^{\circ}\mathrm{C}$。牛奶掺水可以使冰点温度升高至水的冰点温度（$0^{\circ}\mathrm{C}$）。测得生产商提交的 $5$ 批牛奶的冰点温度，其均值为 $\bar{x}=-0.535^{\circ}\mathrm{C}$，问是否可以认为生产商在牛奶中掺了水？
+
+\textbf{用 $p$ 值法检验}：
+\[
+H_{0}\colon\mu\leq\mu_{0}\ (\text{未掺水}),\qquad H_{1}\colon\mu>\mu_{0}\ (\text{已掺水}).
+\]
+检验统计量
+\[
+Z=\frac{\bar{X}-\mu_{0}}{\sigma/\sqrt{n}},
+\]
+代入样本值得
+\[
+z_{0}=\frac{-0.535-(-0.545)}{0.008/\sqrt{5}}=2.795.
+\]
+$p$ 值为
+\[
+p\text{ 值}=P_{\mu_{0}}\{Z\geq 2.795\}=1-\Phi(2.795)=0.0026.
+\]
+因为 $p$ 值 $=0.0026<\alpha=0.05$，故拒绝 $H_{0}$。
+\end{example}
+
+\section{分布假设检验}
+
+参数检验：总体分布类型已知，对其中的未知参数进行检验。
+
+非参数检验：根据总体的样本对其分布进行推断和检验。
+\begin{itemize}[leftmargin=2em]
+    \item 单个分布的 $\chi^{2}$ 拟合检验
+    \item 分布族的 $\chi^{2}$ 拟合检验
+    \item 置换检验
+\end{itemize}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/fig_pearson_portrait.png}
+    \caption{Karl Pearson (1857-1936) 肖像}
+    \label{fig:pearson_portrait}
+\end{figure}
+
+\subsection{引例}
+
+\begin{enumerate}[label=(\arabic*)]
+    \item $1500$ 年到 $1931$ 年的 $432$ 年间，每年爆发战争的次数可以看作一个随机变量 $X$，据统计，这 $432$ 年间共爆发 $299$ 次战争。根据经验，可以假设 $X$ 服从泊松分布。
+    \begin{table}[htbp]
+    \centering
+    \begin{tabular}{@{}cccccc@{}}
+    \toprule
+    战争次数 $X$ & $0$ & $1$ & $2$ & $3$ & $4$ \\
+    \midrule
+    发生 $X$ 次战争的年数 & $223$ & $142$ & $48$ & $15$ & $4$ \\
+    \bottomrule
+    \end{tabular}
+    \end{table}
+    \item 检验某工厂制造的色子是否均匀？
+\end{enumerate}
+
+分布拟合检验——检验总体是否具有某一个指定的分布或属于某一个分布族。
+
+\subsection[单个分布的 chi^2 拟合检验]{单个分布的\ $\chi^{2}$ 拟合检验}
+
+设总体 $X$ 的分布未知，$X_{1},X_{2},\ldots,X_{n}$ 是来自 $X$ 的样本值。检验假设：
+\[
+H_{0}\colon\text{总体 }X\text{ 的分布函数为 }F(x),\qquad H_{1}\colon\text{总体 }X\text{ 的分布函数不是 }F(x).
+\]
+其中 $F(x)$ 设不含未知参数。
+
+\textbf{定义检验统计量}：
+\begin{itemize}[leftmargin=2em]
+    \item 设总体 $X$ 的取值范围分成互不相交的子集：$A_{1},A_{2},\ldots,A_{k}$；
+    \item 样本的观察值为：$x_{1},x_{2},\ldots,x_{n}$；
+    \item $f_{i}$ 为样本落在子集 $A_{i}$ 中的个数（实测频数）；
+    \item $p_{i}=P(A_{i})$，根据 $H_{0}$ 中假设分布得到（理论概率）；
+    \item $C_{i}$ 为给定的常数。
+\end{itemize}
+上述统计量度量了样本与 $H_{0}$ 中假设分布的吻合程度。
+
+取 $C_{i}=\frac{n}{p_{i}}$，则检验统计量为
+\[
+\chi^{2}=\sum_{i=1}^{k}\frac{n}{p_{i}}\left(\frac{f_{i}}{n}-p_{i}\right)^{2}=\sum_{i=1}^{k}\frac{(f_{i}-np_{i})^{2}}{np_{i}}=\sum_{i=1}^{k}\frac{f_{i}^{2}}{np_{i}}-n.
+\]
+
+\begin{theorem}
+若 $n$ 充分大（$n\geq 50$），则当 $H_{0}$ 为真时统计量
+\[
+\chi^{2}=\sum_{i=1}^{k}\frac{(f_{i}-np_{i})^{2}}{np_{i}}\sim\chi^{2}(k-1)\quad(\text{近似}).
+\]
+\end{theorem}
+
+如果样本观察值使得
+\[
+\chi^{2}\geq\chi_{\alpha}^{2}(k-1),
+\]
+则在显著性水平 $\alpha$ 下拒绝 $H_{0}$，否则接受 $H_{0}$。这就是所谓的\textbf{$\chi^{2}$ 拟合检验法}。
+
+\textbf{注意}：
+\begin{enumerate}[label=(\arabic*)]
+    \item $n\geq 50$；$np_{i}\geq 5$，否则适当合并 $A_{i}$；
+    \item 待检验的可以是分布、分布律或分布密度：
+    \begin{itemize}
+        \item 如果总体分布为离散型，原假设的形式为 $H_{0}\colon$ 总体 $X$ 的分布律为 $P\{X=x_{i}\}=p_{i},\ i=1,2,\ldots$
+        \item 如果总体分布为连续型，原假设的形式为 $H_{0}\colon$ 总体 $X$ 的概率密度函数为 $f(x)$。
+    \end{itemize}
+\end{enumerate}
+
+\begin{example}[雷暴雨次数]
+下表列出了某一地区在夏季的一个月中由 $100$ 个气象站报告的雷暴雨的次数：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccccccc@{}}
+\toprule
+$i$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $\geq 6$ \\
+\midrule
+$f_{i}$ & $22$ & $37$ & $20$ & $13$ & $6$ & $2$ & $0$ \\
+$A_{i}$ & $A_{0}$ & $A_{1}$ & $A_{2}$ & $A_{3}$ & $A_{4}$ & $A_{5}$ & $A_{6}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+其中 $f_{i}$ 是报告雷暴雨次数为 $i$ 的气象站数。试用 $\chi^{2}$ 拟合检验法检验雷暴雨的次数 $X$ 是否服从均值 $\lambda=1$ 的泊松分布（取 $\alpha=0.05$）。
+
+\textbf{解}：
+\[
+H_{0}\colon P\{X=i\}=\frac{\lambda^{i}e^{-\lambda}}{i!}=\frac{e^{-1}}{i!},\quad i=0,1,\ldots
+\]
+$X$ 所有可能的取值为 $\Omega=\{0,1,2,\ldots\}$，将 $\Omega$ 分成如表所示的两两不相交的子集 $A_{0},A_{1},\ldots,A_{6}$，则有：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$A_{i}$ & $f_{i}$ & $p_{i}$ & $np_{i}$ & $f_{i}^{2}/(np_{i})$ \\
+\midrule
+$A_{0}\colon\{X=0\}$ & $22$ & $e^{-1}$ & $36.788$ & $13.16$ \\
+$A_{1}\colon\{X=1\}$ & $37$ & $e^{-1}$ & $36.788$ & $37.21$ \\
+$A_{2}\colon\{X=2\}$ & $20$ & $e^{-1}/2$ & $18.394$ & $21.75$ \\
+$A_{3}\colon\{X=3\}$ & $13$ & $e^{-1}/6$ & $6.131$ & $27.53$ \\
+$A_{4}\colon\{X=4\}$ & $6$ & $e^{-1}/24$ & $1.533$ & \multirow{3}{*}{$54.92$} \\
+$A_{5}\colon\{X=5\}$ & $2$ & $e^{-1}/120$ & $0.307$ & \\
+$A_{6}\colon\{X\geq 6\}$ & $0$ & $1-\sum_{i=0}^{5}p_{i}$ & $0.059$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+合并后 $k=4$，$n=100$。
+
+由统计量的观察值得：
+\[
+\chi^{2}=\sum_{i=1}^{k}\frac{f_{i}^{2}}{np_{i}}-n=127.04-100=27.04>7.815=\chi_{0.05}^{2}(3).
+\]
+所以，在显著性水平 $\alpha=0.05$ 下拒绝 $H_{0}$，认为样本不是来自均值 $\lambda=1$ 的泊松分布。
+\end{example}
+
+\begin{example}[孟德尔豌豆杂交试验]
+用圆润黄色豌豆与皱皮绿色豌豆杂交，得到后代的可能有 $4$ 种类型：圆润黄色、皱皮黄色、皱皮绿色、圆润绿色。四种类型服从多项式分布，由孟德尔遗传理论预测的参数为：
+\[
+p_{0}=\left(\frac{9}{16},\frac{3}{16},\frac{3}{16},\frac{1}{16}\right).
+\]
+现有 $556$ 个豌豆样本，四种类型的数量分别为
+\[
+X=(315,101,108,32).
+\]
+试分析该数据是否与孟德尔的理论相符。
+
+\textbf{解}：$H_{0}\colon p=p_{0}=\left(\frac{9}{16},\frac{3}{16},\frac{3}{16},\frac{1}{16}\right)$。
+
+检验统计量：
+\[
+\chi^{2}=\sum_{i=1}^{4}\frac{(f_{i}-np_{i})^{2}}{np_{i}}
+=\frac{(315-312.75)^{2}}{312.75}+\frac{(101-104.25)^{2}}{104.25}+\frac{(108-104.25)^{2}}{104.25}+\frac{(32-34.75)^{2}}{34.75}
+=0.47.
+\]
+查表得 $\chi_{0.05}^{2}(3)=7.815$，$\chi^{2}<\chi_{\alpha}^{2}(k-1)$，所以在显著性水平 $\alpha=0.05$ 下接受 $H_{0}$，认为该数据与孟德尔的理论相符。
+\end{example}
+
+\subsubsection*{$\chi^{2}$ 拟合检验法的基本步骤}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 将总体 $X$ 的取值范围分成 $k$ 个互不重叠的小区间，记为 $A_{1},A_{2},\ldots,A_{k}$；
+    \item 落在第 $i$ 个小区间的样本值个数记作 $f_{i}$（实测频数，$f_{1}+f_{2}+\cdots+f_{k}=n$）；
+    \item 根据所假设的分布，算出总体 $X$ 的值落在每个 $A_{i}$ 的概率 $p_{i}$（则 $np_{i}$ 为样本的理论频数）；
+    \item 引进检验统计量 $\chi^{2}=\sum_{i=1}^{k}\frac{(f_{i}-np_{i})^{2}}{np_{i}}$，当 $n$ 充分大时（$n\geq 50$），$\chi^{2}\sim\chi^{2}(k-1)$；
+    \item 根据样本值计算统计量是否落入拒绝域 $\chi^{2}>\chi_{\alpha}^{2}(k-1)$。
+\end{enumerate}
+
+$\chi^{2}$ 拟合检验法是在总体 $X$ 的分布未知时，根据来自总体的样本检验关于总体分布的假设的一种试验方法。一般地，我们可以根据样本观察值用直方图和经验分布函数推断出总体可能服从的分布，然后做检验。
+
+\subsection{分布族的\ $\chi^{2}$ 拟合检验}
+
+$H_{0}\colon$ 总体 $X$ 的分布函数是 $F(x;\theta_{1},\theta_{2},\ldots,\theta_{r})$。
+
+其中 $F$ 的形式已知，参数 $\Theta=(\theta_{1},\theta_{2},\ldots,\theta_{r})$ 未知，$F(x;\theta_{1},\theta_{2},\ldots,\theta_{r})$ 代表一族分布。
+
+\textbf{定义检验统计量}：
+\[
+\chi^{2}=\sum_{i=1}^{k}\frac{(f_{i}-n\widehat{p}_{i})^{2}}{n\widehat{p}_{i}}.
+\]
+总体 $X$ 的取值范围分成 $k$（$k\geq r+1$）个互不相交的子集：$A_{1},A_{2},\ldots,A_{k}$。
+$\widehat{p}_{i}=p_{i}(\widehat{\theta}_{1},\widehat{\theta}_{2},\ldots,\widehat{\theta}_{r})=P(A_{i})$，$\widehat{p}_{i}$ 是由样本求出的估计值。
+
+可以证明，在某些条件下，当 $H_{0}$ 为真时近似地有
+\[
+\chi^{2}=\sum_{i=1}^{k}\frac{(f_{i}-n\widehat{p}_{i})^{2}}{n\widehat{p}_{i}}\sim\chi^{2}(k-r-1).
+\]
+
+类似地，分布族的假设检验问题的拒绝域为
+\[
+\chi^{2}\geq\chi_{\alpha}^{2}(k-r-1).
+\]
+这就是检验分布族的\textbf{$\chi^{2}$ 拟合检验法}。
+
+\begin{example}[地震间隔天数]
+自 $1965$ 年 $1$ 月 $1$ 日至 $1971$ 年 $2$ 月 $9$ 日共 $2231$ 天中，全世界里氏 $4$ 级和 $4$ 级以上地震总计 $162$ 次，统计如下：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cccccccccc@{}}
+\toprule
+间隔天数 & $0$--$4$ & $5$--$9$ & $10$--$14$ & $15$--$19$ & $20$--$24$ & $25$--$29$ & $30$--$34$ & $35$--$39$ & $\geq 40$ \\
+\midrule
+频数 & $50$ & $31$ & $26$ & $17$ & $10$ & $8$ & $6$ & $6$ & $8$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+试检验相继两次地震间隔的天数 $X$ 服从指数分布（$\alpha=0.05$）。
+
+\textbf{解}：需检验假设 $H_{0}\colon X$ 的概率密度为
+\[
+f(x)=\begin{cases}
+\frac{1}{\theta}e^{-\frac{x}{\theta}}, & x>0,\\[0.3em]
+0, & x\leq 0,
+\end{cases}
+\]
+其中参数 $\theta$ 未知。
+
+由最大似然估计法求得 $\theta$ 的估计值为：
+\[
+\widehat{\theta}=\bar{x}=\frac{2231}{162}=13.77.
+\]
+
+当 $H_{0}$ 成立时，$X$ 可能取值的全体为 $[0,+\infty)$。将此区间分成 $9$ 个互不重叠的小区间：
+\[
+A_{1}=[0,4.5],\ A_{2}=(4.5,9.5],\ \ldots,\ A_{9}=(39.5,+\infty).
+\]
+
+若 $H_{0}$ 为真，则 $X$ 的分布函数的估计为：
+\[
+\widehat{F}(x)=\begin{cases}
+1-e^{-\frac{x}{13.77}}, & x>0,\\[0.3em]
+0, & x\leq 0.
+\end{cases}
+\]
+
+由此可得 $\widehat{p}_{i}$ 的估计：
+\[
+\widehat{p}_{i}=\widehat{P}(A_{i})=\widehat{P}\{a_{i}<X\leq a_{i+1}\}=\widehat{F}(a_{i+1})-\widehat{F}(a_{i}).
+\]
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccc@{}}
+\toprule
+$A_{i}$ & $f_{i}$ & $\widehat{p}_{i}$ & $n\widehat{p}_{i}$ & $f_{i}^{2}/(n\widehat{p}_{i})$ \\
+\midrule
+$A_{0}\colon 0\leq x\leq 4.5$ & $50$ & $0.2788$ & $45.1656$ & $55.3519$ \\
+$A_{1}\colon 4.5<x\leq 9.5$ & $31$ & $0.2196$ & $35.5752$ & $27.0132$ \\
+$A_{2}\colon 9.5<x\leq 14.5$ & $26$ & $0.1527$ & $24.7374$ & $27.3270$ \\
+$A_{3}\colon 14.5<x\leq 19.5$ & $17$ & $0.1062$ & $17.2044$ & $16.7980$ \\
+$A_{4}\colon 19.5<x\leq 24.5$ & $10$ & $0.0739$ & $11.9718$ & $8.3530$ \\
+$A_{5}\colon 24.5<x\leq 29.5$ & $8$ & $0.0514$ & $8.3268$ & $7.6860$ \\
+$A_{6}\colon 29.5<x\leq 34.5$ & $6$ & $0.0358$ & $5.7996$ & $6.2073$ \\
+$A_{7}\colon 34.5<x\leq 39.5$ & $6$ & $0.0248$ & $4.0176$ & $14.8269$ \\
+$A_{8}\colon 39.5<x<\infty$ & $8$ & $0.0568$ & $9.2016$ & $13.2192$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+将计算结果列成表格，合并第 $8$ 和第 $9$ 区间，并计算：
+\[
+\chi^{2}=\sum_{i=1}^{k}\frac{(f_{i}-n\widehat{p}_{i})^{2}}{n\widehat{p}_{i}}=163.5633-162=1.5633.
+\]
+\[
+\chi_{0.05}^{2}(k-r-1)=\chi_{0.05}^{2}(6)=12.592>1.5633.
+\]
+所以，在显著性水平 $0.05$ 下接受 $H_{0}$，认为 $X$ 服从指数分布。
+
+\textbf{注意}：本题答案是“接受 $H_{0}$，认为 $X$ 服从指数分布”，即认为 $X\sim E(\theta)$。不能说“$X$ 服从参数 $\theta=13.77$ 的指数分布”。
+\end{example}
+
+\subsection{置换检验}
+
+由 R. A. Fisher 在 $1930$ 年提出。
+
+\textbf{问题}：$X_{1},\ldots,X_{m}\sim F_{X}$ 和 $Y_{1},\ldots,Y_{n}\sim F_{Y}$ 为独立样本，检验假设
+\[
+H_{0}\colon F_{X}=F_{Y},\qquad H_{1}\colon F_{X}\neq F_{Y}.
+\]
+
+\textbf{置换检验}：一种重采样技术，用于上述假设检验问题。
+
+\textbf{置换样本}：对原始样本 $Z=(X_{1},\ldots,X_{m},Y_{1},\ldots,Y_{n})$ 进行 $N=m+n$ 次无放回采样，得到 $N$ 个样本，称为一个\textbf{置换样本}。
+\begin{itemize}[leftmargin=2em]
+    \item 共有 $N!$ 个置换样本。
+\end{itemize}
+
+令 $T(X_{1},\ldots,X_{m},Y_{1},\ldots,Y_{n})$ 为检验统计量，每个置换样本对应一个统计量的值
+\[
+T_{i}=T(X_{1}^{i},\ldots,X_{m}^{i},Y_{1}^{i},\ldots,Y_{n}^{i}).
+\]
+共有 $N!$ 个检验统计量：$T_{1},\ldots,T_{N!}$。
+
+令 $t_{o}$ 为检验统计量 $T$ 的观察值。假设当 $t_{o}$ 很大时拒绝原假设，则假设检验问题的 $p$ 值为：
+\[
+p\text{ 值}=P\{T>t_{o}\}=\frac{1}{N!}\sum_{i=1}^{N!}I(T_{i}>t_{o}).
+\]
+
+当 $H_{0}$ 成立时，$F_{X}=F_{Y}$，$X$ 与 $Y$ 的地位相等，所以置换样本的分布为 $\mathrm{Uniform}(1,N!)$。
+
+当 $N$ 较大时，通常不用所有的 $N!$ 个置换样本，而是从置换样本集合中随机选择一部分样本，来近似计算 $p$ 值。
+
+\textbf{置换检验的一般步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 计算检验统计量 $T$ 的观测值
+    \[
+    t_{o}=T(X_{1},\ldots,X_{m},Y_{1},\ldots,Y_{n});
+    \]
+    \item 随机置换数据，并计算置换样本的统计量，重复 $B$ 次，得到 $T_{1},\ldots,T_{B}$；
+    \item $p$ 值可近似计算为：
+    \[
+    \frac{1}{B}\sum_{j=1}^{B}I(T_{j}>t_{o});
+    \]
+    \item 若 $p<\alpha$，则拒绝原假设，接受备择假设。
+\end{enumerate}
+
+\begin{example}[简单置换检验]
+假设数据为 $X_{1}=1,X_{2}=9,Y_{1}=3$，检验 $H_{0}\colon\mu_{X}=\mu_{Y},\ H_{1}\colon\mu_{X}\neq\mu_{Y}$（取 $\alpha=0.05$）。
+
+令 $t_{o}=T(X_{1},X_{2},Y_{1})=\bar{X}-\bar{Y}=2$，则置换为：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+置换 & $T$ 值 & 概率 \\
+\midrule
+$(1,9,3)$ & $2$ & $1/6$ \\
+$(9,1,3)$ & $2$ & $1/6$ \\
+$(1,3,9)$ & $7$ & $1/6$ \\
+$(3,1,9)$ & $7$ & $1/6$ \\
+$(3,9,1)$ & $5$ & $1/6$ \\
+$(9,3,1)$ & $5$ & $1/6$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+则 $p$ 值 $=P\{T>2\}=\frac{4}{6}>0.05$，没有足够证据拒绝 $H_{0}$。
+\end{example}
+
+\begin{example}[DNA 阵列基因表达]
+DNA 阵列可用来度量基因的表达水平。数据包括每个基因的 mRNA 的水平（mRNA 可以衡量该基因产生蛋白质的数量）。粗略地讲，该数值越大，基因越活跃。下表显示 $10$ 位携带两类肝癌细胞的病人的基因的表达水平，试验中共涉及 $2638$ 个基因。
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccccccccccc@{}}
+\toprule
+类型 & \multicolumn{5}{c}{类型 1} & \multicolumn{5}{c}{类型 2} \\
+\midrule
+病人 & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ \\
+基因 $1$ & $230$ & $-1350$ & $-1580$ & $-400$ & $-760$ & $970$ & $110$ & $-50$ & $-100$ & $-200$ \\
+基因 $2$ & $470$ & $-850$ & $-0.8$ & $-280$ & $120$ & $390$ & $-1730$ & $-1360$ & $-1$ & $-330$ \\
+$\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{检验}：两组病人中基因 $1$ 的中值是否有明显差异。
+
+\textbf{解}：令 $V_{1}$：类型 $1$ 中基因 $1$ 的中值；$V_{2}$：类型 $2$ 中基因 $1$ 的中值。
+
+检验统计量：
+\[
+T=|V_{1}-V_{2}|=710.
+\]
+
+通过仿真估计置换分布，计算得到：
+\[
+p\text{ 值}=0.045.
+\]
+
+如果取 $\alpha=0.05>p$ 值，则拒绝 $H_{0}$，即认为两个中值有显著差异。
+\end{example}
+
+\subsection{分布假设检验总结}
+
+参数检验：总体分布类型已知，对其中的未知参数进行检验。
+
+非参数检验：根据总体的样本对其分布进行推断和检验（分布拟合检验）——检验总体是否具有某一个指定的分布或属于某一个分布族。
+\begin{itemize}[leftmargin=2em]
+    \item 单个分布的 $\chi^{2}$ 拟合检验
+    \item 分布族的 $\chi^{2}$ 拟合检验
+    \item 置换检验
+\end{itemize}
+
+\section{多重假设检验}
+
+即便每个检验的显著性水平控制为 $\alpha$，多重检验中犯一次弃真错误的概率依然很高。
+
+考虑 $m$ 重假设检验：
+\[
+H_{0i}\quad\text{vs.}\quad H_{1i},\qquad i=1,\ldots,m.
+\]
+令 $P_{1},\ldots,P_{m}$ 表示以上检验的 $m$ 个 $p$-值。
+
+\subsection{Bonferroni 方法}
+
+已知 $m$ 重假设检验的 $p$-值 $P_{1},\ldots,P_{m}$，如果 $P_{i}<\alpha/m$，则拒绝原假设 $H_{0i}$。
+
+\begin{theorem}
+使用 Bonferroni 方法做多重假设检验，犯弃真错误的概率小于等于 $\alpha$。
+\end{theorem}
+
+\textbf{证明}：令 $R=\{\text{至少犯一个弃真错误}\}$，$R_{i}=\{\text{第 }i\text{ 个假设检验犯了弃真错误}\}$。
+\[
+P(R)=P\left(\bigcup_{i=1}^{m}R_{i}\right)\leq\sum_{i=1}^{m}P(R_{i})=\sum_{i=1}^{m}\frac{\alpha}{m}=\alpha.
+\]
+
+Bonferroni 方法是一种比较保守的方法。
+
+更合理的想法是控制\textbf{错误发现率}（false discovery rate, FDR）。
+
+FDR：错误拒绝原假设的个数占所有被拒绝的原假设个数的比例的期望值。
+\begin{itemize}[leftmargin=2em]
+    \item $1995$ 年 Benjamini 和 Hochberg 首次提出了 FDR 的概念，并给出了在多重检验中对它的控制方法（BH 方法）。
+\end{itemize}
+
+\subsection{错误发现比例与 FDR}
+
+在 $m$ 重检验中，如果有 $m_{0}$ 个正确的原假设，$m_{1}$ 个错误的原假设，那么假设检验可以按下表划分：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+& \textbf{接受 $H_{0}$} & \textbf{拒绝 $H_{0}$} & \textbf{总计} \\
+\midrule
+$H_{0}$ 正确 & $U$ & $V$ & $m_{0}$ \\
+$H_{0}$ 错误 & $T$ & $S$ & $m_{1}$ \\
+总计 & $m-R$ & $R$ & $m$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{错误发现比例}（false discovery proportion, FDP）：
+\[
+\mathrm{FDP}=\begin{cases}
+\dfrac{V}{R}, & R>0,\\[0.5em]
+0, & R=0.
+\end{cases}
+\]
+\[
+\mathrm{FDR}=E[\mathrm{FDP}].
+\]
+
+\subsection{BH 方法}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 令 $P_{(1)}<\cdots<P_{(m)}$ 表示排序后的 $p$-值；
+    \item 定义
+    \[
+    l_{i}=\frac{i\alpha}{c_{m}m},\quad R=\max\{i\colon P_{(i)}<l_{i}\}.
+    \]
+    当 $p$-值独立时 $c_{m}$ 取值 $1$，否则 $c_{m}=\sum_{i=1}^{m}\frac{1}{i}$。
+    \item 令 $t=P_{(R)}$，$t$ 称为 BH 拒绝阈值；
+    \item 对于所有 $P_{(i)}\leq t$，拒绝原假设 $H_{0i}$。
+\end{enumerate}
+
+可以证明，BH 方法能够将 FDR 控制在显著性水平范围内，即：
+\[
+\mathrm{FDR}=E[\mathrm{FDP}]\leq\alpha.
+\]
+
+\begin{example}[BH 方法做 FDR 校正]
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cc@{}}
+\toprule
+Gene & $p$-value \\
+\midrule
+G1 & $P_{1}=0.053$ \\
+G2 & $P_{2}=0.001$ \\
+G3 & $P_{3}=0.045$ \\
+G4 & $P_{4}=0.03$ \\
+G5 & $P_{5}=0.02$ \\
+G6 & $P_{6}=0.01$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+排序后：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}cc@{}}
+\toprule
+Gene & $p$-value \\
+\midrule
+G2 & $P_{(1)}=0.001$ \\
+G6 & $P_{(2)}=0.01$ \\
+G5 & $P_{(3)}=0.02$ \\
+G4 & $P_{(4)}=0.03$ \\
+G3 & $P_{(5)}=0.045$ \\
+G1 & $P_{(6)}=0.053$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_bh_method.png}
+    \caption{BH 方法示意图（$p$-值排序、阈值线 $l_{i}=\alpha\frac{i}{m}$、$q$-值计算 $q_{i}=p\frac{m}{i}$）}
+    \label{fig:bh_method}
+\end{figure}
+
+计算 $q$-值：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}c@{}}
+\toprule
+$q$-value \\
+\midrule
+$0.006$ \\
+$0.03$ \\
+$0.04$ \\
+$0.045$ \\
+$0.054$ \\
+$0.053$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{example}
+
+\section*{假设检验小结}
+
+% 跳过：fig_hypothesis_testing_classification 在C24中无对应图片
+
+\section*{假设检验的类比}
+
+\begin{itemize}[leftmargin=2em]
+    \item 原假设：被告无罪；备择假设：被告是有罪的。
+    \item 原则：无罪推定（保护原假设）。
+    \item 最后的判决：当有明显犯罪证据时，判决被告有罪。
+    \begin{itemize}
+        \item 证据是否明显由临界值决定（法律条文的规定）。
+        \item 法律条文的严厉程度，决定了对被告的保护程度。
+        \item 如法律条文严厉，保护被告的程度弱。
+        \item 不管怎样制定条文，总有好人被冤枉，总有坏人漏网，即总会犯错误，但这样的事件是小概率事件。
+    \end{itemize}
+\end{itemize}
+
+\section*{作业}
+
+《概率论与数理统计》（第五版）
+
+P.~216--217, \#6, \#8, \#10, \#17
+
+P.~219--220, \#25, \#27, \#29
+
 \end{document}
