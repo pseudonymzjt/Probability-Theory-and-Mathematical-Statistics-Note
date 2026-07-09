@@ -4734,4 +4734,1133 @@ print(f"{confidence*100}%的置信区间为: {interval}")
 \end{verbatim}
 \end{example}
 
+\newpage
+\chapter{假设检验、方差分析及回归分析}
+
+\section{重点与难点}
+
+\textbf{重点}：
+\begin{itemize}[leftmargin=2em]
+    \item 理解“假设”的概念和基本类型。
+    \item 理解并掌握假设检验的基本思想和基本步骤。
+    \item 掌握正态总体均值和方差的假设检验。
+    \item 掌握假设检验中的$p$值法。
+    \item 单因素试验与双因素试验方差分析的数学模型。
+    \item 一元线性回归与多元线性回归的数学模型。
+\end{itemize}
+
+\textbf{难点}：
+\begin{itemize}[leftmargin=2em]
+    \item 分布假设检验。
+    \item 方差分析表的数学模型与应用。
+\end{itemize}
+
+\section{假设检验}
+
+\subsection{基本概念}
+
+\begin{definition}[假设检验]
+事先作出关于总体参数、分布形式、相互关系等的命题（假设），然后通过样本信息来判断该命题是否成立（检验）。
+\end{definition}
+
+\textbf{两类假设检验问题}：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{参数检验}：总体分布类型已知，但含有未知参数，对未知参数做某种假设。
+    \item \textbf{非参数检验}：总体分布类型未知，对总体的分布类型等做某种假设。
+\end{itemize}
+
+\begin{definition}[原假设与备择假设]
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{原假设}（null hypothesis）$H_0$：问题中涉及到的假设。
+    \item \textbf{备择假设}（alternative hypothesis）$H_1$：与原假设对立的假设，在原假设被拒绝后可供选择的假设。
+\end{itemize}
+例：$H_0:\mu=\mu_0,\quad H_1:\mu\neq\mu_0$。
+\end{definition}
+
+\textbf{拒绝域与临界点}：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{拒绝域}$C$：当检验统计量取拒绝域$C$中的值时就拒绝$H_0$。
+    \item \textbf{临界点}：拒绝域的边界点。
+\end{itemize}
+
+\textbf{两类错误}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{第I类错误}（弃真）：$P\{H_0\text{实际为真，但是拒绝}H_0\}$。
+    \item \textbf{第II类错误}（取伪）：$P\{H_0\text{实际为假，但是接受}H_0\}$。
+\end{enumerate}
+
+\begin{definition}[显著性检验与显著性水平]
+在$H_0$和$H_1$之间，我们倾向于保护$H_0$，即$H_0$确实成立时，做出拒绝$H_0$的概率应是一个很小的正数。这类只对犯第I类错误的概率加以控制，而不考虑犯第II类错误的概率的检验，称为\textbf{显著性检验}。
+
+给定正数$\alpha$（$0<\alpha<1$），显著性检验使得犯第I类错误的概率不超过$\alpha$，即
+\[
+P\{H_0\text{实际为真，但是拒绝}H_0\}\leq\alpha.
+\]
+称$\alpha$为\textbf{显著性水平}。
+\end{definition}
+
+\subsection{假设检验的基本思想}
+
+带有概率性质的反证法：
+\begin{itemize}[leftmargin=2em]
+    \item 用了反证法的思想。
+    \item 反证法中的矛盾是“小概率事件在一次试验中几乎不可能发生”。
+    \item 先假定$H_0$成立，则某事件$A$发生的概率很小。
+    \item 经过一次抽样后，如果事件$A$发生了，根据“小概率几乎不可能发生”原则，拒绝$H_0$；否则，接受$H_0$。
+\end{itemize}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{figures/fig_hypothesis_idea.png}
+%     \caption{假设检验基本思想示意图}
+%     \label{fig:hypothesis_idea}
+% \end{figure}
+
+\subsection{参数的假设检验一般步骤（临界值法）}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 根据实际问题建立原假设$H_0$和备择假设$H_1$；
+    \item 确定检验统计量$T$，并明确其分布；
+    \item 给定显著性水平$\alpha>0$，根据统计量分布，由$P\{T\in R_\alpha\}\leq\alpha$确定拒绝域$R_\alpha$，即选定小概率事件$A$；
+    \item 由样本值具体计算统计量$T$的观察值$t$，并做出判断。若$t\in R_\alpha$，则拒绝$H_0$，接受$H_1$；若$t\notin R_\alpha$，则接受$H_0$。
+\end{enumerate}
+
+\subsection{单边检验和双边检验}
+
+\textbf{双边假设检验}（two-tailed test）：备择假设没有特定的方向性，并含有符号“$\neq$”的假设检验。
+\[
+H_0:\mu=\mu_0,\quad H_1:\mu\neq\mu_0.
+\]
+
+\textbf{单侧检验}（one-tailed test）：备择假设具有特定的方向性，并含有符号“$>$”或“$<$”的假设检验。
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{左侧检验}：备择假设的方向为“$<$”。
+    \[
+    H_0:\mu\geq\mu_0,\quad H_1:\mu<\mu_0.
+    \]
+    \item \textbf{右侧检验}：备择假设的方向为“$>$”。
+    \[
+    H_0:\mu\leq\mu_0,\quad H_1:\mu>\mu_0.
+    \]
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_right_tailed_rejection.png}
+    \caption{单边检验拒绝域示意图}
+    \label{fig:one_tailed_test}
+\end{figure}
+
+\subsection{回顾：三大分布}
+
+\begin{table}[htbp]
+\centering
+\caption{三大分布回顾}
+\begin{tabular}{@{}p{2cm}p{4.5cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+ & \textbf{$\chi^2$分布} & \textbf{$t$分布} & \textbf{$F$分布} \\
+\midrule
+对应随机变量 & $\chi^2=X_1^2+X_2^2+\cdots+X_n^2$ & $t=\dfrac{X}{\sqrt{Y/n}}$ & $F=\dfrac{U/n_1}{V/n_2}$ \\
+\midrule
+条件 & ① $X_i\sim N(0,1)$；②独立同分布 & ① $X\sim N(0,1),Y\sim\chi^2(n)$；② $X,Y$相互独立 & ① $U\sim\chi^2(n_1),V\sim\chi^2(n_2)$；② $U,V$相互独立 \\
+\midrule
+性质 & ①可加性（要求独立）；② $E=n,D=2n$；③ $P\{\chi^2>\chi_\alpha^2(n)\}=\alpha$；$n>40$时：$\chi_\alpha^2(n)\approx\dfrac{1}{2}\left(z_\alpha+\sqrt{2n-1}\right)^2$ & ①对称性；② $n\to\infty$时趋向于标准正态分布；③ $P\{t>t_\alpha(n)\}=\alpha$，$t_{1-\alpha}(n)=-t_\alpha(n)$ & ①若$F\sim F(n_1,n_2)$，则$\dfrac{1}{F}\sim F(n_2,n_1)$；② $P\{F>F_\alpha(n_1,n_2)\}=\alpha$，$F_{1-\alpha}(n_1,n_2)=\dfrac{1}{F_\alpha(n_2,n_1)}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{回顾：单个正态总体的样本均值与样本方差的分布}
+
+\begin{theorem}
+设$X_1,\ldots,X_n$来自正态总体$X\sim N(\mu,\sigma^2)$的随机样本，则
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{样本均值分布}：$\bar{X}=\dfrac{1}{n}\sum_{i=1}^{n}X_i\sim N\left(\mu,\dfrac{\sigma^2}{n}\right)$，即$\dfrac{\bar{X}-\mu}{\sigma/\sqrt{n}}\sim N(0,1)$。
+    \item \textbf{样本方差分布}（总体方差$\sigma^2$已知）：$\dfrac{(n-1)S^2}{\sigma^2}=\dfrac{\sum_{i=1}^{n}(X_i-\bar{X})^2}{\sigma^2}\sim\chi^2(n-1)$。
+    \item \textbf{独立性}：样本均值$\bar{X}$与样本方差$S^2$相互独立。
+    \item \textbf{样本均值与样本方差分布}（总体方差$\sigma^2$未知）：$\dfrac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1)$。
+\end{enumerate}
+\end{theorem}
+
+\subsection{回顾：两个正态总体的样本均值与样本方差的分布}
+
+\begin{theorem}
+设$X_1,\ldots,X_{n_1}$与$Y_1,\ldots,Y_{n_2}$分别来自正态总体$N(\mu_1,\sigma_1^2)$和$N(\mu_2,\sigma_2^2)$的随机样本，且两样本相互独立，则
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{样本的方差比分布}：
+    \[
+    \frac{S_1^2/S_2^2}{\sigma_1^2/\sigma_2^2}\sim F(n_1-1,n_2-1).
+    \]
+    \item \textbf{样本的均值差分布}（当$\sigma_1^2=\sigma_2^2=\sigma^2$时）：
+    \[
+    \frac{(\bar{X}-\bar{Y})-(\mu_1-\mu_2)}{S_w\sqrt{\dfrac{1}{n_1}+\dfrac{1}{n_2}}}\sim t(n_1+n_2-2),
+    \]
+    其中
+    \[
+    S_w^2=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2},\quad S_w=\sqrt{S_w^2}.
+    \]
+\end{enumerate}
+\end{theorem}
+
+\subsection{正态总体的假设检验}
+
+\begin{table}[htbp]
+\centering
+\caption{正态总体均值检验（单个总体）}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+ & \textbf{原假设}$H_0$ & \textbf{备择假设}$H_1$ & \textbf{检验统计量} & \textbf{拒绝域} \\
+\midrule
+\multirow{3}{*}{$\sigma^2$已知} & $\mu\leq\mu_0$ & $\mu>\mu_0$ & \multirow{3}{*}{$Z=\dfrac{\bar{X}-\mu_0}{\sigma/\sqrt{n}}\sim N(0,1)$} & $z\geq z_\alpha$ \\
+ & $\mu\geq\mu_0$ & $\mu<\mu_0$ & & $z\leq -z_\alpha$ \\
+ & $\mu=\mu_0$ & $\mu\neq\mu_0$ & & $|z|\geq z_{\alpha/2}$ \\
+\midrule
+\multirow{3}{*}{$\sigma^2$未知} & $\mu\leq\mu_0$ & $\mu>\mu_0$ & \multirow{3}{*}{$t=\dfrac{\bar{X}-\mu_0}{S/\sqrt{n}}\sim t(n-1)$} & $t\geq t_\alpha(n-1)$ \\
+ & $\mu\geq\mu_0$ & $\mu<\mu_0$ & & $t\leq -t_\alpha(n-1)$ \\
+ & $\mu=\mu_0$ & $\mu\neq\mu_0$ & & $|t|\geq t_{\alpha/2}(n-1)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{正态总体均值检验（两个总体、成对数据）}
+\begin{tabular}{@{}p{2.5cm}llll@{}}
+\toprule
+ & \textbf{原假设}$H_0$ & \textbf{备择假设}$H_1$ & \textbf{检验统计量} & \textbf{拒绝域} \\
+\midrule
+\multirow{3}{2.5cm}{$\sigma_1^2,\sigma_2^2$已知} & $\mu_1-\mu_2\leq\delta$ & $\mu_1-\mu_2>\delta$ & \multirow{3}{*}{$Z=\dfrac{\bar{X}-\bar{Y}-\delta}{\sqrt{\dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2}}}\sim N(0,1)$} & $z\geq z_\alpha$ \\
+ & $\mu_1-\mu_2\geq\delta$ & $\mu_1-\mu_2<\delta$ & & $z\leq -z_\alpha$ \\
+ & $\mu_1-\mu_2=\delta$ & $\mu_1-\mu_2\neq\delta$ & & $|z|\geq z_{\alpha/2}$ \\
+\midrule
+\multirow{3}{2.5cm}{$\sigma_1^2=\sigma_2^2$未知} & $\mu_1-\mu_2\leq\delta$ & $\mu_1-\mu_2>\delta$ & \multirow{3}{*}{$T=\dfrac{\bar{X}-\bar{Y}-\delta}{S_w\sqrt{\dfrac{1}{n_1}+\dfrac{1}{n_2}}}\sim t(n_1+n_2-2)$} & $t\geq t_\alpha(n_1+n_2-2)$ \\
+ & $\mu_1-\mu_2\geq\delta$ & $\mu_1-\mu_2<\delta$ & & $t\leq -t_\alpha(n_1+n_2-2)$ \\
+ & $\mu_1-\mu_2=\delta$ & $\mu_1-\mu_2\neq\delta$ & & $|t|\geq t_{\alpha/2}(n_1+n_2-2)$ \\
+\midrule
+\multirow{3}{2.5cm}{成对数据} & $\mu_D\leq 0$ & $\mu_D>0$ & \multirow{3}{*}{$t=\dfrac{\bar{D}-0}{S_D/\sqrt{n}}\sim t(n-1)$} & $t\geq t_\alpha(n-1)$ \\
+ & $\mu_D\geq 0$ & $\mu_D<0$ & & $t\leq -t_\alpha(n-1)$ \\
+ & $\mu_D=0$ & $\mu_D\neq 0$ & & $|t|\geq t_{\alpha/2}(n-1)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{正态总体方差检验（单个、两个总体）}
+\begin{tabular}{@{}p{2cm}llll@{}}
+\toprule
+ & \textbf{原假设}$H_0$ & \textbf{备择假设}$H_1$ & \textbf{检验统计量} & \textbf{拒绝域} \\
+\midrule
+\multirow{3}{2cm}{单个总体\\($\mu$未知)} & $\sigma^2\leq\sigma_0^2$ & $\sigma^2>\sigma_0^2$ & \multirow{3}{*}{$\chi^2=\dfrac{(n-1)S^2}{\sigma_0^2}\sim\chi^2(n-1)$} & $\chi^2\geq\chi_\alpha^2(n-1)$ \\
+ & $\sigma^2\geq\sigma_0^2$ & $\sigma^2<\sigma_0^2$ & & $\chi^2\leq\chi_{1-\alpha}^2(n-1)$ \\
+ & $\sigma^2=\sigma_0^2$ & $\sigma^2\neq\sigma_0^2$ & & $\chi^2\geq\chi_{\alpha/2}^2(n-1)$或$\chi^2\leq\chi_{1-\alpha/2}^2(n-1)$ \\
+\midrule
+\multirow{3}{2cm}{两个总体\\($\mu_1,\mu_2$未知)} & $\sigma_1^2\leq\sigma_2^2$ & $\sigma_1^2>\sigma_2^2$ & \multirow{3}{*}{$F=\dfrac{S_1^2}{S_2^2}\sim F(n_1-1,n_2-1)$} & $F\geq F_\alpha(n_1-1,n_2-1)$ \\
+ & $\sigma_1^2\geq\sigma_2^2$ & $\sigma_1^2<\sigma_2^2$ & & $F\leq F_{1-\alpha}(n_1-1,n_2-1)$ \\
+ & $\sigma_1^2=\sigma_2^2$ & $\sigma_1^2\neq\sigma_2^2$ & & $F\geq F_{\alpha/2}(n_1-1,n_2-1)$或$F\leq F_{1-\alpha/2}(n_1-1,n_2-1)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/fig_rejection_regions.png}
+    \caption{不同$H_0,H_1$形式下的拒绝域示意图}
+    \label{fig:rejection_region}
+\end{figure}
+
+\subsection{成对数据的均值差的检验}
+
+设$n$对相互独立的样本：$(X_1,Y_1),(X_2,Y_2),\ldots,(X_n,Y_n)$，令$D_i=X_i-Y_i\sim N(\mu_D,\sigma_D^2)$。
+
+原假设$H_0:\mu_D=0$，备择假设$H_1:\mu_D\neq 0$。
+
+样本均值和方差记作：$\bar{D},S_D^2$。
+
+在$H_0$成立的条件下，检验统计量
+\[
+t=\frac{\bar{D}}{S_D/\sqrt{n}}\sim t(n-1).
+\]
+
+\begin{remark}
+什么时候检验成对数据的均值差？当两组样本是配对采集的（同一对象前后两次测量）时，使用成对数据检验；当两组样本相互独立且来自不同总体时，检验两个正态总体的均值差。
+\end{remark}
+
+\subsection{$p$值法}
+
+\begin{definition}[$p$值]
+假设检验问题的$p$值（probability value）是由检验统计量的样本观察值得出的原假设可被拒绝的最小显著性水平。
+
+$p$值表示反对原假设$H_0$的依据的强度，$p$值越小，反对$H_0$的依据越强、越充分。
+\end{definition}
+
+\textbf{判断规则}：
+\begin{itemize}[leftmargin=2em]
+    \item 若$p$值$\leq\alpha$，则在显著性水平$\alpha$下拒绝$H_0$；
+    \item 若$p$值$>\alpha$，则在显著性水平$\alpha$下接受$H_0$。
+\end{itemize}
+
+\textbf{$p$值法一般步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 根据实际问题建立原假设$H_0$和备择假设$H_1$；
+    \item 确定检验统计量$T$，由样本求得$T$的观察值$t_0$；
+    \item 确定$p$值：
+    \begin{itemize}[leftmargin=2em]
+        \item $H_0:\mu\leq\mu_0,H_1:\mu>\mu_0$中，$p$值$=P_{\mu_0}\{t\geq t_0\}$，为$t_0$右侧尾部面积；
+        \item $H_0:\mu\geq\mu_0,H_1:\mu<\mu_0$中，$p$值$=P_{\mu_0}\{t\leq t_0\}$，为$t_0$左侧尾部面积；
+        \item $H_0:\mu=\mu_0,H_1:\mu\neq\mu_0$中，$p$值$=P_{\mu_0}\{|t|\geq|t_0|\}=2P_{\mu_0}\{t\geq|t_0|\}$，为$2$倍$t_0$外侧尾部面积。
+    \end{itemize}
+    \item 若$p$值$\leq\alpha$，则在显著性水平$\alpha$下拒绝$H_0$；否则接受$H_0$。
+\end{enumerate}
+
+\begin{remark}
+临界值法是我们事先给出的一个显著性水平，以此为标准进行决策，无法知道实际的显著性水平究竟是多少。$p$值给出的是实际算出的显著水平，它告诉我们实际的显著性水平是多少。
+\end{remark}
+
+\subsection{分布拟合检验}
+
+\textbf{定义}：检验总体是否具有某一个指定的分布或属于某一个分布族。
+
+\subsubsection{单个分布的$\chi^2$拟合检验}
+
+设总体$X$的分布未知，$x_1,x_2,\ldots,x_n$是来自$X$的样本值。检验假设：
+\[
+H_0:\text{总体}X\text{的分布函数为}F(x);\quad H_1:\text{总体}X\text{的分布函数不是}F(x),
+\]
+其中$F(x)$不含未知参数。
+
+\textbf{皮尔逊定理}：若$n$充分大（$n\geq 50$），则当$H_0$为真时，统计量
+\[
+\chi^2=\sum_{i=1}^{k}\frac{(f_i-np_i)^2}{np_i}=\sum_{i=1}^{k}\frac{f_i^2}{np_i}-n
+\]
+近似服从$\chi^2(k-1)$分布。其中$f_i$为样本落在子集$A_i$中的个数，$p_i=P(A_i)$。
+
+\textbf{步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 将总体$X$的取值范围分成互不相交的子集$A_1,A_2,\ldots,A_k$，由$H_0$假设的分布计算$p_i=P(A_i)$；
+    \item 确定检验统计量$\chi^2=\sum_{i=1}^{k}\frac{(f_i-np_i)^2}{np_i}\sim\chi^2(k-1)$；
+    \item 如果$\chi^2\geq\chi_\alpha^2(k-1)$，则在显著性水平$\alpha$下拒绝$H_0$；否则接受$H_0$。
+\end{enumerate}
+
+\textbf{注意事项}：
+\begin{itemize}[leftmargin=2em]
+    \item 要求$n\geq 50$；$np_i\geq 5$。否则应适当合并区间。
+    \item 待检验的可以是分布、分布律或分布密度。
+\end{itemize}
+
+\subsubsection{分布族的$\chi^2$拟合检验}
+
+需检验的原假设：
+\[
+H_0:\text{总体}X\text{的分布函数是}F(x;\theta_1,\theta_2,\ldots,\theta_r),
+\]
+其中$F$的形式已知，参数$\Theta=(\theta_1,\ldots,\theta_r)$未知。
+
+\textbf{步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 将在$H_0$下$X$可能取值的全体$\Omega$分成$k$（$k>r+1$）个互不相交的子集$A_1,\ldots,A_k$；
+    \item 利用样本求出未知参数$\Theta$在$H_0$下的最大似然估计；
+    \item 以估计值作为参数值，计算$\hat{p}_i=P(A_i)$；
+    \item 确定检验统计量$\chi^2=\sum_{i=1}^{k}\frac{(f_i-n\hat{p}_i)^2}{n\hat{p}_i}\sim\chi^2(k-r-1)$；
+    \item 如果$\chi^2\geq\chi_\alpha^2(k-r-1)$，则在显著性水平$\alpha$下拒绝$H_0$；否则接受$H_0$。
+\end{enumerate}
+
+\subsection{假设检验步骤总结}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/fig_hypothesis_testing_classification.png}
+    \caption{假设检验步骤总结流程图}
+    \label{fig:hypothesis_flowchart}
+\end{figure}
+
+\section{典型例题：假设检验}
+
+\begin{example}[例1]
+设某产品指标服从正态分布，它的标准差$\sigma$为$150$小时。今由一批产品中随机抽取$26$个，测得指标的平均值为$1637$个小时，问在$5\%$的显著性水平下，能否认为该批产品指标为$1600$小时？
+
+\textbf{解}：双边检验。
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item 提出原假设和备择假设：$H_0:\mu=\mu_0=1600$，$H_1:\mu\neq 1600$。
+    \item 显著性水平$\alpha=0.05$，样本容量$n=26$。
+    \item 方差已知，检验统计量$z=\dfrac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\sim N(0,1)$。拒绝域为$|z|\geq z_{\alpha/2}=z_{0.025}=1.96$。
+    \item 观察值$|z|=\left|\dfrac{1637-1600}{150/\sqrt{26}}\right|=1.2578<1.96$，在拒绝域之外，故接受$H_0$。即认为该批产品的指标为$1600$小时。
+\end{enumerate}
+
+若测得平均值为$1537$个小时，则$|z|=2.14>1.96$，在拒绝域之内，故拒绝$H_0$。即认为该批产品的指标不是$1600$小时。
+\end{example}
+
+\begin{example}[例2]
+设$x_1,x_2,\ldots,x_{25}$取自正态总体$N(\mu,9)$，其中参数$\mu$未知，$\bar{x}$是样本均值，如对检验问题$H_0:\mu=\mu_0,H_1:\mu\neq\mu_0$。取检验的拒绝域：$c=\{(x_1,\ldots,x_{25}):|\bar{x}-\mu_0|\geq c\}$，试确定常数$c$，使检验的显著性水平为$0.05$。
+
+\textbf{解}：关于正态分布均值的检验，方差已知，因此是$Z$检验。
+\[
+P\{\text{当}H_0\text{为真拒绝}H_0\}=P\left\{\left|\frac{\bar{x}-\mu_0}{3/5}\right|\geq\frac{5c}{3}\right\}=2\left[1-\Phi\left(\frac{5}{3}c\right)\right]=0.05.
+\]
+得$\Phi\left(\dfrac{5}{3}c\right)=0.975$。查标准正态分布表知$\Phi(1.96)=0.975$，故$\dfrac{5}{3}c=1.96$，即$c=1.176$。
+\end{example}
+
+\begin{example}[例3]
+某纺纱厂在正常工作条件下，平均每台布机每小时经纱断头率为$0.973$根。该厂做轻浆实验，将经纱上浆率减低$20\%$，在$200$台布机上进行试验，结果平均每台每小时经纱断头次数为$0.994$根，样本标准差为$0.16$根。问新的上浆率能否推广？显著性水平$0.05$。
+
+\textbf{解}：单边检验。
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item 提出原假设和备择假设：$H_0:\mu\leq 0.973$，$H_1:\mu>0.973$。
+    \item 显著性水平$\alpha=0.05$，样本容量$n=200$。
+    \item 由于总体方差未知，采用$t$检验法，统计量$t=\dfrac{\bar{x}-0.973}{S/\sqrt{n}}\sim t(n-1)$。拒绝域$t\geq t_\alpha(n-1)=t_{0.05}(199)\approx z_{0.05}=1.645$（$n>40$，用正态分布估计$t$分布）。
+    \item 观察值$t=\dfrac{0.994-0.973}{0.16/\sqrt{200}}=1.856>1.645$，在拒绝域之内，故拒绝$H_0$，即认为不能推广新的上浆率。
+\end{enumerate}
+\end{example}
+
+\begin{example}[例4]
+某厂生产出一种新型饮料装瓶机器，按设计要求，该机器装一瓶$1$L的饮料标准差不超过$1$mL。现从该机器装完的产品中随机抽取$25$瓶，分别进行测定（用样本值减$1$L），得到如下结果：
+\begin{center}
+\begin{tabular}{cccccccccc}
+0.3 & -0.4 & -0.7 & 1.4 & -0.6 & -0.3 & -1.5 & 0.6 & -0.9 \\
+-1.3 & 0.7 & 1 & -0.5 & 0 & -0.6 & 0.7 & -1.5 & -0.2 \\
+-0.5 & 1 & -0.2 & -0.6 & 1.1 & 1.3 & -1.9
+\end{tabular}
+\end{center}
+检验该机器的性能是否达到设计要求（$\alpha=0.05$）。
+
+\textbf{解}：单边检验。
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item 达到设计要求，即表明机器的标准差$\sigma$不大于$1$ml，故原假设$H_0:\sigma^2\leq\sigma_0^2=1$，备择假设$H_1:\sigma^2>1$。
+    \item 显著性水平$\alpha=0.05$，样本容量$n=25$。
+    \item 均值$\mu$未知，检验统计量$\chi^2=\dfrac{(n-1)S^2}{\sigma_0^2}\sim\chi^2(n-1)$。
+    \item 计算得样本均值$\bar{x}=-0.144$，样本方差$S^2=0.866$。检验统计量的观察值为$\chi^2=\dfrac{24\times 0.866}{1}=20.8<\chi_{0.05}^2(24)=36.42$，在拒绝域之外，故接受$H_0$，即认为该机器的性能达到设计要求。
+\end{enumerate}
+\end{example}
+
+\begin{example}[例5]
+有甲乙两台机床，加工同样产品，从这两台机床加工的产品中随机取若干产品，测得产品直径为（单位：mm）：
+
+甲：$20.5,19.8,19.7,20.4,20.1,20.0,19.6,19.9$
+
+乙：$19.7,20.8,20.5,19.8,19.4,20.6,19.2$
+
+试比较甲乙两台机床加工精度有无显著差异？$\alpha=0.05$
+
+\textbf{解}：设甲乙机床产品方差分别为$\sigma_x^2$和$\sigma_y^2$。
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item 提出原假设$H_0:\sigma_x^2=\sigma_y^2$和备择假设$H_1:\sigma_x^2\neq\sigma_y^2$。
+    \item 显著性水平$\alpha=0.05$，样本容量$n_x=8,n_y=7$。
+    \item 确定检验统计量$F=\dfrac{S_x^2}{S_y^2}\sim F(7,6)$及拒绝域$F\leq F_{1-\alpha/2}(7,6)=\dfrac{1}{F_{0.025}(6,7)}=\dfrac{1}{5.12}=0.1953$或$F\geq F_{\alpha/2}(7,6)=F_{0.025}(7,6)=5.70$。
+    \item 根据样本观察值得$F=\dfrac{0.1029}{0.3967}=0.2594$，在拒绝域之外，因此接受$H_0$，认为甲乙机床加工精度无显著差异。
+\end{enumerate}
+\end{example}
+
+\begin{example}[例6]
+在十块土地上试种甲乙两种作物，所得产量分别为$(x_1,\ldots,x_{10})$和$(y_1,\ldots,y_{10})$。假设作物产量服从正态分布，且计算得$\bar{x}=30.97,\bar{y}=21.79,S_x=26.7,S_y=12.1$。取显著性水平$0.01$，问是否可以认为两种作物产量没有显著差别。
+
+\textbf{解}：由于总体方差未知，需分两步检验。
+
+\textbf{第一步：检验方差是否相等}。
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item $H_0':\sigma_x^2=\sigma_y^2$，$H_1':\sigma_x^2\neq\sigma_y^2$。
+    \item $\alpha=0.01$，$n_x=n_y=10$。
+    \item 检验统计量$F=\dfrac{S_x^2}{S_y^2}\sim F(9,9)$。拒绝域$F\leq F_{0.995}(9,9)=0.153$或$F\geq F_{0.005}(9,9)=6.54$。
+    \item $F=\dfrac{26.7^2}{12.1^2}=4.869$，在拒绝域之外，接受$H_0'$，认为甲乙作物方差一样。
+\end{enumerate}
+
+\textbf{第二步：检验均值是否相等}（在$\sigma_x^2=\sigma_y^2$条件下）。
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item $H_0:\mu_x-\mu_y=0$，$H_1:\mu_x-\mu_y\neq 0$。
+    \item $\alpha=0.01$，$n_x=n_y=10$。
+    \item 检验统计量$t=\dfrac{\bar{x}-\bar{y}}{S_w\sqrt{\dfrac{1}{n_x}+\dfrac{1}{n_y}}}\sim t(18)$，其中$S_w^2=\dfrac{(n_x-1)S_x^2+(n_y-1)S_y^2}{n_x+n_y-2}=429.65$。拒绝域$|t|\geq t_{0.005}(18)=2.8784$。
+    \item $|t|=\dfrac{|30.97-21.79|}{\sqrt{429.65}\times\sqrt{0.1+0.1}}=0.99<2.8784$，在拒绝域之外，接受$H_0$，认为甲乙两种作物没有显著差别。
+\end{enumerate}
+\end{example}
+
+\begin{example}[例7]
+某机床厂加工一种零件，根据经验知道，该厂加工零件的椭圆度近似服从正态分布，总体均值$\mu_0=0.081$mm，总体标准差$\sigma=0.025$mm。今换一种新机床进行加工，抽取$200$个零件进行检验，得到的椭圆度为$\bar{x}=0.076$mm。试用临界值法和$p$值法检验新机床加工零件的椭圆度的均值与以前有无显著差异？（$\alpha=0.05$）
+
+\textbf{解（临界值法）}：
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item $H_0:\mu=\mu_0=0.081$，$H_1:\mu\neq 0.081$。
+    \item $\alpha=0.05$，$n=200$。
+    \item 检验统计量$z=\dfrac{\bar{x}-\mu_0}{\sigma/\sqrt{n}}\sim N(0,1)$。拒绝域$|z|\geq z_{\alpha/2}=z_{0.025}=1.96$。
+    \item $|z|=\left|\dfrac{0.076-0.081}{0.025/\sqrt{200}}\right|=2.83>1.96$，故拒绝$H_0$，即认为新机床加工零件的椭圆度与以前有显著差异。
+\end{enumerate}
+
+\textbf{解（$p$值法）}：
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item 检验问题为$H_0:\mu=0.081,H_1:\mu\neq 0.081,\alpha=0.05$。
+    \item 采用$Z$检验，观察值$z_0=\dfrac{0.076-0.081}{0.025/\sqrt{200}}=-2.83$。
+    \item 计算$p$值：$p=P_{0.081}\{|Z|\geq 2.83\}=2\times(1-\Phi(2.83))=0.0046$。
+    \item $p$值远小于$\alpha$，故拒绝$H_0$。
+\end{enumerate}
+\end{example}
+
+\begin{example}[例8]
+某机器制造出的肥皂厚度为$5$cm，今欲了解机器性能是否良好。随机抽取$10$块肥皂为样本，测得平均厚度$\bar{x}=5.3$cm，样本标准差$S=0.3$cm。试用临界值法和$p$值法检验机器性能是否良好？（$\alpha=0.05$）
+
+\textbf{解（临界值法）}：
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item $H_0:\mu=\mu_0=5$，$H_1:\mu\neq 5$。
+    \item $\alpha=0.05$，$n=10$。
+    \item $\sigma^2$未知，检验统计量$t=\dfrac{\bar{x}-\mu_0}{S/\sqrt{n}}\sim t(n-1)$。拒绝域$|t|\geq t_{\alpha/2}(9)=t_{0.025}(9)=2.262$。
+    \item $|t|=\left|\dfrac{5.3-5}{0.3/\sqrt{10}}\right|=3.16>2.262$，故拒绝$H_0$，即认为该机器性能不好。
+\end{enumerate}
+
+\textbf{解（$p$值法）}：
+\begin{enumerate}[label=步骤\arabic*.,leftmargin=2em]
+    \item $H_0:\mu=5,H_1:\mu\neq 5,\alpha=0.05$。
+    \item 采用$t$检验，观察值$t_0=\dfrac{5.3-5}{0.3/\sqrt{10}}=3.16$。
+    \item $p$值$=P_5\{|t|\geq 3.16\}\approx 2\times 0.005=0.01$。
+    \item $p$值小于$\alpha=0.05$，故拒绝$H_0$。
+\end{enumerate}
+\end{example}
+
+\begin{example}[例9]
+六个企业生产汽车，在一次观测中观测到每小时的产量如表所示：
+\begin{center}
+\begin{tabular}{ccccccc}
+\toprule
+企业 & 企业A & 企业B & 企业C & 企业D & 企业E & 企业F \\
+\midrule
+产量 & 41 & 66 & 45 & 56 & 49 & 43 \\
+\bottomrule
+\end{tabular}
+\end{center}
+问：这些企业的生产能力，有无显著性差异？（$\alpha=0.05$）
+
+\textbf{解}：考察单个分布的$\chi^2$拟合检验。
+
+设$X$表示单位时间内生产的汽车，$X=i$表示汽车产自厂家$i$。令$p_i=P\{X=i\},i=1,2,\ldots,6$。如果这六家企业的生产能力相同，则$X$应该服从均匀分布，即所有的$p_i$都相等。
+
+原假设$H_0:P\{X=i\}=\dfrac{1}{6}$（即六个企业的生产能力服从均匀分布）。
+
+备择假设$H_1:p_i$不完全相等。
+
+在$H_0$下，$n=300$，统计量$\chi^2=\sum_{i=1}^{6}\dfrac{f_i^2}{np_i}-n\sim\chi^2(5)$。
+
+计算得：
+\begin{center}
+\begin{tabular}{cccccccc}
+\toprule
+企业 & 企业A & 企业B & 企业C & 企业D & 企业E & 企业F & 合计 \\
+\midrule
+产量$f_i$ & 41 & 66 & 45 & 56 & 49 & 43 & 300 \\
+$f_i^2/(np_i)$ & 33.62 & 87.12 & 40.50 & 62.72 & 48.02 & 36.98 & 308.96 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$\chi^2=308.96-300=8.96$。
+
+$\alpha=0.05$，查$\chi^2$分布表得$\chi_{0.05}^2(5)=11.0705$。
+
+因为$\chi^2<\chi_{0.05}^2(5)$，所以接受$H_0$，认为六个企业的生产能力服从均匀分布，即它们的生产力无显著差异。
+\end{example}
+
+\section{方差分析}
+
+\subsection{方差分析的基本概念}
+
+\textbf{试验指标}：要考察的指标或结果。
+
+\textbf{因素}：影响试验指标的条件。
+
+\textbf{方差分析}：通过对实验数据进行分析，检验方差相同的多个（多于两个）正态总体的均值是否相等，用以判断各因素对试验指标的影响是否显著。
+
+\textbf{分类}：单因素试验的方差分析、双因素试验的方差分析、多因素试验的方差分析。
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{figures/fig_anova_regression.png}
+%     \caption{方差分析与回归分析主要内容}
+%     \label{fig:anova_regression}
+% \end{figure}
+
+\subsection{单因素试验的方差分析}
+
+\textbf{单因素试验}：为了考虑某个因素$A$对所考察的随机变量$X$的影响，在试验中让其他因素保持不变，仅让因素$A$改变。
+
+\textbf{水平}：因素$A$所处的状态。
+
+\textbf{基本思想}：用总偏差平方和$S_T=\sum_{j=1}^{s}\sum_{i=1}^{n_j}(X_{ij}-\bar{X})^2$度量数据间的总变异，将总变异分解为因素$A$引起的变异$S_A=\sum_{j=1}^{s}n_j(\bar{X}_{\cdot j}-\bar{X})^2$和误差引起的变异$S_E=\sum_{j=1}^{s}\sum_{i=1}^{n_j}(X_{ij}-\bar{X}_{\cdot j})^2$之和。若$S_A$比$S_E$多，则认为因素$A$的各个水平对试验结果有显著影响。
+
+\subsubsection{数学模型}
+
+假设各水平$A_j$（$j=1,\ldots,s$）下的样本$X_{ij}\sim N(\mu_j,\sigma^2)$，$i=1,2,\ldots,n_j$，$j=1,2,\ldots,s$，且相互独立，其中$\mu_j$与$\sigma^2$均未知。
+
+记总平均$\mu=\dfrac{1}{n}\sum_{j=1}^{s}n_j\mu_j$，其中$n=\sum_{j=1}^{s}n_j$。水平$A_j$的效应为$\delta_j=\mu_j-\mu$（$j=1,2,\ldots,s$），满足$\sum_{j=1}^{s}n_j\delta_j=0$。
+
+单因素试验方差分析的数学模型为：
+\[
+\begin{cases}
+X_{ij}=\mu+\delta_j+\varepsilon_{ij},\\
+\varepsilon_{ij}\sim N(0,\sigma^2),\ \text{各}\varepsilon_{ij}\text{独立},\\
+i=1,2,\ldots,n_j,\ j=1,2,\ldots,s,\\
+\sum_{j=1}^{s}n_j\delta_j=0.
+\end{cases}
+\]
+
+\subsubsection{方差分析的任务}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 检验$s$个总体$N(\mu_j,\sigma^2)$的均值是否相等，等价于检验假设
+    \[
+    H_0:\delta_1=\delta_2=\cdots=\delta_s=0,\quad H_1:\delta_1,\delta_2,\ldots,\delta_s\text{不全为}0.
+    \]
+    \item 做出未知参数$\mu_1,\mu_2,\ldots,\mu_s$和$\sigma^2$的估计。
+\end{enumerate}
+
+\subsubsection{平方和的分解}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{总偏差平方和}：$S_T=\sum_{j=1}^{s}\sum_{i=1}^{n_j}(X_{ij}-\bar{X})^2=S_A+S_E$。
+    \item \textbf{误差平方和}：$S_E=\sum_{j=1}^{s}\sum_{i=1}^{n_j}(X_{ij}-\bar{X}_{\cdot j})^2$（类内偏差）。
+    \item \textbf{因素A的效应平方和}：$S_A=\sum_{j=1}^{s}n_j(\bar{X}_{\cdot j}-\bar{X})^2=\sum_{j=1}^{s}n_j\bar{X}_{\cdot j}^2-n\bar{X}^2$（类间偏差）。
+\end{itemize}
+
+其中样本总平均值$\bar{X}=\dfrac{1}{n}\sum_{j=1}^{s}\sum_{i=1}^{n_j}X_{ij}$，水平$A_j$下的样本平均值$\bar{X}_{\cdot j}=\dfrac{1}{n_j}\sum_{i=1}^{n_j}X_{ij}$。
+
+\subsubsection{检验统计量与拒绝域}
+
+当$H_0$为真时，$S_E/\sigma^2\sim\chi^2(n-s)$，$S_A/\sigma^2\sim\chi^2(s-1)$，且$S_E$与$S_A$相互独立，因此
+\[
+F=\frac{S_A/(s-1)}{S_E/(n-s)}\sim F(s-1,n-s).
+\]
+
+显著性水平$\alpha$下$H_0$的拒绝域为：
+\[
+F=\frac{S_A/(s-1)}{S_E/(n-s)}\geq F_\alpha(s-1,n-s).
+\]
+
+若$F\geq F_\alpha(s-1,n-s)$，则拒绝$H_0$，认为因素$A$影响显著；否则，接受$H_0$。
+
+\subsubsection{单因素试验方差分析表}
+
+\begin{table}[htbp]
+\centering
+\caption{单因素试验方差分析表}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{方差来源} & \textbf{平方和} & \textbf{自由度} & \textbf{均方} & \textbf{$F$比} \\
+\midrule
+因素$A$ & $S_A$ & $s-1$ & $\bar{S}_A=\dfrac{S_A}{s-1}$ & $F=\dfrac{\bar{S}_A}{\bar{S}_E}$ \\
+误差 & $S_E$ & $n-s$ & $\bar{S}_E=\dfrac{S_E}{n-s}$ & \\
+总和 & $S_T$ & $n-1$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_between_within.png}
+    \caption{类间偏差与类内偏差示意图}
+    \label{fig:between_within}
+\end{figure}
+
+\subsection{双因素试验的方差分析}
+
+\subsubsection{双因素等重复试验的方差分析}
+
+有两个因素作用于试验指标，因素$A$有$r$个水平$A_1,\ldots,A_r$，因素$B$有$s$个水平$B_1,\ldots,B_s$，对每对组合$(A_i,B_j)$都做$t$（$t\geq 2$）次试验。假定所有试验相互独立。考虑因素之间的交互作用。
+
+\textbf{数学模型}：
+\[
+\begin{cases}
+X_{ijk}=\mu+\alpha_i+\beta_j+\gamma_{ij}+\varepsilon_{ijk},\\
+\varepsilon_{ijk}\sim N(0,\sigma^2),\ \text{各}\varepsilon_{ijk}\text{独立},\\
+i=1,\ldots,r,\ j=1,\ldots,s,\ k=1,\ldots,t,\\
+\sum_{i=1}^{r}\alpha_i=\sum_{j=1}^{s}\beta_j=\sum_{i=1}^{r}\gamma_{ij}=\sum_{j=1}^{s}\gamma_{ij}=0.
+\end{cases}
+\]
+
+其中$\mu,\alpha_i,\beta_j,\gamma_{ij},\sigma^2$均为未知参数。
+
+\textbf{假设检验}：
+\begin{itemize}[leftmargin=2em]
+    \item 检验因素$A$的影响：$H_{01}:\alpha_1=\cdots=\alpha_r=0,\ H_{11}:\alpha_1,\ldots,\alpha_r\text{不全为}0$。
+    \item 检验因素$B$的影响：$H_{02}:\beta_1=\cdots=\beta_s=0,\ H_{12}:\beta_1,\ldots,\beta_s\text{不全为}0$。
+    \item 检验交互作用的影响：$H_{03}:\gamma_{11}=\cdots=\gamma_{rs}=0,\ H_{13}:\gamma_{11},\ldots,\gamma_{rs}\text{不全为}0$。
+\end{itemize}
+
+\textbf{平方和分解}：
+\begin{itemize}[leftmargin=2em]
+    \item 总偏差平方和：$S_T=\sum_{i=1}^{r}\sum_{j=1}^{s}\sum_{k=1}^{t}(X_{ijk}-\bar{X})^2=S_E+S_A+S_B+S_{A\times B}$。
+    \item 误差平方和：$S_E=\sum_{i=1}^{r}\sum_{j=1}^{s}\sum_{k=1}^{t}(X_{ijk}-\bar{X}_{ij\cdot})^2$。
+    \item 因素$A$的效应平方和：$S_A=st\sum_{i=1}^{r}(\bar{X}_{i\cdot\cdot}-\bar{X})^2$。
+    \item 因素$B$的效应平方和：$S_B=rt\sum_{j=1}^{s}(\bar{X}_{\cdot j\cdot}-\bar{X})^2$。
+    \item 交互效应平方和：$S_{A\times B}=t\sum_{i=1}^{r}\sum_{j=1}^{s}(\bar{X}_{ij\cdot}-\bar{X}_{i\cdot\cdot}-\bar{X}_{\cdot j\cdot}+\bar{X})^2$。
+\end{itemize}
+
+\textbf{拒绝域}：
+\begin{itemize}[leftmargin=2em]
+    \item $H_{01}$的拒绝域：$F_A=\dfrac{S_A/(r-1)}{S_E/(rs(t-1))}\geq F_\alpha(r-1,rs(t-1))$。
+    \item $H_{02}$的拒绝域：$F_B=\dfrac{S_B/(s-1)}{S_E/(rs(t-1))}\geq F_\alpha(s-1,rs(t-1))$。
+    \item $H_{03}$的拒绝域：$F_{A\times B}=\dfrac{S_{A\times B}/((r-1)(s-1))}{S_E/(rs(t-1))}\geq F_\alpha((r-1)(s-1),rs(t-1))$。
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{双因素等重复试验方差分析表}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{方差来源} & \textbf{平方和} & \textbf{自由度} & \textbf{均方} & \textbf{$F$比} \\
+\midrule
+因素$A$ & $S_A$ & $r-1$ & $\bar{S}_A=\dfrac{S_A}{r-1}$ & $F_A=\dfrac{\bar{S}_A}{\bar{S}_E}$ \\
+因素$B$ & $S_B$ & $s-1$ & $\bar{S}_B=\dfrac{S_B}{s-1}$ & $F_B=\dfrac{\bar{S}_B}{\bar{S}_E}$ \\
+交互作用 & $S_{A\times B}$ & $(r-1)(s-1)$ & $\bar{S}_{A\times B}=\dfrac{S_{A\times B}}{(r-1)(s-1)}$ & $F_{A\times B}=\dfrac{\bar{S}_{A\times B}}{\bar{S}_E}$ \\
+误差 & $S_E$ & $rs(t-1)$ & $\bar{S}_E=\dfrac{S_E}{rs(t-1)}$ & \\
+总和 & $S_T$ & $rst-1$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{双因素无重复试验的方差分析}
+
+双因素试验中，对每对水平组合只做一次试验（因素之间的交互作用不存在或可以忽略），即$t=1$。
+
+\textbf{数学模型}：
+\[
+\begin{cases}
+X_{ij}=\mu+\alpha_i+\beta_j+\varepsilon_{ij},\\
+\varepsilon_{ij}\sim N(0,\sigma^2),\ \text{各}\varepsilon_{ij}\text{独立},\\
+i=1,\ldots,r,\ j=1,\ldots,s,\\
+\sum_{i=1}^{r}\alpha_i=\sum_{j=1}^{s}\beta_j=0.
+\end{cases}
+\]
+
+\textbf{平方和分解}：
+\begin{itemize}[leftmargin=2em]
+    \item 总偏差平方和：$S_T=\sum_{i=1}^{r}\sum_{j=1}^{s}(X_{ij}-\bar{X})^2=\sum_{i=1}^{r}\sum_{j=1}^{s}X_{ij}^2-\dfrac{T_{\cdot\cdot}^2}{rs}=S_A+S_B+S_E$。
+    \item 因素$A$的效应平方和：$S_A=s\sum_{i=1}^{r}(\bar{X}_{i\cdot}-\bar{X})^2=\dfrac{1}{s}\sum_{i=1}^{r}T_{i\cdot}^2-\dfrac{T_{\cdot\cdot}^2}{rs}$。
+    \item 因素$B$的效应平方和：$S_B=r\sum_{j=1}^{s}(\bar{X}_{\cdot j}-\bar{X})^2=\dfrac{1}{r}\sum_{j=1}^{s}T_{\cdot j}^2-\dfrac{T_{\cdot\cdot}^2}{rs}$。
+    \item 误差平方和：$S_E=\sum_{i=1}^{r}\sum_{j=1}^{s}(X_{ij}-\bar{X}_{i\cdot}-\bar{X}_{\cdot j}+\bar{X})^2=S_T-S_A-S_B$。
+\end{itemize}
+
+\textbf{拒绝域}：
+\begin{itemize}[leftmargin=2em]
+    \item $H_{01}$的拒绝域：$F_A=\dfrac{S_A/(r-1)}{S_E/((r-1)(s-1))}\geq F_\alpha(r-1,(r-1)(s-1))$。
+    \item $H_{02}$的拒绝域：$F_B=\dfrac{S_B/(s-1)}{S_E/((r-1)(s-1))}\geq F_\alpha(s-1,(r-1)(s-1))$。
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{双因素无重复试验方差分析表}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{方差来源} & \textbf{平方和} & \textbf{自由度} & \textbf{均方} & \textbf{$F$比} \\
+\midrule
+因素$A$ & $S_A$ & $r-1$ & $\bar{S}_A=\dfrac{S_A}{r-1}$ & $F_A=\dfrac{\bar{S}_A}{\bar{S}_E}$ \\
+因素$B$ & $S_B$ & $s-1$ & $\bar{S}_B=\dfrac{S_B}{s-1}$ & $F_B=\dfrac{\bar{S}_B}{\bar{S}_E}$ \\
+误差 & $S_E$ & $(r-1)(s-1)$ & $\bar{S}_E=\dfrac{S_E}{(r-1)(s-1)}$ & \\
+总和 & $S_T$ & $rs-1$ & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{回归分析}
+
+\subsection{回归分析的基本概念}
+
+回归分析是研究自变量$x$为一般变量（非随机变量），因变量$Y$为随机变量时两者之间的相关关系的统计分析方法。
+
+研究方式：通过研究$Y$的数学期望$E(Y)=\mu(x)$与$x$的确定性关系，研究随机变量$Y$与自变量$x$的相关关系。
+
+$Y$关于$x$的\textbf{回归函数}：$\mu(x)$。
+
+任务：根据试验数据估计回归函数，讨论有关的点估计、区间估计、假设检验等问题。
+
+\subsection{一元线性回归}
+
+\subsubsection{数学模型}
+
+一元线性回归研究$\mu(x)$为$x$的一元线性函数$\mu(x)=a+bx$的情况。
+
+假设对于$x$的每个值，$Y\sim N(a+bx,\sigma^2)$。其中$a,b,\sigma^2$是不依赖于$x$的未知参数。记$\varepsilon=Y-(a+bx)$，则有一元线性回归模型：
+\[
+Y=a+bx+\varepsilon,\quad \varepsilon\sim N(0,\sigma^2).
+\]
+称$b$为\textbf{回归系数}。
+
+\subsubsection{$a,b$的估计}
+
+采用最大似然估计或最小二乘估计：
+\[
+\hat{b}=\frac{S_{xy}}{S_{xx}},\qquad \hat{a}=\bar{y}-\hat{b}\bar{x}.
+\]
+
+其中引入记号：
+\[
+S_{xx}=\sum_{i=1}^{n}(x_i-\bar{x})^2,\quad S_{yy}=\sum_{i=1}^{n}(y_i-\bar{y})^2,\quad S_{xy}=\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y}).
+\]
+
+\subsubsection{$\sigma^2$的估计}
+
+残差平方和$Q_e=\sum_{i=1}^{n}(y_i-\hat{y}_i)^2=S_{yy}-\hat{b}S_{xy}$。
+
+由统计量$\dfrac{Q_e}{\sigma^2}\sim\chi^2(n-2)$，得$\sigma^2$的无偏估计量：
+\[
+\hat{\sigma}^2=\frac{Q_e}{n-2}=\frac{1}{n-2}(S_{yy}-\hat{b}S_{xy}).
+\]
+
+\subsubsection{线性假设的显著性检验}
+
+需检验假设$H_0:b=0,\ H_1:b\neq 0$。
+
+由$\hat{b}\sim N\left(b,\dfrac{\sigma^2}{S_{xx}}\right)$和$\dfrac{Q_e}{\sigma^2}\sim\chi^2(n-2)$，且$\hat{b}$和$Q_e$独立，构造统计量：
+\[
+t=\frac{|\hat{b}|}{\hat{\sigma}}\sqrt{S_{xx}}\sim t(n-2).
+\]
+
+$H_0$的拒绝域为：
+\[
+|t|=\frac{|\hat{b}|}{\hat{\sigma}}\sqrt{S_{xx}}\geq t_{\alpha/2}(n-2).
+\]
+
+若拒绝假设$H_0$，认为回归效果是显著的。
+
+\subsubsection{系数$b$的置信区间}
+
+系数$b$的置信水平为$1-\alpha$的置信区间：
+\[
+\left(\hat{b}\pm t_{\alpha/2}(n-2)\times\frac{\hat{\sigma}}{\sqrt{S_{xx}}}\right).
+\]
+
+\subsubsection{回归函数值的置信区间与预测区间}
+
+回归函数值$\mu(x_0)=a+bx_0$置信水平为$1-\alpha$的置信区间：
+\[
+\left(\hat{a}+\hat{b}x_0\pm t_{\alpha/2}(n-2)\hat{\sigma}\sqrt{\frac{1}{n}+\frac{(x_0-\bar{x})^2}{S_{xx}}}\right).
+\]
+
+$x=x_0$时$Y$的观察值$Y_0$置信水平为$1-\alpha$的预测区间：
+\[
+\left(\hat{a}+\hat{b}x_0\pm t_{\alpha/2}(n-2)\hat{\sigma}\sqrt{1+\frac{1}{n}+\frac{(x_0-\bar{x})^2}{S_{xx}}}\right).
+\]
+
+\subsection{多元线性回归}
+
+随机变量$Y$往往与多个普通变量$x_1,x_2,\ldots,x_p$（$p>1$）有关。多元线性回归研究$Y$的数学期望与自变量的关系，即$Y$关于$x$的回归函数$\mu(x_1,x_2,\ldots,x_p)$。
+
+\textbf{多元线性回归模型}：假设$\mu(\cdot)$为线性函数，即
+\[
+Y=b_0+b_1x_1+\cdots+b_px_p+\varepsilon,\quad \varepsilon\sim N(0,\sigma^2),
+\]
+其中$b_0,b_1,\ldots,b_p,\sigma^2$是与$x_1,x_2,\ldots,x_p$无关的未知参数。
+
+\subsubsection{模型参数估计}
+
+引入矩阵表示：
+\[
+X=\begin{pmatrix}
+1 & x_{11} & \cdots & x_{1p}\\
+1 & x_{21} & \cdots & x_{2p}\\
+\vdots & \vdots & \ddots & \vdots\\
+1 & x_{n1} & \cdots & x_{np}
+\end{pmatrix},\quad
+Y=\begin{pmatrix}y_1\\y_2\\\vdots\\y_n\end{pmatrix},\quad
+B=\begin{pmatrix}b_0\\b_1\\\vdots\\b_p\end{pmatrix}.
+\]
+
+求解正规方程组$X^TXB=X^TY$，得$b_0,b_1,\ldots,b_p$的最大似然估计：
+\[
+\hat{B}=\begin{pmatrix}\hat{b}_0\\\hat{b}_1\\\vdots\\\hat{b}_p\end{pmatrix}=(X^TX)^{-1}X^TY.
+\]
+
+\section{典型例题：方差分析与回归分析}
+
+\begin{example}[例1]
+抽查某地区三所小学五年级学生的身高数据如下表，试判断这三所学校学生的平均身高是否有显著差异（取显著性水平为$0.05$）？
+\begin{center}
+\begin{tabular}{ccccccc}
+\toprule
+学校 & \multicolumn{6}{c}{身高数据} \\
+\midrule
+1 & 128.1 & 134.1 & 133.1 & 138.1 & 140.8 & 127.4 \\
+2 & 150.3 & 147.9 & 136.8 & 126.0 & 150.7 & 155.8 \\
+3 & 140.6 & 143.1 & 144.5 & 143.7 & 148.5 & 146.4 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{解}：使用单因素试验的方差分析。
+
+检验假设（$\alpha=0.05$）：$H_0:\mu_1=\mu_2=\mu_3$，$H_1:\mu_1,\mu_2,\mu_3$不全相等。
+
+由题意知$s=3,n_1=n_2=n_3=6$。
+
+$S_T=\sum_{j=1}^{s}\sum_{i=1}^{n_j}(X_{ij}-\bar{X})^2=1268.99$，$S_E=\sum_{j=1}^{s}\sum_{i=1}^{n_j}(X_{ij}-\bar{X}_{\cdot j})^2=791.52$，$S_A=\sum_{j=1}^{s}n_j\bar{X}_{\cdot j}^2-n\bar{X}^2=477.46$。
+
+方差分析表：
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+方差来源 & 平方和 & 自由度 & 均方 & $F$比 \\
+\midrule
+因素A & $S_A=477.46$ & $s-1=2$ & $238.732$ & $4.52$ \\
+误差 & $S_E=791.52$ & $n-s=15$ & $52.768$ & \\
+总和 & $S_T=1268.99$ & $n-1=17$ & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+因为$F=4.52>F_{0.05}(2,15)=3.68$，所以拒绝假设$H_0$，认为身高有显著差别。
+\end{example}
+
+\begin{example}[例2]
+设由三种同型号的造纸机使用四种不同涂料制造铜版纸，对每种不同搭配进行两次重复测量，结果如下。取显著性水平为$0.05$，试检验不同的机器、不同的涂料以及它们之间的交互作用的影响是否显著？
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+涂料B$\backslash$机器A & $B_1$ & $B_2$ & $B_3$ & $B_4$ \\
+\midrule
+$A_1$ & 42.5\ 42.6 & 42.0\ 42.2 & 43.9\ 43.6 & 42.2\ 42.5 \\
+$A_2$ & 42.1\ 42.3 & 41.7\ 41.5 & 43.1\ 43.0 & 42.5\ 41.6 \\
+$A_3$ & 43.6\ 43.8 & 43.6\ 43.2 & 44.1\ 44.2 & 42.9\ 43.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{解}：由题意知$r=3,s=4,t=2$。根据样本计算$S_T,S_A,S_B,S_{A\times B},S_E$得到如下方差分析表：
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+方差来源 & 平方和 & 自由度 & 均方 & $F$比 \\
+\midrule
+因素A & $S_A=7.2358$ & $r-1=2$ & $3.61792$ & $F_A=64.32$ \\
+因素B & $S_B=6.1879$ & $s-1=3$ & $2.06264$ & $F_B=36.67$ \\
+交互作用 & $S_{A\times B}=0.7608$ & $(r-1)(s-1)=6$ & $0.12681$ & $F_{A\times B}=2.25$ \\
+误差 & $S_E=0.675$ & $rs(t-1)=12$ & $0.05625$ & \\
+总和 & $S_T=14.8596$ & $rst-1=23$ & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+由于$F_A=64.32\gg F_{0.05}(2,12)=3.89$，因此机器影响高度显著。
+
+由于$F_B=36.67\gg F_{0.05}(3,12)=3.49$，因此涂料影响高度显著。
+
+由于$F_{A\times B}=2.25<F_{0.05}(6,12)=3.00$，因此机器、涂料交互作用影响不显著。
+\end{example}
+
+\begin{example}[例3]
+在橡胶配方中，考虑了三种不同的促进剂和四种不同分量的氧化锌，每种配方各做一次试验，测得$300\%$定强如下表，试判断促进剂、氧化锌对定强有无显著影响？（显著度为$0.01$）
+\begin{center}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+因素B（氧化锌） & $A_1$ & $A_2$ & $A_3$ \\
+\midrule
+$B_1$ & 31 & 33 & 35 \\
+$B_2$ & 34 & 36 & 37 \\
+$B_3$ & 35 & 37 & 39 \\
+$B_4$ & 39 & 38 & 42 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{解}：由题意知$r=3,s=4,t=1$（无重复）。根据样本计算$S_T,S_A,S_B,S_E$得到如下方差分析表：
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+方差来源 & 平方和 & 自由度 & 均方 & $F$比 \\
+\midrule
+因素A & $25.1667$ & $2$ & $12.5833$ & $F_A=18.12$ \\
+因素B & $69.3333$ & $3$ & $23.1111$ & $F_B=33.28$ \\
+误差 & $4.1667$ & $6$ & $0.6944$ & \\
+总和 & $98.6667$ & $11$ & & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+由于$F_A=18.12>F_{0.01}(2,6)=10.92$，因此因素A（促进剂）对定强有高度显著的影响；
+
+由于$F_B=33.28>F_{0.01}(3,6)=9.78$，因此因素B（氧化锌）对定强也有高度显著的影响。
+\end{example}
+
+\begin{example}[例4]
+某工厂在分析产量与成本关系时，选取十个生产小组作样本，收集到如下数据：
+\begin{center}
+\begin{tabular}{ccccccccccc}
+\toprule
+产量$x$（千件） & 40 & 42 & 48 & 55 & 65 & 79 & 88 & 100 & 120 & 140 \\
+成本$y$（千元） & 150 & 140 & 152 & 160 & 150 & 162 & 175 & 165 & 190 & 185 \\
+\bottomrule
+\end{tabular}
+\end{center}
+(1)求$y$对$x$的线性回归方程$\hat{y}=\hat{a}+\hat{b}x$；(2)估计$\sigma^2$；(3)检验回归方程的显著性（检验水平为$0.05$）；(4)求回归系数$b$的$95\%$置信区间；(5)取$x_0=90$，求$y_0$的预测值及其$95\%$的预测区间。
+
+\textbf{解}：(1) $n=10$，经计算：
+\[
+\sum x_i=777,\ \sum y_i=1629,\ \sum x_i^2=70903,\ \sum y_i^2=267723,\ \sum x_iy_i=131124.
+\]
+\[
+S_{xx}=\sum_{i=1}^{n}x_i^2-\frac{1}{n}\left(\sum x_i\right)^2=70903-\frac{777^2}{10}=10503.1,
+\]
+\[
+S_{xy}=\sum_{i=1}^{n}x_iy_i-\frac{1}{n}\left(\sum x_i\right)\left(\sum y_i\right)=131124-\frac{777\times 1629}{10}=4550.7.
+\]
+\[
+\hat{b}=\frac{S_{xy}}{S_{xx}}=\frac{4550.7}{10503.1}=0.432161,\quad \hat{a}=\bar{y}-\hat{b}\bar{x}=\frac{1629}{10}-0.432161\times\frac{777}{10}=129.3211.
+\]
+所以$y$对$x$的线性回归方程为$\hat{y}=129.3211+0.432161x$。
+
+(2) $S_{yy}=\sum y_i^2-\dfrac{1}{n}\left(\sum y_i\right)^2=2358.9$。
+
+$Q_e=S_{yy}-\hat{b}S_{xy}=2358.9-0.432161\times 4550.7=392.2643$。
+
+$\hat{\sigma}^2=\dfrac{Q_e}{n-2}=\dfrac{392.2643}{8}=49.03304$。
+
+(3) 检验$H_0:b=0,H_1:b\neq 0$。
+\[
+|t|=\frac{|\hat{b}|}{\hat{\sigma}}\sqrt{S_{xx}}=\frac{0.432161}{\sqrt{49.03304}}\times\sqrt{10503.1}=6.333118.
+\]
+查表得$t_{0.025}(8)=2.306$。因为$|t|=6.333>2.306$，在拒绝域内，因此拒绝原假设，该回归方程效果显著。
+
+(4) $b$的置信度为$0.95$的置信区间为：
+\[
+\left(0.432161\pm 2.306\times\frac{\sqrt{49.03304}}{\sqrt{10503.1}}\right)=(0.274804,\ 0.589519).
+\]
+
+(5) $x_0=90$时，$y$的预测值为$\hat{y}_0=129.3211+0.432161\times 90=168.2156$。
+
+其置信度为$0.95$的预测区间为：
+\[
+\left(168.2156\pm 2.306\times\sqrt{49.03304}\times\sqrt{1+\frac{1}{10}+\frac{(90-77.7)^2}{10503.1}}\right)=(151.1697,\ 185.2614).
+\]
+\end{example}
+
+\section{Excel实验}
+
+\subsection{常见统计分布的分位数点}
+
+Excel中形式如\texttt{XXX.INV}的统计函数，是形如\texttt{XXX.DIST}的反函数。
+
+\textbf{常用函数}：
+\begin{itemize}[leftmargin=2em]
+    \item \texttt{NORM.S.INV(probability)}：返回标准正态分布的区间点。
+    \item \texttt{T.INV(probability, deg\_freedom)}：返回$t$分布的左尾区间点。
+    \item \texttt{F.INV(probability, deg\_freedom1, deg\_freedom2)}：返回（左尾）$F$分布的逆函数值。
+    \item \texttt{F.INV.RT(probability, deg\_freedom1, deg\_freedom2)}：返回（右尾）$F$分布的逆函数值。
+    \item \texttt{CHISQ.INV(probability, deg\_freedom)}：返回具有给定概率的左尾$\chi^2$分布的区间点。
+    \item \texttt{CHISQ.INV.RT(probability, deg\_freedom)}：返回具有给定概率的右尾$\chi^2$分布的区间点。
+\end{itemize}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.45\textwidth]{figures/fig_excel_norm_inv.png}
+%     \hfill
+%     \includegraphics[width=0.45\textwidth]{figures/fig_excel_t_inv.png}
+%     \caption{Excel分位数函数示意图}
+%     \label{fig:excel_inv}
+% \end{figure}
+
+\subsection{使用Excel做假设检验}
+
+\begin{example}[实验1]
+为估计两种方法组装产品所需时间的差异，对两种不同的组装方法分别进行多次操作试验。假设用两种方法组装一件产品所需时间均服从正态分布，且方差相同，试以$0.05$的显著水平，推断两种方法组装产品所需平均时间有无显著差异。并检验是否可以认为第一种方法组装一件产品所需的时间比第二种方法长？
+
+\textbf{Excel操作}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 输入数据。
+    \item 观测数：\texttt{=COUNT(A2:A13)}
+    \item 样本均值：\texttt{=AVERAGE(A2:A13)}
+    \item 样本方差：\texttt{=VAR(A2:A13)}
+    \item $S_w$：\texttt{=SQRT(((E2-1)*E4+(F2-1)*F4)/(E2+F2-2))}
+    \item 检验统计量：\texttt{=(E3-F3)/(E5*SQRT(1/E2+1/F2))}
+    \item $t_{\alpha/2}(n_1+n_2-2)$：\texttt{=T.INV.2T(E6,E2+F2-2)}
+    \item 结论（双边）：\texttt{=IF(ABS(E7)>E8,"拒绝","接受")}
+    \item $t_{\alpha}(n_1+n_2-2)$：\texttt{=T.INV(1-E6,E2+F2-2)}
+    \item 结论（单边）：\texttt{=IF(E7>E11,"拒绝","接受")}
+\end{enumerate}
+
+在$0.05$的显著性水平下，可以认为两种方法组装时间有差异，不能认为方法一比方法二的组装时间更短。
+\end{example}
+
+\begin{example}[实验2]
+为比较不同季节出生的女婴体重是否有显著差异，从某年12月和6月出生的女婴中分别随机地各取10名，测得体重（单位：g）。
+
+\textbf{方法1：使用统计函数}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 使用\texttt{F.TEST}计算方差无明显差异的双尾概率：\texttt{=F.TEST(A3:A12,B3:B12)}。$P$值$=0.0315$。在显著性水平$0.05$下，方差有显著差异；在$0.01$下，方差无明显差异。
+    \item 若方差相等，使用\texttt{T.TEST}计算均值差的$p$值：\texttt{=T.TEST(A3:A12,B3:B12,2,2)}。$P$值$=0.8615>0.05$，因此均值无明显差异。
+    \item 若方差不相等，使用\texttt{=T.TEST(A3:A12,B3:B12,2,3)}。$P$值$=0.8623>0.05$，因此均值无明显差异。
+\end{enumerate}
+
+\textbf{方法2：使用数据分析工具箱}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 数据$\to$数据分析$\to$F-检验：双样本方差。
+    \item 数据$\to$数据分析$\to$t-检验：双样本异方差假设。
+\end{enumerate}
+\end{example}
+
+\begin{example}[实验3]
+随机地选取8个人，分别测量了他们早晨起床时和晚上的身高（cm），得到数据。设各对数据的差服从正态总体分布，问是否可以认为早晨的身高比晚上的身高要高？
+
+\textbf{Excel操作}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 输入数据。
+    \item 数据$\to$数据分析$\to$t-检验：平均值的成对二样本分析。
+\end{enumerate}
+
+结果：$t$ Stat$=2.7584$，$P(T<=t)$单尾$=0.0141<0.05$，因此拒绝$H_0$，认为早晨的身高比晚上高。
+\end{example}
+
+\subsection{使用Excel做方差分析}
+
+\begin{example}[实验4：单因素方差分析]
+抽查某地区三所小学五年级学生的身高数据，判断这三所学校学生的平均身高是否有显著差异。
+
+\textbf{Excel操作}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 输入数据。
+    \item 数据$\to$数据分析$\to$单因素方差分析（Anova: Single Factor）。
+    \item 设置输入区域、显著性水平$\alpha=0.05$、输出选项。
+\end{enumerate}
+
+结果：$F=4.52$，$P$-value$=0.029<0.05$，因此拒绝$H_0$，认为身高有显著差别。
+\end{example}
+
+\begin{example}[实验5：双因素等重复试验方差分析]
+三种同型号的造纸机使用四种不同涂料制造铜版纸，对每种不同搭配进行两次重复测量，检验不同的机器、不同的涂料以及它们之间的交互作用的影响是否显著。
+
+\textbf{Excel操作}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 输入数据（注意每行代表一个机器水平，每列代表一个涂料水平，每个单元格内为两次重复测量值分行排列）。
+    \item 数据$\to$数据分析$\to$双因素方差分析：可重复试验（Anova: Two-Factor With Replication）。
+    \item 设置输入区域、每样本的行数（Rows per sample）$=2$、$\alpha=0.05$。
+\end{enumerate}
+
+结果：机器和涂料的$p$值远小于$0.05$，影响高度显著；交互作用的$p$值$=0.1087>0.05$，影响不显著。
+\end{example}
+
+\begin{example}[实验6：双因素无重复试验方差分析]
+在橡胶配方中，考虑三种不同的促进剂和四种不同分量的氧化锌，每种配方各做一次试验，判断促进剂、氧化锌对定强有无显著影响。
+
+\textbf{Excel操作}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 输入数据。
+    \item 数据$\to$数据分析$\to$双因素方差分析：无重复试验（Anova: Two-Factor Without Replication）。
+    \item 设置输入区域、$\alpha=0.01$。
+\end{enumerate}
+
+结果：促进剂和氧化锌的$p$值均小于$0.01$，对定强有高度显著的影响。
+\end{example}
+
+\subsection{使用Excel做回归分析}
+
+\begin{example}[实验7]
+某工厂在分析产量与成本关系时，选取十个生产小组作样本，收集数据。求$y$对$x$的线性回归方程，并检验显著性。
+
+\textbf{Excel操作}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 输入数据（$x$在一列，$y$在一列）。
+    \item 数据$\to$数据分析$\to$回归（Regression）。
+    \item 设置$Y$区域、$X$区域、置信水平$95\%$。
+\end{enumerate}
+
+结果可读取：
+\begin{itemize}[leftmargin=2em]
+    \item $x$和$y$的相关系数（Multiple R）。
+    \item $\hat{\sigma}$（标准误差）。
+    \item $\hat{a}$（Intercept系数）、$\hat{b}$（$x$的系数）。
+    \item $t$统计量及$p$值用于检验回归显著性。
+    \item $\hat{b}$的置信度$95\%$的置信区间。
+\end{itemize}
+\end{example}
+
 \end{document}
