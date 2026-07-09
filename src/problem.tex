@@ -33,6 +33,7 @@
 \newtheorem{corollary}{推论}[chapter]
 \newtheorem{example}{例}[chapter]
 \newtheorem{remark}{注}[chapter]
+\newtheorem{property}{性质}[chapter]
 
 \theoremstyle{plain}
 \newtheorem{proposition}{命题}[chapter]
@@ -45,15 +46,32 @@
 
 \hypersetup{colorlinks=true,linkcolor=maincolor,citecolor=maincolor,urlcolor=maincolor}
 
-\title{概率论与数理统计 \; 习题课}
-\author{}
-\date{}
 \begin{document}
-\maketitle
 
-\section*{习题课目标}
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\Huge\bfseries\color{maincolor} 概率论与数理统计}\\[0.8cm]
+{\Large\color{gray} 习题课笔记}\\[2cm]
+{\large 主讲：陈熙霖、常虹 \quad 助教：闵越聪、李彦辰}\\[0.5cm]
+{\large 2025年春季学期}\\[3cm]
+\begin{tikzpicture}
+\node[draw=maincolor, rounded corners=10pt, inner sep=15pt, line width=1.5pt] {
+\begin{minipage}{0.6\textwidth}
+\centering
+\textit{``概率是相对的，部分出于某种无知，部分出于我们的知识所限。''}\\[0.3cm]
+\hfill --- 拉普拉斯
+\end{minipage}
+};
+\end{tikzpicture}
+\vfill
+{\small 整理日期：\today}
+\end{titlepage}
+
+\tableofcontents
 \newpage
 
+\section*{习题课目标}
 \begin{itemize}[leftmargin=2em]
     \item 回顾课上内容
     \item 总结作业中的常见错误
@@ -73,6 +91,8 @@
     \caption{知识结构图}
     \label{fig:knowledge_structure}
 \end{figure}
+
+\section{基本概念与运算}
 
 \subsection{基本概念}
 
@@ -446,7 +466,7 @@ P(ABC)=P(A)P(B)P(C)
 \end{enumerate}
 \end{remark}
 
-\subsection{$n$个事件的相互独立性}
+\subsection{\texorpdfstring{$n$}{n}个事件的相互独立性}
 
 设$A_1,A_2,\ldots,A_n$为$n$个随机事件，若下列等式成立
 \[
@@ -2629,5 +2649,744 @@ P\{\min(X,Y)<1\}=1-P\{\min(X,Y)\geq 1\}=1-P\{X\geq 1,Y\geq 1\}
 \begin{remark}
 熟练掌握教材第三章的例子，如：P72--例3、P73--例4、P83--例5等。
 \end{remark}
+
+\chapter{随机变量的数字特征}
+
+\section{数学期望}
+
+\subsection{一维随机变量的数学期望}
+
+\begin{definition}[离散型随机变量的数学期望]
+设离散型随机变量$X$的分布律为
+\[
+P\{X=x_k\}=p_k,\quad k=1,2,\cdots
+\]
+若级数$\sum_{k=1}^{\infty}x_k p_k$绝对收敛，即$\sum_{k=1}^{\infty}|x_k|p_k<+\infty$，则称$\sum_{k=1}^{\infty}x_k p_k$为离散型随机变量$X$的\textbf{数学期望}，记为$E(X)$，即
+\[
+E(X)=\sum_{k=1}^{\infty}x_k p_k.
+\]
+\end{definition}
+
+\begin{definition}[连续型随机变量的数学期望]
+设连续型随机变量$X$的概率密度为$f(x)$，若积分$\int_{-\infty}^{+\infty}|x|f(x)\,\mathrm{d}x$绝对收敛，则称积分$\int_{-\infty}^{+\infty}x f(x)\,\mathrm{d}x$的值为连续型随机变量$X$的\textbf{数学期望}，记为$E(X)$，即
+\[
+E(X)=\int_{-\infty}^{+\infty}x f(x)\,\mathrm{d}x.
+\]
+\end{definition}
+
+\subsection{随机变量函数的数学期望}
+
+\begin{definition}[离散型随机变量函数的期望]
+若$Y=g(X)$，且$P\{X=x_k\}=p_k,\ k=1,2,\cdots$，若级数$\sum_{k=1}^{\infty}g(x_k)p_k$绝对收敛，则$Y$的数学期望为
+\[
+E(g(X))=\sum_{k=1}^{\infty}g(x_k)p_k.
+\]
+\end{definition}
+
+\begin{definition}[连续型随机变量函数的期望]
+设连续型随机变量$X$的概率密度为$f(x)$，若$Y=g(X)$，且$\int_{-\infty}^{+\infty}|g(x)|f(x)\,\mathrm{d}x$绝对收敛，则$Y$的数学期望为
+\[
+E(g(X))=\int_{-\infty}^{+\infty}g(x)f(x)\,\mathrm{d}x.
+\]
+\end{definition}
+
+\subsection{二维随机变量的数学期望}
+
+设$(X,Y)$为二维随机变量，若$E(X),E(Y)$都存在，则$X$与$Y$的期望分别定义为
+
+\textbf{离散型}：
+\[
+E(X)=\sum_{i}\sum_{j}x_i p_{ij},\qquad E(Y)=\sum_{i}\sum_{j}y_j p_{ij},
+\]
+其中$(X,Y)$的联合分布律为$p_{ij}$。
+
+\textbf{连续型}：
+\[
+E(X)=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}x f(x,y)\,\mathrm{d}x\mathrm{d}y,\qquad
+E(Y)=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}y f(x,y)\,\mathrm{d}x\mathrm{d}y,
+\]
+其中$(X,Y)$的联合概率密度为$f(x,y)$。
+
+\begin{definition}[二维随机变量函数的期望]
+若$X,Y$为离散型随机变量，$g(x,y)$是二元函数，$(X,Y)$的联合分布律为$p_{ij}$，且$E[g(X,Y)]$存在，则
+\[
+E[g(X,Y)]=\sum_{i}\sum_{j}g(x_i,y_j)p_{ij}.
+\]
+
+若$X,Y$为连续型随机变量，$g(x,y)$是二元函数，$(X,Y)$的联合密度为$f(x,y)$，且$E[g(X,Y)]$存在，则
+\[
+E[g(X,Y)]=\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}g(x,y)f(x,y)\,\mathrm{d}x\mathrm{d}y.
+\]
+\end{definition}
+
+\subsection{数学期望的性质}
+
+\begin{property}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 设$C$是常数，则$E(C)=C$。
+    \item 设$X$是随机变量，$C$是常数，则$E(CX)=C\,E(X)$。
+    \item 设$X,Y$是两个随机变量，则有
+    \[
+    E(X+Y)=E(X)+E(Y).
+    \]
+    更一般地，$E(aX+bY+c)=aE(X)+bE(Y)+c$。\\
+    \textbf{注意}：加法不需要独立性。
+    \item 设$X,Y$是相互独立的随机变量，则有
+    \[
+    E(XY)=E(X)E(Y).
+    \]
+    \textbf{注意}：乘法需要独立性。
+\end{enumerate}
+\end{property}
+
+\section{方差}
+
+\subsection{方差的定义与计算}
+
+\begin{definition}[方差]
+设$X$是一个随机变量，若$E\{[X-E(X)]^2\}$存在，则称$E\{[X-E(X)]^2\}$是$X$的\textbf{方差}，记作$D(X)$或$\mathrm{Var}(X)$，即
+\[
+D(X)=\mathrm{Var}(X)=E\big\{[X-E(X)]^2\big\}.
+\]
+称$\sqrt{D(X)}$为\textbf{标准差}或\textbf{均方差}，记作$\sigma(X)$。
+\end{definition}
+
+\textbf{方差的计算}：
+\begin{itemize}[leftmargin=2em]
+    \item 离散型随机变量：
+    \[
+    D(X)=\sum_{k=1}^{\infty}[x_k-E(X)]^2 p_k
+    \]
+    \item 连续型随机变量：
+    \[
+    D(X)=\int_{-\infty}^{+\infty}[x-E(X)]^2 f(x)\,\mathrm{d}x
+    \]
+    \item 常用计算公式：
+    \[
+    D(X)=E(X^2)-[E(X)]^2
+    \]
+\end{itemize}
+
+\subsection{方差的性质}
+
+\begin{property}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 设$C$是常数，则$D(C)=0$。
+    \item 设$X$是随机变量，$C$是常数，则
+    \[
+    D(CX)=C^2 D(X).
+    \]
+    \item 设$X,Y$相互独立，$D(X),D(Y)$存在，则
+    \[
+    D(X\pm Y)=D(X)+D(Y).
+    \]
+    \textbf{注意}：方差的可加性要求独立性。\\
+    若$X,Y$不独立，则
+    \[
+    D(X\pm Y)=D(X)+D(Y)\pm 2\big(E(XY)-E(X)E(Y)\big).
+    \]
+    \item $D(X)=0$的充要条件是$X$以概率$1$取常数$C$，即
+    \[
+    D(X)=0\iff P\{X=C\}=1.
+    \]
+\end{enumerate}
+\end{property}
+
+\subsection{切比雪夫不等式}
+
+\begin{theorem}[切比雪夫(Chebyshev)不等式]
+设随机变量$X$的数学期望$E(X)=\mu$存在，方差$D(X)=\sigma^2$，则对于任意正数$\varepsilon$，有
+\[
+P\{|X-\mu|\geq\varepsilon\}\leq\frac{\sigma^2}{\varepsilon^2}
+\quad\Longleftrightarrow\quad
+P\{|X-\mu|<\varepsilon\}\geq 1-\frac{\sigma^2}{\varepsilon^2}.
+\]
+\end{theorem}
+
+\begin{remark}
+切比雪夫不等式给出了在随机变量分布未知的情况下，事件$\{|X-\mu|<\varepsilon\}$概率的下限估计。
+\end{remark}
+
+\textbf{回顾：正态分布的$3\sigma$准则}
+
+若$X\sim N(\mu,\sigma^2)$，则当$X\sim N(0,1)$时：
+\[
+\begin{array}{c}
+P\{|X|\leq 1\}=2\Phi(1)-1=0.6826\\[4pt]
+P\{|X|\leq 2\}=2\Phi(2)-1=0.9544\\[4pt]
+P\{|X|\leq 3\}=2\Phi(3)-1=0.9974
+\end{array}
+\]
+$X$的取值几乎全部集中在$[\mu-3\sigma,\mu+3\sigma]$区间内，超出这个范围的可能性不到$0.3\%$。
+
+\section{协方差与相关系数}
+
+\subsection{协方差}
+
+\begin{definition}[协方差]
+随机变量$X$与$Y$的\textbf{协方差}定义为
+\[
+\mathrm{Cov}(X,Y)=E\big\{[X-E(X)][Y-E(Y)]\big\}.
+\]
+\end{definition}
+
+\textbf{协方差的常用计算方法}：
+\[
+\mathrm{Cov}(X,Y)=E(XY)-E(X)E(Y).
+\]
+
+\textbf{协方差的性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $\mathrm{Cov}(X,Y)=\mathrm{Cov}(Y,X)$。
+    \item $\mathrm{Cov}(aX,bY)=ab\,\mathrm{Cov}(X,Y)$，其中$a,b$为常数。
+    \item $\mathrm{Cov}(X_1+X_2,Y)=\mathrm{Cov}(X_1,Y)+\mathrm{Cov}(X_2,Y)$。
+    \item $D(X\pm Y)=D(X)+D(Y)\pm 2\,\mathrm{Cov}(X,Y)$。
+\end{enumerate}
+
+\subsection{相关系数}
+
+\begin{definition}[相关系数]
+随机变量$X$与$Y$的\textbf{相关系数}定义为
+\[
+\rho_{XY}=\frac{\mathrm{Cov}(X,Y)}{\sqrt{D(X)}\cdot\sqrt{D(Y)}}.
+\]
+\end{definition}
+
+\textbf{相关系数的性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $|\rho_{XY}|\leq 1$。
+    \item $|\rho_{XY}|=1$的充要条件是：存在常数$a,b$，使得
+    \[
+    P\{Y=a+bX\}=1.
+    \]
+    即$Y$可被$X$线性表出。
+    \item 相关系数只能说明两个变量之间是否存在线性关系，不能得出两个变量是否独立。
+\end{enumerate}
+
+\begin{remark}
+\begin{itemize}[leftmargin=2em]
+    \item 独立$\Rightarrow$不相关；不相关$\nRightarrow$独立。
+    \item $X,Y$相互独立时，$\mathrm{Cov}(X,Y)=E(XY)-E(X)E(Y)=0$。
+    \item \textbf{特例}：若$X,Y$都服从正态分布，则独立与不相关等价。
+\end{itemize}
+\end{remark}
+
+\subsection{协方差矩阵}
+
+\begin{definition}[协方差矩阵]
+设$n$维随机变量$(X_1,X_2,\cdots,X_n)$的二阶混合中心矩
+\[
+c_{ij}=\mathrm{Cov}(X_i,X_j)=E\big\{[X_i-E(X_i)][X_j-E(X_j)]\big\},\quad i,j=1,2,\cdots,n
+\]
+都存在，则称矩阵
+\[
+\Sigma=\begin{pmatrix}
+c_{11} & c_{12} & \cdots & c_{1n}\\
+c_{21} & c_{22} & \cdots & c_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+c_{n1} & c_{n2} & \cdots & c_{nn}
+\end{pmatrix}
+\]
+为$n$维随机变量$(X_1,X_2,\cdots,X_n)$的\textbf{协方差矩阵}。
+\end{definition}
+
+\section{常见分布的数学期望与方差}
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\hline
+分布 & 参数 & 数学期望 & 方差 \\
+\hline
+两点分布 & $0<p<1$ & $p$ & $p(1-p)$ \\
+\hline
+二项分布 $B(n,p)$ & $n\geq 1,\ 0<p<1$ & $np$ & $np(1-p)$ \\
+\hline
+泊松分布 $P(\lambda)$ & $\lambda>0$ & $\lambda$ & $\lambda$ \\
+\hline
+均匀分布 $U[a,b]$ & $a<b$ & $\dfrac{a+b}{2}$ & $\dfrac{(b-a)^2}{12}$ \\
+\hline
+指数分布 $E(\theta)$ & $\theta>0$ & $\theta$ & $\theta^2$ \\
+\hline
+正态分布 $N(\mu,\sigma^2)$ & $\mu,\sigma>0$ & $\mu$ & $\sigma^2$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{典型例题}
+
+\subsection{求离散型随机变量的期望与方差}
+
+\textbf{涉及的计算技巧}：特殊序列求和
+\[
+\sum_{k=1}^{n}k=\frac{n(n+1)}{2},\qquad
+\sum_{k=1}^{n}k^2=\frac{n(n+1)(2n+1)}{6},\qquad
+e^x=\sum_{n=0}^{\infty}\frac{x^n}{n!}.
+\]
+
+\begin{example}[《概率论及其应用》9\#8]
+令$X_1,X_2,\cdots,X_n$为相互独立的随机变量，每一个都具有均匀分布$P\{X_i=k\}=\frac{1}{N},\ k=1,2,\cdots,N$。令$U_n$和$V_n$分别表示$X_1,X_2,\cdots,X_n$中的最小值和最大值。求$U_n$和$V_n$的分布。
+
+\textbf{解}：对于最大值$V_n=\max\{X_1,X_2,\cdots,X_n\}$：
+\[
+P\{V_n\leq k\}=P\{X_1\leq k,X_2\leq k,\cdots,X_n\leq k\}=\left(\frac{k}{N}\right)^n.
+\]
+故
+\[
+P\{V_n=k\}=P\{V_n\leq k\}-P\{V_n\leq k-1\}=\left(\frac{k}{N}\right)^n-\left(\frac{k-1}{N}\right)^n.
+\]
+且
+\[
+E(V_n)\approx\frac{n}{n+1}N.
+\]
+
+对于最小值$U_n=\min\{X_1,X_2,\cdots,X_n\}$：
+\[
+P\{U_n\leq k\}=1-P\{U_n>k\}=1-\left(\frac{N-k}{N}\right)^n.
+\]
+故
+\[
+P\{U_n=k\}=P\{U_n\leq k\}-P\{U_n\leq k-1\}=\left(\frac{N-k+1}{N}\right)^n-\left(\frac{N-k}{N}\right)^n.
+\]
+且
+\[
+E(U_n)\approx\frac{1}{n+1}N.
+\]
+\end{example}
+
+\begin{example}[《概率论及其应用》9\#19]
+一个人共有$n$把钥匙，试开门时所抽取的钥匙是相互独立且随机的。求试验次数的均值与方差。
+
+(a) 如果以前选出来的不能开门的钥匙不除去；
+
+(b) 如果以前选的无效钥匙除去。
+
+\textbf{解(a)}：设$X$表示试验次数，$X$服从几何分布，分布律为
+\[
+P\{X=k\}=(1-p)^{k-1}p,\quad p=\frac{1}{n},\ k=1,2,\cdots.
+\]
+其中$q=1-p$。
+
+期望：
+\[
+E(X)=\sum_{k=1}^{\infty}k q^{k-1}p=p\cdot\frac{1}{(1-q)^2}=\frac{1}{p}=n.
+\]
+
+计算$E(X^2)$：令$S=\sum_{k=1}^{\infty}k^2 q^{k-1}$，利用错位相减法可得
+\[
+(1-q)^2 S=1+2q+2q^2+\cdots=2\left(\frac{1}{1-q}\right)-1=\frac{1+q}{1-q}
+\Rightarrow S=\frac{1+q}{(1-q)^3}.
+\]
+故
+\[
+E(X^2)=p\cdot\frac{1+q}{p^3}=\frac{1+q}{p^2},
+\qquad
+D(X)=E(X^2)-[E(X)]^2=\frac{q}{p^2}=n(n-1).
+\]
+
+\textbf{解(b)}：$X$的分布律为
+\[
+P\{X=k\}=\frac{1}{n},\quad k=1,2,\cdots,n.
+\]
+则
+\[
+E(X)=\sum_{k=1}^{n}k\cdot\frac{1}{n}=\frac{n+1}{2},
+\]
+\[
+E(X^2)=\sum_{k=1}^{n}\frac{k^2}{n}=\frac{(n+1)(2n+1)}{6},
+\]
+\[
+D(X)=E(X^2)-[E(X)]^2=\frac{(n+1)(n-1)}{12}=\frac{n^2-1}{12}.
+\]
+\end{example}
+
+\begin{example}[《概率论及其应用》9\#38]
+设$X_1,X_2,\cdots,X_n$为相互独立的随机变量，其均值为$m$，方差为$\sigma^2$。令$\bar{X}=\frac{1}{n}\sum_{k=1}^{n}X_k$，证明
+\[
+\frac{1}{n-1}E\left(\sum_{k=1}^{n}(X_k-\bar{X})^2\right)=\sigma^2.
+\]
+
+\textbf{证}：
+\[
+\begin{aligned}
+E\left(\sum_{k=1}^{n}(X_k-\bar{X})^2\right)
+&=E\left(\sum_{k=1}^{n}X_k^2-2\bar{X}\sum_{k=1}^{n}X_k+n\bar{X}^2\right)\\
+&=\sum_{k=1}^{n}E(X_k^2)-2nE(\bar{X}^2)+nE(\bar{X}^2)\\
+&=\sum_{k=1}^{n}E(X_k^2)-nE(\bar{X}^2).
+\end{aligned}
+\]
+
+由于$E(X_k^2)=D(X_k)+[E(X_k)]^2=\sigma^2+m^2$，且
+\[
+E(\bar{X}^2)=\frac{1}{n^2}E\left(\sum_{i=1}^{n}X_i^2+\sum_{i\neq j}X_i X_j\right)
+=\frac{n(\sigma^2+m^2)}{n^2}+\frac{n(n-1)m^2}{n^2}
+=\frac{\sigma^2}{n}+m^2.
+\]
+
+代入得
+\[
+\sum_{k=1}^{n}(\sigma^2+m^2)-n\left(\frac{\sigma^2}{n}+m^2)
+=n\sigma^2+nm^2-\sigma^2-nm^2
+=(n-1)\sigma^2.
+\]
+故
+\[
+\frac{1}{n-1}E\left(\sum_{k=1}^{n}(X_k-\bar{X})^2\right)=\sigma^2.
+\]
+\end{example}
+
+\begin{example}[例1]
+从数字$0,1,2,\cdots,n$中任取两个不同的数字，求这两个数字之差的绝对值的数学期望。
+
+\textbf{解}：设$Z$为所选两个数字之差的绝对值，则$Z$的所有可能取值为$1,2,3,\cdots,n$。
+
+一般地，
+\[
+P\{Z=k\}=\frac{n-k+1}{C_{n+1}^2},\quad k=1,2,\cdots,n.
+\]
+
+因此
+\[
+E(Z)=\sum_{k=1}^{n}k\cdot P\{Z=k\}
+=\sum_{k=1}^{n}k\cdot\frac{n-k+1}{C_{n+1}^2}
+=\frac{n+2}{3}.
+\]
+\end{example}
+
+\begin{example}[例2]
+设随机变量$X$取非负整数值$n\geq 0$的概率为$p_n=A\dfrac{B^n}{n!}$，已知$E(X)=a$，求$A$与$B$的值。
+
+\textbf{解}：由归一性
+\[
+\sum_{n=0}^{\infty}P\{X=n\}=\sum_{n=0}^{\infty}A\frac{B^n}{n!}=Ae^B=1
+\Rightarrow A=e^{-B}.
+\]
+
+由期望定义
+\[
+E(X)=\sum_{n=1}^{\infty}n\cdot A\frac{B^n}{n!}
+=AB\sum_{n=1}^{\infty}\frac{B^{n-1}}{(n-1)!}
+=ABe^B=a.
+\]
+
+结合$A=e^{-B}$，得$B=a,\ A=e^{-a}$。
+\end{example}
+
+\begin{example}[例3：Laplace配对]
+将$n$只球（$1\sim n$号）随机地放入$n$个盒子（$1\sim n$号），若一只球装入与球同号的盒子中，则称为一个配对。记$X$为总的配对数，求其期望。
+
+\textbf{解}：引入随机变量
+\[
+X_i=\begin{cases}
+1, & \text{第}i\text{个球放入第}i\text{个盒子},\\
+0, & \text{其他},
+\end{cases}
+\quad i=1,2,\cdots,n.
+\]
+则$X=X_1+X_2+\cdots+X_n$。
+
+由于
+\[
+P\{X_i=1\}=\frac{(n-1)!}{n!}=\frac{1}{n},\quad
+P\{X_i=0\}=1-\frac{1}{n},
+\]
+故$E(X_i)=\frac{1}{n}$。由期望的线性性质
+\[
+E(X)=E(X_1)+E(X_2)+\cdots+E(X_n)=n\cdot\frac{1}{n}=1.
+\]
+\end{example}
+
+\subsection{求连续型随机变量的期望与方差}
+
+\textbf{计算要点}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 根据定义算积分；
+    \item 运用随机变量数字特征之间的关系式；
+    \item 计算过程中，熟练运用各类积分技巧。
+\end{enumerate}
+
+\begin{example}[例4]
+设随机变量$X$的密度函数为
+\[
+f(x)=\begin{cases}
+c(1-x^2)^\alpha, & -1<x<1,\\
+0, & \text{其他},
+\end{cases}
+\quad (\alpha>-1)
+\]
+求$E(X)$和$D(X)$。
+
+\textbf{解}：由于$f(x)$是偶函数，故
+\[
+E(X)=\int_{-\infty}^{+\infty}x f(x)\,\mathrm{d}x=0.
+\]
+
+方差
+\[
+D(X)=E(X^2)=\int_{-1}^{1}c x^2(1-x^2)^\alpha\,\mathrm{d}x.
+\]
+
+利用分部积分：
+\[
+\begin{aligned}
+D(X)&=-\frac{c}{2(\alpha+1)}x(1-x^2)^{\alpha+1}\Big|_{-1}^{1}
++\frac{c}{2(\alpha+1)}\int_{-1}^{1}(1-x^2)^{\alpha+1}\,\mathrm{d}x\\
+&=\frac{1}{2(\alpha+1)}\int_{-1}^{1}c(1-x^2)^{\alpha}(1-x^2)\,\mathrm{d}x\\
+&=\frac{1}{2(\alpha+1)}\left[\int_{-1}^{1}c(1-x^2)^\alpha\,\mathrm{d}x-\int_{-1}^{1}c x^2(1-x^2)^\alpha\,\mathrm{d}x\right]\\
+&=\frac{1}{2(\alpha+1)}\big[1-D(X)\big].
+\end{aligned}
+\]
+
+解得
+\[
+D(X)=\frac{1}{2\alpha+3}.
+\]
+\end{example}
+
+\begin{example}[例5]
+设随机变量$X$的概率密度$f(x)=\dfrac{1}{\pi(1+x^2)}$，求$E[\min(|X|,1)]$。
+
+\textbf{解}：
+\[
+\begin{aligned}
+E[\min(|X|,1)]
+&=\int_{-\infty}^{+\infty}\min(|x|,1)f(x)\,\mathrm{d}x\\
+&=\int_{|x|<1}|x|f(x)\,\mathrm{d}x+\int_{|x|\geq 1}f(x)\,\mathrm{d}x\\
+&=2\int_{0}^{1}\frac{x}{\pi(1+x^2)}\,\mathrm{d}x+2\int_{1}^{+\infty}\frac{1}{\pi(1+x^2)}\,\mathrm{d}x\\
+&=\frac{1}{\pi}\ln(1+x^2)\Big|_{0}^{1}+\frac{2}{\pi}\arctan x\Big|_{1}^{+\infty}\\
+&=\frac{1}{\pi}\ln 2+\frac{1}{2}.
+\end{aligned}
+\]
+\end{example}
+
+\subsection{求二维随机变量的数字特征}
+
+\begin{example}[例6]
+设二维连续型随机变量$(X,Y)$的联合密度函数为
+\[
+f(x,y)=\begin{cases}
+\dfrac{6}{7}\left(x^2+\dfrac{1}{2}xy\right), & 0<x<1,\ 0<y<2,\\[8pt]
+0, & \text{其他},
+\end{cases}
+\]
+求$(X,Y)$的协方差矩阵及相关系数。
+
+\textbf{解}：
+\[
+E(X)=\int_{0}^{1}\int_{0}^{2}\frac{6}{7}x\left(x^2+\frac{1}{2}xy\right)\mathrm{d}y\mathrm{d}x=\frac{5}{7},
+\]
+\[
+E(Y)=\int_{0}^{1}\int_{0}^{2}\frac{6}{7}y\left(x^2+\frac{1}{2}xy\right)\mathrm{d}y\mathrm{d}x=\frac{8}{7}.
+\]
+
+\[
+E(X^2)=\int_{0}^{1}\int_{0}^{2}\frac{6}{7}x^2\left(x^2+\frac{1}{2}xy\right)\mathrm{d}y\mathrm{d}x=\frac{39}{70},
+\quad
+D(X)=\frac{39}{70}-\left(\frac{5}{7}\right)^2=\frac{23}{490}.
+\]
+
+\[
+E(Y^2)=\int_{0}^{1}\int_{0}^{2}\frac{6}{7}y^2\left(x^2+\frac{1}{2}xy\right)\mathrm{d}y\mathrm{d}x=\frac{34}{21},
+\quad
+D(Y)=\frac{34}{21}-\left(\frac{8}{7}\right)^2=\frac{46}{147}.
+\]
+
+\[
+E(XY)=\int_{0}^{1}\int_{0}^{2}\frac{6}{7}xy\left(x^2+\frac{1}{2}xy\right)\mathrm{d}y\mathrm{d}x=\frac{17}{21}.
+\]
+
+协方差
+\[
+\mathrm{Cov}(X,Y)=E(XY)-E(X)E(Y)=\frac{17}{21}-\frac{5}{7}\cdot\frac{8}{7}=-\frac{1}{147}.
+\]
+
+因此$(X,Y)$的协方差矩阵为
+\[
+\Sigma=\begin{pmatrix}
+D(X) & \mathrm{Cov}(X,Y)\\[4pt]
+\mathrm{Cov}(Y,X) & D(Y)
+\end{pmatrix}
+=\begin{pmatrix}
+\dfrac{23}{490} & -\dfrac{1}{147}\\[8pt]
+-\dfrac{1}{147} & \dfrac{46}{147}
+\end{pmatrix}.
+\]
+
+相关系数
+\[
+\rho_{XY}=\frac{\mathrm{Cov}(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}=-\frac{\sqrt{15}}{69}.
+\]
+\end{example}
+
+\subsection{利用切比雪夫不等式估算概率}
+
+\begin{example}[例7]
+在供暖的季节，住房的平均温度为$20$度，标准差为$2$度，试用切比雪夫不等式估计住房温度与平均温度的偏差的绝对值小于$4$度的概率最少是多少？
+
+\textbf{解}：设住房的温度是随机变量$X$，其期望为$\mu=20$，方差为$\sigma^2=4$。根据切比雪夫不等式，令$\varepsilon=4$，有
+\[
+P\{|X-20|\geq 4\}\leq\frac{2^2}{4^2}=\frac{1}{4}.
+\]
+因此
+\[
+P\{|X-20|<4\}=1-P\{|X-20|\geq 4\}\geq 1-\frac{1}{4}=\frac{3}{4}.
+\]
+所以，住房温度与平均温度的偏差的绝对值小于$4$度的概率最少是$75\%$。
+\end{example}
+
+\section{Excel实验}
+
+\subsection{概率分布函数}
+
+Excel的统计函数中，概率分布函数命名形式如``XXX.DIST''。
+
+\textbf{正态分布函数}：
+\[
+\text{NORM.DIST}(x,\ \text{mean},\ \text{standard\_dev},\ \text{cumulative})
+\]
+参数说明：$x$为需要计算的数值；mean为均值；standard\_dev为标准差；cumulative为逻辑值，TRUE返回累积分布函数，FALSE返回概率密度函数。
+
+\textbf{二项分布函数}：
+\[
+\text{BINOM.DIST}(\text{number\_s},\ \text{trials},\ \text{probability\_s},\ \text{cumulative})
+\]
+参数说明：number\_s为试验成功次数；trials为独立试验次数$n$；probability\_s为每次成功概率$p$。
+
+\textbf{泊松分布函数}：
+\[
+\text{POISSON.DIST}(x,\ \text{mean},\ \text{cumulative})
+\]
+参数说明：$x$为事件数；mean为均值$\lambda$。
+
+\begin{example}[实验1]
+设$X\sim N(108,9)$，求$P\{102<X<117\}$。
+
+\textbf{实验过程}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 计算$P(X<117)$：=NORM.DIST(117,108,3,TRUE)
+    \item 计算$P(X<102)$：=NORM.DIST(102,108,3,TRUE)
+    \item 计算$P(102<X<117)$：=B3-B2
+\end{enumerate}
+\end{example}
+
+\begin{example}[实验2]
+用Excel验证二项分布与泊松分布之间的关系。
+
+\textbf{泊松定理}：在$n$重伯努利试验中，事件$A$在每次试验中发生的概率为$p$，出现$A$的总次数$K$服从二项分布$B(n,p)$。当$n$很大$p$很小，$\lambda=np$大小适中时，二项分布可用参数为$\lambda=np$的泊松分布来近似。
+
+\textbf{实验结果}：二项分布可用参数为$\lambda=np$的泊松分布来近似，$n$越大，越逼近。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_binomial_poisson_compare.png}
+    \caption{二项分布与泊松分布对比（$n=20,50,100$，$\lambda=6$）}
+    \label{fig:binomial_poisson_compare}
+\end{figure}
+\end{example}
+
+\subsection{协方差和相关系数}
+
+\textbf{方法1：使用函数}
+\begin{itemize}[leftmargin=2em]
+    \item 协方差计算函数：COVARIANCE.P(array1, array2)
+    \item 相关系数计算函数：CORREL(array1, array2)
+\end{itemize}
+
+\textbf{方法2：使用数据分析工具箱}
+\begin{itemize}[leftmargin=2em]
+    \item 在``数据''选项卡中选择``数据分析''；
+    \item 选择``Covariance''计算协方差矩阵。
+\end{itemize}
+
+\begin{example}[实验3]
+计算学生平时成绩、期中考试成绩、期末考试成绩两两之间的协方差和相关系数。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_excel_interface.png}
+    \caption{Excel操作示意图}
+    \label{fig:excel_interface}
+\end{figure}
+\end{example}
+
+\section{拓展：主成分分析}
+
+\subsection{基本思想}
+
+\textbf{主成分分析}（Principal Component Analysis，简称PCA）是一种常用的数据降维方法。
+
+\textbf{核心问题}：
+\begin{itemize}[leftmargin=2em]
+    \item 给定$d$维观察空间的数据点，将其投影到更低维度的空间，同时保持尽可能多的信息；
+    \item 投影后数据可区分性好（即分得越``开''越好）：最大化投影后数据的方差；
+    \item 投影后的低维数据能重构高维原始数据：最小化原始数据点与重构数据点之间的均方误差。
+\end{itemize}
+
+\textbf{主成分向量}（The Principal Components）：
+\begin{itemize}[leftmargin=2em]
+    \item 它们以数据分布最集中区域的中心为原点向外发射的一组向量，即低维空间的基向量；
+    \item 第$1$个投影方向对应于数据分布方差最大的方向；
+    \item 第$1,2,\ldots,n$个投影方向与之前的投影方向相互正交，对应于剩余补空间中的方差最大的方向。
+\end{itemize}
+
+\textbf{求解算法：利用协方差矩阵}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 给定$m$个$n$维数据点$\{x_1,\ldots,x_m\}$，其中$x_i\in\mathbb{R}^n$，计算协方差矩阵
+    \[
+    \Sigma=\frac{1}{m}\sum_{i=1}^{m}(x_i-\bar{x})(x_i-\bar{x})^\top,\quad \bar{x}=\frac{1}{m}\sum_{i=1}^{m}x_i.
+    \]
+    \item 对$\Sigma$做奇异值分解（或特征值分解），选取最大的$k$个特征值对应的特征向量作为投影向量，将$n$维数据投影至$k$维空间。
+\end{enumerate}
+
+\begin{remark}
+PCA投影方向向量 = 协方差矩阵$\Sigma$的特征向量。\\
+特征值越大$\Rightarrow$携带的信息越多。
+\end{remark}
+
+\subsection{应用}
+
+\textbf{1. 高维数据可视化}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_covid_pca.png}
+    \caption{COVID-19病人基因表达分析PCA图}
+    \label{fig:covid_pca}
+\end{figure}
+
+\textbf{2. 图片压缩}
+
+将图像划分为若干小patch（如$12\times 12$），每个patch视为一个高维向量（如$144$维），对向量进行PCA降维。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_image_compression.png}
+    \caption{图片压缩效果对比图}
+    \label{fig:image_compression}
+\end{figure}
+
+\textbf{3. 人脸识别}
+
+利用PCA提取人脸图像的主要特征（特征脸），降低维度并去除噪声，提高识别效率。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_face_recognition.png}
+    \caption{人脸图像与特征脸对比图}
+    \label{fig:face_recognition}
+\end{figure}
+
+\textbf{4. 3D人脸形变统计模型}
+
+基于$200$张成年人$3D$人头模型（每个模型约$70000$个顶点），经过PCA处理得到参数化人脸模型。任意新的人脸可由特征向量线性组合生成：
+\[
+S=\bar{S}+\sum a_i S_i,\qquad T=\bar{T}+\sum b_i T_i.
+\]
+其中$S$为形状向量，$T$为纹理向量。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_3d_face_model.png}
+    \caption{3D人脸形变模型示意图}
+    \label{fig:3d_face_model}
+\end{figure}
 
 \end{document}
