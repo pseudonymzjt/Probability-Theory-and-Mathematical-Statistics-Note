@@ -741,4 +741,771 @@ P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A\mid B)P(B)+P(A\mid\bar{B})P(\bar{B})}=\frac
 \]
 \end{example}
 
+\newpage
+\section{随机变量及其分布}
+
+\subsection{从随机事件到随机变量}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_rv_event_mapping.png}
+    \caption{从随机事件到随机变量的映射}
+    \label{fig:rv_event_mapping}
+\end{figure}
+
+\textbf{随机事件}：样本空间；集合。例：\(\{\text{至少取出2个黑球}\}\)
+
+\textbf{随机变量}：实值函数；随机变量取值刻画随机事件。例：\(\{X\geq 2\}\)
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/fig_ch2_structure.png}
+    \caption{第二章知识结构图}
+    \label{fig:ch2_structure}
+\end{figure}
+
+\subsection{随机变量}
+
+\begin{definition}[随机变量]
+设随机试验的样本空间是\(S=\{\omega\}\)，\(X=X(\omega)\)是定义在样本空间\(S\)上的实值单值函数，称\(X=X(\omega)\)为\textbf{随机变量}。
+\end{definition}
+
+\begin{remark}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{随机变量 v.s. 普通函数}：随机变量是一个定义在样本空间上的函数；普通函数定义在实数轴上。
+    \item \textbf{随机变量的取值具有一定的概率规律}。
+    \item \textbf{随机变量 v.s. 随机事件}：随机变量从动态的观点研究随机现象；随机事件从静态的观点研究随机现象。
+\end{enumerate}
+\end{remark}
+
+\subsection{离散型随机变量的分布律}
+
+\begin{definition}
+设离散型随机变量\(X\)所有可能取的值为\(x_k\)（\(k=1,2,\cdots\)），\(X\)取各个可能值的概率，即事件\(\{X=x_k\}\)的概率，为
+\[
+P\{X=x_k\}=p_k,\quad k=1,2,\cdots
+\]
+称此为离散型随机变量\(X\)的\textbf{分布律}。
+\end{definition}
+
+\textbf{性质}：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{非负性}：\(p_k\geq 0\)，\(k=1,2,\cdots\)
+    \item \textbf{归一性}：\(\sum_{k=1}^{\infty}p_k=1\)
+\end{itemize}
+
+分布律形式上可记为
+\[
+\begin{array}{c|ccccc}
+X & x_1 & x_2 & \cdots & x_k & \cdots \\ \hline
+p_k & p_1 & p_2 & \cdots & p_k & \cdots
+\end{array}
+\]
+
+\subsection{常用的离散型随机变量}
+
+\subsubsection{Bernoulli分布（两点分布）}
+
+如果随机变量\(X\)的分布律为
+\[
+P\{X=1\}=p,\quad P\{X=0\}=1-p=q
+\]
+或
+\[
+\begin{array}{c|cc}
+X & 0 & 1 \\ \hline
+P & 1-p & p
+\end{array}
+\]
+则称随机变量\(X\)服从参数为\(p\)的\textbf{Bernoulli分布}。
+
+记作\(X\sim B(1,p)\)，其中\(0\leq p\leq 1\)为参数。
+
+\textbf{概率背景}：进行一次Bernoulli试验，事件\(A\)是否发生。
+
+\subsubsection{二项分布}
+
+如果随机变量\(X\)的分布律为
+\[
+P\{X=k\}=C_n^k p^k(1-p)^{n-k},\quad k=0,1,2,\cdots,n
+\]
+则称随机变量\(X\)服从参数为\((n,p)\)的\textbf{二项分布}。
+
+记作\(X\sim B(n,p)\)，其中\(0\leq p\leq 1\)为参数。
+
+\textbf{概率背景}：进行\(n\)次Bernoulli试验，事件\(A\)发生的次数。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_binomial_pmf_exercise.png}
+    \caption{二项分布概率质量函数（$n=100,p=0.5$）}
+    \label{fig:binomial_pmf_exercise}
+\end{figure}
+
+\subsubsection{Poisson分布}
+
+如果随机变量\(X\)的分布律为
+\[
+P\{X=k\}=\frac{\lambda^k}{k!}e^{-\lambda},\quad k=0,1,2,\cdots
+\]
+其中\(\lambda>0\)为常数，则称随机变量\(X\)服从参数为\(\lambda\)的\textbf{Poisson分布}。
+
+记作\(X\sim P(\lambda)\)。
+
+\textbf{常用场合}：\(X\)表示一定的时间或空间内出现的事件次数。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_poisson_pmf_exercise.png}
+    \caption{Poisson分布概率质量函数（$\lambda=50$）}
+    \label{fig:poisson_pmf_exercise}
+\end{figure}
+
+\begin{theorem}[Poisson定理]
+设随机变量\(X_n\)（\(n=1,2,\cdots\)）服从二项分布，其分布律为
+\[
+P\{X_n=k\}=C_n^k p_n^k(1-p_n)^{n-k},\quad k=0,1,\cdots,n
+\]
+若\(\lim_{n\to\infty}np_n=\lambda>0\)，则
+\[
+\lim_{n\to\infty}P\{X_n=k\}=\lim_{n\to\infty}C_n^k p_n^k(1-p_n)^{n-k}=\frac{\lambda^k}{k!}e^{-\lambda}
+\]
+\end{theorem}
+
+\textbf{Poisson定理的应用}：
+\begin{itemize}[leftmargin=2em]
+    \item \(np\)较小时，用Poisson分布近似二项分布进行计算。（\(n\geq 20\)，\(p\leq 0.05\)时较好）
+    \item 当\(n\)比较大，\(p\)比较小时，令\(\lambda=np\)，则
+    \[
+    P\{X=k\}=C_n^k p^k(1-p)^{n-k}\approx\frac{\lambda^k}{k!}e^{-\lambda}
+    \]
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_poisson_approx.png}
+    \caption{Poisson定理近似效果图}
+    \label{fig:poisson_approx}
+\end{figure}
+
+\subsubsection{几何分布}
+
+如果随机变量\(X\)的分布律为
+\[
+P\{X=k\}=q^{k-1}p,\quad k=1,2,\cdots
+\]
+其中\(p\geq 0\)，\(q\geq 0\)，\(p+q=1\)，则称随机变量\(X\)服从参数为\(p\)的\textbf{几何分布}。
+
+\textbf{概率背景}：在Bernoulli试验中进行到事件\(A\)首次发生为止。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_geometric_pmf_exercise.png}
+    \caption{几何分布概率质量函数（$p=0.5$）}
+    \label{fig:geometric_pmf_exercise}
+\end{figure}
+
+\subsubsection{超几何分布}
+
+如果随机变量\(X\)的分布律为
+\[
+P\{X=k\}=\frac{C_M^k C_{N-M}^{n-k}}{C_N^n},\quad k=0,1,\cdots,\min(M,n)
+\]
+其中\(M,N,n\)均为自然数，则称随机变量\(X\)服从参数为\((M,N,n)\)的\textbf{超几何分布}。
+
+\textbf{概率背景}：无放回抽样，抽出次品数。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_hypergeometric_pmf.png}
+    \caption{超几何分布概率质量函数}
+    \label{fig:hypergeometric_pmf}
+\end{figure}
+
+\subsubsection{常用离散型分布的关系}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/fig_discrete_dist_relations.png}
+    \caption{常用离散型分布关系图}
+    \label{fig:discrete_dist_relations}
+\end{figure}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Bernoulli分布}：\(B(1,p)\)
+    \item \textbf{二项分布}：\(n\)重Bernoulli试验，\(B(n,p)\)
+    \item \textbf{超几何分布}→\textbf{二项分布}：当\(N\to\infty\)，\(n,M/N\)固定时
+    \item \textbf{二项分布}→\textbf{Poisson分布}：当\(N\)大，\(p\)小时，\(\lambda=np\)
+\end{itemize}
+
+\subsection{随机变量的分布函数}
+
+\begin{definition}
+设\(X\)是一个随机变量，\(x\)是任意实数，函数
+\[
+F(x)=P\{X\leq x\}
+\]
+称为\(X\)的\textbf{分布函数}。
+\end{definition}
+
+\textbf{说明}：分布函数\(F(x)\)是\(x\)的一个普通实函数。分布函数主要研究随机变量在某一区间内取值的概率情况。
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{取值范围}：\(0\leq F(x)\leq 1\)，\((-\infty,\infty)\)
+    \item \textbf{不减性}：若\(x_1<x_2\)，则\(F(x_1)\leq F(x_2)\)
+    \item \textbf{右连续}：\(F(x+0)=F(x)\)
+    \item \textbf{左右极限值}：
+    \[
+    F(-\infty)=\lim_{x\to-\infty}F(x)=0,\quad F(+\infty)=\lim_{x\to+\infty}F(x)=1
+    \]
+    \item \textbf{单点概率值计算}：
+    \[
+    P\{X=x_0\}=F(x_0)-F(x_0-0)
+    \]
+\end{enumerate}
+
+具备前三条性质的函数\(F(x)\)必是某个随机变量的分布函数。
+
+\textbf{重要计算公式}：
+\begin{itemize}[leftmargin=2em]
+    \item 利用分布函数计算区间概率：
+    \[
+    P\{a<X\leq b\}=F(b)-F(a)
+    \]
+    \[
+    P\{X>a\}=1-F(a)
+    \]
+    \[
+    P\{X=x_0\}=F(x_0)-F(x_0-0)
+    \]
+    \item 离散型随机变量的分布函数：
+    \[
+    F(x)=P\{X\leq x\}=\sum_{x_k\leq x}p_k
+    \]
+\end{itemize}
+
+\subsection{连续型随机变量的概率密度}
+
+\begin{definition}
+如果对于随机变量\(X\)的分布函数\(F(x)\)，存在非负函数\(f(x)\)，使对于任意实数\(x\)有
+\[
+F(x)=\int_{-\infty}^{x}f(t)\,\mathrm{d}t
+\]
+称\(X\)为\textbf{连续型随机变量}，其中\(f(x)\)称为\(X\)的\textbf{概率密度函数}，简称\textbf{概率密度}。
+\end{definition}
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \(f(x)\geq 0\)
+    \item \(\int_{-\infty}^{+\infty}f(x)\,\mathrm{d}x=1\)
+    \item \(P\{x_1<X\leq x_2\}=F(x_2)-F(x_1)=\int_{x_1}^{x_2}f(x)\,\mathrm{d}x\)
+    \item 若\(f(x)\)在点\(x\)处连续，则有\(F'(x)=f(x)\)
+\end{enumerate}
+
+\begin{remark}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \(f(x)\Delta x\)在连续型随机变量理论中起的作用与\(P\{X=x_k\}=p_k\)在离散型随机变量理论中所起的作用类似。
+    \item \(f(x)\)在某点\(a\)的高度，不反映\(X\)取值的概率，只是意味着\(X\)取\(a\)附近的值的概率的大小。
+    \item \(P(A)=0\)，并不意味着\(A=\emptyset\)；\(P(B)=1\)，并不意味着\(B=\Omega\)。
+\end{enumerate}
+\end{remark}
+
+\subsection{常用的连续型随机变量}
+
+\subsubsection{均匀分布}
+
+若随机变量\(X\)的密度函数为
+\[
+f(x)=\begin{cases}
+\dfrac{1}{b-a}, & a\leq x\leq b, \\[8pt]
+0, & \text{其他}
+\end{cases}
+\]
+则称\(X\)服从区间\([a,b]\)上的\textbf{均匀分布}，记作\(X\sim U[a,b]\)。
+
+\textbf{分布函数}：
+\[
+F(x)=\begin{cases}
+0, & x<a, \\[6pt]
+\dfrac{x-a}{b-a}, & a\leq x<b, \\[8pt]
+1, & x\geq b
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_uniform_pdf_cdf.png}
+    \caption{均匀分布密度函数与分布函数}
+    \label{fig:uniform_pdf_cdf}
+\end{figure}
+
+\subsubsection{指数分布}
+
+若随机变量\(X\)的密度函数为
+\[
+f(x)=\begin{cases}
+\lambda e^{-\lambda x}, & x>0, \\[6pt]
+0, & x\leq 0,
+\end{cases}
+\]
+其中\(\lambda>0\)为常数，则称随机变量\(X\)服从参数为\(\lambda\)的\textbf{指数分布}，记作\(X\sim E(\lambda)\)。
+
+\textbf{分布函数}：
+\[
+F(x)=\begin{cases}
+1-e^{-\lambda x}, & x>0, \\[6pt]
+0, & x\leq 0
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_exponential_pdf_cdf.png}
+    \caption{指数分布密度函数与分布函数}
+    \label{fig:exponential_pdf_cdf}
+\end{figure}
+
+\subsubsection{正态分布}
+
+若随机变量\(X\)的密度函数为
+\[
+f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}},\quad -\infty<x<+\infty
+\]
+则称随机变量\(X\)服从参数为\((\mu,\sigma^2)\)的\textbf{正态分布}，记作\(X\sim N(\mu,\sigma^2)\)。
+
+\textbf{分布函数}：
+\[
+F(x)=\frac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{x}e^{-\frac{(t-\mu)^2}{2\sigma^2}}\,\mathrm{d}t
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_normal_pdf_cdf.png}
+    \caption{正态分布密度函数与分布函数}
+    \label{fig:normal_pdf_cdf}
+\end{figure}
+
+\textbf{正态分布\(N(\mu,\sigma^2)\)的图形特点}：
+
+正态分布的密度曲线是一条关于\(\mu\)对称的钟形曲线。
+
+"两头小，中间大，左右对称"
+
+\(\mu\)决定了图形的中心位置，\(\sigma\)决定了图形中峰的陡峭程度。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/fig_normal_compare_left.png}
+    \hfill
+    \includegraphics[width=0.45\textwidth]{figures/fig_normal_compare_right.png}
+    \caption{正态分布密度曲线对比（左：不同$\mu$；右：不同$\sigma$）}
+    \label{fig:normal_compare}
+\end{figure}
+
+\subsubsection{标准正态分布}
+
+当正态分布\(N(\mu,\sigma^2)\)中的\(\mu=0\)，\(\sigma=1\)时，这样的正态分布称为\textbf{标准正态分布}，记为\(N(0,1)\)。
+
+\textbf{标准正态分布的概率密度}：
+\[
+\varphi(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}},\quad -\infty<x<+\infty
+\]
+
+\textbf{标准正态分布的分布函数}：
+\[
+\Phi(x)=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}\,\mathrm{d}t,\quad -\infty<x<+\infty
+\]
+
+\textbf{标准正态分布的重要公式}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 若\(X\sim N(\mu,\sigma^2)\)，则\(Y=\dfrac{X-\mu}{\sigma}\sim N(0,1)\)
+    \item \(P\{c\leq X\leq d\}=\Phi\left(\dfrac{d-\mu}{\sigma}\right)-\Phi\left(\dfrac{c-\mu}{\sigma}\right)\)
+    \item \(\Phi(-x)=1-\Phi(x)\)
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_standard_normal.png}
+    \caption{标准正态分布密度函数 $\varphi(x)$ 与分布函数 $\Phi(x)$}
+    \label{fig:standard_normal}
+\end{figure}
+
+\textbf{标准正态分布的\(3\sigma\)准则}：
+
+由标准正态分布的查表计算可以求得，当\(X\sim N(0,1)\)时：
+\[
+P\{|X|\leq 1\}=2\Phi(1)-1=0.6826
+\]
+\[
+P\{|X|\leq 2\}=2\Phi(2)-1=0.9544
+\]
+\[
+P\{|X|\leq 3\}=2\Phi(3)-1=0.9974
+\]
+
+\(\mu\pm\sigma\)：\(\cdots\)
+
+\(\mu\pm 2\sigma\)：\(\cdots\)
+
+\(\mu\pm 3\sigma\)：\(X\)的取值几乎全部集中在\([\mu-3\sigma,\mu+3\sigma]\)区间内，超出这个范围的可能性仅占不到\(0.3\%\)。
+
+\subsection{随机变量的函数的分布}
+
+\subsubsection{离散型随机变量的函数的分布}
+
+如果\(X\)是离散型随机变量，其函数\(Y=g(X)\)也是离散型随机变量。若\(X\)的分布律为
+
+\[
+\begin{array}{c|ccccc}
+X & x_1 & x_2 & \cdots & x_k & \cdots \\ \hline
+p_k & p_1 & p_2 & \cdots & p_k & \cdots
+\end{array}
+\]
+
+则\(Y=g(X)\)的分布律为
+
+\[
+\begin{array}{c|ccccc}
+Y=g(X) & g(x_1) & g(x_2) & \cdots & g(x_k) & \cdots \\ \hline
+p_k & p_1 & p_2 & \cdots & p_k & \cdots
+\end{array}
+\]
+
+\subsubsection{连续型随机变量的函数的分布}
+
+如果\(X\)是连续型随机变量，其函数\(Y=g(X)\)也是连续型随机变量。
+
+\textbf{\(Y\)的概率密度计算}：
+\begin{itemize}[leftmargin=2em]
+    \item 根据\(X\)的密度函数\(f_X(x)\)求出\(Y\)的分布函数
+    \[
+    F_Y(y)=P\{Y\leq y\}=P\{g(X)\leq y\}=\int_{g(x)\leq y}f_X(x)\,\mathrm{d}x
+    \]
+    \item 再对\(F_Y(y)\)求导得到\(Y\)的密度函数
+\end{itemize}
+
+\textbf{若\(g(X)\)是严格单调函数}，即\(g'(X)<0\)或\(g'(X)>0\)，有
+\[
+f_Y(y)=\begin{cases}
+f_X[h(y)]|h'(y)|, & \alpha<y<\beta, \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+其中\(\alpha=\min\{g(-\infty),g(+\infty)\}\)，\(\beta=\max\{g(-\infty),g(+\infty)\}\)。
+
+\textbf{若\(g(x)\)在不相叠的区间\(I_1,I_2,\cdots\)上逐段严格单调}，其反函数分别为\(h_1(x),h_2(x),\cdots\)均为连续函数，那么\(Y=g(X)\)是连续型随机变量，其概率密度为
+\[
+f_Y(y)=f_X[h_1(y)]|h_1'(y)|+f_X[h_2(y)]|h_2'(y)|+\cdots,\quad y\in(\alpha,\beta)
+\]
+
+\textbf{直观理解}：\(f_Y(y)\Delta y=f_X[h(y)]\Delta x\)
+
+\subsection{常用概率分布及其关系}
+
+% skip: fig_all_dist_relations 无对应图片
+
+\subsection{典型例题}
+
+\begin{example}[题型1：离散型随机变量——求分布律、分布函数、概率、参数]
+
+\textbf{例1} 房间内有10个人，分别佩带1号到10号纪念章，任意选出5个人记录其纪念章的号码，令\(X\)表示其最小号码。
+
+(1) 求\(X\)的分布律。
+
+(2) 求\(P\{X>4\}\)。
+
+\textbf{解}：(1) \(X\)的取值为：\(1,2,3,4,5,6\)，并且
+\[
+P\{X=1\}=\frac{C_9^4}{C_{10}^5}=\frac{126}{252},\quad
+P\{X=2\}=\frac{C_8^4}{C_{10}^5}=\frac{70}{252},
+\]
+\[
+P\{X=3\}=\frac{C_7^4}{C_{10}^5}=\frac{35}{252},\quad
+P\{X=4\}=\frac{C_6^4}{C_{10}^5}=\frac{15}{252},
+\]
+\[
+P\{X=5\}=\frac{C_5^4}{C_{10}^5}=\frac{5}{252},\quad
+P\{X=6\}=\frac{C_4^4}{C_{10}^5}=\frac{1}{252}.
+\]
+
+\(X\)的分布律为
+
+\[
+\begin{array}{c|cccccc}
+X & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+P & \dfrac{126}{252} & \dfrac{70}{252} & \dfrac{35}{252} & \dfrac{15}{252} & \dfrac{5}{252} & \dfrac{1}{252}
+\end{array}
+\]
+
+(2)
+\[
+P\{X>4\}=P\{X=5\}+P\{X=6\}=\frac{5}{252}+\frac{1}{252}=\frac{6}{252}=0.0238
+\]
+\end{example}
+
+\begin{example}[例2]
+设随机变量\(X\sim B(2,p)\)，且\(P\{X\geq 1\}=\dfrac{5}{9}\)。
+
+(1) 试确定参数\(p\)；
+
+(2) 求\(P\{X=1\}\)。
+
+\textbf{解}：
+\[
+P\{X=k\}=C_2^k p^k(1-p)^{2-k}\quad(k=0,1,2)
+\]
+
+(1) 由\(P\{X\geq 1\}=\dfrac{5}{9}\)，得
+\[
+P\{X=0\}=1-\frac{5}{9}=\frac{4}{9}=(1-p)^2
+\]
+解得\(p=\dfrac{1}{3}\)。
+
+(2)
+\[
+P\{X=1\}=C_2^1\times\frac{1}{3}\times\frac{2}{3}=\frac{4}{9}
+\]
+\end{example}
+
+\begin{example}[例3]
+设离散型随机变量\(X\)的分布函数为
+\[
+F(x)=\begin{cases}
+0, & x<-1, \\[6pt]
+a, & -1\leq x<1, \\[6pt]
+\dfrac{2}{3}-a, & 1\leq x<2, \\[8pt]
+a+b, & x\geq 2
+\end{cases}
+\]
+且\(P\{X=2\}=\dfrac{1}{2}\)，试确定常数\(a,b\)，并求\(X\)的分布。
+
+\textbf{解}：利用分布函数\(F(x)\)的性质\(F(+\infty)=1\)，有\(a+b=1\)。
+
+又
+\[
+P\{X=2\}=F(2)-F(2-0)=(a+b)-\left(\frac{2}{3}-a\right)=2a+b-\frac{2}{3}=\frac{1}{2}
+\]
+解得\(a=\dfrac{1}{6}\)，\(b=\dfrac{5}{6}\)。
+
+从而
+\[
+F(x)=\begin{cases}
+0, & x<-1, \\[6pt]
+\dfrac{1}{6}, & -1\leq x<1, \\[8pt]
+\dfrac{1}{2}, & 1\leq x<2, \\[8pt]
+1, & x\geq 2
+\end{cases}
+\]
+
+\(X\)的分布律为
+
+\[
+\begin{array}{c|ccc}
+X & -1 & 1 & 2 \\ \hline
+P & \dfrac{1}{6} & \dfrac{1}{3} & \dfrac{1}{2}
+\end{array}
+\]
+\end{example}
+
+\begin{example}[题型2：连续型随机变量——求概率密度/分布函数中的参数、已知概率密度求分布函数、已知分布函数求概率密度、概率计算]
+
+\textbf{例4} 设随机变量的密度函数为
+\[
+f(x)=\begin{cases}
+a-bx^2, & -1<x<1, \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+且概率\(P\{X<\frac{1}{2}\}=\dfrac{27}{32}\)，求常数\(a,b\)的值。
+
+\textbf{解}：由\(\int_{-\infty}^{+\infty}f(x)\,\mathrm{d}x=1\)，有
+\[
+\int_{-1}^{1}(a-bx^2)\,\mathrm{d}x=1\quad\Longrightarrow\quad 2a-\frac{2b}{3}=1
+\]
+
+又
+\[
+P\left\{X<\frac{1}{2}\right\}=\int_{-1}^{1/2}(a-bx^2)\,\mathrm{d}x=\frac{3a}{2}-\frac{3b}{8}=\frac{27}{32}
+\]
+
+联立解得\(a=\dfrac{3}{4}\)，\(b=\dfrac{3}{4}\)。
+\end{example}
+
+\begin{example}[例5]
+设随机变量\(X\)的分布函数为
+\[
+F(x)=\begin{cases}
+A+Be^{-x}, & x>0, \\[6pt]
+0, & x\leq 0
+\end{cases}
+\]
+
+求：(1) \(A,B\)的值；(2) \(X\)的概率密度；(3) \(P\{X>10\mid X>3\}\)。
+
+\textbf{解}：(1) 由\(F(+\infty)=1\)，得\(A=1\)；由右连续性\(F(0+0)=F(0)\)，得\(A+B=0\)，故\(B=-1\)。
+
+(2) 由(1)知
+\[
+F(x)=\begin{cases}
+1-e^{-x}, & x>0, \\[6pt]
+0, & x\leq 0
+\end{cases}
+\]
+于是
+\[
+f(x)=F'(x)=\begin{cases}
+e^{-x}, & x>0, \\[6pt]
+0, & x\leq 0
+\end{cases}
+\]
+
+(3)
+\[
+P\{X>10\mid X>3\}=\frac{P\{X>10\}}{P\{X>3\}}=\frac{1-F(10)}{1-F(3)}=\frac{e^{-10}}{e^{-3}}=e^{-7}
+\]
+\end{example}
+
+\begin{example}[题型3：随机变量的函数的分布——求\(Y=g(X)\)的概率密度]
+
+\textbf{通用步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 确定\(Y\)的取值范围
+    \item 写出取值范围内\(Y\)的分布函数\(F_Y(y)=P\{Y\leq y\}\)
+    \item 对\(F_Y(y)\)求导得到\(f_Y(y)\)
+    \item 写出\(f_Y(y)\)在\((-\infty,+\infty)\)上的完整表达式，检查边界处"="的取法
+\end{enumerate}
+
+\textbf{公式}：
+\begin{itemize}[leftmargin=2em]
+    \item 若\(g(X)\)单调：
+    \[
+    f_Y(y)=\begin{cases}
+    f_X[h(y)]|h'(y)|, & \alpha<y<\beta, \\[6pt]
+    0, & \text{其他}
+    \end{cases}
+    \]
+    \item 若\(g(X)\)逐段单调：
+    \[
+    f_Y(y)=f_X[h_1(y)]|h_1'(y)|+f_X[h_2(y)]|h_2'(y)|+\cdots
+    \]
+\end{itemize}
+\end{example}
+
+\begin{example}[例6]
+若\(X\sim N(1,2)\)，设\(Y=2X-1\)，求\(P\{Y>1\}\)。
+
+\textbf{解法1}：\(Y=2X-1\sim N(1,8)\)，
+\[
+P\{Y>1\}=1-P\{Y\leq 1\}=1-P\left\{\frac{Y-1}{\sqrt{8}}\leq\frac{1-1}{\sqrt{8}}\right\}=1-\Phi(0)=0.5
+\]
+
+\textbf{解法2}：
+\[
+P\{Y>1\}=P\{2X-1>1\}=P\{X>1\}=1-P\{X\leq 1\}=0.5
+\]
+\end{example}
+
+\begin{example}[例7/8]
+设随机变量\(X\)服从参数为\(\lambda=2\)的指数分布，试求\(Y=1-e^{-2X}\)的概率密度。
+
+\textbf{解}：随机变量\(X\)的概率密度函数
+\[
+f(x)=\begin{cases}
+2e^{-2x}, & x>0, \\[6pt]
+0, & x\leq 0
+\end{cases}
+\]
+
+\textbf{方法1（分布函数法）}：
+\begin{itemize}[leftmargin=2em]
+    \item \(Y\)的取值范围：\(X\)在\((0,+\infty)\)内取值时，\(Y\)在\((0,1)\)内取值
+    \item \(Y\)的分布函数，在\(0<y<1\)时
+    \[
+    F_Y(y)=P\{Y\leq y\}=P\{1-e^{-2X}\leq y\}=P\left\{X\leq-\frac{1}{2}\ln(1-y)\right\}=y
+    \]
+    \item 求导得\(Y\)的概率密度
+    \[
+    f_Y(y)=F_Y'(y)=\begin{cases}
+    1, & y\in(0,1), \\[6pt]
+    0, & y\notin(0,1)
+    \end{cases}
+    \]
+\end{itemize}
+
+\textbf{方法2（公式法）}：
+\(y=1-e^{-2x}\)单调增加，反函数为\(x=-\dfrac{1}{2}\ln(1-y)\)。
+
+当\(x>0\)时，\(y=1-e^{-2x}\in(0,1)\)。
+
+则有
+\[
+f_Y(y)=f_X[h(y)]|h'(y)|=2e^{-2\left[-\frac{1}{2}\ln(1-y)\right]}\cdot\frac{1}{2(1-y)}=1
+\]
+
+即
+\[
+f_Y(y)=\begin{cases}
+1, & y\in(0,1), \\[6pt]
+0, & y\notin(0,1)
+\end{cases}
+\]
+\end{example}
+
+\begin{example}[题型4：经典的连续型随机变量——概率计算、记住典型分布的分布函数/密度函数、灵活运用分布的特点]
+
+\textbf{例9} 设随机变量\(X\)在区间\((-3,6)\)上服从均匀分布，求方程\(x^2+Xx+1=0\)有实根的概率。
+
+\textbf{解}：\(X\)的概率密度函数
+\[
+f(x)=\begin{cases}
+\dfrac{1}{9}, & -3<x<6, \\[10pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+方程\(x^2+Xx+1=0\)有实根的条件是\(\Delta=X^2-4\geq 0\)，即\(|X|\geq 2\)。
+
+\[
+P\{\text{方程有实根}\}=P\{X^2-4\geq 0\}=P\{X\leq -2\}+P\{X\geq 2\}
+\]
+\[
+=\int_{-3}^{-2}\frac{1}{9}\,\mathrm{d}x+\int_{2}^{6}\frac{1}{9}\,\mathrm{d}x=\frac{1}{9}+\frac{4}{9}=\frac{5}{9}
+\]
+\end{example}
+
+\begin{example}[例10]
+设有两种鸡蛋混放在一起，其中甲种鸡蛋单只的重量（单位：克）服从\(N(50,25)\)分布，乙种鸡蛋单只的重量（单位：克）服从\(N(45,16)\)分布。设甲种鸡蛋占总只数的\(70\%\)，今从该批鸡蛋中任选一只，
+
+(1) 试求其重量超过55克的概率；
+
+(2) 若已知所抽出的鸡蛋超过55克，问它是甲种蛋的概率是多少？
+
+（已知\(\Phi(1)=0.8413\)，\(\Phi(2.5)=0.9938\)）
+
+\textbf{解}：设\(B=\{\text{选出的鸡蛋是甲种鸡蛋}\}\)，\(\bar{B}=\{\text{选出的鸡蛋是乙种鸡蛋}\}\)，\(A=\{\text{选出的鸡蛋重量超过55克}\}\)。
+
+\(X\)：甲种鸡蛋单只的重量，\(Y\)：乙种鸡蛋单只的重量。
+
+则\(P(B)=0.7\)，\(P(\bar{B})=0.3\)。
+
+\[
+P(A\mid B)=P\{X>55\}=1-P\{X\leq 55\}=1-\Phi\left(\frac{55-50}{5}\right)=1-\Phi(1)=1-0.8413=0.1587
+\]
+
+\[
+P(A\mid\bar{B})=P\{Y>55\}=1-P\{Y\leq 55\}=1-\Phi\left(\frac{55-45}{4}\right)=1-\Phi(2.5)=1-0.9938=0.0062
+\]
+
+(1) 由全概率公式：
+\[
+P(A)=P(B)P(A\mid B)+P(\bar{B})P(A\mid\bar{B})=0.7\times 0.1587+0.3\times 0.0062=0.1129
+\]
+
+(2) 由Bayes公式：
+\[
+P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A)}=\frac{0.1587\times 0.7}{0.1129}=\frac{0.11109}{0.11295}\approx 0.9835
+\]
+\end{example}
+
 \end{document}
