@@ -3389,4 +3389,834 @@ S=\bar{S}+\sum a_i S_i,\qquad T=\bar{T}+\sum b_i T_i.
     \label{fig:3d_face_model}
 \end{figure}
 
+\newpage
+\chapter{大数定律及中心极限定理}
+
+\section{重点与难点}
+
+\textbf{重点}：
+\begin{itemize}[leftmargin=2em]
+    \item 利用切比雪夫不等式和中心极限定理估计和近似计算概率。
+    \item 了解正态分布在近似计算中的作用。
+\end{itemize}
+
+\textbf{难点}：
+\begin{itemize}[leftmargin=2em]
+    \item 证明随机变量服从大数定律。
+\end{itemize}
+
+\section{依概率收敛}
+
+\begin{definition}[依概率收敛]
+设$Y_1,Y_2,\ldots,Y_n,\ldots$是一个随机变量序列，$a$是一个常数，若对任意正数$\varepsilon$，有
+\[
+\lim_{n\to\infty}P\{|Y_n-a|<\varepsilon\}=1,
+\]
+则称序列$\{Y_n\}$依概率收敛于$a$，记为
+\[
+Y_n\stackrel{P}{\longrightarrow}a.
+\]
+\end{definition}
+
+\section{大数定律}
+
+\subsection{（弱）大数定律的定义}
+
+\begin{definition}[弱大数定律]
+设$\{X_n,n=1,2,\ldots\}$是一个随机变量序列，而且对每个$n$，$E(X_n)$存在。如果对于任意给定的$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\left\{\left|\frac{1}{n}\sum_{k=1}^{n}X_k-\frac{1}{n}\sum_{k=1}^{n}E(X_k)\right|<\varepsilon\right\}=1,
+\]
+则称随机变量序列$\{X_n\}$服从（弱）大数定律。
+\end{definition}
+
+等价形式：
+\[
+\frac{1}{n}\sum_{k=1}^{n}X_k\stackrel{P}{\longrightarrow}\frac{1}{n}\sum_{k=1}^{n}E(X_k).
+\]
+
+\subsection{常见的大数定律}
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+定理名称 & $\{X_n\}$分布 & 是否两两独立 & $E(X_i)$ & $D(X_i)$ \\
+\hline
+Chebyshev大数定律 & -- & 是 & 存在 & 存在且有界 \\
+\hline
+Poisson大数定律 & 0-1分布 & 是 & 存在 & 存在且有界 \\
+\hline
+Bernoulli大数定律 & 同分布0-1分布 & 是 & 存在 & 存在且有界 \\
+\hline
+Khinchin大数定律 & 同分布 & 是 & 存在 & 可以不存在 \\
+\hline
+Markov大数定律 & -- & 否 & 存在 & $\displaystyle\lim_{n\to\infty}D\left(\frac{1}{n}\sum_{k=1}^{n}X_k\right)=0$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}[切比雪夫(Chebyshev)大数定律]
+设随机变量序列$\{X_n\}$满足如下条件：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item $X_1,X_2,\ldots,X_n,\ldots$两两相互独立；
+    \item 对每一个$n$（$n=1,2,\ldots$），$D(X_n)$存在；
+    \item 数列$D(X_n)$有界，即存在常数$c$，使得对任意的$n$（$n=1,2,\ldots$），有$D(X_n)\leq c$。
+\end{enumerate}
+则对任意$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\left\{\left|\frac{1}{n}\sum_{k=1}^{n}X_k-\frac{1}{n}\sum_{k=1}^{n}E(X_k)\right|<\varepsilon\right\}=1.
+\]
+即随机变量序列$\{X_n\}$服从大数定律。
+\end{theorem}
+
+\begin{theorem}[切比雪夫大数定律的特殊形式]
+设随机变量$X_1,X_2,\ldots,X_n,\ldots$是独立同分布的随机变量，且$E(X_k)=\mu$，$D(X_k)=\sigma^2$（$k=1,2,\ldots$），做前$n$个随机变量的算术平均
+\[
+\bar{X}=\frac{1}{n}\sum_{k=1}^{n}X_k,
+\]
+则对任意$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\{|\bar{X}-\mu|<\varepsilon\}=\lim_{n\to\infty}P\left\{\left|\frac{1}{n}\sum_{k=1}^{n}X_k-\mu\right|<\varepsilon\right\}=1.
+\]
+\end{theorem}
+
+\begin{theorem}[泊松(Poisson)大数定律]
+如果在独立试验序列中，事件$A$在第$n$次试验中出现概率为$p_n$，设$n_A$是前$n$次试验中事件$A$出现的次数，则对任意$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\left\{\left|\frac{n_A}{n}-\frac{p_1+p_2+\cdots+p_n}{n}\right|<\varepsilon\right\}=1.
+\]
+\end{theorem}
+
+\begin{theorem}[Bernoulli大数定律]
+设$f_A$是$n$次独立重复试验中事件$A$发生的次数，$p$是事件$A$在每次试验中发生的概率，则对于任意$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\left\{\left|\frac{f_A}{n}-p\right|<\varepsilon\right\}=1
+\quad\text{或}\quad
+\lim_{n\to\infty}P\left\{\left|\frac{f_A}{n}-p\right|\geq\varepsilon\right\}=0.
+\]
+\end{theorem}
+
+\begin{theorem}[Khinchin大数定律]
+设随机变量$X_1,X_2,\ldots,X_n,\ldots$是独立同分布的随机变量序列，且具有数学期望$E(X_k)=\mu$（$k=1,2,\ldots$），做前$n$个变量的算术平均，则对任意$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\left\{\left|\frac{1}{n}\sum_{k=1}^{n}X_k-\mu\right|<\varepsilon\right\}=1.
+\]
+\textbf{注意}：与前面Chebyshev大数定律的特殊情况相比，这里不要求$D(X_n)$存在。
+\end{theorem}
+
+\begin{theorem}[Markov大数定律]
+设随机变量$\{X_n\}$是随机变量序列，如果
+\[
+\lim_{n\to\infty}D\left(\frac{1}{n}\sum_{k=1}^{n}X_k\right)=0
+\quad\text{（称为Markov条件）},
+\]
+则对任意$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\left\{\left|\frac{1}{n}\sum_{k=1}^{n}X_k-\frac{1}{n}\sum_{k=1}^{n}E(X_k)\right|<\varepsilon\right\}=1.
+\]
+\textbf{注意}：不要求随机变量的独立性，因此提供了一种研究非独立随机变量序列服从大数定律的方法。
+\end{theorem}
+
+% 跳过：大数定律关系图在习题课3中无对应图片（PPT图表未提取为图片）
+
+\section{中心极限定理}
+
+\subsection{中心极限定理的定义}
+
+\begin{definition}[中心极限定理]
+设$X_1,X_2,\ldots,X_n,\ldots$是独立的随机变量序列，若$E(X_k)$，$D(X_k)$（$k=1,2,\ldots$）都存在，令
+\[
+Y_n=\frac{\sum_{k=1}^{n}X_k-\sum_{k=1}^{n}E(X_k)}{\sqrt{\sum_{k=1}^{n}D(X_k)}},
+\]
+若对任意$x\in\mathbb{R}$，有
+\[
+\lim_{n\to\infty}P\{Y_n\leq x\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{t^2}{2}}\,\mathrm{d}t=\Phi(x),
+\]
+则称该随机变量序列服从中心极限定理。
+\end{definition}
+
+等价地，若$\{X_n\}$服从中心极限定理，则当$n$足够大时，$Y_n$近似服从标准正态分布。
+
+\subsection{常见的中心极限定理}
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+定理名称 & $\{X_n\}$分布 & $E(X_i)$ & $D(X_i)$ & $Y_n$ \\
+\hline
+独立同分布的 & 同分布 & $\mu$ & $\sigma^2>0$ & $\dfrac{\sum_{k=1}^{n}X_k-n\mu}{\sqrt{n}\sigma}$ \\
+中心极限定理 & & & & \\
+\hline
+棣莫佛-拉普拉斯 & 同分布0-1分布 & $p\in(0,1)$ & $p(1-p)$ & $\dfrac{\sum_{k=1}^{n}X_k-np}{\sqrt{np(1-p)}}$ \\
+定理 & & & & \\
+\hline
+李雅普诺夫 & -- & $\mu_i$ & $\sigma_k^2>0$；且存在$\delta>0$， & $\dfrac{\sum_{k=1}^{n}X_k-\sum_{k=1}^{n}\mu_k}{B_n}$ \\
+定理 & & & 使得$\dfrac{1}{B_n^{2+\delta}}\sum_{k=1}^{n}E|X_k-\mu_k|^{2+\delta}\to0$ & \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}[独立同分布的中心极限定理（Lindburg-Levy定理）]
+设随机变量$X_1,X_2,\ldots,X_n,\ldots$独立同分布，且$E(X_k)=\mu$，$D(X_k)=\sigma^2>0$（$k=1,2,\ldots$），则随机变量之和$\sum_{k=1}^{n}X_k$的标准化变量
+\[
+Y_n=\frac{\sum_{k=1}^{n}X_k-n\mu}{\sqrt{n}\sigma}
+\]
+的分布函数$F_n(x)$对于任意的$x$满足
+\[
+\lim_{n\to\infty}F_n(x)=\lim_{n\to\infty}P\left\{\frac{\sum_{k=1}^{n}X_k-n\mu}{\sqrt{n}\sigma}\leq x\right\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{t^2}{2}}\,\mathrm{d}t=\Phi(x).
+\]
+\end{theorem}
+
+\begin{theorem}[李雅普诺夫(Lyapunov)定理]
+设随机变量$X_1,X_2,\ldots,X_n,\ldots$相互独立，且$E(X_k)=\mu_k$，$D(X_k)=\sigma_k^2>0$（$k=1,2,\ldots$），记$B_n^2=\sum_{k=1}^{n}\sigma_k^2$。若存在$\delta>0$，使得当$n\to\infty$时
+\[
+\frac{1}{B_n^{2+\delta}}\sum_{k=1}^{n}E|X_k-\mu_k|^{2+\delta}\to 0,
+\]
+则随机变量之和$\sum_{k=1}^{n}X_k$的标准化变量
+\[
+Z_n=\frac{\sum_{k=1}^{n}X_k-\sum_{k=1}^{n}\mu_k}{B_n}
+\]
+的分布函数$F_n(x)$对于任意的$x$满足
+\[
+\lim_{n\to\infty}F_n(x)=\lim_{n\to\infty}P\{Z_n\leq x\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{t^2}{2}}\,\mathrm{d}t=\Phi(x).
+\]
+\end{theorem}
+
+\begin{theorem}[棣莫佛-拉普拉斯(De Moivre-Laplace)定理]
+设随机变量$\eta_n$（$n=1,2,\ldots$）服从参数为$n,p$（$0<p<1$）的二项分布，则对于任意$x$，有
+\[
+\lim_{n\to\infty}P\left\{\frac{\eta_n-np}{\sqrt{np(1-p)}}\leq x\right\}=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{x}e^{-\frac{t^2}{2}}\,\mathrm{d}t=\Phi(x).
+\]
+\end{theorem}
+
+\begin{remark}
+De Moivre-Laplace定理可以认为是独立同分布的中心极限定理的一个特例：$\eta_n$可以分解成$n$个相互独立、服从同一（0-1）分布的随机变量$X_1,X_2,\ldots,X_n$之和。
+\end{remark}
+
+\subsection{二项分布的逼近}
+
+对于一个参数为$n,p$的二项分布，当$n\to\infty$时：
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item 若$np=\lambda$，则该二项分布逼近参数为$\lambda$的泊松分布（泊松定理）；
+    \item 若$np\to\infty$，则该二项分布逼近正态分布（De Moivre-Laplace定理）。
+\end{enumerate}
+
+\textbf{在实际计算中}：
+\begin{itemize}[leftmargin=2em]
+    \item 如果$n$很大，但是$p$很小或$q=1-p$很小，应该用泊松定理去近似二项分布；
+    \item 如果$n,np$和$nq$都较大，应该用中心极限定理去近似。
+\end{itemize}
+
+% 跳过：三个CLT对比图在习题课3中无对应图片
+
+\section{典型例题}
+
+\subsection{题型1：证明依概率收敛性}
+
+\begin{example}[例1]
+设独立同分布随机变量序列$\{X_n\}$均服从$[0,a]$上的均匀分布，令
+\[
+Y_n=\max\{X_1,X_2,\ldots,X_n\},
+\]
+试证明：$Y_n\stackrel{P}{\longrightarrow}a$。
+
+\textbf{思路}：要证$Y_n\stackrel{P}{\longrightarrow}a$，即证对任给的$\varepsilon>0$，有
+\[
+\lim_{n\to\infty}P\{|Y_n-a|>\varepsilon\}=0.
+\]
+
+\textbf{证}：由于$\{X_n\}$均服从$[0,a]$上的均匀分布，因此，对任意$n$，当$\varepsilon>a$时，有$P\{|Y_n-a|>\varepsilon\}=0$。
+
+对任意的$0<\varepsilon<a$，有
+\[
+\begin{aligned}
+P\{|Y_n-a|>\varepsilon\}
+&=P\{Y_n<a-\varepsilon\}+P\{Y_n>a+\varepsilon\}\\
+&=P\{\max(X_1,X_2,\ldots,X_n)<a-\varepsilon\}\\
+&=P\{X_1<a-\varepsilon\}P\{X_2<a-\varepsilon\}\cdots P\{X_n<a-\varepsilon\}\\
+&=\left(\frac{a-\varepsilon}{a}\right)^n.
+\end{aligned}
+\]
+从而$\lim_{n\to\infty}P\{|Y_n-a|>\varepsilon\}=0$，即$Y_n\stackrel{P}{\longrightarrow}a$。
+\end{example}
+
+\begin{example}[例2]
+设$X_1,X_2,\ldots,X_n$是独立同分布的随机变量序列，$E(X_i)=\mu$，$D(X_i)=\sigma^2$均存在，证明
+\[
+Y_n=\frac{2}{n(n+1)}\sum_{i=1}^{n}iX_i\stackrel{P}{\longrightarrow}\mu.
+\]
+
+\textbf{思路}：由依概率收敛的定义，即证$\forall\varepsilon>0$，有$\lim_{n\to\infty}P\{|Y_n-\mu|<\varepsilon\}=1$；考虑到$E(Y_n)=\mu$，$D(Y_n)$存在，可由切比雪夫不等式证出。
+
+\textbf{证}：
+\[
+E(Y_n)=\frac{2}{n(n+1)}\sum_{i=1}^{n}iE(X_i)=\frac{2\mu}{n(n+1)}\sum_{i=1}^{n}i=\mu.
+\]
+\[
+D(Y_n)=\frac{4}{n^2(n+1)^2}\sum_{i=1}^{n}i^2D(X_i)=\frac{4\sigma^2}{n^2(n+1)^2}\cdot\frac{n(n+1)(2n+1)}{6}=\frac{2(2n+1)\sigma^2}{3n(n+1)}.
+\]
+
+随机变量$Y_n$的数学期望$E(Y_n)=\mu$，且方差$D(Y_n)$存在，则对于任意正数$\varepsilon>0$，由切比雪夫不等式得：
+\[
+P\{|Y_n-\mu|\geq\varepsilon\}\leq\frac{D(Y_n)}{\varepsilon^2}=\frac{2\sigma^2(2n+1)}{3n(n+1)\varepsilon^2}.
+\]
+故
+\[
+\lim_{n\to\infty}P\{|Y_n-\mu|\geq\varepsilon\}\leq\lim_{n\to\infty}\frac{2\sigma^2(2n+1)}{3n(n+1)\varepsilon^2}=0,
+\]
+即$Y_n\stackrel{P}{\longrightarrow}\mu$。
+\end{example}
+
+\subsection{题型2：利用中心极限定理估算概率}
+
+\begin{example}[例3]
+设每颗炮弹命中目标的概率为$0.01$，求$500$发炮弹中命中$5$发的概率。
+
+\textbf{解}：设$X$表示命中的炮弹数，则$X\sim B(500,0.01)$。
+
+(1) 直接计算：
+\[
+P\{X=5\}=C_{500}^{5}\times 0.01^5\times 0.99^{495}.
+\]
+
+(2) 应用正态逼近，近似地
+\[
+\frac{X-500\times 0.01}{\sqrt{500\times 0.01\times 0.99}}\sim N(0,1),
+\]
+\[
+P\{X=5\}=P\{4.5<X<5.5\}\approx\Phi\left(\frac{5.5-5}{\sqrt{4.95}}\right)-\Phi\left(\frac{4.5-5}{\sqrt{4.95}}\right).
+\]
+\end{example}
+
+\begin{example}[例4]
+$100$个独立工作（工作的概率为$0.9$）的部件组成一个系统，求系统中至少有$85$个部件工作的概率。
+
+\textbf{解}：令$X_i=1$表示第$i$个部件正常工作，反之记为$X_i=0$，$E(X_i)=0.9$，$D(X_i)=0.09$。记$Y=X_1+X_2+\cdots+X_{100}$，因为$X_i$独立同分布，由中心极限定理
+\[
+\frac{Y-100E(X_i)}{\sqrt{100D(X_i)}}\stackrel{\text{近似}}{\sim}N(0,1).
+\]
+由此得
+\[
+P\{Y\geq 85\}=1-P\{Y<85\}\approx 1-\Phi\left(\frac{85-90}{\sqrt{9}}\right)=1-\Phi(-1.67)=\Phi(1.67)=0.9525.
+\]
+\end{example}
+
+\begin{example}[例5]
+有$200$台独立工作（工作的概率为$0.7$）的机床，每台机床工作时需$15$kw电力。问共需多少电力，才可有$95\%$的可能性保证供电充足？
+
+\textbf{解}：用$X_i=1$表示第$i$台机床正常工作，反之记为$X_i=0$。$E(X_i)=0.7$，$D(X_i)=0.21$。记$Y=X_1+X_2+\cdots+X_{200}$，由中心极限定理
+\[
+\frac{Y-200E(X_i)}{\sqrt{200D(X_i)}}\stackrel{\text{近似}}{\sim}N(0,1).
+\]
+设供电量为$y$，供电充足即为$15Y\leq y$，则
+\[
+P\{15Y\leq y\}\approx\Phi\left(\frac{y/15-140}{\sqrt{42}}\right)\geq 0.95.
+\]
+解得：$y\geq 2260.4$。
+\end{example}
+
+\begin{example}[例6]
+假设某大学中报名选修统计课的学生人数服从参数为$100$的泊松分布。负责开课的教授决定，如果学生的报名人数不少于$120$人，就分成两个班授课。试问：教授将讲授两个班的概率是多少？
+
+\textbf{解}：设报名选修统计课的学生人数为$X\sim P(100)$。设$X_1,X_2,\ldots,X_{100}$相互独立且$X_i\sim P(1)$。由泊松分布的可加性知
+\[
+X=X_1+X_2+\cdots+X_{100}\sim P(100).
+\]
+又因为$E(X_i)=1$，$D(X_i)=1$，由独立同分布的中心极限定理
+\[
+P\{X\geq 120\}=P\left\{\frac{\sum_{i=1}^{100}X_i-100}{\sqrt{100}}\geq\frac{120-100}{\sqrt{100}}\right\}\approx 1-\Phi(2)=0.0228.
+\]
+\end{example}
+
+\begin{example}[例7]
+用调查对象中的收看比例$k/n$作为某电视节目的收视率$p$的估计。要有$90\%$的把握，使$k/n$与$p$的差异不大于$0.05$，问至少要调查多少对象？
+
+\textbf{解}：用$X_i=1$表示第$i$个调查对象观看某电视节目，否则$X_i=0$，$E(X_i)=p$，$D(X_i)=p(1-p)$。$Y_n=X_1+\cdots+X_n$表示前$n$个调查对象中观看节目的人数。由中心极限定理
+\[
+\frac{Y_n-np}{\sqrt{np(1-p)}}\stackrel{\text{近似}}{\sim}N(0,1).
+\]
+根据题意
+\[
+P\left\{\left|\frac{Y_n}{n}-p\right|<0.05\right\}\approx 2\Phi\left(0.05\sqrt{\frac{n}{p(1-p)}}\right)-1\geq 0.90.
+\]
+解得：$n\geq 272.25$，即$n=273$。
+\end{example}
+
+\begin{example}[例8]
+一生产线生产的产品成箱包装，每箱的重量是随机的。假设每箱平均重$50$千克，标准差为$5$千克。若用最大载重量为$5$吨的汽车承运，试利用中心极限定理说明每辆车最多可以装多少箱，才能保证不超载的概率大于$0.977$。
+
+\textbf{解}：设$X_i$（$i=1,2,\ldots,n$）是装运第$i$箱的重量，$n$是所求箱数。则载重量$Y_n=X_1+X_2+\cdots+X_n$。$\mu=E(X_i)=50$，$\sigma^2=D(X_i)=25$。
+
+根据独立同分布的中心极限定理知$\frac{Y_n-50n}{5\sqrt{n}}$的极限分布是标准正态分布。
+\[
+P\{\text{不超载}\}=P\{0<Y_n\leq 5000\}\approx\Phi\left(\frac{1000-10n}{\sqrt{n}}\right)-\Phi(-10\sqrt{n})>0.977.
+\]
+由$\Phi(2)=0.977$，得$\frac{1000-10n}{\sqrt{n}}>2$，解得$n<98.0199$，故最多可装$98$箱。
+\end{example}
+
+\begin{example}[例9]
+某保险公司的老年人寿保险有$1$万人参加，每人每年交$200$元。若老人在该年内死亡，公司付给家属$1$万元。设老年人死亡率为$0.017$，试求保险公司在一年内的这项保险中亏本的概率。
+
+\textbf{解}：设$X$为一年中投保老人的死亡数，则$X\sim B(10000,0.017)$。由棣莫佛-拉普拉斯定理
+\[
+P\{10000X>10000\times 200\}=P\{X>200\}\approx 1-\Phi\left(\frac{200-170}{\sqrt{167.1}}\right)\approx 1-\Phi(2.321)\approx 0.01.
+\]
+\end{example}
+
+\newpage
+
+\chapter{期中复习}
+
+\textbf{考试范围}：第一章至第五章
+
+\textbf{考试时间}：2025年11月25日（周二）8:30--10:10
+
+\textbf{考试地点}：教三楼119
+
+\section{第一章 随机事件与概率}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_review_ch1_structure.png}
+    \caption{第一章知识结构图}
+    \label{fig:review_ch1_structure}
+\end{figure}
+
+\subsection{概率的计算}
+
+\textbf{（1）条件概率}
+\[
+P(B|A)=\frac{P(AB)}{P(A)},\quad (P(A)>0).
+\]
+缩小样本空间法（适用于古典概型）：
+\[
+P(B|A)=\frac{n_{AB}}{n_A}.
+\]
+
+\textbf{（2）乘法公式}
+\[
+P(AB)=P(A)P(B|A),\quad P(A)>0.
+\]
+\[
+P(A_1A_2\cdots A_n)=P(A_1)P(A_2|A_1)P(A_3|A_1A_2)\cdots P(A_n|A_1A_2\cdots A_{n-1}).
+\]
+
+\textbf{（3）全概率公式}（已知原因，求结果）
+\[
+P(A)=\sum_{i=1}^{n}P(B_i)P(A|B_i).
+\]
+
+\textbf{（4）Bayes（逆概）公式}（已知结果，求原因）
+\[
+P(B_k|A)=\frac{P(A|B_k)P(B_k)}{\sum_{i=1}^{n}P(A|B_i)P(B_i)},\quad k=1,2,\ldots,n.
+\]
+
+\subsection{随机事件的独立性}
+
+\textbf{（1）两事件独立的定义}
+\[
+P(AB)=P(A)P(B).
+\]
+
+\textbf{（2）两事件独立性的性质}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 事件$A$与$B$相互独立的充分必要条件为$P(B|A)=P(B)$（$P(A)>0$）。
+    \item 若随机事件$A$与$B$相互独立，则$\bar{A}$与$B$、$A$与$\bar{B}$、$\bar{A}$与$\bar{B}$也相互独立。
+    \item 必然事件$S$与任意随机事件$A$相互独立；不可能事件$\emptyset$与任意随机事件$A$相互独立。
+\end{enumerate}
+
+\textbf{注意1}：两事件相互独立与互不相容的区别
+\begin{itemize}[leftmargin=2em]
+    \item ``$A$与$B$互不相容''，指两事件不能同时发生，即$AB=\emptyset$。
+    \item ``$A$与$B$相互独立''，指$A$是否发生不影响$B$发生的概率。
+    \item 若$P(A)P(B)\neq 0$，则互不相容与相互独立不能同时成立。
+\end{itemize}
+
+\textbf{（3）三个事件的独立性}
+
+设$A,B,C$是三个随机事件，如果
+\[
+\begin{cases}
+P(AB)=P(A)P(B),\\
+P(BC)=P(B)P(C),\\
+P(AC)=P(A)P(C),\\
+P(ABC)=P(A)P(B)P(C),
+\end{cases}
+\]
+则称$A,B,C$是相互独立的随机事件。
+
+\textbf{注意}：四个等式缺一不可。
+
+\textbf{（4）$n$个事件的独立性}
+
+设$A_1,A_2,\ldots,A_n$为$n$个随机事件，若对任意$2\leq k\leq n$和任意$1\leq i_1<i_2<\cdots<i_k\leq n$，都有
+\[
+P(A_{i_1}A_{i_2}\cdots A_{i_k})=P(A_{i_1})P(A_{i_2})\cdots P(A_{i_k}),
+\]
+则称$A_1,A_2,\ldots,A_n$相互独立。
+
+\subsection{Bernoulli概型}
+
+\textbf{（1）Bernoulli试验}：若随机试验$E$只有两个结果（成功与失败）。
+
+\textbf{（2）$n$重Bernoulli试验}：独立重复地进行$n$次Bernoulli试验。
+
+\textbf{（3）$n$重Bernoulli试验中恰好成功$k$次的概率}
+\[
+P(B_{n,k})=C_n^k p^k(1-p)^{n-k},\quad k=0,1,2,\ldots,n.
+\]
+
+\section{第二章 随机变量及其分布}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_review_event_variable.png}
+    \caption{随机事件到随机变量的映射}
+    \label{fig:review_event_variable}
+\end{figure}
+
+\textbf{重要知识点}：
+\begin{itemize}[leftmargin=2em]
+    \item 分布函数的定义及性质
+    \item 离散型随机变量及其分布率（两点分布、二项分布、泊松分布、几何分布、超几何分布）
+    \item 泊松定理
+    \item 连续型随机变量的密度函数与分布函数
+    \item 常见的连续型随机变量分布：均匀分布、指数分布、正态分布
+    \item 随机变量的函数及其分布
+\end{itemize}
+
+\subsection{常用的离散型随机变量}
+
+\textbf{（1）Bernoulli分布（两点分布）}
+
+若$X$的分布律为
+\[
+P\{X=1\}=p,\quad P\{X=0\}=1-p=q,
+\]
+则称$X\sim B(1,p)$。
+
+\textbf{（2）二项分布}
+
+若$X$的分布律为
+\[
+P\{X=k\}=C_n^k p^k(1-p)^{n-k},\quad k=0,1,2,\ldots,n,
+\]
+则称$X\sim B(n,p)$。
+
+\textbf{（3）Poisson分布}
+
+若$X$的分布律为
+\[
+P\{X=k\}=\frac{\lambda^k}{k!}e^{-\lambda},\quad k=0,1,2,\ldots,
+\]
+则称$X\sim P(\lambda)$。
+
+\textbf{Poisson定理}：设$X_n\sim B(n,p_n)$，若$\lim_{n\to\infty}np_n=\lambda>0$，则
+\[
+\lim_{n\to\infty}P\{X_n=k\}=\frac{\lambda^k}{k!}e^{-\lambda}.
+\]
+
+\textbf{（4）几何分布}
+
+若$X$的分布律为
+\[
+P\{X=k\}=q^{k-1}p,\quad k=1,2,\ldots,
+\]
+则称$X$服从参数为$p$的几何分布。
+
+\textbf{（5）超几何分布}
+
+若$X$的分布律为
+\[
+P\{X=k\}=\frac{C_M^k C_{N-M}^{n-k}}{C_N^n},\quad k=0,1,\ldots,\min(M,n),
+\]
+则称$X$服从参数为$(M,N,n)$的超几何分布。
+
+\subsection{常用的连续型随机变量}
+
+\textbf{（1）均匀分布}：$X\sim U[a,b]$
+\[
+f(x)=\begin{cases}
+\dfrac{1}{b-a}, & a\leq x\leq b,\\[8pt]
+0, & \text{其他}.
+\end{cases}
+\]
+
+\textbf{（2）指数分布}：$X\sim E(\lambda)$
+\[
+f(x)=\begin{cases}
+\lambda e^{-\lambda x}, & x>0,\\[6pt]
+0, & x\leq 0.
+\end{cases}
+\]
+
+\textbf{（3）正态分布}：$X\sim N(\mu,\sigma^2)$
+\[
+f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}},\quad -\infty<x<+\infty.
+\]
+
+\textbf{标准正态分布}：$X\sim N(0,1)$
+\[
+\varphi(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}},\quad \Phi(x)=\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-\frac{t^2}{2}}\,\mathrm{d}t.
+\]
+
+\textbf{重要公式}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 若$X\sim N(\mu,\sigma^2)$，则$Y=\dfrac{X-\mu}{\sigma}\sim N(0,1)$。
+    \item $P\{c\leq X\leq d\}=\Phi\left(\dfrac{d-\mu}{\sigma}\right)-\Phi\left(\dfrac{c-\mu}{\sigma}\right)$。
+    \item $\Phi(-x)=1-\Phi(x)$。
+\end{enumerate}
+
+\textbf{$3\sigma$准则}：
+\[
+P\{|X|\leq 1\}=0.6826,\quad P\{|X|\leq 2\}=0.9544,\quad P\{|X|\leq 3\}=0.9974.
+\]
+
+\subsection{随机变量的函数的分布}
+
+\textbf{离散型}：若$X$的分布律已知，$Y=g(X)$的分布律为
+\[
+P\{Y=g(x_k)\}=p_k.
+\]
+
+\textbf{连续型}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 根据$X$的密度函数$f_X(x)$求出$Y$的分布函数
+    \[
+    F_Y(y)=P\{Y\leq y\}=\int_{g(x)\leq y}f_X(x)\,\mathrm{d}x.
+    \]
+    \item 再对$F_Y(y)$求导得到$Y$的密度函数。
+\end{enumerate}
+
+\textbf{若$g(X)$严格单调}：
+\[
+f_Y(y)=\begin{cases}
+f_X[h(y)]|h'(y)|, & \alpha<y<\beta,\\[6pt]
+0, & \text{其他}.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_review_dist_relations.png}
+    \caption{常用概率分布关系总图}
+    \label{fig:review_dist_relations}
+\end{figure}
+
+\section{第三章 多维随机变量及其分布}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_review_2d_rv_structure.png}
+    \caption{二维随机变量知识结构图}
+    \label{fig:review_2d_rv_structure}
+\end{figure}
+
+\textbf{重要知识点}：
+\begin{itemize}[leftmargin=2em]
+    \item 二维随机变量的分布（联合分布函数、联合分布律、联合概率密度）
+    \item 边缘分布（边缘分布函数、边缘分布律、边缘概率密度）
+    \item 条件分布（条件分布函数、条件分布律、条件概率密度）
+    \item 随机变量的独立性
+    \item 随机变量函数的分布
+\end{itemize}
+
+\subsection{联合分布、边缘分布与条件分布}
+
+\textbf{离散型}：联合分布律$p_{ij}=P\{X=x_i,Y=y_j\}$。
+
+\textbf{连续型}：联合密度$f(x,y)$满足
+\[
+F(x,y)=\int_{-\infty}^{y}\int_{-\infty}^{x}f(u,v)\,\mathrm{d}u\mathrm{d}v.
+\]
+
+\textbf{边缘密度}：
+\[
+f_X(x)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}y,\qquad
+f_Y(y)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x.
+\]
+
+\textbf{条件密度}：
+\[
+f_{X|Y}(x|y)=\frac{f(x,y)}{f_Y(y)}\quad(f_Y(y)>0),\qquad
+f_{Y|X}(y|x)=\frac{f(x,y)}{f_X(x)}\quad(f_X(x)>0).
+\]
+
+\textbf{联合、边缘、条件的关系}：
+\[
+f(x,y)=f_X(x)f_{Y|X}(y|x)=f_Y(y)f_{X|Y}(x|y).
+\]
+
+\subsection{随机变量的独立性}
+
+$X$与$Y$相互独立$\iff F(x,y)=F_X(x)F_Y(y)$
+
+$\iff$离散型：$p_{ij}=p_{i\cdot}\,p_{\cdot j}$
+
+$\iff$连续型：$f(x,y)=f_X(x)f_Y(y)$
+
+\subsection{二维随机变量函数的分布}
+
+\textbf{和$Z=X+Y$的分布}：
+\[
+f_Z(z)=\int_{-\infty}^{+\infty}f(x,z-x)\,\mathrm{d}x
+=\int_{-\infty}^{+\infty}f(z-y,y)\,\mathrm{d}y.
+\]
+
+若$X,Y$独立（卷积公式）：
+\[
+f_Z(z)=\int_{-\infty}^{+\infty}f_X(x)f_Y(z-x)\,\mathrm{d}x.
+\]
+
+\textbf{相互独立的正态分布随机变量之和}：
+
+若$X\sim N(\mu_1,\sigma_1^2)$，$Y\sim N(\mu_2,\sigma_2^2)$，且$X,Y$独立，则
+\[
+Z=X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2).
+\]
+
+更一般地，若$X_i\sim N(\mu_i,\sigma_i^2)$且相互独立，则
+\[
+\sum_{i=1}^{n}a_iX_i\sim N\left(\sum_{i=1}^{n}a_i\mu_i,\sum_{i=1}^{n}a_i^2\sigma_i^2\right).
+\]
+
+\section{第四章 随机变量的数字特征}
+
+\textbf{重要知识点}：
+\begin{itemize}[leftmargin=2em]
+    \item 数学期望、方差、相关系数的性质和计算
+    \item 随机变量函数的数字特征
+\end{itemize}
+
+\subsection{数学期望}
+
+\textbf{离散型}：$E(X)=\sum_{k=1}^{\infty}x_kp_k$。
+
+\textbf{连续型}：$E(X)=\int_{-\infty}^{+\infty}xf(x)\,\mathrm{d}x$。
+
+\textbf{随机变量函数的期望}：
+\[
+E(g(X))=\sum_{k=1}^{\infty}g(x_k)p_k\quad\text{或}\quad
+E(g(X))=\int_{-\infty}^{+\infty}g(x)f(x)\,\mathrm{d}x.
+\]
+
+\textbf{二维}：
+\[
+E(X)=\iint xf(x,y)\,\mathrm{d}x\mathrm{d}y,\quad
+E(g(X,Y))=\iint g(x,y)f(x,y)\,\mathrm{d}x\mathrm{d}y.
+\]
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $E(C)=C$。
+    \item $E(CX)=CE(X)$。
+    \item $E(X+Y)=E(X)+E(Y)$（加法不需要独立性）。
+    \item $E(XY)=E(X)E(Y)$（乘法需要独立性）。
+\end{enumerate}
+
+\subsection{方差}
+
+\textbf{定义}：$D(X)=E\{[X-E(X)]^2\}=E(X^2)-[E(X)]^2$。
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $D(C)=0$。
+    \item $D(CX)=C^2D(X)$。
+    \item 若$X,Y$独立，则$D(X\pm Y)=D(X)+D(Y)$。
+    \item $D(X)=0\iff P\{X=C\}=1$。
+\end{enumerate}
+
+\textbf{切比雪夫不等式}：
+\[
+P\{|X-\mu|\geq\varepsilon\}\leq\frac{\sigma^2}{\varepsilon^2}
+\quad\Longleftrightarrow\quad
+P\{|X-\mu|<\varepsilon\}\geq 1-\frac{\sigma^2}{\varepsilon^2}.
+\]
+
+\subsection{协方差与相关系数}
+
+\textbf{协方差}：
+\[
+\mathrm{Cov}(X,Y)=E\{[X-E(X)][Y-E(Y)]\}=E(XY)-E(X)E(Y).
+\]
+
+\textbf{相关系数}：
+\[
+\rho_{XY}=\frac{\mathrm{Cov}(X,Y)}{\sqrt{D(X)}\sqrt{D(Y)}}.
+\]
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $|\rho_{XY}|\leq 1$。
+    \item $|\rho_{XY}|=1\iff$存在常数$a,b$，使得$P\{Y=a+bX\}=1$。
+    \item 独立$\Rightarrow$不相关；不相关$\nRightarrow$独立。
+    \item 若$X,Y$都服从正态分布，则独立与不相关等价。
+\end{enumerate}
+
+\textbf{常见分布的数学期望与方差}：
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\hline
+分布 & 参数 & 数学期望 & 方差 \\
+\hline
+两点分布 & $0<p<1$ & $p$ & $p(1-p)$ \\
+\hline
+二项分布 $B(n,p)$ & $n\geq 1,\ 0<p<1$ & $np$ & $np(1-p)$ \\
+\hline
+泊松分布 $P(\lambda)$ & $\lambda>0$ & $\lambda$ & $\lambda$ \\
+\hline
+均匀分布 $U[a,b]$ & $a<b$ & $\dfrac{a+b}{2}$ & $\dfrac{(b-a)^2}{12}$ \\
+\hline
+指数分布 $E(\lambda)$ & $\lambda>0$ & $\dfrac{1}{\lambda}$ & $\dfrac{1}{\lambda^2}$ \\
+\hline
+正态分布 $N(\mu,\sigma^2)$ & $\mu,\sigma>0$ & $\mu$ & $\sigma^2$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{第五章 大数定律与中心极限定理}
+
+\textbf{常见的大数定律}：
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+定理名称 & 分布 & 两两独立 & $E(X_i)$ & $D(X_i)$ \\
+\hline
+Chebyshev & -- & 是 & 存在 & 存在且有界 \\
+Poisson & 0-1分布 & 是 & 存在 & 存在且有界 \\
+Bernoulli & 同分布0-1 & 是 & 存在 & 存在且有界 \\
+Khinchin & 同分布 & 是 & 存在 & 可以不存在 \\
+Markov & -- & 否 & 存在 & Markov条件 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{常见的中心极限定理}：
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+\hline
+定理名称 & 分布 & $E(X_i)$ & $D(X_i)$ \\
+\hline
+独立同分布CLT & 同分布 & $\mu$ & $\sigma^2>0$ \\
+De Moivre-Laplace & 同分布0-1 & $p$ & $p(1-p)$ \\
+Lyapunov & -- & $\mu_i$ & $\sigma_k^2>0$且满足Lyapunov条件 \\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{独立同分布中心极限定理}：
+\[
+\frac{\sum_{k=1}^{n}X_k-n\mu}{\sqrt{n}\sigma}\stackrel{\text{近似}}{\sim}N(0,1).
+\]
+
+\textbf{De Moivre-Laplace定理}：
+\[
+\frac{\eta_n-np}{\sqrt{np(1-p)}}\stackrel{\text{近似}}{\sim}N(0,1).
+\]
+
+% 预祝期中考试顺利！
+
 \end{document}
