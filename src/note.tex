@@ -12926,4 +12926,895 @@ pp.~261--262, \#2, \#4, \#6, \#8, \#9
 
 pp.~263--264, \#11, \#16
 
+\newpage
+\chapter{随机过程及其统计描述}
+
+\section{随机过程的概念}
+
+\subsection{从随机变量到随机过程}
+
+随机过程是从"动态"角度考虑概率问题，研究对象是随时间演变的随机现象，是从多维随机变量向一族（无限多个）随机变量的推广。
+
+\begin{itemize}[leftmargin=2em]
+    \item $e \to X(e)$，即$X$——一维随机变量
+    \item $e \to (X(e),Y(e))$，即$(X,Y)$——二维随机变量
+    \item $e \to (X_1(e),X_2(e),\ldots,X_n(e))$，即$(X_1,X_2,\ldots,X_n)$——$n$维随机变量
+    \item $e \to (X_1(e),X_2(e),\ldots)$，即$(X_1,X_2,\ldots)$——随机序列
+    \item $e \to (X(e,t),t\in(-\infty,+\infty))$，即$(X(t),t\in(-\infty,+\infty))$——随机过程
+\end{itemize}
+
+\subsection{随机过程的定义}
+
+\begin{definition}[随机过程]
+设$T$是一无限实数集，$\{X(e,t),e\in S,t\in T\}$是对应于$e$和$t$的实数，即为定义在$S$和$T$上的二元函数。若此函数对任意固定的$t\in T$，$X(e,t)$是个随机变量，则称$\{X(e,t),e\in S,t\in T\}$是随机过程。
+\end{definition}
+
+对于随机过程$\{X(e,t),e\in S,t\in T\}$进行一次试验，即$e$给定，它是$t$的函数，称为随机过程的\textbf{样本函数}。
+
+$T$为\textbf{参数集}，对固定的$e$和$t$，$X(e,t)$称为过程的\textbf{状态}；$X(e,t)$所有可能的值的全体称为\textbf{状态空间}。
+
+后面将$X(e,t)$简记为$X(t)$。
+
+\subsection{随机过程的例子}
+
+\begin{example}[抛掷硬币]
+抛掷一枚硬币的试验，样本空间$S=\{H,T\}$，定义：
+\[
+X(t)=
+\begin{cases}
+\cos\pi t, & \text{出现 }H,\\
+t, & \text{出现 }T,
+\end{cases}
+\qquad t\in(-\infty,+\infty),
+\]
+其中$P(H)=P(T)=1/2$，则$\{X(t),t\in(-\infty,+\infty)\}$是一随机过程。
+
+\textbf{解}：对固定$t$，$X(t)$是随机变量，取值为$\cos\pi t$和$t$。
+\[
+P(X(t)=\cos\pi t)=P(X(t)=t)=\frac{1}{2}.
+\]
+此随机过程的样本函数只有两个，即$X_1(t)=\cos\pi t$，$X_2(t)=t$。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_cos_linear.png}
+    \caption{$X_1(t)=\cos(\pi t)$ 与 $X_2(t)=t$ 的图像}
+    \label{fig:cos_linear}
+\end{figure}
+\end{example}
+
+\begin{example}[随机相位正弦波]
+考虑$X(t)=\alpha\cos(\omega t+\Theta)$，$t\in(-\infty,+\infty)$，式中$\alpha$和$\omega$是正常数，$\Theta$是在$(0,2\pi)$上服从均匀分布的随机变量，这是一个随机过程。
+
+对每固定的时刻$t$，$X(t)=\alpha\cos(\omega t+\Theta)$是随机变量$\Theta$的函数，从而也是随机变量。它的状态空间是$[-\alpha,\alpha]$。在$(0,2\pi)$内随机取一数$\theta$，相应的就得到样本函数$X(t)=\alpha\cos(\omega t+\theta)$。
+
+这族样本函数的差异在于它们相位$\theta$的不同，故这一过程称为\textbf{随机相位正弦波}。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_sine_diff_phase.png}
+    \caption{两条相位不同的正弦波曲线（振幅均为 $\alpha$）}
+    \label{fig:sine_diff_phase}
+\end{figure}
+\end{example}
+
+\begin{example}[随机振幅正弦波]
+设$X(t)=V\cos\omega t$，$t\in(-\infty,+\infty)$，其中$\omega$是常数；$V$在$[0,1]$上服从均匀分布，则$X(t)$是一个随机过程。
+
+对每一固定的$t$，$X(t)=V\cos\omega t$是随机变量$V$乘以常数$\cos\omega t$，故也是随机变量。对$[0,1]$上随机变量取一$v$值，就得到相应的一个样本函数$X(t)=v\cos\omega t$。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_cosine_diff_amplitude.png}
+    \caption{两条振幅不同的余弦曲线}
+    \label{fig:cosine_diff_amplitude}
+\end{figure}
+\end{example}
+
+\begin{example}[急救电话呼叫次数]
+设某城市的急救中心电话台迟早会接到用户的呼叫。以$X(t)$表示时间间隔$(0,t]$内接到的呼叫次数，它是一个随机变量，且对于不同的$t\geq0$，$X(t)$是不同的随机变量，于是$\{X(t),t\geq0\}$是随机过程，且它的状态空间是$\{0,1,2,\ldots\}$。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_counting_process.png}
+    \caption{计数过程的阶梯函数图像}
+    \label{fig:counting_process}
+\end{figure}
+\end{example}
+
+\begin{example}[掷骰子试验]
+考虑抛掷一颗骰子的试验：
+\begin{enumerate}[label=(\arabic*)]
+    \item 设$X_n$是第$n$次（$n\geq1$）抛掷的点数，对于$n=1,2,\ldots$的不同值，$X_n$是随机变量，服从相同的分布
+    \[
+    P(X_n=i)=\frac{1}{6},\quad i=1,2,3,4,5,6.
+    \]
+    因而$\{X_n,n\geq1\}$构成一随机过程，称为\textbf{伯努利过程}或\textbf{伯努利随机序列}，它的状态空间为$\{1,2,3,4,5,6\}$。
+    % 图片：六个状态（1-6）的马尔可夫状态转移图
+    \item 设$Y_n$是前$n$次抛掷中出现的最大点数，$\{Y_n,n\geq1\}$也是一随机过程，它的状态空间仍是$\{1,2,3,4,5,6\}$。
+\end{enumerate}
+\end{example}
+
+\subsection{随机过程的分类}
+
+随机过程可根据参数集$T$和任一时刻的状态$S$的离散和连续分为四类：
+
+\begin{table}[htbp]
+\centering
+\caption{随机过程的分类}
+\begin{tabular}{@{}ccc@{}}
+\toprule
+& \textbf{状态$S$连续} & \textbf{状态$S$离散} \\
+\midrule
+\textbf{参数集$T$连续} & 连续参数连续型的随机过程（例2，例3） & 连续参数离散型的随机过程（例1，例4） \\
+\textbf{参数集$T$离散} & 离散参数连续型的随机过程 & 离散参数离散型的随机过程（例5） \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+对于随机相位正弦波，若只在离散时间集上观察，就得到随机序列，是离散参数连续型随机过程。
+
+\section{随机过程的统计描述}
+
+随机过程的两种描述方式：分布函数和数字特征。
+
+\subsection{随机过程的分布函数族}
+
+设随机过程$\{X(t),t\in T\}$，对每一固定的$t\in T$，
+\[
+F_X(x,t)=P\{X(t)\leq x\},\quad x\in\mathbb{R}
+\]
+称为随机过程$\{X(t),t\in T\}$的\textbf{一维分布函数}，而$\{F_X(x,t),t\in T\}$称为\textbf{一维分布函数族}。
+
+一般地，对任意$n$（$n=2,3,\ldots$）个不同的时刻，$t_i\in T,i=1,2,\ldots,n$，$n$维随机变量$(X(t_1),X(t_2),\ldots,X(t_n))$的分布函数：
+\[
+F_X(x_1,x_2,\ldots,x_n;t_1,t_2,\ldots,t_n)=P\{X(t_1)\leq x_1,X(t_2)\leq x_2,\ldots,X(t_n)\leq x_n\},\quad (x_i\in\mathbb{R})
+\]
+称为随机过程$\{X(t),t\in T\}$的\textbf{$n$维分布函数}，而
+\[
+\{F_X(x_1,x_2,\ldots,x_n;t_1,t_2,\ldots,t_n),t_i\in T\}
+\]
+称为$\{X(t),t\in T\}$的\textbf{$n$维分布函数族}。
+
+一般地，$F_X(x_1,x_2,\ldots,x_n;t_1,t_2,\ldots,t_n),t_i\in T$称为随机过程$\{X(t),t\in T\}$的\textbf{有限维分布函数族}，它完全确定了随机过程的统计特性。
+
+\begin{example}[分布函数计算]
+抛掷一枚均匀硬币的试验，定义一个随机过程
+\[
+X(t)=
+\begin{cases}
+\cos\pi t, & \text{出现 }H,\\
+t, & \text{出现 }T,
+\end{cases}
+\qquad t\in(-\infty,+\infty),
+\]
+试确定$X(t)$的
+\begin{enumerate}[label=(\arabic*)]
+    \item 一维分布函数$F(x;0)$，$F(x,1)$；
+    \item 二维分布函数$F(x_1,x_2;0,1)$。
+\end{enumerate}
+
+\textbf{解}：(1) $X(0)=
+\begin{cases}
+1, & \text{出现 }H,\\
+0, & \text{出现 }T,
+\end{cases}$
+$X(0)$的分布律为：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$X(0)$ & $0$ & $1$ \\
+\midrule
+$p_k$ & $1/2$ & $1/2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+于是
+\[
+F(x;0)=
+\begin{cases}
+0, & x<0,\\
+\frac{1}{2}, & 0\leq x<1,\\
+1, & x\geq1.
+\end{cases}
+\]
+
+类似地，$X(1)=
+\begin{cases}
+-1, & \text{出现 }H,\\
+1, & \text{出现 }T,
+\end{cases}$
+
+$X(1)$的分布律为：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$X(1)$ & $-1$ & $1$ \\
+\midrule
+$p_k$ & $1/2$ & $1/2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+于是
+\[
+F(x;1)=
+\begin{cases}
+0, & x<-1,\\
+\frac{1}{2}, & -1\leq x<1,\\
+1, & x\geq1.
+\end{cases}
+\]
+
+(2) $(X(0),X(1))=
+\begin{cases}
+(1,-1), & \text{出现 }H,\\
+(0,1), & \text{出现 }T,
+\end{cases}$
+
+故二维分布律为：
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+$X(0)\backslash X(1)$ & $0$ & $1$ \\
+\midrule
+$-1$ & $0$ & $1/2$ \\
+$1$ & $1/2$ & $0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+于是
+\[
+F(x_1,x_2;0,1)=
+\begin{cases}
+0, & x_1<1\text{ 且 }x_2<1,\\
+0, & x_1<0\text{ 且 }x_2<-1,\\
+1, & x_1\geq1\text{ 且 }x_2\geq1,\\
+0.5, & \text{其他}.
+\end{cases}
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_2d_distribution.png}
+    \caption{二维分布函数示意图}
+    \label{fig:2d_distribution}
+\end{figure}
+\end{example}
+
+\subsection{随机过程的数字特征}
+
+\subsubsection{某一时间点$t$的数字特征}
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{均值函数}：$\mu_X(t)=E[X(t)]$
+    \item \textbf{均方值函数}：$\Psi_X^2(t)=E[X^2(t)]$
+    \item \textbf{方差函数}：$\sigma_X^2(t)=D_X(t)=E\{[X(t)-\mu_X(t)]^2\}$
+    \item \textbf{标准差函数}：$\sigma_X(t)=\sqrt{D_X(t)}$
+\end{itemize}
+
+\subsubsection{不同时间点间的数字特征}
+
+对任意$t_1,t_2\in T$，
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{（自）相关函数}：
+    \[
+    R_{XX}(t_1,t_2)=E[X(t_1)X(t_2)],
+    \]
+    简记为$R_X(t_1,t_2)$。
+    \item \textbf{（自）协方差函数}：
+    \[
+    C_{XX}(t_1,t_2)=\mathrm{Cov}[X(t_1),X(t_2)]=E\{[X(t_1)-\mu_X(t_1)][X(t_2)-\mu_X(t_2)]\},
+    \]
+    简记为$C_X(t_1,t_2)$。
+\end{itemize}
+
+\subsubsection{各数字特征之间的关系}
+
+\begin{align*}
+\Psi_X^2(t)&=R_X(t,t),\\
+C_X(t_1,t_2)&=R_X(t_1,t_2)-\mu_X(t_1)\mu_X(t_2),\\
+\sigma_X^2(t)&=C_X(t,t)=R_X(t,t)-\mu_X^2(t).
+\end{align*}
+
+\subsection{二阶矩过程与正态过程}
+
+\begin{definition}[二阶矩过程]
+随机过程$\{X(t),t\in T\}$，如果对每一$t\in T$，$E[X^2(t)]$都存在，则称$X(t)$是\textbf{二阶矩过程}。
+\end{definition}
+
+二阶矩过程的均值函数和相关函数总是存在的。
+
+\begin{definition}[正态过程]
+$\{X(t),t\in T\}$是随机过程，若它的每一个有限维分布都是正态分布，即对任意整数$n\geq1$及任意$t_1,t_2,\ldots,t_n\in T$，$(X(t_1),X(t_2),\ldots,X(t_n))$服从$n$维正态分布，则称$\{X(t),t\in T\}$是\textbf{正态过程}。
+\end{definition}
+
+正态过程的全部统计特性完全由它的均值函数和自协方差函数所确定。
+
+\begin{example}[线性过程的数字特征]
+设$A,B$是两个随机变量，试求随机过程：
+\[
+X(t)=At+3B,\quad t\in T=(-\infty,+\infty)
+\]
+的均值函数和自相关函数。如果$A,B$相互独立且$A\sim N(1,4)$，$B\sim U(0,2)$，问$X(t)$的均值函数和自相关函数又是怎样的？
+
+\textbf{解}：
+\begin{align*}
+\mu_X(t)&=E[X(t)]=tE(A)+3E(B),\\
+R_X(t_1,t_2)&=E[X(t_1)X(t_2)]\\
+&=t_1t_2E(A^2)+3(t_1+t_2)E(AB)+9E(B^2),\quad t_1,t_2\in T.
+\end{align*}
+
+由$A\sim N(1,4)$，$B\sim U(0,2)$以及$A,B$相互独立，有
+\[
+E(A)=1,\quad E(A^2)=\sigma^2(A)+[E(A)]^2=5,\quad E(B)=1,\quad E(B^2)=\frac{4}{3},\quad E(AB)=1.
+\]
+
+故
+\[
+\mu_X(t)=t+3,\quad R_X(t_1,t_2)=5t_1t_2+3(t_1+t_2)+12,\quad t_1,t_2\in T.
+\]
+\end{example}
+
+\begin{example}[正态过程的证明]
+设$X(t)=A+Bt+Ct^2$，$t\in(-\infty,+\infty)$，其中$A,B,C$是相互独立且都服从正态分布$N(0,\sigma^2)$的随机变量。试证明$X(t)$是正态过程并求它的均值函数和自协方差函数。
+
+\textbf{解}：由定义，假设$X(t)$是正态过程$\iff$对任意一组实数$t_1,t_2,\ldots,t_n\in T$，$X(t_1),X(t_2),\ldots,X(t_n)$服从$n$维正态分布$\iff$对任意一组数$u_1,u_2,\ldots,u_n$，
+\[
+u_1X(t_1)+u_2X(t_2)+\cdots+u_nX(t_n)
+\]
+服从一维正态分布。
+
+而
+\[
+u_1X(t_1)+u_2X(t_2)+\cdots+u_nX(t_n)=A\sum_{i=1}^nu_i+B\sum_{i=1}^nu_it_i+C\sum_{i=1}^nu_it_i^2.
+\]
+
+因为$A,B,C$是相互独立的正态变量，故$(A,B,C)$是三维正态变量，于是上式是$A,B,C$的线性组合，所以服从一维正态分布。因此$X(t)$是正态过程。
+
+计算均值函数与自协方差函数，注意到：
+\[
+E(A)=E(B)=E(C)=E(AB)=E(BC)=E(AC)=0,\quad E(A^2)=E(B^2)=E(C^2)=\sigma^2.
+\]
+
+\[
+\mu_X(t)=E[A+Bt+Ct^2]=0.
+\]
+
+\begin{align*}
+C_X(t_1,t_2)&=R_X(t_1,t_2)\\
+&=E[(A+Bt_1+Ct_1^2)(A+Bt_2+Ct_2^2)]\\
+&=\sigma^2(1+t_1t_2+t_1^2t_2^2).
+\end{align*}
+\end{example}
+
+\subsection{二维随机过程}
+
+\subsubsection{二维随机过程的分布函数}
+
+二维随机过程的例子：语音和视频、语音流与文字流。两个随机过程之间往往存在某种相关性，可用于多模态数据的建模与识别。
+
+设$X(t),Y(t)$是依赖于同一参数$t\in T$的随机过程，对于不同的$t\in T$，$(X(t),Y(t))$是不同的二维随机变量，称$\{X(t),Y(t);t\in T\}$为\textbf{二维随机过程}。
+
+给定二维随机过程$\{X(t),Y(t);t\in T\}$，$t_1,t_2,\ldots,t_n;t'_1,t'_2,\ldots,t'_m$是$T$中任意两组实数，则$n+m$维随机变量
+\[
+(X(t_1),X(t_2),\ldots,X(t_n);Y(t'_1),Y(t'_2),\ldots,Y(t'_m))
+\]
+的分布函数：
+\[
+F(x_1,\ldots,x_n;t_1,\ldots,t_n;y_1,\ldots,y_m;t'_1,\ldots,t'_m)
+\]
+称为二维随机过程的\textbf{$n+m$维分布函数}。
+
+给定二维随机过程$\{X(t),Y(t);t\in T\}$，对任意的正整数$n,m$，任意的两组实数$t_1,\ldots,t_n\in T;t'_1,\ldots,t'_m\in T$，$n$维随机变量$(X(t_1),\ldots,X(t_n))$与$m$维随机变量$(Y(t'_1),\ldots,Y(t'_m))$相互独立，称随机过程$X(t)$和$Y(t)$是\textbf{相互独立的}。
+
+\subsubsection{二维随机过程的数字特征}
+
+除了$X(t),Y(t)$各自的均值函数和自相关函数，还有如下两个数字特征：
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{互相关函数}：
+    \begin{align*}
+    R_{XY}(t_1,t_2)&=E[X(t_1)Y(t_2)],\quad t_1,t_2\in T,\\
+    R_{YX}(t_1,t_2)&=E[Y(t_1)X(t_2)],\quad t_1,t_2\in T.
+    \end{align*}
+    \item \textbf{互协方差函数}：
+    \begin{align*}
+    C_{XY}(t_1,t_2)&=E\{[X(t_1)-\mu_X(t_1)][Y(t_2)-\mu_Y(t_2)]\}\\
+    &=R_{XY}(t_1,t_2)-\mu_X(t_1)\mu_Y(t_2),\quad t_1,t_2\in T,\\
+    C_{YX}(t_1,t_2)&=R_{YX}(t_1,t_2)-\mu_Y(t_1)\mu_X(t_2),\quad t_1,t_2\in T.
+    \end{align*}
+\end{itemize}
+
+如果二维随机过程$(X(t),Y(t))$对任意的$t_1,t_2\in T$，恒有$C_{XY}(t_1,t_2)=0$，则称$X(t)$和$Y(t)$是\textbf{不相关的}。利用这一性质可以分析噪声和信号，从而进行分离。
+
+\begin{example}[三个随机过程之和]
+随机过程$W(t)$是三个随机过程$X(t),Y(t),Z(t)$之和，已知$\mu_X(t),\mu_Y(t),\mu_Z(t),R_X(t_1,t_2),R_Y(t_1,t_2),R_Z(t_1,t_2),R_{XY}(t_1,t_2),R_{YZ}(t_1,t_2),R_{ZX}(t_1,t_2)$。求$\mu_W(t),R_W(t_1,t_2)$。
+
+\textbf{解}：$W(t)=X(t)+Y(t)+Z(t)$，于是：
+\[
+\mu_W(t)=\mu_X(t)+\mu_Y(t)+\mu_Z(t).
+\]
+
+\begin{align*}
+R_W(t_1,t_2)&=E[W(t_1)W(t_2)]\\
+&=E[(X(t_1)+Y(t_1)+Z(t_1))(X(t_2)+Y(t_2)+Z(t_2))]\\
+&=R_X(t_1,t_2)+R_{XY}(t_1,t_2)+R_{XZ}(t_1,t_2)\\
+&\quad+R_{YX}(t_1,t_2)+R_Y(t_1,t_2)+R_{YZ}(t_1,t_2)\\
+&\quad+R_{ZX}(t_1,t_2)+R_{ZY}(t_1,t_2)+R_Z(t_1,t_2).
+\end{align*}
+
+特别的，若$\mu_X(t)=\mu_Y(t)=\mu_Z(t)=0$，且$X(t),Y(t),Z(t)$两两不相关，即
+\[
+R_{XY}(t_1,t_2)=0,\quad R_{YZ}(t_1,t_2)=0,\quad R_{ZX}(t_1,t_2)=0,
+\]
+则：
+\[
+R_W(t_1,t_2)=R_X(t_1,t_2)+R_Y(t_1,t_2)+R_Z(t_1,t_2).
+\]
+\end{example}
+
+\section{泊松过程及维纳过程}
+
+给定二阶矩过程$\{X(t),t\geq0\}$，对$s,t$（$0\leq s<t$），称随机变量$X(t)-X(s)$为随机过程在区间$(s,t]$上的\textbf{增量}。
+
+对任意选定的正整数$n$和任意选定的$0\leq t_0<t_1<\cdots<t_n$，如果$n$个增量
+\[
+\{X(t_i)-X(t_{i-1})\},\quad i=1,2,\ldots,n
+\]
+相互独立，则称$\{X(t),t\geq0\}$为\textbf{独立增量过程}。
+
+直观解释——"在互不重叠的区间上，状态的增量相互独立"。
+
+若对任意的实数$h$和$0\leq s+h<t+h$，
+\[
+X(t+h)-X(s+h)\stackrel{d}{=}X(t)-X(s)
+\]
+具有相同的分布，则称增量具有\textbf{平稳性}。
+
+这时，增量$X(t)-X(s)$的分布函数与$X(t-s)-X(0)$的分布函数相同，即只依赖于时间差$t-s$而不依赖于$t$和$s$本身。
+
+当增量具有平稳性时，称相应的独立增量过程是\textbf{齐次的}。
+
+\subsection{独立增量过程的性质}
+
+若$\{X(t),t\geq0\}$是独立增量过程，且$X(0)=0$，则：
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item $X(t)$的有限维分布函数族可以由增量$X(t)-X(s)$（$0\leq s<t$）的分布所确定。
+    
+    事实上，设$t_0=0$，对任意的$n$及任意的$t_1,t_2,\ldots,t_n$，不妨设$t_1<t_2<\cdots<t_n$。则：
+    \begin{align*}
+    &(X(t_1),X(t_2),\ldots,X(t_n))\\
+    &=\Bigl(X(t_1)-X(t_0),X(t_2)-X(t_1)+X(t_1)-X(t_0),\ldots,\sum_{i=1}^n(X(t_i)-X(t_{i-1}))\Bigr).
+    \end{align*}
+    即$(X(t_1),X(t_2),\ldots,X(t_n))$的分布函数可由$X(t_1)-X(t_0),X(t_2)-X(t_1),\ldots,X(t_n)-X(t_{n-1})$的分布函数确定。
+    
+    \item 设方差函数$D_X(t)$已知，则协方差函数
+    \[
+    C_X(s,t)=D_X(\min(s,t)).
+    \]
+    
+    \textbf{证明}：记$Y(t)=X(t)-\mu_X(t)$，则当$X(t)$具有独立增量性时，$Y(t)$也具有独立增量性，且$Y(0)=0$，$E[Y(t)]=0$，$D_Y(t)=D_X(t)$。
+    
+    设$s<t$，则
+    \begin{align*}
+    C_X(s,t)&=E[Y(s)Y(t)]\\
+    &=E\{[Y(s)-Y(0)][Y(t)-Y(s)+Y(s)-Y(0)]\}\\
+    &=E\{[Y(s)-Y(0)][Y(t)-Y(s)]\}+E[Y^2(s)]\\
+    &=D_X(s).
+    \end{align*}
+    同理当$t<s$时，可证得$C_X(s,t)=D_X(t)$。
+\end{enumerate}
+
+\subsection{泊松过程}
+
+典型的随时间推移发生事件的计数，简化为时间轴上的质点。
+
+以$\{N(t),t\geq0\}$表示在时间间隔$(0,t]$内出现的质点数，是一状态取非负整数、时间连续的随机过程，称为\textbf{计数过程}。
+
+记$N(t_0,t)=N(t)-N(t_0)$，$0\leq t_0<t$，它表示时间间隔$(t_0,t]$内出现的质点数，其概率记为：
+\[
+P_k(t_0,t)=P\{N(t_0,t)=k\},\quad k=0,1,2,\ldots
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_counting_process_2.png}
+    \caption{计数过程：等间隔与不等间隔的质点到达}
+    \label{fig:counting_process_2}
+\end{figure}
+
+\begin{definition}[泊松过程]
+计数过程$N(t)$满足如下条件，称作强度为$\lambda$的\textbf{泊松过程}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 在不相重叠的区间上的增量具有独立性；
+    \item 对于充分小的$\Delta t$，
+    \[
+    P_1(t,t+\Delta t)=P\{N(t,t+\Delta t)=1\}=\lambda\Delta t+o(\Delta t),
+    \]
+    其中常数$\lambda$称为$N(t)$的强度；
+    \item 对于充分小的$\Delta t$，
+    \[
+    \sum_{j=2}^{\infty}P_j(t,t+\Delta t)=\sum_{j=2}^{\infty}P\{N(t,t+\Delta t)=j\}=o(\Delta t),
+    \]
+    暗示：出现两个及以上质点的概率相对于出现一个的概率可以忽略不计；
+    \item $N(0)=0$。
+\end{enumerate}
+\end{definition}
+
+\subsubsection{泊松过程的分布律}
+
+\begin{theorem}[泊松过程的分布]
+若$N(t)$是强度为$\lambda$的泊松过程，则：
+\[
+P_k(t_0,t)=P\{N(t_0,t)=k\}=\frac{[\lambda(t-t_0)]^k}{k!}e^{-\lambda(t-t_0)},\quad t>t_0,k=0,1,2,\ldots
+\]
+即$N(t_0,t)\sim\pi[\lambda(t-t_0)]$。
+\end{theorem}
+
+由此可见，增量$N(t_0,t)$的概率分布是参数为$\lambda(t-t_0)$的泊松分布，且只与时间差$t-t_0$有关，所以强度为$\lambda$的泊松过程是齐次的独立增量过程。
+
+\subsubsection{泊松过程的等价定义}
+
+计数过程$\{N(t),t\geq0\}$满足如下三个条件，称作强度为$\lambda$的泊松过程：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 它是独立增量过程；
+    \item 对任意的$t>t_0\geq0$，增量$N(t)-N(t_0)\sim\pi[\lambda(t-t_0)]$；
+    \item $N(0)=0$。
+\end{enumerate}
+
+\subsubsection{泊松过程的数字特征}
+
+强度为$\lambda$的泊松过程的数字特征：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{均值函数}：
+    \[
+    E[N(t_0,t)]=E\{N(t)-N(t_0)\}=\lambda(t-t_0).
+    \]
+    特别地，$t_0=0$，由假设$N(0)=0$，可得：
+    \[
+    \mu_N(t)=E[N(t)]=\lambda t.
+    \]
+    \item \textbf{方差函数}：
+    \[
+    D[N(t_0,t)]=D\{N(t)-N(t_0)\}=\lambda(t-t_0).
+    \]
+    特别地，
+    \[
+    D_N(t)=D[N(t)]=\lambda t.
+    \]
+    \item \textbf{协方差函数}：
+    \[
+    C_N(s,t)=D_N(\min(s,t))=\lambda\min(s,t),\quad s,t\geq0.
+    \]
+    \item \textbf{自相关函数}：
+    \[
+    R_N(s,t)=C_N(s,t)+\mu_N(s)\mu_N(t)=\lambda\min(s,t)+\lambda^2st.
+    \]
+\end{enumerate}
+
+\begin{example}[泊松过程计算]
+设$\{N(t),t\geq0\}$服从强度为$\lambda$的泊松过程，求
+\begin{enumerate}[label=(\arabic*)]
+    \item $P\{N(5)=4\}$；
+    \item $P\{N(5)=4,N(7.5)=6,N(12)=9\}$；
+    \item $P\{N(12)=9\mid N(5)=4\}$；
+    \item $E[N(5)]$，$D[N(5)]$，$\mathrm{Cov}[N(5),N(12)]$。
+\end{enumerate}
+
+\textbf{解}：
+\begin{enumerate}[label=(\arabic*)]
+    \item 
+    \[
+    P\{N(5)=4\}=\frac{(5\lambda)^4e^{-5\lambda}}{4!}.
+    \]
+    \item 由独立增量性，
+    \begin{align*}
+    &P\{N(5)=4,N(7.5)=6,N(12)=9\}\\
+    &=P\{N(5)=4,N(7.5)-N(5)=2,N(12)-N(7.5)=3\}\\
+    &=\frac{(5\lambda)^4e^{-5\lambda}}{4!}\cdot\frac{(2.5\lambda)^2e^{-2.5\lambda}}{2!}\cdot\frac{(4.5\lambda)^3e^{-4.5\lambda}}{3!}.
+    \end{align*}
+    \item 
+    \begin{align*}
+    P\{N(12)=9\mid N(5)=4\}&=P\{N(12)-N(5)=5\mid N(5)=4\}\\
+    &=\frac{(7\lambda)^5e^{-7\lambda}}{5!}.
+    \end{align*}
+    \item 
+    \[
+    E[N(5)]=5\lambda,\quad D[N(5)]=5\lambda,\quad \mathrm{Cov}[N(5),N(12)]=D[N(5)]=5\lambda.
+    \]
+\end{enumerate}
+\end{example}
+
+\subsubsection{泊松过程的等待时间与点间间距}
+
+设$N(t)$是强度为$\lambda$的泊松过程。
+
+\paragraph{等待时间$W_n$的分布}
+
+$W_n$是第$n$个质点出现的等待时间。考察$W_n$的分布函数$F_{W_n}(t)$：
+\[
+F_{W_n}(t)=P(W_n\leq t)=P(N(t)\geq n).
+\]
+即第$n$个质点出现的时间$\leq t\iff(0,t]$内至少$n$个质点出现。于是
+\[
+F_{W_n}(t)=
+\begin{cases}
+\sum\limits_{k=n}^{\infty}\dfrac{(\lambda t)^ke^{-\lambda t}}{k!}, & t\geq0,\\[1em]
+0, & t<0.
+\end{cases}
+\]
+
+求导得概率密度：
+\[
+f_{W_n}(t)=
+\begin{cases}
+\dfrac{\lambda(\lambda t)^{n-1}e^{-\lambda t}}{(n-1)!}, & t\geq0,\\[1em]
+0, & t<0.
+\end{cases}
+\]
+即$W_n$服从$\Gamma(n,\lambda)$分布。
+
+特别地，质点首次出现的等待时间服从指数分布：
+\[
+f_{W_1}(t)=
+\begin{cases}
+\lambda e^{-\lambda t}, & t>0,\\
+0, & t\leq0.
+\end{cases}
+\]
+
+\paragraph{点间间距$T_i$的分布}
+
+记$T_i=W_i-W_{i-1}$，$i=1,2,\ldots$，$W_0=0$，称之为相继出现的第$i-1$个质点和第$i$个质点的\textbf{点间间距}。
+
+设第$i-1$个质点出现的时刻为$t_{i-1}$，则
+\[
+F_{T_i}(t)=
+\begin{cases}
+P(T_i\leq t)=P[N(t_{i-1}+t)-N(t_{i-1})\geq1], & t>0,\\
+0, & t\leq0,
+\end{cases}
+=
+\begin{cases}
+1-e^{-\lambda t}, & t>0,\\
+0, & t\leq0.
+\end{cases}
+\]
+
+于是$T_i$的概率密度为：
+\[
+f_{T_i}(t)=
+\begin{cases}
+\lambda e^{-\lambda t}, & t>0,\\
+0, & t\leq0.
+\end{cases}
+\]
+即点间间距序列$\{T_i,i=1,2,\ldots\}$服从同一个指数分布。
+
+\begin{theorem}
+强度为$\lambda$的泊松流（泊松过程）的点间间距是相互独立的随机变量，且服从同一指数分布。
+\end{theorem}
+
+\begin{theorem}
+如果任意相继出现的两个质点的点间间距相互独立，且服从同一个指数分布：
+\[
+f(t)=
+\begin{cases}
+\lambda e^{-\lambda t}, & t>0,\\
+0, & t\leq0,
+\end{cases}
+\]
+则质点流构成强度为$\lambda$的泊松过程。
+\end{theorem}
+
+这两个定理反映了泊松过程的不同侧面，定理二提供了一种通过检验点间间距是否独立，且服从同一个指数分布来确定一个计数过程是否是泊松过程的统计方法。
+
+\subsection{维纳过程}
+
+布朗运动——不规则的自由运动。尽管前人有相似的研究，1827植物学家Robert Brown在研究显微镜下的花粉时注意到这一现象，以后以此命名。Albert Einstein在他1905年的一篇论文中借此作为一种证明原子和分子存在的证据。维纳过程是布朗运动的数学模型。
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_brownian_motion.png}
+    \caption{布朗运动示意图（平面上的随机游走）}
+    \label{fig:brownian_motion}
+\end{figure}
+
+观察漂浮在平静的液面上的微小粒子：以$W(t)$表示运动中一微粒从时刻$t=0$到时刻$t>0$的位移的横坐标，且设$W(0)=0$。由于微粒的运动是受到大量随机的、相互独立的分子碰撞的结果，于是：
+\begin{enumerate}[label=(\arabic*)]
+    \item 粒子在时段$(s,t]$上的位移可看作是许多微小位移的和，根据中心极限定理，假设位移$W(t)-W(s)$服从正态分布是合理的。
+    \item 由于粒子的运动完全由液体分子不规则碰撞而引起的，这样，在不相重叠的时间间隔内，碰撞的次数、大小和方向可假设相互独立，即$W(t)$具有独立增量，同时$W(t)$的增量具有平稳性。
+\end{enumerate}
+
+\begin{definition}[维纳过程]
+给定二阶矩过程$\{W(t),t\geq0\}$，如果它满足：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 具有独立增量；
+    \item 对任意$t>s\geq0$，增量$W(t)-W(s)\sim N(0,\sigma^2(t-s))$且$\sigma>0$；
+    \item $W(0)=0$，
+\end{enumerate}
+称此过程为\textbf{维纳过程}。
+\end{definition}
+
+\subsubsection{维纳过程的性质}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 维纳过程是齐次的独立增量过程。
+    \item 维纳过程是正态过程，故其分布完全由它的均值函数和自协方差函数（即自相关函数）所确定。
+    \item 维纳过程的数字特征：
+    \begin{align*}
+    \mu_W(t)&=E[W(t)]=0,\\
+    D_W(t)&=D[W(t)]=\sigma^2t,\\
+    C_W(s,t)&=R_W(s,t)=D_W[\min(s,t)]=\sigma^2\min(s,t),\quad s,t>0.
+    \end{align*}
+\end{enumerate}
+
+\begin{example}[维纳过程的变换]
+设$\{W(t),t\geq0\}$是一个维纳过程，求$X(t)=W(t+1)-W(t)$的均值函数和相关函数。
+
+\textbf{解}：
+\[
+\mu_X(t)=E[X(t)]=E[W(t+1)]-E[W(t)]=0.
+\]
+
+\begin{align*}
+R_X(s,t)&=E[(W(s+1)-W(s))(W(t+1)-W(t))]\\
+&=E[W(s+1)W(t+1)]-E[W(s)W(t+1)]\\
+&\quad-E[W(s+1)W(t)]+E[W(s)W(t)]\\
+&=D(\min(s+1,t+1))-D(\min(s,t+1))\\
+&\quad-D(\min(s+1,t))+D(\min(s,t)).
+\end{align*}
+
+设$s<t$，则
+\begin{align*}
+D(\min(s+1,t+1))&=\sigma^2(s+1),\\
+D(\min(s,t+1))&=\sigma^2s,\\
+D(\min(s,t))&=\sigma^2s,\\
+D(\min(s+1,t))&=
+\begin{cases}
+\sigma^2(s+1), & t-s>1,\\
+\sigma^2t, & t-s\leq1.
+\end{cases}
+\end{align*}
+
+于是
+\[
+R(s,t)=
+\begin{cases}
+0, & t-s>1,\\
+\sigma^2(1-t+s), & t-s\leq1.
+\end{cases}
+\]
+
+类似讨论$s>t$的情况，合起来有
+\[
+R(s,t)=
+\begin{cases}
+0, & |t-s|>1,\\
+\sigma^2(1-|t-s|), & |t-s|\leq1.
+\end{cases}
+\]
+\end{example}
+
+\section*{小结}
+
+\subsection*{随机过程的概念}
+
+\begin{itemize}[leftmargin=2em]
+    \item 从"动态"角度考虑概率问题；
+    \item 研究对象是随时间演变的随机现象；
+    \item 从多维随机变量向一族（无限多个）随机变量的推广。
+\end{itemize}
+
+\textbf{定义}：设$T$是一无限实数集，$\{X(e,t),e\in S,t\in T\}$是对应于$e$和$t$的实数，即为定义在$S$和$T$上的二元函数。若此函数对任意固定的$t\in T$，$X(e,t)$是个随机变量，则称$\{X(e,t),e\in S,t\in T\}$是随机过程。
+
+\textbf{随机过程分类}：
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}ccc@{}}
+\toprule
+& \textbf{状态$S$连续} & \textbf{状态$S$离散} \\
+\midrule
+\textbf{参数集$T$连续} & 连续参数连续型的随机过程 & 连续参数离散型的随机过程 \\
+\textbf{参数集$T$离散} & 离散参数连续型的随机过程 & 离散参数离散型的随机过程 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{随机过程的分布函数描述}
+
+设随机过程$\{X(t),t\in T\}$，对每一固定的$t\in T$，
+\[
+F_X(x,t)=P\{X(t)\leq x\},\quad x\in\mathbb{R}
+\]
+称为随机过程$\{X(t),t\in T\}$的一维分布函数，而$\{F_X(x,t),t\in T\}$称为一维分布函数族。
+
+推广：对任意$n$（$n=2,3,\ldots$）个不同的时刻，$t_i\in T,i=1,2,\ldots,n$，
+\[
+F_X(x_1,x_2,\ldots,x_n;t_1,t_2,\ldots,t_n)=P\{X(t_1)\leq x_1,\ldots,X(t_n)\leq x_n\}
+\]
+称为随机过程$\{X(t),t\in T\}$的$n$维分布函数，而
+\[
+\{F_X(x_1,\ldots,x_n;t_1,\ldots,t_n),t_i\in T\}
+\]
+称为$\{X(t),t\in T\}$的$n$维分布函数族。
+
+\subsection*{随机过程的数字特征}
+
+\textbf{某一时间点$t$的数字特征}：
+\begin{itemize}[leftmargin=2em]
+    \item 均值函数：$\mu_X(t)=E[X(t)]$
+    \item 均方值函数：$\Psi_X^2(t)=E[X^2(t)]$
+    \item 方差函数：$\sigma_X^2(t)=D_X(t)=E\{[X(t)-\mu_X(t)]^2\}$
+    \item 标准差函数：$\sigma_X(t)=\sqrt{D_X(t)}$
+\end{itemize}
+
+\textbf{不同时间点间的数字特征}（对任意$t_1,t_2\in T$）：
+\begin{itemize}[leftmargin=2em]
+    \item （自）相关函数：$R_{XX}(t_1,t_2)=E[X(t_1)X(t_2)]$，简记为$R_X(t_1,t_2)$
+    \item （自）协方差函数：$C_{XX}(t_1,t_2)=\mathrm{Cov}[X(t_1),X(t_2)]$，简记为$C_X(t_1,t_2)$
+\end{itemize}
+
+\textbf{各数字特征之间的关系}：
+\begin{align*}
+\Psi_X^2(t)&=R_X(t,t),\\
+C_X(t_1,t_2)&=R_X(t_1,t_2)-\mu_X(t_1)\mu_X(t_2),\\
+\sigma_X^2(t)&=C_X(t,t)=R_X(t,t)-\mu_X^2(t).
+\end{align*}
+
+\subsection*{二阶矩过程与正态过程}
+
+\begin{itemize}[leftmargin=2em]
+    \item 二阶矩过程——如果对每一$t\in T$，$E[X^2(t)]$都存在，则称$X(t)$是二阶矩过程。二阶矩过程的均值函数和相关函数总是存在的。
+    \item 正态过程——若每一个有限维分布都是正态分布，则称$\{X(t),t\in T\}$是正态过程。正态过程的全部统计特性完全由它的均值函数和自协方差函数所确定。
+\end{itemize}
+
+\subsection*{二维随机过程的特有数字特征}
+
+\begin{itemize}[leftmargin=2em]
+    \item 互相关函数：
+    \begin{align*}
+    R_{XY}(t_1,t_2)&=E[X(t_1)Y(t_2)],\\
+    R_{YX}(t_1,t_2)&=E[Y(t_1)X(t_2)].
+    \end{align*}
+    \item 互协方差函数：
+    \begin{align*}
+    C_{XY}(t_1,t_2)&=R_{XY}(t_1,t_2)-\mu_X(t_1)\mu_Y(t_2),\\
+    C_{YX}(t_1,t_2)&=R_{YX}(t_1,t_2)-\mu_Y(t_1)\mu_X(t_2).
+    \end{align*}
+\end{itemize}
+
+\subsection*{泊松过程与维纳过程}
+
+\textbf{泊松过程}：计数过程，强度为$\lambda$，满足
+\begin{itemize}[leftmargin=2em]
+    \item 独立增量；
+    \item $N(t)-N(t_0)\sim\pi[\lambda(t-t_0)]$；
+    \item $N(0)=0$。
+\end{itemize}
+
+数字特征：
+\[
+\mu_N(t)=\lambda t,\quad D_N(t)=\lambda t,\quad C_N(s,t)=\lambda\min(s,t),\quad R_N(s,t)=\lambda\min(s,t)+\lambda^2st.
+\]
+
+\textbf{维纳过程}：满足
+\begin{itemize}[leftmargin=2em]
+    \item 独立增量；
+    \item $W(t)-W(s)\sim N(0,\sigma^2(t-s))$；
+    \item $W(0)=0$。
+\end{itemize}
+
+数字特征：
+\[
+\mu_W(t)=0,\quad D_W(t)=\sigma^2t,\quad C_W(s,t)=R_W(s,t)=\sigma^2\min(s,t).
+\]
+
+\section*{作业}
+
+《概率论与数理统计》
+
+P.~321--322, \#3, \#5, \#6, \#10, \#11
+
 \end{document}
