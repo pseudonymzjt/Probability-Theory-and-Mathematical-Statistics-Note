@@ -1,6 +1,7 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[11pt,a4paper]{report}
 \usepackage[UTF8]{ctex}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -8,26 +9,45 @@
 \usepackage{xcolor}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage{mathtools}
-\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{textgreek}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 
 \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
 
+\definecolor{maincolor}{RGB}{0,82,147}
+\definecolor{accentcolor}{RGB}{230,126,34}
+\definecolor{lightgray}{RGB}{245,245,245}
+
+\titleformat{\chapter}{\Large\bfseries\color{maincolor}}{\thechapter}{1em}{}
+\titleformat{\section}{\large\bfseries\color{maincolor!80}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{maincolor!60}}{\thesubsection}{1em}{}
+
 \theoremstyle{definition}
-\newtheorem{definition}{定义}[section]
-\newtheorem{theorem}{定理}[section]
-\newtheorem{lemma}{引理}[section]
-\newtheorem{corollary}{推论}[section]
-\newtheorem{example}{例}[section]
-\newtheorem{remark}{注}[section]
+\newtheorem{definition}{定义}[chapter]
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{lemma}{引理}[chapter]
+\newtheorem{corollary}{推论}[chapter]
+\newtheorem{example}{例}[chapter]
+\newtheorem{remark}{注}[chapter]
 
 \theoremstyle{plain}
-\newtheorem{proposition}{命题}[section]
+\newtheorem{proposition}{命题}[chapter]
 
-\title{第一章\ 随机事件与概率\ 习题课}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 概率论与数理统计 \; 习题课}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\hypersetup{colorlinks=true,linkcolor=maincolor,citecolor=maincolor,urlcolor=maincolor}
+
+\title{概率论与数理统计 \; 习题课}
 \author{}
 \date{}
-
 \begin{document}
 \maketitle
 
