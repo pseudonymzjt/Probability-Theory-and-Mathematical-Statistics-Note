@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper]{report}
 \usepackage[UTF8]{ctex}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{geometry}
@@ -32,6 +32,7 @@
 \maketitle
 
 \section*{习题课目标}
+\newpage
 
 \begin{itemize}[leftmargin=2em]
     \item 回顾课上内容
@@ -44,7 +45,7 @@
 先验：$P(\text{常见错误})$；后验：$P(\text{常见错误}\mid\text{作业情况})$
 \end{remark}
 
-\section{概率论的基本概念}
+\chapter{随机事件与概率}
 
 \begin{figure}[htbp]
     \centering
@@ -742,9 +743,9 @@ P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A\mid B)P(B)+P(A\mid\bar{B})P(\bar{B})}=\frac
 \end{example}
 
 \newpage
-\section{随机变量及其分布}
+\newpage\chapter{随机变量及其分布}
 
-\subsection{从随机事件到随机变量}
+\section{从随机事件到随机变量}
 
 \begin{figure}[htbp]
     \centering
@@ -764,7 +765,7 @@ P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A\mid B)P(B)+P(A\mid\bar{B})P(\bar{B})}=\frac
     \label{fig:ch2_structure}
 \end{figure}
 
-\subsection{随机变量}
+\section{随机变量}
 
 \begin{definition}[随机变量]
 设随机试验的样本空间是\(S=\{\omega\}\)，\(X=X(\omega)\)是定义在样本空间\(S\)上的实值单值函数，称\(X=X(\omega)\)为\textbf{随机变量}。
@@ -778,7 +779,7 @@ P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A\mid B)P(B)+P(A\mid\bar{B})P(\bar{B})}=\frac
 \end{enumerate}
 \end{remark}
 
-\subsection{离散型随机变量的分布律}
+\section{离散型随机变量的分布律}
 
 \begin{definition}
 设离散型随机变量\(X\)所有可能取的值为\(x_k\)（\(k=1,2,\cdots\)），\(X\)取各个可能值的概率，即事件\(\{X=x_k\}\)的概率，为
@@ -802,7 +803,7 @@ p_k & p_1 & p_2 & \cdots & p_k & \cdots
 \end{array}
 \]
 
-\subsection{常用的离散型随机变量}
+\section{常用的离散型随机变量}
 
 \subsubsection{Bernoulli分布（两点分布）}
 
@@ -938,7 +939,7 @@ P\{X=k\}=\frac{C_M^k C_{N-M}^{n-k}}{C_N^n},\quad k=0,1,\cdots,\min(M,n)
     \item \textbf{二项分布}→\textbf{Poisson分布}：当\(N\)大，\(p\)小时，\(\lambda=np\)
 \end{itemize}
 
-\subsection{随机变量的分布函数}
+\section{随机变量的分布函数}
 
 \begin{definition}
 设\(X\)是一个随机变量，\(x\)是任意实数，函数
@@ -985,7 +986,7 @@ F(x)=P\{X\leq x\}
     \]
 \end{itemize}
 
-\subsection{连续型随机变量的概率密度}
+\section{连续型随机变量的概率密度}
 
 \begin{definition}
 如果对于随机变量\(X\)的分布函数\(F(x)\)，存在非负函数\(f(x)\)，使对于任意实数\(x\)有
@@ -1011,7 +1012,7 @@ F(x)=\int_{-\infty}^{x}f(t)\,\mathrm{d}t
 \end{enumerate}
 \end{remark}
 
-\subsection{常用的连续型随机变量}
+\section{常用的连续型随机变量}
 
 \subsubsection{均匀分布}
 
@@ -1150,7 +1151,7 @@ P\{|X|\leq 3\}=2\Phi(3)-1=0.9974
 
 \(\mu\pm 3\sigma\)：\(X\)的取值几乎全部集中在\([\mu-3\sigma,\mu+3\sigma]\)区间内，超出这个范围的可能性仅占不到\(0.3\%\)。
 
-\subsection{随机变量的函数的分布}
+\section{随机变量的函数的分布}
 
 \subsubsection{离散型随机变量的函数的分布}
 
@@ -1201,7 +1202,7 @@ f_Y(y)=f_X[h_1(y)]|h_1'(y)|+f_X[h_2(y)]|h_2'(y)|+\cdots,\quad y\in(\alpha,\beta)
 
 \textbf{直观理解}：\(f_Y(y)\Delta y=f_X[h(y)]\Delta x\)
 
-\subsection{常用概率分布及其关系}
+\section{常用概率分布及其关系}
 
 \begin{figure}[htbp]
     \centering
@@ -1210,7 +1211,7 @@ f_Y(y)=f_X[h_1(y)]|h_1'(y)|+f_X[h_2(y)]|h_2'(y)|+\cdots,\quad y\in(\alpha,\beta)
     \label{fig:all_distribution}
 \end{figure}
 
-\subsection{典型例题}
+\section{典型例题}
 
 \begin{example}[题型1：离散型随机变量——求分布律、分布函数、概率、参数]
 
@@ -1512,5 +1513,1029 @@ P(A)=P(B)P(A\mid B)+P(\bar{B})P(A\mid\bar{B})=0.7\times 0.1587+0.3\times 0.0062=
 P(B\mid A)=\frac{P(A\mid B)P(B)}{P(A)}=\frac{0.1587\times 0.7}{0.1129}=\frac{0.11109}{0.11295}\approx 0.9835
 \]
 \end{example}
+
+\newpage
+\newpage\chapter{多维随机变量及其分布}
+
+% 图片：知识结构图。上方"二维随机变量(x,y)"，下方分五个模块：1联合分布F(x,y)（联合分布函数、联合分布律、联合概率密度），2边缘分布F_X(x)（边缘分布函数、边缘分布律、边缘概率密度），3条件分布F_{X|Y}(x|y)（条件分布函数、条件分布律、条件概率密度），4随机变量的相互独立性，5随机变量的函数的分布。底部指向"贝叶斯公式"，右侧指向"推广至n维"
+
+\section{二维随机变量}
+
+\begin{definition}[二维随机变量]
+设\(E\)是一个随机试验，它的样本空间是\(S=\{e\}\)，设\(X=X(e)\)和\(Y=Y(e)\)是定义在\(S\)上的随机变量。由它们构成的一个向量\((X,Y)\)，叫做二维随机向量，或\textbf{二维随机变量}。
+\end{definition}
+
+% 图片：样本空间S（蓝色圆形）中有一个样本点e，通过两条箭头分别指向两个正八边形，分别标注X(e)和Y(e)
+
+\begin{definition}[二维随机变量的分布函数]
+设\((X,Y)\)是一个二维随机变量，则对于任意一对实数\(x,y\)，二元函数
+\[
+F(x,y)=P\{X\leq x,Y\leq y\}
+\]
+称为二维随机变量\((X,Y)\)的\textbf{分布函数}，或称为随机变量\(X\)和\(Y\)的\textbf{联合分布函数}。
+\end{definition}
+
+\textbf{几何意义}：\(F(x,y)\)可看成是平面上的随机点\((X,Y)\)落在以点\((x,y)\)为右上顶点的左下方的无穷矩形域内的概率。
+
+% 图片：平面直角坐标系，阴影区域为左下方无穷矩形域，右上角点为(x,y)，随机点(X,Y)落在该区域内
+
+\textbf{重要公式}：
+
+设\(x_1<x_2\)，\(y_1<y_2\)，则
+\[
+P\{x_1<X\leq x_2,y_1<Y\leq y_2\}=F(x_2,y_2)-F(x_2,y_1)-F(x_1,y_2)+F(x_1,y_1)
+\]
+
+% 图片：平面矩形区域，四个顶点标注(x_1,y_1)、(x_2,y_1)、(x_1,y_2)、(x_2,y_2)，阴影为矩形内部
+
+\begin{definition}[\(n\)维随机变量]
+设\(E\)是一个随机试验，它的样本空间是\(S=\{e\}\)，设\(X_1=X_1(e),X_2=X_2(e),\cdots,X_n=X_n(e)\)是定义在\(S\)上的随机变量，由它们构成的一个\(n\)维向量\((X_1,X_2,\cdots,X_n)\)叫做\(n\)维随机向量或\textbf{\(n\)维随机变量}。
+
+对于任意\(n\)个实数\(x_1,x_2,\cdots,x_n\)，\(n\)元函数
+\[
+F(x_1,x_2,\cdots,x_n)=P\{X_1\leq x_1,X_2\leq x_2,\cdots,X_n\leq x_n\}
+\]
+称为随机变量\(X_1,X_2,\cdots,X_n\)的\textbf{联合分布函数}。
+\end{definition}
+
+\section{二维离散型随机变量的分布律}
+
+若二维随机变量\((X,Y)\)的取值是有限个或可列无穷个，则称\((X,Y)\)为\textbf{二维离散型随机变量}。
+
+设\((X,Y)\)为二维离散型随机变量，\(X\)的取值为\(x_1,x_2,\cdots,x_i,\cdots\)，\(Y\)的取值为\(y_1,y_2,\cdots,y_j,\cdots\)，则称
+\[
+p_{ij}=P\{X=x_i,Y=y_j\},\quad(i,j=1,2,\cdots)
+\]
+为二维离散型随机变量\((X,Y)\)的\textbf{联合分布律}。
+
+离散型随机变量\((X,Y)\)的分布函数为
+\[
+F(x,y)=\sum_{x_i\leq x}\sum_{y_j\leq y}p_{ij}
+\]
+对一切满足\(x_i\leq x\)，\(y_j\leq y\)的\(i,j\)项求和。
+
+\section{二维连续型随机变量的概率密度}
+
+\begin{definition}
+对于二维随机变量\((X,Y)\)的分布函数\(F(x,y)\)，如果存在非负实函数\(f(x,y)\)，使得对于任意的实数\(x,y\)有
+\[
+F(x,y)=\int_{-\infty}^{y}\int_{-\infty}^{x}f(u,v)\,\mathrm{d}u\,\mathrm{d}v
+\]
+则称\((X,Y)\)是\textbf{连续型的二维随机变量}。函数\(f(x,y)\)称为二维随机变量\((X,Y)\)的\textbf{概率密度}，或称为\(X\)和\(Y\)的\textbf{联合概率密度}。
+\end{definition}
+
+\textbf{性质}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{非负性}：\(f(x,y)\geq 0\)
+    \item \textbf{规范性}：\(\displaystyle\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x\,\mathrm{d}y=1\)
+    \item 若\(f(x,y)\)在点\((x,y)\)连续，则有
+    \[
+    f(x,y)=\frac{\partial^2 F(x,y)}{\partial x\,\partial y}
+    \]
+    \item 设\(G\)是平面上的一个区域，点\((X,Y)\)落在\(G\)内的概率为：
+    \[
+    P\{(X,Y)\in G\}=\iint_G f(x,y)\,\mathrm{d}x\,\mathrm{d}y
+    \]
+    应用：估计积分。
+\end{enumerate}
+
+\textbf{几何意义}：
+\begin{itemize}[leftmargin=2em]
+    \item \(z=f(x,y)\)表示空间的一个曲面，
+    \[
+    \int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x\,\mathrm{d}y=1
+    \]
+    表示介于曲面\(f(x,y)\)和\(xOy\)平面之间空间区域的体积等于1。
+    % 图片：三维曲面图，曲面在xOy平面上方，总体积为1
+    \item \(\displaystyle P\{(X,Y)\in G\}=\iint_G f(x,y)\,\mathrm{d}x\,\mathrm{d}y\)的值等于以\(G\)为底，曲面\(z=f(x,y)\)为顶面的柱体体积。
+    % 图片：三维柱体示意图，红色边框表示区域G，蓝色柱体表示体积
+\end{itemize}
+
+\subsubsection{常用分布}
+
+\textbf{二维均匀分布}：设\(D\)是平面上的有界区域，其面积为\(A\)。如果二维随机变量\((X,Y)\)的密度函数为
+\[
+f(x,y)=\begin{cases}
+\dfrac{1}{A}, & (x,y)\in D, \\[8pt]
+0, & (x,y)\notin D
+\end{cases}
+\]
+则称二维随机变量\((X,Y)\)服从区域\(D\)上的\textbf{均匀分布}。
+
+\textbf{二维正态分布}：设二维随机变量\((X,Y)\)的密度函数为
+\[
+f(x,y)=\frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}\exp\left\{-\frac{1}{2(1-\rho^2)}\left[\frac{(x-\mu_1)^2}{\sigma_1^2}-\frac{2\rho(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2}+\frac{(y-\mu_2)^2}{\sigma_2^2}\right]\right\}
+\]
+则称随机变量\((X,Y)\)服从参数为\((\mu_1,\mu_2,\sigma_1^2,\sigma_2^2,\rho)\)的\textbf{正态分布}，记作
+\[
+(X,Y)\sim N(\mu_1,\mu_2,\sigma_1^2,\sigma_2^2,\rho)
+\]
+其中\(-\infty<\mu_i<+\infty\)（\(i=1,2\)），\(\sigma_i>0\)（\(i=1,2\)），\(-1<\rho<1\)。
+
+% 图片：二维正态分布密度曲面图
+
+\section{边缘分布}
+
+\begin{definition}[边缘分布]
+如果\((X,Y)\)是一个二维随机变量，则它的分量\(X\)（或\(Y\)）是一维随机变量。因此，分量\(X\)（或\(Y\)）也有分布，我们称\(X\)（或\(Y\)）的分布为二维随机变量\((X,Y)\)关于\(X\)（或\(Y\)）的\textbf{边缘分布}。
+
+边缘分布也称为边沿分布或边际分布。
+\end{definition}
+
+% 图片：联合分布F(x,y)与边缘分布F_X(x),F_Y(y)的关系示意图。绿色箭头表示联合→边缘，红色箭头表示边缘→联合（双向但条件受限）
+
+\subsubsection{已知联合分布函数求边缘分布函数}
+
+设二维随机变量\((X,Y)\)的分布函数为\(F(x,y)\)，则分量\(X\)的分布函数为
+\[
+F_X(x)=P\{X\leq x\}=P\{X\leq x,Y\leq+\infty\}=\lim_{y\to+\infty}F(x,y)=F(x,+\infty)
+\]
+分量\(Y\)的分布函数为
+\[
+F_Y(y)=P\{Y\leq y\}=P\{X\leq+\infty,Y\leq y\}=\lim_{x\to+\infty}F(x,y)=F(+\infty,y)
+\]
+
+\subsubsection{已知联合分布律求边缘分布律}
+
+\(X\)和\(Y\)的边缘分布律也可以由下表表示：
+
+\[
+\begin{array}{c|ccccc|c}
+X\backslash Y & y_1 & y_2 & \cdots & y_j & \cdots & p_{i\cdot} \\ \hline
+x_1 & p_{11} & p_{12} & \cdots & p_{1j} & \cdots & p_{1\cdot} \\
+x_2 & p_{21} & p_{22} & \cdots & p_{2j} & \cdots & p_{2\cdot} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\
+x_i & p_{i1} & p_{i2} & \cdots & p_{ij} & \cdots & p_{i\cdot} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \ddots & \vdots \\ \hline
+p_{\cdot j} & p_{\cdot 1} & p_{\cdot 2} & \cdots & p_{\cdot j} & \cdots & 1
+\end{array}
+\]
+
+其中
+\[
+p_{i\cdot}=\sum_{j}p_{ij}=P\{X=x_i\},\quad p_{\cdot j}=\sum_{i}p_{ij}=P\{Y=y_j\}
+\]
+
+\subsubsection{已知联合密度函数求边缘密度函数}
+
+若\((X,Y)\)的联合密度函数为\(f(x,y)\)，则随机变量\(X\)的边缘密度函数为
+\[
+f_X(x)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}y
+\]
+随机变量\(Y\)的边缘密度函数为
+\[
+f_Y(y)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x
+\]
+
+\begin{remark}
+二维正态分布\((X,Y)\sim N(\mu_1,\mu_2,\sigma_1^2,\sigma_2^2,\rho)\)的边缘分布：
+\[
+X\sim N(\mu_1,\sigma_1^2),\quad Y\sim N(\mu_2,\sigma_2^2)
+\]
+注意：反之不成立，即由边缘分布为正态分布不能推出联合分布为二维正态分布。
+\end{remark}
+
+\section{条件分布}
+
+\subsubsection{离散型随机变量的条件分布}
+
+设\((X,Y)\)是二维离散型随机变量。
+
+对于固定的\(j\)，若\(P\{Y=y_j\}>0\)，则称
+\[
+P\{X=x_i\mid Y=y_j\}=\frac{P\{X=x_i,Y=y_j\}}{P\{Y=y_j\}}=\frac{p_{ij}}{p_{\cdot j}},\quad i=1,2,\cdots
+\]
+为在\(Y=y_j\)条件下随机变量\(X\)的\textbf{条件分布律}。
+
+对于固定的\(i\)，若\(P\{X=x_i\}>0\)，则称
+\[
+P\{Y=y_j\mid X=x_i\}=\frac{P\{X=x_i,Y=y_j\}}{P\{X=x_i\}}=\frac{p_{ij}}{p_{i\cdot}},\quad j=1,2,\cdots
+\]
+为在\(X=x_i\)条件下随机变量\(Y\)的\textbf{条件分布律}。
+
+\subsubsection{连续型随机变量的条件概率密度}
+
+当\(f_Y(y)>0\)时，随机变量\(X\)在\(Y=y\)条件下的条件密度函数为
+\[
+f_{X\mid Y}(x\mid y)=\frac{f(x,y)}{f_Y(y)}
+\]
+
+当\(f_X(x)>0\)时，随机变量\(Y\)在\(X=x\)条件下的条件密度函数为
+\[
+f_{Y\mid X}(y\mid x)=\frac{f(x,y)}{f_X(x)}
+\]
+
+\begin{remark}
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item
+    \[
+    P(X\leq x\mid Y=y)\approx P(X\leq x\mid y<Y\leq y+\epsilon)=\frac{P(X\leq x,y<Y\leq y+\epsilon)}{P(y<Y\leq y+\epsilon)}
+    \]
+    \item
+    \[
+    P(X\leq x\mid Y=y)=\int_{-\infty}^{x}f_{X\mid Y}(x\mid y)\,\mathrm{d}x=\int_{-\infty}^{x}\frac{f(x,y)}{f_Y(y)}\,\mathrm{d}x
+    \]
+    注意与\(P(X\leq x\mid Y\leq y)=\dfrac{P(X\leq x,Y\leq y)}{P(Y\leq y)}=\dfrac{\displaystyle\int_{-\infty}^{x}\int_{-\infty}^{y}f(x,y)\,\mathrm{d}x\,\mathrm{d}y}{\displaystyle\int_{-\infty}^{y}f_Y(y)\,\mathrm{d}y}\)区分。
+\end{enumerate}
+\end{remark}
+
+\subsubsection{联合分布、边缘分布、条件分布的关系}
+
+% 图片：关系图。联合分布F(X,Y)通过双向箭头（绿色可逆，红色不可逆）连接边缘分布F_X(x),F_Y(y)和条件分布F_{X|Y}(x|y),F_{Y|X}(y|x)。公式框标注：f(x,y)=f_X(x)f_{Y|X}(y|x)=f_Y(y)f_{X|Y}(x|y)
+
+\[
+f(x,y)=f_X(x)f_{Y\mid X}(y\mid x)=f_Y(y)f_{X\mid Y}(x\mid y)
+\]
+
+\section{相互独立的随机变量}
+
+\begin{definition}[独立分布]
+设\((X,Y)\)是二维随机变量，其联合分布函数为\(F(x,y)\)，随机变量\(X\)的分布函数为\(F_X(x)\)，随机变量\(Y\)的分布函数为\(F_Y(y)\)。如果对于任意的\(x,y\)，有
+\[
+F(x,y)=F_X(x)F_Y(y)
+\]
+则称\(X,Y\)是\textbf{相互独立的随机变量}。
+\end{definition}
+
+\subsubsection{离散型随机变量的独立性}
+
+设\((X,Y)\)是二维离散型随机变量，其联合分布律为\(p_{ij}=P\{X=x_i,Y=y_j\}\)，随机变量\(X\)的分布律为\(p_{i\cdot}=P\{X=x_i\}\)（\(i=1,2,\cdots\)），随机变量\(Y\)的分布律为\(p_{\cdot j}=P\{Y=y_j\}\)（\(j=1,2,\cdots\)）。
+
+如果对于任意的\(i,j\)，满足
+\[
+p_{ij}=p_{i\cdot}\,p_{\cdot j}
+\]
+则称\(X,Y\)是相互独立的随机变量。
+
+\subsubsection{连续型随机变量的独立性}
+
+设\((X,Y)\)是二维连续型随机变量，其联合密度函数为\(f(x,y)\)，随机变量\(X\)的边缘密度函数为\(f_X(x)\)，随机变量\(Y\)的边缘密度函数为\(f_Y(y)\)。
+
+如果对于几乎所有的\(x,y\)，满足
+\[
+f(x,y)=f_X(x)f_Y(y)
+\]
+则称\(X,Y\)是相互独立的随机变量。
+
+\subsubsection{\(n\)维随机变量的独立性}
+
+设\((X_1,X_2,\cdots,X_n)\)是\(n\)维随机变量，其联合分布函数为\(F(x_1,x_2,\cdots,x_n)\)，随机变量\(X_i\)的分布函数为\(F_{X_i}(x_i)\)（\(i=1,2,\cdots,n\)）。
+
+如果对于任意的\(n\)维实数组\((x_1,x_2,\cdots,x_n)\)，有
+\[
+F(x_1,x_2,\cdots,x_n)=F_{X_1}(x_1)F_{X_2}(x_2)\cdots F_{X_n}(x_n)
+\]
+则\(X_1,X_2,\cdots,X_n\)是相互独立的随机变量。
+
+\section{两个随机变量的函数的分布}
+
+\subsubsection{连续型随机变量函数的分布}
+
+设二维连续型随机变量\((X,Y)\)的联合密度函数为\(f(x,y)\)。
+
+\textbf{1. 如果\(g(x,y)\)是二元连续可微函数}，则\(Z=g(X,Y)\)仍是连续型随机变量，\(Z\)的分布函数为
+\[
+F_Z(z)=P\{g(X,Y)\leq z\}=\iint_{g(x,y)\leq z}f(x,y)\,\mathrm{d}x\,\mathrm{d}y
+\]
+\(Z\)的概率密度函数为
+\[
+f_Z(z)=\frac{\mathrm{d}F_Z(z)}{\mathrm{d}z}
+\]
+
+\textbf{2. 如果\(g(x,y)\)的值域是有限或可列集\(\{z_1,z_2,\ldots\}\)}，则\(Z=g(X,Y)\)是离散型随机变量，\(Z\)的分布律为
+\[
+P\{Z=z_i\}=P\{g(X,Y)=z_i\}=\iint_{g(x,y)=z_i}f(x,y)\,\mathrm{d}x\,\mathrm{d}y,\quad i=1,2,\ldots
+\]
+
+\subsubsection{连续型随机变量和的分布}
+
+\textbf{卷积公式}：
+
+设二维连续型随机变量\((X,Y)\)的联合密度函数为\(f(x,y)\)，则\(Z=X+Y\)的密度函数为
+\[
+f_Z(z)=\int_{-\infty}^{+\infty}f(x,z-x)\,\mathrm{d}x
+\]
+或
+\[
+f_Z(z)=\int_{-\infty}^{+\infty}f(z-y,y)\,\mathrm{d}y
+\]
+
+如果随机变量\(X\)和\(Y\)相互独立，即\(f(x,y)=f_X(x)f_Y(y)\)，此时\(Z=X+Y\)的密度函数为
+\[
+f_Z(z)=\int_{-\infty}^{+\infty}f_X(z-y)f_Y(y)\,\mathrm{d}y
+\]
+或
+\[
+f_Z(z)=\int_{-\infty}^{+\infty}f_X(x)f_Y(z-x)\,\mathrm{d}x
+\]
+
+\textbf{相互独立的正态分布随机变量的可加性}：
+
+如果随机变量\(X\)和\(Y\)相互独立，且\(X\sim N(\mu_1,\sigma_1^2)\)，\(Y\sim N(\mu_2,\sigma_2^2)\)，令\(Z=X+Y\)，则
+\[
+Z\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)
+\]
+
+如果随机变量\(X_1,X_2,\cdots,X_n\)相互独立，且\(X_i\sim N(\mu_i,\sigma_i^2)\)（\(i=1,2,\cdots,n\)），\(a_1,a_2,\cdots,a_n\)为\(n\)个实常数，则
+\[
+Z=\sum_{i=1}^{n}a_iX_i\sim N\left(\sum_{i=1}^{n}a_i\mu_i,\sum_{i=1}^{n}a_i^2\sigma_i^2\right)
+\]
+
+\textbf{相互独立的二项分布随机变量的可加性}：
+
+如果随机变量\(X\)和\(Y\)相互独立，且\(X\sim B(m,p)\)，\(Y\sim B(n,p)\)，令\(Z=X+Y\)，则
+\[
+Z\sim B(m+n,p)
+\]
+
+\textbf{相互独立的泊松分布随机变量的可加性}：
+
+如果随机变量\(X\)和\(Y\)相互独立，且\(X\sim P(\lambda_1)\)，\(Y\sim P(\lambda_2)\)，令\(Z=X+Y\)，则
+\[
+Z\sim P(\lambda_1+\lambda_2)
+\]
+
+\subsubsection{连续型随机变量函数的极值分布（最大值、最小值的分布）}
+
+设\(X_1,X_2,\cdots,X_n\)是独立的连续型随机变量，\(X_i\)的分布函数为\(F_i(x)\)（\(i=1,2,\cdots,n\)）。
+
+令\(Z_1=\min(X_1,X_2,\ldots,X_n)\)，则\(Z_1\)的分布函数为
+\[
+F_{Z_1}(z)=P\{Z_1\leq z\}=1-P\{Z_1>z\}=1-[1-F_1(z)][1-F_2(z)]\cdots[1-F_n(z)]
+\]
+
+令\(Z_2=\max(X_1,X_2,\ldots,X_n)\)，则\(Z_2\)的分布函数为
+\[
+F_{Z_2}(z)=P\{Z_2\leq z\}=F_1(z)F_2(z)\cdots F_n(z)
+\]
+
+\subsubsection{一般步骤（分布函数法）}
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 先求随机变量函数\(Z=g(X,Y)\)的分布函数
+    \[
+    F_Z(z)=P\{Z\leq z\}=P\{g(X,Y)\leq z\}=\iint_{g(x,y)\leq z}f(x,y)\,\mathrm{d}x\,\mathrm{d}y
+    \]
+    \item 再求随机变量函数\(Z=g(X,Y)\)的密度函数\(f_Z(z)=F_Z'(z)\)
+\end{enumerate}
+
+\textbf{难点}：标明\(z\)的定义域；确定积分区间。
+
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 在\(x\)-\(y\)坐标系中画出\(x,y\)的取值范围：\(\{f(x,y)\neq 0\text{ 时的 }x,y\text{ 取值范围}\}\cap\{g(x,y)\leq z\}\)（\(z\)当常数用）
+    \item 对\(z\)的取值进行讨论，确定\(x,y\)的积分范围
+    \item 写出\(F_Z(z)\)的积分计算式，即\(f(x,y)\)沿\(x\)和\(y\)进行积分
+    \item 整理\(F_Z(z)\)表达式，写明\(z\)的取值范围
+\end{enumerate}
+
+\textbf{几种常见函数的分布（公式法）}：
+\[
+\begin{aligned}
+Z=X+Y &\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}f(x,z-x)\,\mathrm{d}x \\
+Z=Y/X &\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}|x|f(x,xz)\,\mathrm{d}x \\
+Z=XY &\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}\frac{1}{|x|}f\left(x,\frac{z}{x}\right)\,\mathrm{d}x
+\end{aligned}
+\]
+
+\textbf{公式法步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 选定内变量（例如\(Y\)），写出\(f_Z(z)\neq 0\)时\(f_Z(z)\)的表达式。表达式中不再有\(Y\)，仅有\(x\)和\(z\)，并需要对\(x\)积分
+    \item 确定\(f_Z(z)\neq 0\)时，\(Z\)和\(X\)的取值范围
+    \item 在\(z\)-\(x\)坐标系下，画出\(Z\)和\(X\)的取值范围
+    \item 根据3中的图，确定\(x\)积分范围，沿\(x\)方向对\(f(x,z)\)积分
+    \item 写出最后结果，标明\(z\)的定义域
+\end{enumerate}
+
+\begin{remark}[易错点]
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item \textbf{区分分布函数、分布律、概率密度}
+    \begin{itemize}
+        \item 分布函数：\(F(x,y)=P\{X\leq x,Y\leq y\}\)
+        \item 分布律（离散型）：\(p_{ij}=P\{X=x_i,Y=y_j\}\)
+        \item 概率密度函数（连续型）：\(f(x,y)\)
+    \end{itemize}
+    \item \textbf{概率密度函数的定义域}
+    \begin{itemize}
+        \item 不漏写定义域：任何一个概率密度函数，都需标明变量的定义域。
+        \item 求谁的密度，写谁的定义域
+    \end{itemize}
+\end{enumerate}
+\end{remark}
+
+\section{典型例题}
+
+\begin{example}[题型1：二维离散型随机变量]
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 求联合分布律——表格列出
+    \item 求边缘分布律——分布律表格的行/列求和
+    \item 求条件分布律
+    \item 求分布律中的参数
+    \[
+    \sum_{i,j}p_{ij}=1,\quad \sum_{i}p_{i\cdot}=\sum_{i}P\{X=x_i\}=1,\quad \sum_{j}p_{\cdot j}=\sum_{j}P\{Y=y_j\}=1
+    \]
+\end{enumerate}
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.6]
+将一枚硬币掷3次，\(X\)表示前2次出现H的次数，\(Y\)表示3次中出现H的次数。求\(X,Y\)的联合分布律以及\((X,Y)\)的边缘分布律。
+
+\textbf{解法1}：列出样本空间及\(X\)、\(Y\)取值的情况
+
+\[
+\begin{array}{c|cccccccc}
+\text{样本点} & \text{HHH} & \text{HHT} & \text{HTH} & \text{THH} & \text{HTT} & \text{THT} & \text{TTH} & \text{TTT} \\ \hline
+X\text{的值} & 2 & 2 & 1 & 1 & 1 & 1 & 0 & 0 \\
+Y\text{的值} & 3 & 2 & 2 & 2 & 1 & 1 & 1 & 0
+\end{array}
+\]
+
+\[
+\begin{array}{c|ccc|c}
+X\backslash Y & 0 & 1 & 2 & P\{Y=j\} \\ \hline
+0 & 1/8 & 0 & 0 & 1/8 \\
+1 & 1/8 & 1/4 & 0 & 3/8 \\
+2 & 0 & 1/4 & 1/8 & 3/8 \\
+3 & 0 & 0 & 1/8 & 1/8 \\ \hline
+P\{X=i\} & 1/4 & 1/2 & 1/4 & 1
+\end{array}
+\]
+
+\textbf{解法2}：\(X\sim B(2,0.5)\)，
+\[
+P\{Y=j\mid X=i\}=\begin{cases}
+\dfrac{1}{2}, & j=i\text{ 或 }i+1 \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+依次求\(P\{X=i,Y=j\}=P\{Y=j\mid X=i\}P\{X=i\}\)。
+
+\textbf{错误解法}：\(P\{X=i,Y=j\}\neq P\{X=i\}P\{Y=j\}\)，\(X\)与\(Y\)不相互独立。
+\end{example}
+
+\begin{example}[题型2：二维连续型随机变量]
+\begin{itemize}[leftmargin=2em]
+    \item 求联合分布函数中的参数
+    \item 求联合概率密度函数中的参数
+\end{itemize}
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.9(1)]
+设二维随机变量\((X,Y)\)的概率密度为
+\[
+f(x,y)=\begin{cases}
+c x^2 y, & x^2\leq y\leq 1 \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+(1) 确定常数\(c\)。
+
+\textbf{解}：由\(\displaystyle\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x\,\mathrm{d}y=1\)，有
+\[
+\iint_{x^2\leq y\leq 1}c x^2 y\,\mathrm{d}x\,\mathrm{d}y=1
+\]
+
+% 图片：积分区域图，抛物线y=x^2与直线y=1围成的区域
+
+或
+\[
+\begin{aligned}
+1&=c\int_{0}^{1}y\,\mathrm{d}y\int_{-\sqrt{y}}^{\sqrt{y}}x^2\,\mathrm{d}x \\
+&=c\int_{0}^{1}y\left[\frac{x^3}{3}\right]_{-\sqrt{y}}^{\sqrt{y}}\,\mathrm{d}y \\
+&=c\int_{0}^{1}y\cdot\frac{2}{3}y^{3/2}\,\mathrm{d}y=\frac{4c}{21}
+\end{aligned}
+\]
+\[
+\Rightarrow c=\frac{21}{4}
+\]
+\end{example}
+
+\begin{example}[题型3：求边缘分布]
+\textbf{离散型}：已知联合分布律\(P\{X=i,Y=j\}\)，\(X\)的边缘分布律
+\[
+P\{X=i\}=\sum_{j}P\{X=i,Y=j\}
+\]
+
+\textbf{连续型}：
+\begin{itemize}[leftmargin=2em]
+    \item 已知联合分布\(F(x,y)\)，求边缘分布
+    \[
+    F_X(x)=F(x,+\infty),\quad F_Y(y)=F(+\infty,y)
+    \]
+    \item 已知\(f(x,y)\)，求边缘概率密度
+    \begin{enumerate}[label=\arabic*.,leftmargin=2em]
+        \item 确定\(x\)的取值区间\((a,b)\)
+        \item 当\(a<x<b\)，求积分\(\displaystyle f_X(x)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}y\)（积分上下限一般是\(x\)的函数）
+        \item 其他情况，\(f_X(x)=0\)
+        \item 确定\(y\)的取值区间\((c,d)\)
+        \item 当\(c<y<d\)，求积分\(\displaystyle f_Y(y)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x\)（积分上下限一般是\(y\)的函数）
+        \item 其他情况，\(f_Y(y)=0\)
+    \end{enumerate}
+\end{itemize}
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.11(1)]
+\(X\)：某医院一天出生的婴儿个数。\(Y\)：其中男婴的个数。设\(X\)和\(Y\)的联合分布律为
+\[
+P\{X=n,Y=m\}=\frac{e^{-14}\times 7.14^m\times 6.86^{n-m}}{m!\,(n-m)!},\quad m=0,1,2,\cdots,n;\;n=0,1,2,\cdots
+\]
+(1) 求边缘分布律。
+
+\textbf{解}：
+\[
+P\{X=n\}=\sum_{m=0}^{n}P\{X=n,Y=m\}=\frac{e^{-14}\times 14^n}{n!},\quad n=0,1,2,\cdots
+\]
+\[
+P\{Y=m\}=\sum_{n=m}^{+\infty}P\{X=n,Y=m\}=\frac{e^{-7.14}\times 7.14^m}{m!},\quad m=0,1,2,\cdots
+\]
+标明取值范围。
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.17(1)]
+(1) 设随机变量\((X,Y)\)具有分布函数
+\[
+F(x,y)=\begin{cases}
+(1-e^{-\alpha x})y, & x\geq 0,\,0\leq y\leq 1 \\[6pt]
+1-e^{-\alpha x}, & x\geq 0,\,y>1 \\[6pt]
+0, & \text{其他}
+\end{cases},\quad \alpha>0
+\]
+
+\textbf{解}：
+\[
+F_X(x)=F(x,+\infty)=\begin{cases}
+1-e^{-\alpha x}, & x\geq 0 \\[6pt]
+0, & x<0
+\end{cases}
+\]
+\[
+F_Y(y)=F(+\infty,y)=\begin{cases}
+0, & y<0 \\[6pt]
+y, & 0\leq y\leq 1 \\[6pt]
+1, & y>1
+\end{cases}
+\]
+因为\(F(x,y)=F_X(x)F_Y(y)\)，所以\(X,Y\)互相独立。
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.17(2)]
+(2) 设随机变量\((X,Y)\)具有分布律
+\[
+P\{X=x,Y=y\}=p^2(1-p)^{x+y-2},\quad 0<p<1,\;x,y\text{ 均为正整数}
+\]
+问\(X,Y\)是否互相独立？
+
+\textbf{解}：
+\[
+P\{X=x\}=\sum_{y=1}^{+\infty}P\{X=x,Y=y\}=\sum_{y=1}^{+\infty}p^2(1-p)^{x+y-2}=p^2(1-p)^{x-1}\sum_{y=1}^{+\infty}(1-p)^{y-1}=p(1-p)^{x-1}
+\]
+（等比数列求和），\(x=1,2,\cdots\)，\(0<p<1\)。
+
+同理，\(P\{Y=y\}=p(1-p)^{y-1}\)，\(y=1,2,\cdots\)，\(0<p<1\)。
+
+因为对所有正整数\(x,y\)，均有\(P\{X=x,Y=y\}=P\{X=x\}P\{Y=y\}\)，所以\(X,Y\)互相独立。
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.9(2)]
+设二维随机变量\((X,Y)\)的概率密度为
+\[
+f(x,y)=\begin{cases}
+\dfrac{21}{4}x^2y, & x^2\leq y\leq 1 \\[8pt]
+0, & \text{其他}
+\end{cases}
+\]
+(2) 求边缘概率密度。
+
+% 图片：积分区域图，抛物线y=x^2与直线y=1围成的区域
+
+\(x\)的取值范围是\(-1\leq x\leq 1\)。
+
+\[
+f_X(x)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}y=\begin{cases}
+\displaystyle\int_{x^2}^{1}\frac{21}{4}x^2y\,\mathrm{d}y, & -1\leq x\leq 1 \\[10pt]
+0, & \text{其他}
+\end{cases}
+\]
+\[
+=\begin{cases}
+\dfrac{21}{8}x^2(1-x^4), & -1\leq x\leq 1 \\[8pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+\(y\)的取值范围是\(0\leq y\leq 1\)。
+
+\[
+f_Y(y)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x=\begin{cases}
+\displaystyle\int_{-\sqrt{y}}^{\sqrt{y}}\frac{21}{4}x^2y\,\mathrm{d}x, & 0\leq y\leq 1 \\[10pt]
+0, & \text{其他}
+\end{cases}
+\]
+\[
+=\begin{cases}
+\dfrac{7}{2}y^{5/2}, & 0\leq y\leq 1 \\[8pt]
+0, & \text{其他}
+\end{cases}
+\]
+\end{example}
+
+\begin{example}[题型4：求条件分布]
+\begin{itemize}[leftmargin=2em]
+    \item 求条件分布/概率密度函数
+    \[
+    f_{X\mid Y}(x\mid y)=\frac{f(x,y)}{f_Y(y)},\quad f_Y(y)\neq 0
+    \]
+    明确\(y\)的取值范围：分母中边缘密度非0
+    \item 标明\(x\)的定义域：边界是\(y\)的函数/常数/\(\infty\)
+    \item 求条件概率：对相应的条件概率密度函数求积分
+\end{itemize}
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.11(2-3)]
+\(X\)：某医院一天出生的婴儿个数。\(Y\)：其中男婴的个数。设\(X\)和\(Y\)的联合分布律为
+\[
+P\{X=n,Y=m\}=\frac{e^{-14}\times 7.14^m\times 6.86^{n-m}}{m!\,(n-m)!},\quad m=0,1,\cdots,n;\;n=0,1,2,\cdots
+\]
+边缘分布律为：
+\[
+P\{X=n\}=\frac{e^{-14}\times 14^n}{n!},\quad P\{Y=m\}=\frac{e^{-7.14}\times 7.14^m}{m!}
+\]
+
+(2) 求条件分布律。
+
+\textbf{解}：
+\[
+P\{X=n\mid Y=m\}=\frac{P\{X=n,Y=m\}}{P\{Y=m\}}=\frac{6.86^{n-m}}{(n-m)!}e^{-6.86},\quad n=m,m+1,\cdots
+\]
+\[
+P\{Y=m\mid X=n\}=\frac{P\{X=n,Y=m\}}{P\{X=n\}}=C_n^m\times 0.51^m\times 0.49^{n-m},\quad m=0,1,\cdots,n
+\]
+
+(3) 当\(X=20\)时，\(Y\)的条件分布律。
+
+\textbf{解}：
+\[
+P\{Y=m\mid X=20\}=C_{20}^m\times 0.51^m\times 0.49^{20-m},\quad m=0,1,\cdots,20
+\]
+标明取值范围。
+\end{example}
+
+\begin{example}[题型5：二维连续型随机变量——已知\(f(x,y)\)，求随机变量的函数的分布]
+
+\textbf{方法1}（分布函数法）：
+
+\textbf{方法2}（公式法）：
+
+\textbf{一般步骤}：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 先求随机变量函数\(Z=g(X,Y)\)的分布函数
+    \[
+    F_Z(z)=P\{Z\leq z\}=P\{g(X,Y)\leq z\}=\iint_{g(x,y)\leq z}f(x,y)\,\mathrm{d}x\,\mathrm{d}y
+    \]
+    \item 再求随机变量函数\(Z=g(X,Y)\)的密度函数\(f_Z(z)=F_Z'(z)\)
+\end{enumerate}
+
+\textbf{难点}：标明\(z\)的定义域；确定积分区间。
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 在\(x\)-\(y\)坐标系中画出\(x,y\)的取值范围：\(\{f(x,y)\neq 0\}\cap\{g(x,y)\leq z\}\)，\(z\)当常数用
+    \item 对\(z\)的取值进行讨论，确定\(x,y\)的积分范围
+    \item 写出\(F_Z(z)\)的积分计算式，\(f(x,y)\)沿\(x\)和\(y\)进行积分
+    \item 整理\(F_Z(z)\)表达式，写明\(z\)的取值范围
+\end{enumerate}
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.21]
+设二维随机变量\((X,Y)\)的概率密度为
+\[
+f(x,y)=\begin{cases}
+x+y, & 0<x<1,\,0<y<1 \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+分别求(1)\(Z=X+Y\)，(2)\(Z=XY\)的概率密度。
+
+(1) \textbf{解法1}：先算分布函数\(F_Z(z)\)，再算概率密度\(f_Z(z)=F_Z'(z)\)。
+\[
+F_Z(z)=P\{Z\leq z\}=P\{X+Y\leq z\}=\iint_{X+Y\leq z}f(x,y)\,\mathrm{d}x\,\mathrm{d}y
+\]
+
+% 图片：单位正方形[0,1]×[0,1]，绿色虚线表示x+y=z(0<z<1)，红色实线表示x+y=z(1<z<2)
+
+\[
+F_Z(z)=\begin{cases}
+0, & z\leq 0 \\[6pt]
+\dfrac{1}{3}z^3, & 0<z\leq 1 \\[8pt]
+\cdots, & 1<z\leq 2 \\[6pt]
+1, & z>2
+\end{cases}
+\]
+
+\[
+f_Z(z)=\begin{cases}
+z^2, & 0<z<1 \\[6pt]
+2z-z^2, & 1\leq z<2 \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+(1) \textbf{解法2}：求和
+\[
+Z=X+Y\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}f(x,z-x)\,\mathrm{d}x
+\]
+\(f(x,z-x)\neq 0\)时，\(x,z\)的取值范围为
+\[
+\begin{cases}
+0<x<1 \\[4pt]
+0<z-x<1
+\end{cases}
+\Rightarrow
+\begin{cases}
+0<x<1 \\[4pt]
+z-1<x<z
+\end{cases}
+\]
+
+% 图片：z-x坐标系，阴影区域为平行四边形，顶点(0,0),(1,1),(1,2),(0,1)
+
+\[
+f_Z(z)=\begin{cases}
+\displaystyle\int_{0}^{z}[x+(z-x)]\,\mathrm{d}x=z^2, & 0<z<1 \\[10pt]
+\displaystyle\int_{z-1}^{1}[x+(z-x)]\,\mathrm{d}x=2z-z^2, & 1\leq z<2 \\[10pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+(2) 求积：
+\[
+Z=XY\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}\frac{1}{|x|}f\left(x,\frac{z}{x}\right)\,\mathrm{d}x
+\]
+\(f(x,z/x)\neq 0\)时，
+\[
+\begin{cases}
+0<x<1 \\[4pt]
+0<\dfrac{z}{x}<1
+\end{cases}
+\Rightarrow
+\begin{cases}
+0<x<1 \\[4pt]
+0<z<x
+\end{cases}
+\]
+
+% 图片：z-x坐标系，阴影区域为三角形，顶点(0,0),(1,0),(1,1)
+
+\[
+f_Z(z)=\begin{cases}
+\displaystyle\int_{z}^{1}\frac{1}{x}\left(x+\frac{z}{x}\right)\,\mathrm{d}x=2(1-z), & 0<z<1 \\[10pt]
+0, & \text{其他}
+\end{cases}
+\]
+\end{example}
+
+\begin{example}[例2]
+设随机变量\(X,Y\)相互独立，且具有相同的分布，它们的概率密度均如下，求\(Z=Y/X\)的概率密度。
+\[
+f(x)=\begin{cases}
+e^{-x}, & x>0 \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+\textbf{解}：求商
+\[
+Z=Y/X\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}|x|f(x,xz)\,\mathrm{d}x
+\]
+\(f(x,xz)\neq 0\)时，\(x,z\)的取值范围为
+\[
+\begin{cases}
+x>0 \\[4pt]
+xz>0
+\end{cases}
+\Rightarrow
+\begin{cases}
+x>0 \\[4pt]
+z>0
+\end{cases}
+\]
+
+\[
+\begin{aligned}
+f_Z(z)&=\int_{-\infty}^{+\infty}|x|f_X(x)f_Y(xz)\,\mathrm{d}x \\
+&=\int_{0}^{+\infty}x\cdot e^{-x}\cdot e^{-xz}\,\mathrm{d}x \\
+&=\int_{0}^{+\infty}x e^{-(1+z)x}\,\mathrm{d}x
+\end{aligned}
+\]
+
+积分提示：分部积分
+\[
+\int F(x)G'(x)\,\mathrm{d}x+\int F'(x)G(x)\,\mathrm{d}x=F(x)G(x)
+\]
+
+令\(F(x)=x\)，\(G'(x)=e^{-(1+z)x}\)，则\(G(x)=-\dfrac{1}{1+z}e^{-(1+z)x}\)。
+
+\[
+f_Z(z)=\begin{cases}
+\dfrac{1}{(1+z)^2}, & z>0 \\[8pt]
+0, & \text{其他}
+\end{cases}
+\]
+标明定义域。
+\end{example}
+
+\begin{example}[题型6：求概率]
+\begin{itemize}[leftmargin=2em]
+    \item 已知\(f(x,y)\)，求\(F(x,y)\)
+    \item 确定积分区间
+    \item 画图法
+    \item 常用的积分技巧
+    \begin{itemize}
+        \item 换元法
+        \item 分部积分
+        \item 已知分布的概率密度函数形式（例如：正态分布）
+    \end{itemize}
+\end{itemize}
+\end{example}
+
+\begin{example}[《概率论与数理统计》3.18]
+设\(X\)和\(Y\)是两个互相独立的随机变量，\(X\)在区间\((0,1)\)上服从均匀分布，\(Y\)的概率密度为
+\[
+f_Y(y)=\begin{cases}
+\dfrac{1}{2}e^{-y/2}, & y>0 \\[8pt]
+0, & y\leq 0
+\end{cases}
+\]
+求(1)\(X,Y\)的联合概率密度；(2)设含有\(a\)的二次方程为\(a^2+2Xa+Y=0\)，试求\(a\)有实根的概率。
+
+\textbf{解}(1)：\(X\)在区间\((0,1)\)上服从均匀分布，其概率密度为
+\[
+f_X(x)=\begin{cases}
+1, & 0<x<1 \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+因\(X\)与\(Y\)相互独立，故\(X,Y\)的联合概率密度为
+\[
+f(x,y)=f_X(x)f_Y(y)=\begin{cases}
+\dfrac{1}{2}e^{-y/2}, & 0<x<1,\,y>0 \\[8pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+\textbf{解}(2)：二次方程\(a^2+2Xa+Y=0\)有实根的充要条件为：\(4X^2-4Y\geq 0\)，即\(X^2\geq Y\)。
+
+% 图片：区域G为曲线y=x^2、y=0、x=1所围成的区域，阴影部分
+
+\[
+\begin{aligned}
+P\{X^2\geq Y\}&=P\{(X,Y)\in G\}=\iint_G f(x,y)\,\mathrm{d}x\,\mathrm{d}y \\
+&=\int_0^1\mathrm{d}x\int_0^{x^2}\frac{1}{2}e^{-y/2}\,\mathrm{d}y \\
+&=\int_0^1\left(1-e^{-x^2/2}\right)\,\mathrm{d}x=1-\int_0^1 e^{-x^2/2}\,\mathrm{d}x \\
+&=1-\sqrt{2\pi}\left[\Phi(1)-\Phi(0)\right]
+\end{aligned}
+\]
+其中\(\Phi(x)=\displaystyle\int_{-\infty}^{x}\frac{1}{\sqrt{2\pi}}e^{-t^2/2}\,\mathrm{d}t\)，\(-\infty<x<+\infty\)。
+\end{example}
+
+\begin{example}[例3]
+设随机变量\((X,Y)\)的联合概率密度为
+\[
+f(x,y)=\begin{cases}
+c\,x e^{-y}, & 0<x<y<+\infty \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+(1) 求常数\(c\)；
+
+\textbf{解}：由\(\displaystyle\int_{-\infty}^{+\infty}\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x\,\mathrm{d}y=1\)，有
+\[
+\int_0^{+\infty}\mathrm{d}y\int_0^{y}c x e^{-y}\,\mathrm{d}x=c\int_0^{+\infty}e^{-y}\cdot\frac{y^2}{2}\,\mathrm{d}y=\frac{c}{2}\Gamma(3)=\frac{c}{2}\cdot 2!=c
+\]
+故\(c=1\)。
+
+积分提示：\(\Gamma(r)=\displaystyle\int_0^{+\infty}x^{r-1}e^{-x}\,\mathrm{d}x=(r-1)!\)
+
+(2) \(X\)与\(Y\)是否独立？为什么？
+
+\textbf{解}：思路：判断\(f_X(x)f_Y(y)\)与\(f(x,y)\)是否相等。
+
+\[
+f_X(x)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}y=\begin{cases}
+\displaystyle\int_x^{+\infty}x e^{-y}\,\mathrm{d}y=x e^{-x}, & x>0 \\[10pt]
+0, & x\leq 0
+\end{cases}
+\]
+
+\[
+f_Y(y)=\int_{-\infty}^{+\infty}f(x,y)\,\mathrm{d}x=\begin{cases}
+\displaystyle\int_0^{y}x e^{-y}\,\mathrm{d}x=\frac{1}{2}y^2 e^{-y}, & y>0 \\[10pt]
+0, & y\leq 0
+\end{cases}
+\]
+
+由于在\(0<x<y<+\infty\)时，\(f(x,y)\neq f_X(x)\cdot f_Y(y)\)，故\(X\)与\(Y\)不独立。
+
+(3) 求\(f_{X\mid Y}(x\mid y)\)，\(f_{Y\mid X}(y\mid x)\)；
+
+\textbf{解}：
+\[
+f_{X\mid Y}(x\mid y)=\frac{f(x,y)}{f_Y(y)}=\begin{cases}
+\dfrac{2x}{y^2}, & 0<x<y<+\infty \\[8pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+\[
+f_{Y\mid X}(y\mid x)=\frac{f(x,y)}{f_X(x)}=\begin{cases}
+e^{x-y}, & 0<x<y<+\infty \\[6pt]
+0, & \text{其他}
+\end{cases}
+\]
+
+(4) 求\(P\{X<1\mid Y<2\}\)，\(P\{X<1\mid Y=2\}\)；
+
+\textbf{解}：
+\[
+P\{X<1\mid Y<2\}=\frac{P\{X<1,Y<2\}}{P\{Y<2\}}=\frac{\displaystyle\int_0^1\mathrm{d}x\int_x^2 x e^{-y}\,\mathrm{d}y}{\displaystyle\int_0^2\frac{1}{2}y^2 e^{-y}\,\mathrm{d}y}=\cdots
+\]
+
+\[
+P\{X<1\mid Y=2\}=\int_{-\infty}^{1}f_{X\mid Y}(x\mid 2)\,\mathrm{d}x=\int_0^1\frac{2x}{4}\,\mathrm{d}x=\frac{1}{4}
+\]
+
+(5) 求\((X,Y)\)的联合分布函数；
+
+\textbf{解}：由于\(F(x,y)=P\{X\leq x,Y\leq y\}\)，
+
+当\(x<0\)或\(y<0\)时，\(F(x,y)=0\)。
+
+当\(0\leq y<x<+\infty\)时，
+\[
+F(x,y)=\int_0^y\mathrm{d}v\int_0^v u e^{-v}\,\mathrm{d}u=1-\left(\frac{y^2}{2}+y+1\right)e^{-y}
+\]
+
+当\(0\leq x<y<+\infty\)时，
+\[
+F(x,y)=\int_0^x\mathrm{d}u\int_u^y u e^{-v}\,\mathrm{d}v=1-(x+1)e^{-x}-\frac{1}{2}x^2 e^{-y}
+\]
+
+积分提示：分部积分。
+
+(6) 求\(Z=X+Y\)的密度函数；
+
+\textbf{解}：求和
+\[
+Z=X+Y\quad\Rightarrow\quad f_Z(z)=\int_{-\infty}^{+\infty}f(x,z-x)\,\mathrm{d}x
+\]
+\(f(x,z-x)\neq 0\)时，\(x,z\)的取值范围为
+\[
+\begin{cases}
+0<x<z-x \\[4pt]
+x<z-x<+\infty
+\end{cases}
+\Rightarrow
+\begin{cases}
+0<x<\dfrac{z}{2} \\[6pt]
+0<2x<z<+\infty
+\end{cases}
+\]
+
+% 图片：z-x坐标系，阴影区域为三角形，顶点(0,0),(z/2,z),(0,z)
+
+当\(z<0\)时，\(f_Z(z)=0\)。
+
+当\(z\geq 0\)时，
+\[
+f_Z(z)=\int_0^{z/2}x e^{-(z-x)}\,\mathrm{d}x=\cdots=e^{-z}\left(1-\frac{z}{2}e^{z/2}+\cdots\right)
+\]
+
+整理得
+\[
+f_Z(z)=\begin{cases}
+e^{-z}+\left(\dfrac{z}{2}-1\right)e^{-z/2}, & z\geq 0 \\[8pt]
+0, & z<0
+\end{cases}
+\]
+
+(7) 求\(P\{X+Y<1\}\)；
+
+\textbf{解}：
+\[
+P\{X+Y<1\}=\int_{-\infty}^{1}f_Z(z)\,\mathrm{d}z=\int_0^1 f_Z(z)\,\mathrm{d}z=\cdots
+\]
+
+(8) 求\(P\{\min(X,Y)<1\}\)。
+
+\textbf{解}：
+\[
+P\{\min(X,Y)<1\}=1-P\{\min(X,Y)\geq 1\}=1-P\{X\geq 1,Y\geq 1\}
+\]
+\[
+=1-\int_1^{+\infty}\mathrm{d}v\int_1^v u e^{-v}\,\mathrm{d}u=\cdots=1-\frac{5}{2}e^{-1}
+\]
+\end{example}
+
+\begin{remark}
+熟练掌握教材第三章的例子，如：P72--例3、P73--例4、P83--例5等。
+\end{remark}
 
 \end{document}
