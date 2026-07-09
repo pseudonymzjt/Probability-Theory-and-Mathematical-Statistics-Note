@@ -7851,4 +7851,556 @@ P\left\{\lim_{n\to\infty}\sup_{-\infty<x<+\infty}|F_{n}(x)-F(x)|=0\right\}=1.
 \]
 \end{theorem}
 
+\section{三种重要的统计学分布}
+
+\begin{note}
+三种重要的统计学分布及其主要用途：
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{$\chi^{2}$分布}：主要用于列联分析；
+    \item \textbf{$t$分布}：主要用于小样本分析；
+    \item \textbf{$F$分布}：主要用于方差分析。
+\end{itemize}
+\end{note}
+
+\subsection{卡方分布}
+
+\begin{definition}[$\chi^{2}$分布]
+设$X_{1},X_{2},\ldots,X_{n}\stackrel{\text{i.i.d.}}{\sim}N(0,1)$，则称统计量
+\[
+\chi^{2}=\sum_{i=1}^{n}X_{i}^{2}
+\]
+服从\textbf{自由度为$n$的$\chi^{2}$（卡方）分布}，记为$\chi^{2}\sim\chi^{2}(n)$。这里自由度是指右端包含的独立变量的个数。
+
+其概率密度函数为
+\[
+f(y)=
+\begin{cases}
+\dfrac{1}{2^{\frac{n}{2}}\Gamma\left(\frac{n}{2}\right)}y^{\frac{n}{2}-1}e^{-\frac{y}{2}}, & y>0,\\[0.5em]
+0, & y\leq 0.
+\end{cases}
+\]
+\end{definition}
+
+\subsubsection*{$\Gamma$函数的回顾}
+
+$\Gamma$函数的定义：
+\[
+\Gamma(r)=\int_{0}^{+\infty}x^{r-1}e^{-x}\,dx,
+\]
+定义域为$(0,+\infty)$。
+
+$\Gamma$函数的性质：
+\[
+\Gamma(r+1)=r\Gamma(r).
+\]
+
+\textbf{证明}：
+\[
+\Gamma(r+1)=\int_{0}^{+\infty}x^{r}e^{-x}\,dx=\left[-x^{r}e^{-x}\right]_{0}^{+\infty}+r\int_{0}^{+\infty}x^{r-1}e^{-x}\,dx=r\Gamma(r).
+\]
+
+特别地，
+\[
+\Gamma(1)=1,\qquad\Gamma\left(\frac{1}{2}\right)=\sqrt{\pi}.
+\]
+若$n$为自然数，则
+\[
+\Gamma(n)=(n-1)!.
+\]
+
+\subsubsection*{$\Gamma$分布的回顾}
+
+如果连续型随机变量$X$的密度函数为
+\[
+f(x)=
+\begin{cases}
+\dfrac{\lambda^{r}}{\Gamma(r)}x^{r-1}e^{-\lambda x}, & x>0,\\[0.5em]
+0, & x\leq 0,
+\end{cases}
+\]
+（其中$r>0,\lambda>0$为参数）则称随机变量$X$服从参数为$(r,\lambda)$的\textbf{$\Gamma$分布}，记为$X\sim\Gamma(r,\lambda)$。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_gamma_distribution.png}
+    \caption{$\Gamma$分布密度函数曲线}
+    \label{fig:gamma_distribution}
+\end{figure}
+
+$X\sim\Gamma(r,\lambda)$中：
+\begin{itemize}[leftmargin=2em]
+    \item $r$：形状参数（事件发生$r$次的时间间隔）；
+    \item $\lambda$：逆尺度参数（单位时间内平均发生的次数）；
+    \item $1/\lambda$：事件发生一次需要等待的平均时间。
+\end{itemize}
+
+特殊情形：
+\begin{itemize}[leftmargin=2em]
+    \item $r=1$时为指数分布，即$\Gamma(1,\lambda)=E(\lambda)$；
+    \item $r=\frac{n}{2},\lambda=\frac{1}{2}$时为卡方分布，即$\Gamma\left(\frac{n}{2},\frac{1}{2}\right)=\chi^{2}(n)$。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.45\textwidth]{figures/fig_gamma_shape.png}
+    \hfill
+    % \includegraphics[width=0.45\textwidth]{figures/fig_gamma_scale.png}
+    \caption{$\Gamma$分布：不同形状参数（左）与不同尺度参数（右，暂缺）}
+    \label{fig:gamma_params}
+\end{figure}
+
+\subsubsection*{$\chi^{2}$分布的推导}
+
+由第二章第5节例5有$Y_{i}=X_{i}^{2}\sim\Gamma\left(\frac{1}{2},\frac{1}{2}\right)$，其概率密度为
+\[
+f(y)=
+\begin{cases}
+\dfrac{1}{2^{\frac{1}{2}}\Gamma\left(\frac{1}{2}\right)}y^{-\frac{1}{2}}e^{-\frac{y}{2}}, & y>0,\\[0.5em]
+0, & y\leq 0.
+\end{cases}
+\]
+
+例如，设$X\sim N(0,1)$，
+\[
+f_{X}(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^{2}}{2}},\qquad -\infty<x<+\infty,
+\]
+则$Y=X^{2}$的概率密度为
+\[
+f_{Y}(y)=
+\begin{cases}
+\dfrac{1}{\sqrt{2\pi}}y^{-\frac{1}{2}}e^{-\frac{y}{2}}, & y>0,\\[0.5em]
+0, & y\leq 0.
+\end{cases}
+\]
+称$Y$服从自由度为1的$\chi^{2}$分布。
+
+下面证明相互独立的$\Gamma$分布的可加性：设$X_{1}\sim\Gamma(\alpha,\lambda)$，$X_{2}\sim\Gamma(\beta,\lambda)$，且相互独立，$Z=X_{1}+X_{2}$，则
+\[
+f_{Z}(z)=\int_{-\infty}^{+\infty}f_{X_{1}}(x)f_{X_{2}}(z-x)\,dx=\int_{0}^{z}\frac{\lambda^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\lambda x}\frac{\lambda^{\beta}}{\Gamma(\beta)}(z-x)^{\beta-1}e^{-\lambda(z-x)}\,dx.
+\]
+令$x=zt$，则
+\[
+f_{Z}(z)=\frac{\lambda^{\alpha+\beta}}{\Gamma(\alpha)\Gamma(\beta)}e^{-\lambda z}z^{\alpha+\beta-1}\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}\,dt.
+\]
+记
+\[
+A=\frac{\lambda^{\alpha+\beta}}{\Gamma(\alpha)\Gamma(\beta)}\int_{0}^{1}t^{\alpha-1}(1-t)^{\beta-1}\,dt.
+\]
+由概率性质有
+\[
+1=\int_{0}^{+\infty}f_{Z}(z)\,dz=A\int_{0}^{+\infty}z^{\alpha+\beta-1}e^{-\lambda z}\,dz=A\cdot\frac{\Gamma(\alpha+\beta)}{\lambda^{\alpha+\beta}},
+\]
+于是
+\[
+A=\frac{\lambda^{\alpha+\beta}}{\Gamma(\alpha+\beta)}.
+\]
+因此当$z>0$时，
+\[
+f_{Z}(z)=\frac{\lambda^{\alpha+\beta}}{\Gamma(\alpha+\beta)}z^{\alpha+\beta-1}e^{-\lambda z}.
+\]
+即$Z\sim\Gamma(\alpha+\beta,\lambda)$，满足可加性。
+
+$\chi^{2}$分布是$\Gamma$分布的特例，即有
+\[
+\chi^{2}=\sum_{i=1}^{n}X_{i}^{2}\sim\Gamma\left(\frac{n}{2},\frac{1}{2}\right),
+\]
+\[
+f(y)=
+\begin{cases}
+\dfrac{1}{2^{\frac{n}{2}}\Gamma\left(\frac{n}{2}\right)}y^{\frac{n}{2}-1}e^{-\frac{y}{2}}, & y>0,\\[0.5em]
+0, & y\leq 0.
+\end{cases}
+\]
+故$\chi^{2}$分布也满足可加性。
+
+\subsubsection*{$\chi^{2}$分布的性质}
+
+\begin{property}[$\chi^{2}$分布的数字特征]
+自由度为$n$的$\chi^{2}$分布的均值和方差分别为
+\[
+\mu=n,\qquad\sigma^{2}=2n.
+\]
+\end{property}
+
+\textbf{推导}：考虑$X_{i}\sim N(0,1)$，于是
+\[
+E\left(X_{i}^{2}\right)=D(X_{i})=1.
+\]
+\[
+D\left(X_{i}^{2}\right)=E\left(X_{i}^{4}\right)-\left[E\left(X_{i}^{2}\right)\right]^{2}=\int_{-\infty}^{+\infty}x^{4}\frac{1}{\sqrt{2\pi}}e^{-\frac{x^{2}}{2}}\,dx-1=3-1=2.
+\]
+于是，
+\[
+D\left(\chi^{2}\right)=D\left(\sum_{i=1}^{n}X_{i}^{2}\right)=\sum_{i=1}^{n}D\left(X_{i}^{2}\right)=2n.
+\]
+
+\begin{property}[$\chi^{2}$分布的可加性]
+设$\chi_{1}^{2}\sim\chi^{2}(m)$，$\chi_{2}^{2}\sim\chi^{2}(n)$，且$\chi_{1}^{2}$与$\chi_{2}^{2}$相互独立，则
+\[
+\chi_{1}^{2}+\chi_{2}^{2}\sim\chi^{2}(m+n).
+\]
+\end{property}
+
+\begin{corollary}
+设$X_{1},X_{2},\ldots,X_{n}\stackrel{\text{i.i.d.}}{\sim}N(\mu,\sigma^{2})$，随机变量
+\[
+Y=\sum_{i=1}^{n}\left(\frac{X_{i}-\mu}{\sigma}\right)^{2}
+\]
+服从自由度为$n$的$\chi^{2}$分布。
+\end{corollary}
+
+\subsection{\texorpdfstring{上$\alpha$分位点}{上alpha分位点}}
+
+\begin{definition}[上$\alpha$分位点]
+设$X\sim f(x)$，若$\forall\ 0<\alpha<1$，存在常数$f_{\alpha}$满足
+\[
+P\{X>f_{\alpha}\}=\int_{f_{\alpha}}^{+\infty}f(x)\,dx=\alpha,
+\]
+则称$f_{\alpha}$为该分布的\textbf{上$\alpha$分位点}。
+\end{definition}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/fig_upper_alpha_quantile.png}
+    \caption{上$\alpha$分位点示意图}
+    \label{fig:upper_alpha_quantile}
+\end{figure}
+
+分位点的作用——在统计推断时，需要知道给定概率下，对应随机变量的取值。
+
+对$\chi^{2}$分布而言，称满足条件
+\[
+P\{\chi^{2}>\chi_{\alpha}^{2}(n)\}=\alpha
+\]
+的点$\chi_{\alpha}^{2}(n)$为$\chi^{2}(n)$分布的\textbf{上$\alpha$分位点}。
+
+当$n$充分大时，
+\[
+\chi_{\alpha}^{2}(n)\approx\frac{1}{2}\left(z_{\alpha}+\sqrt{2n-1}\right)^{2},
+\]
+其中$z_{\alpha}$是标准正态分布的上$\alpha$分位点。
+
+\begin{table}[htbp]
+\centering
+\caption{$\chi^{2}$分布表（部分）}
+\begin{tabular}{@{}ccccccccc@{}}
+\toprule
+$\alpha$ \textbackslash\ $n$ & 0.995 & 0.99 & 0.975 & 0.95 & 0.90 & 0.10 & 0.05 & 0.025 \\
+\midrule
+1 & 0.00004 & 0.00016 & 0.001 & 0.004 & 0.016 & 2.706 & 3.841 & 5.024 \\
+2 & 0.01 & 0.02 & 0.051 & 0.103 & 0.211 & 4.605 & 5.991 & 7.378 \\
+3 & 0.072 & 0.115 & 0.216 & 0.352 & 0.584 & 6.251 & 7.815 & 9.348 \\
+4 & 0.207 & 0.297 & 0.484 & 0.711 & 1.064 & 7.779 & 9.488 & 11.143 \\
+5 & 0.412 & 0.554 & 0.831 & 1.145 & 1.61 & 9.236 & 11.07 & 12.833 \\
+6 & 0.676 & 0.872 & 1.237 & 1.635 & 2.204 & 10.645 & 12.592 & 14.449 \\
+7 & 0.989 & 1.239 & 1.69 & 2.167 & 2.833 & 12.017 & 14.067 & 16.013 \\
+8 & 1.344 & 1.646 & 2.18 & 2.733 & 3.49 & 13.362 & 15.507 & 17.535 \\
+9 & 1.735 & 2.088 & 2.7 & 3.325 & 4.168 & 14.684 & 16.919 & 19.023 \\
+10 & 2.156 & 2.558 & 3.247 & 3.94 & 4.865 & 15.987 & 18.307 & 20.483 \\
+11 & 2.603 & 3.053 & 3.816 & 4.575 & 5.578 & 17.275 & 19.675 & 21.92 \\
+12 & 3.074 & 3.571 & 4.404 & 5.226 & 6.304 & 18.549 & 21.026 & 23.337 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{\texorpdfstring{$t$}{t}分布（Student分布）}
+
+\begin{definition}[$t$分布]
+设$X\sim N(0,1)$，$Y\sim\chi^{2}(n)$，且$X$与$Y$相互独立，称随机变量
+\[
+t=\frac{X}{\sqrt{Y/n}}
+\]
+服从\textbf{自由度为$n$的$t$分布}，记为$t\sim t(n)$。
+
+$t$分布的概率密度函数为
+\[
+h(t)=\frac{\Gamma\left(\frac{n+1}{2}\right)}{\sqrt{n\pi}\,\Gamma\left(\frac{n}{2}\right)}\left(1+\frac{t^{2}}{n}\right)^{-\frac{n+1}{2}},\qquad -\infty<t<+\infty.
+\]
+\end{definition}
+
+\subsubsection*{$t$分布的特性}
+
+\begin{itemize}[leftmargin=2em]
+    \item $t$分布关于$x=0$对称；
+    \item $n=1$时，$E(t)$不存在（此时为柯西分布）；
+    \item $n>1$时，$E(t)=0$；
+    \item 当$n\to\infty$时，$t$分布趋向于标准正态分布：
+    \[
+    \lim_{n\to\infty}h(t)=\frac{1}{\sqrt{2\pi}}e^{-\frac{t^{2}}{2}}.
+    \]
+    \item $n$足够大（$n\geq 45$）时，$t$分布可用标准正态分布近似。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_t_distribution.png}
+    \caption{$t$分布密度函数曲线（不同自由度）}
+    \label{fig:t_distribution}
+\end{figure}
+
+对$t$分布而言，称满足条件
+\[
+P\{t>t_{\alpha}(n)\}=\alpha
+\]
+的点$t_{\alpha}(n)$为$t$分布的\textbf{上$\alpha$分位点}。
+
+\begin{property}
+\[
+t_{1-\alpha}(n)=-t_{\alpha}(n).
+\]
+\end{property}
+
+\begin{corollary}
+设$X_{1},X_{2},\ldots,X_{n}\stackrel{\text{i.i.d.}}{\sim}N(\mu,\sigma^{2})$，则随机变量
+\[
+T=\frac{\bar{X}-\mu}{S/\sqrt{n}}
+\]
+服从自由度为$n-1$的$t$分布。
+\end{corollary}
+
+$t$分布被大量用于总体均值的推断、样本比较等问题。
+
+\subsubsection*{$t$分布的来历}
+
+\begin{itemize}[leftmargin=2em]
+    \item $t$分布最先提出者——Helmert和Lüroth（1876）；
+    \item 1908年William Sealy Gosset用笔名``Student''在\textit{Biometrika}上发表了题为``The probable error of a mean''的文章。Gosset当时在Guinness啤酒厂工作，对小样本问题感兴趣——大麦样本可能只有极少数；
+    \item 命名的来历：Gosset的雇主不希望雇员用真名发表论文，而Guinness不希望对手掌握这一小样本方法；
+    \item Ronald Fisher在其文章中称这一分布为``Student's distribution''，并用$t$表示值，原因之一是Gosset和Student的最后一个字母都是$t$。
+\end{itemize}
+
+\subsubsection*{$t$分布与小样本}
+
+$t$分布估计与正态分布估计的差异：正态分布不容忍长尾部，但在小样本时这种偏差是容易发生的，于是均值和方差的估计均出现较大的偏差。$t$分布具有更厚的尾部，更适合小样本情形。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_t_vs_normal.png}
+    \caption{$t$分布与标准正态分布的对比}
+    \label{fig:t_vs_normal}
+\end{figure}
+
+\subsection{\texorpdfstring{$F$}{F}分布（方差比分布）}
+
+\begin{definition}[$F$分布]
+设$U\sim\chi^{2}(n_{1})$，$V\sim\chi^{2}(n_{2})$，且$U$与$V$相互独立，称随机变量
+\[
+F=\frac{U/n_{1}}{V/n_{2}}
+\]
+服从\textbf{自由度为$(n_{1},n_{2})$的$F$分布}，记为$F\sim F(n_{1},n_{2})$。
+
+注意到
+\[
+\frac{1}{F}=\frac{V/n_{2}}{U/n_{1}}\sim F(n_{2},n_{1}).
+\]
+\end{definition}
+
+$F$分布的密度函数为
+\[
+\psi(y)=
+\begin{cases}
+\dfrac{\Gamma\left(\frac{n_{1}+n_{2}}{2}\right)\left(\frac{n_{1}}{n_{2}}\right)^{\frac{n_{1}}{2}}y^{\frac{n_{1}}{2}-1}}{\Gamma\left(\frac{n_{1}}{2}\right)\Gamma\left(\frac{n_{2}}{2}\right)\left(1+\frac{n_{1}}{n_{2}}y\right)^{\frac{n_{1}+n_{2}}{2}}}, & y>0,\\[1em]
+0, & \text{其他}.
+\end{cases}
+\]
+
+$F$分布用于比较多种类型的样本方差问题，如：比较样本是否来源于不同总体。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_f_distribution.png}
+    \caption{$F$分布密度函数曲线}
+    \label{fig:f_distribution}
+\end{figure}
+
+对$F$分布而言，称满足条件
+\[
+P\{F>F_{\alpha}(n_{1},n_{2})\}=\alpha
+\]
+的点$F_{\alpha}(n_{1},n_{2})$为$F$分布的\textbf{上$\alpha$分位点}。
+
+\begin{property}[$F$分布上$\alpha$分位点的性质]
+\[
+F_{1-\alpha}(n_{1},n_{2})=\frac{1}{F_{\alpha}(n_{2},n_{1})}.
+\]
+\end{property}
+
+\textbf{证明}：由$F$分布方差比的特点，
+\[
+1-\alpha=P\{F>F_{1-\alpha}(n_{1},n_{2})\}=P\left\{\frac{1}{F}<\frac{1}{F_{1-\alpha}(n_{1},n_{2})}\right\}=1-P\left\{\frac{1}{F}\geq\frac{1}{F_{1-\alpha}(n_{1},n_{2})}\right\}.
+\]
+于是
+\[
+P\left\{\frac{1}{F}\geq\frac{1}{F_{1-\alpha}(n_{1},n_{2})}\right\}=\alpha.
+\]
+又因为$\frac{1}{F}\sim F(n_{2},n_{1})$，所以
+\[
+F_{\alpha}(n_{2},n_{1})=\frac{1}{F_{1-\alpha}(n_{1},n_{2})},
+\]
+即
+\[
+F_{1-\alpha}(n_{1},n_{2})=\frac{1}{F_{\alpha}(n_{2},n_{1})}.
+\]
+
+\begin{example}[查表计算]
+求$F_{0.90}(12,9)$。
+
+\textbf{解}：$F$分布表中没有直接给出$F_{0.90}(12,9)$，但可直接查得$F_{0.1}(9,12)=2.21$，于是
+\[
+F_{0.90}(12,9)=\frac{1}{F_{0.1}(9,12)}=\frac{1}{2.21}\approx 0.452.
+\]
+\end{example}
+
+为何称之为$F$分布？
+\begin{itemize}[leftmargin=2em]
+    \item $F$分布是为了纪念著名统计学家费歇耳（Ronald Aylmer Fisher, 1890--1962）而命名；
+    \item Fisher是英国统计与遗传学家，现代统计科学的奠基人之一。在遗传学的研究中，引入并发展了统计学方法，其著作《研究工作者的统计方法》（1925）影响超过半世纪。著作《天择的遗传理论》将统计分析的方法带入进化论的研究。
+\end{itemize}
+
+\section{正态总体的抽样定理}
+
+最重要的总体：$X\sim N(\mu,\sigma^{2})$。
+
+问题：如何由样本获得对$\mu$和$\sigma^{2}$的估计？
+
+核心问题：
+\begin{enumerate}[label=\arabic*.,leftmargin=2em]
+    \item 什么统计量是合适的？
+    \item $g(X_{1},X_{2},\ldots,X_{n})$服从什么分布？
+\end{enumerate}
+
+抽样定理回答了上述问题。
+
+\begin{theorem}[抽样定理1]
+设$X_{1},X_{2},\ldots,X_{n}$是来自总体$X\sim N(\mu,\sigma^{2})$的样本，则
+\[
+\bar{X}\sim N\left(\mu,\frac{\sigma^{2}}{n}\right).
+\]
+\end{theorem}
+
+\textbf{证明}：由$X_{1},X_{2},\ldots,X_{n}$独立同分布，以及正态分布的性质，于是有
+\[
+\bar{X}=\frac{1}{n}\left(X_{1}+X_{2}+\cdots+X_{n}\right)
+\]
+仍服从正态分布，且
+\[
+E(\bar{X})=\mu,\qquad D(\bar{X})=\frac{\sigma^{2}}{n}.
+\]
+于是
+\[
+\bar{X}\sim N\left(\mu,\frac{\sigma^{2}}{n}\right).
+\]
+这证明了$\bar{X}$逼近$\mu$的合理性。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_sample_mean_distribution.png}
+    \caption{不同$n$下样本均值$\bar{X}$的分布}
+    \label{fig:sample_mean_distribution}
+\end{figure}
+
+\begin{theorem}[抽样定理2]
+设$X_{1},X_{2},\ldots,X_{n}$是来自总体$X\sim N(\mu,\sigma^{2})$的样本，$\bar{X}$和$S^{2}$分别为样本均值与样本方差，则有
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item $\dfrac{(n-1)S^{2}}{\sigma^{2}}\sim\chi^{2}(n-1)$；
+    \item $\bar{X}$和$S^{2}$相互独立。
+\end{enumerate}
+\end{theorem}
+
+如果(1)成立，则
+\[
+E\left[\frac{(n-1)S^{2}}{\sigma^{2}}\right]=n-1\quad\Rightarrow\quad E[S^{2}]=\sigma^{2},
+\]
+\[
+D\left[\frac{(n-1)S^{2}}{\sigma^{2}}\right]=2(n-1)\quad\Rightarrow\quad D\left[S^{2}\right]=\frac{2\sigma^{4}}{n-1}.
+\]
+这证明了$S^{2}$逼近$\sigma^{2}$的合理性。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig_chi2_sample_variance.png}
+    \caption{不同$n$下$(n-1)S^{2}/\sigma^{2}$的分布（$\chi^{2}$分布）}
+    \label{fig:chi2_sample_variance}
+\end{figure}
+
+\textbf{证明}：(1)
+\[
+\frac{(n-1)S^{2}}{\sigma^{2}}=\frac{\sum_{i=1}^{n}(X_{i}-\bar{X})^{2}}{\sigma^{2}}=\sum_{i=1}^{n}\left[\frac{(X_{i}-\mu)-(\bar{X}-\mu)}{\sigma}\right]^{2}=\sum_{i=1}^{n}\left(\frac{X_{i}-\mu}{\sigma}\right)^{2}-n\left(\frac{\bar{X}-\mu}{\sigma}\right)^{2}.
+\]
+于是
+\[
+\frac{(n-1)S^{2}}{\sigma^{2}}+\left(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\right)^{2}=\sum_{i=1}^{n}\left(\frac{X_{i}-\mu}{\sigma}\right)^{2}.
+\]
+注意到
+\[
+\sum_{i=1}^{n}\left(\frac{X_{i}-\mu}{\sigma}\right)^{2}\sim\chi^{2}(n),\qquad\left(\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\right)^{2}\sim\chi^{2}(1).
+\]
+于是由$\chi^{2}$分布的可加性，$\frac{(n-1)S^{2}}{\sigma^{2}}\sim\chi^{2}(n-1)$。
+
+\begin{theorem}[抽样定理3]
+设$X_{1},X_{2},\ldots,X_{n}$是来自总体$X\sim N(\mu,\sigma^{2})$的样本，$\bar{X}$和$S^{2}$分别为样本的均值与样本方差，则有
+\[
+\frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1).
+\]
+\end{theorem}
+
+\textbf{证明}：由定理1和定理2有
+\[
+\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}\sim N(0,1),\qquad\frac{(n-1)S^{2}}{\sigma^{2}}\sim\chi^{2}(n-1).
+\]
+于是由$t$分布定义有
+\[
+\frac{\frac{\bar{X}-\mu}{\sigma/\sqrt{n}}}{\sqrt{\frac{(n-1)S^{2}}{(n-1)\sigma^{2}}}}=\frac{\bar{X}-\mu}{S/\sqrt{n}}\sim t(n-1).
+\]
+
+\begin{theorem}[抽样定理4]
+设$X_{1},X_{2},\ldots,X_{n_{1}}$与$Y_{1},Y_{2},\ldots,Y_{n_{2}}$分别是来自总体$X\sim N(\mu_{1},\sigma_{1}^{2})$和$Y\sim N(\mu_{2},\sigma_{2}^{2})$的样本，且两样本分别独立。两样本均值与样本方差分别为$\bar{X},\bar{Y},S_{1}^{2},S_{2}^{2}$，则有
+\begin{enumerate}[label=(\arabic*),leftmargin=2em]
+    \item $\dfrac{S_{1}^{2}/\sigma_{1}^{2}}{S_{2}^{2}/\sigma_{2}^{2}}\sim F(n_{1}-1,n_{2}-1)$；
+    \item 当$\sigma_{1}^{2}=\sigma_{2}^{2}=\sigma^{2}$时，
+    \[
+    \frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{S_{w}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}}\sim t(n_{1}+n_{2}-2),
+    \]
+    其中
+    \[
+    S_{w}^{2}=\frac{(n_{1}-1)S_{1}^{2}+(n_{2}-1)S_{2}^{2}}{n_{1}+n_{2}-2},\qquad S_{w}=\sqrt{S_{w}^{2}}.
+    \]
+\end{enumerate}
+\end{theorem}
+
+\textbf{证明}：(1)由定理2，
+\[
+\frac{(n_{1}-1)S_{1}^{2}}{\sigma_{1}^{2}}\sim\chi^{2}(n_{1}-1),\qquad\frac{(n_{2}-1)S_{2}^{2}}{\sigma_{2}^{2}}\sim\chi^{2}(n_{2}-1).
+\]
+$S_{1}^{2},S_{2}^{2}$相互独立，则由$F$分布的定义知
+\[
+\frac{\frac{(n_{1}-1)S_{1}^{2}}{(n_{1}-1)\sigma_{1}^{2}}}{\frac{(n_{2}-1)S_{2}^{2}}{(n_{2}-1)\sigma_{2}^{2}}}=\frac{S_{1}^{2}/\sigma_{1}^{2}}{S_{2}^{2}/\sigma_{2}^{2}}\sim F(n_{1}-1,n_{2}-1).
+\]
+
+(2)易知
+\[
+\bar{X}-\bar{Y}\sim N\left(\mu_{1}-\mu_{2},\frac{\sigma^{2}}{n_{1}}+\frac{\sigma^{2}}{n_{2}}\right),
+\]
+即有
+\[
+U=\frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{\sigma\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}}\sim N(0,1).
+\]
+由给定条件知
+\[
+\frac{(n_{1}-1)S_{1}^{2}}{\sigma^{2}}\sim\chi^{2}(n_{1}-1),\qquad\frac{(n_{2}-1)S_{2}^{2}}{\sigma^{2}}\sim\chi^{2}(n_{2}-1),
+\]
+于是
+\[
+V=\frac{(n_{1}-1)S_{1}^{2}}{\sigma^{2}}+\frac{(n_{2}-1)S_{2}^{2}}{\sigma^{2}}\sim\chi^{2}(n_{1}+n_{2}-2).
+\]
+由$U,V$的独立性以及$t$分布的定义有
+\[
+\frac{U}{\sqrt{V/(n_{1}+n_{2}-2)}}=\frac{(\bar{X}-\bar{Y})-(\mu_{1}-\mu_{2})}{S_{w}\sqrt{\frac{1}{n_{1}}+\frac{1}{n_{2}}}}\sim t(n_{1}+n_{2}-2).
+\]
+
+\section*{作业}
+\addcontentsline{toc}{section}{作业}
+
+教材《概率论与数理统计》（pp.~147--148）：\#4, \#6, \#7, \#9.
+
 \end{document}
