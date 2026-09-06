@@ -1,0 +1,169 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{array,booktabs}
+\geometry{a4paper,margin=2.5cm}
+
+\begin{document}
+
+\begin{center}
+\LARGE\bfseries 第一章作业题单
+\end{center}
+
+\section*{教材《概率论及其应用》——1.8习题（p.20/21）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\setcounter{enumi}{13}
+\item 试验证下列关系式\footnote{注意：$(A\cup B)'$表示$A\cup B$的补集，与$A'\cup B'$的意义不同。同样，$(AB)'$与$A'B'$的意义亦不相同。}：
+\begin{enumerate}
+\item[(a)] $(A\cup B)' = A'B'$;
+\item[(b)] $(A\cup B)-B = A-AB = AB'$;
+\item[(c)] $AA = A\cup A = A$;
+\item[(d)] $(A-AB)\cup B = A\cup B$;
+\item[(e)] $(A\cup B)-AB = AB'\cup A'B$;
+\item[(f)] $A'\cup B' = (AB)'$;
+\item[(g)] $(A\cup B)C = AC\cup BC$.
+\end{enumerate}
+
+\setcounter{enumi}{15}
+\item 试述下列关系中哪些是正确的，哪些是错误的：
+\begin{enumerate}
+\item[(a)] $(A\cup B)-C = A\cup(B-C)$;
+\item[(b)] $ABC = AB(C\cup B)$;
+\item[(c)] $A\cup B\cup C = A\cup(B-AB)\cup(C-AC)$;
+\item[(d)] $A\cup B = (A-AB)\cup B$;
+\item[(e)] $(AB\cup BC\cup CA) \supset ABC$;
+\item[(f)] $(AB\cup BC\cup CA) \subset (A\cup B\cup C)$;
+\item[(g)] $(A\cup B)-A = B$;
+\item[(h)] $AB'C \subset A\cup B$;
+\item[(i)] $(A\cup B\cup C)' = A'B'C'$;
+\item[(j)] $(A\cup B)'C = A'C\cup B'C$;
+\item[(k)] $(A\cup B)'C = A'B'C$;
+\item[(l)] $(A\cup B)'C = C-C(A\cup B)$.
+\end{enumerate}
+
+\item 令$A,B,C$为任意三个事件。试用$A,B,C$来表达下列事件：
+\begin{enumerate}
+\item[(a)] 只有$A$发生；
+\item[(b)] $A$和$B$都发生而$C$不发生；
+\item[(c)] 所有这三个事件都发生；
+\item[(d)] $A,B,C$中至少有一个事件发生；
+\item[(e)] 至少有两个事件发生；
+\item[(f)] 恰有一个事件发生；
+\item[(g)] 恰有两个事件发生；
+\item[(h)] 没有一个事件发生；
+\item[(i)] 不多于两个事件发生。
+\end{enumerate}
+
+\setcounter{enumi}{18}
+\item 利用习题18的结果证明
+\[
+P\{A\cup B\cup C\} = P\{A\}+P\{B\}+P\{C\}-P\{AB\}-P\{AC\}-P\{BC\}+P\{ABC\}.
+\]
+{[这是(4.1.5)的特殊情形。]}
+\end{enumerate}
+
+\section*{教材《概率论与数理统计》（盛聚等）——第一章习题（pp.25--29）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\setcounter{enumi}{1}
+\item 设$A,B,C$为三个事件，用$A,B,C$的运算关系表示下列各事件：
+\begin{enumerate}
+\item[(1)] $A$发生，$B$与$C$不发生。
+\item[(2)] $A$与$B$都发生，而$C$不发生。
+\item[(3)] $A,B,C$中至少有一个发生。
+\item[(4)] $A,B,C$都发生。
+\item[(5)] $A,B,C$都不发生。
+\item[(6)] $A,B,C$中不多于一个发生。
+\item[(7)] $A,B,C$中不多于两个发生。
+\item[(8)] $A,B,C$中至少有两个发生。
+\end{enumerate}
+
+\setcounter{enumi}{7}
+\item 在1500件产品中有400件次品、1100件正品。任取200件。
+\begin{enumerate}
+\item[(1)] 求恰有90件次品的概率。
+\item[(2)] 求至少有2件次品的概率。
+\end{enumerate}
+
+\setcounter{enumi}{11}
+\item 50只铆钉随机地取来用在10个部件上，其中有3只铆钉强度太弱。每个部件用3只铆钉。若将3只强度太弱的铆钉都装在一个部件上，则这个部件强度就太弱。问发生一个部件强度太弱的概率是多少？
+
+\item 一俱乐部有5名一年级学生，2名二年级学生，3名三年级学生，2名四年级学生。
+\begin{enumerate}
+\item[(1)] 在其中任选4名学生，求一、二、三、四年级的学生各一名的概率。
+\item[(2)] 在其中任选5名学生，求一、二、三、四年级的学生均包含在内的概率。
+\end{enumerate}
+
+\setcounter{enumi}{15}
+\item 据以往资料表明，某一3口之家，患某种传染病的概率有以下规律：
+\[
+P\{\text{孩子得病}\}=0.6,\quad P\{\text{母亲得病}\mid\text{孩子得病}\}=0.5,
+\]
+\[
+P\{\text{父亲得病}\mid\text{母亲及孩子得病}\}=0.4,
+\]
+求母亲及孩子得病但父亲未得病的概率。
+
+\setcounter{enumi}{17}
+\item 某人忘记了电话号码的最后一个数字，因而他随意地拨号。求他拨号不超过三次而接通所需电话的概率。若已知最后一个数字是奇数，则此概率是多少？
+
+\item 
+\begin{enumerate}
+\item[(1)] 设甲袋中装有$n$只白球、$m$只红球，乙袋中装有$N$只白球、$M$只红球。今从甲袋中任意取一只球放入乙袋中，再从乙袋中任意取一只球。问取到白球的概率是多少？
+\item[(2)] 第一只盒子装有5只红球、4只白球，第二只盒子装有4只红球、5只白球。先从第一盒中任取2只球放入第二盒中去，然后从第二盒中任取一只球。求取到白球的概率。
+\end{enumerate}
+
+\setcounter{enumi}{22}
+\item 将两信息分别编码为A和B传送出去，接收站收到时，A被误收作B的概率为0.02，而B被误收作A的概率为0.01。信息A与信息B传送的频繁程度为$2:1$。若接收站收到的信息是A，问原发信息是A的概率是多少？
+
+\setcounter{enumi}{24}
+\item 某人下午5:00下班，他所积累的资料表明：
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+到家时间 & 5:35--5:39 & 5:40--5:44 & 5:45--5:49 & 5:50--5:54 & 迟于5:54 \\
+\hline
+乘地铁的概率 & 0.10 & 0.25 & 0.45 & 0.15 & 0.05 \\
+\hline
+乘汽车的概率 & 0.30 & 0.35 & 0.20 & 0.10 & 0.05 \\
+\hline
+\end{tabular}
+\end{center}
+某日他抛一枚硬币决定乘地铁还是乘汽车，结果他是5:47到家的。试求他乘地铁回家的概率。
+
+\item 病树的主人外出，委托邻居浇水，设已知如果不浇水，树死去的概率为0.8。若浇水则树死去的概率为0.15。有0.9的把握确定邻居会记得浇水。
+\begin{enumerate}
+\item[(1)] 求主人回来时树还活着的概率。
+\item[(2)] 若主人回来时树已死去，求邻居忘记浇水的概率。
+\end{enumerate}
+
+\setcounter{enumi}{28}
+\item 根据报道美国人血型的分布近似地为：A型为37\%，O型为44\%，B型为13\%，AB型为6\%。夫妻拥有的血型是相互独立的。
+\begin{enumerate}
+\item[(1)] B型的人只有输入B,O两种血型才安全。若妻为B型，夫为何种血型未知，求夫是妻的安全输血者的概率。
+\item[(2)] 随机地取一对夫妇，求妻为B型，夫为A型的概率。
+\item[(3)] 随机地取一对夫妇，求其中一人为A型，另一人为B型的概率。
+\item[(4)] 随机地取一对夫妇，求其中至少有一人是O型的概率。
+\end{enumerate}
+
+\setcounter{enumi}{32}
+\item 盒中有编号为1,2,3,4的4只球，随机地自盒中取一只球，事件$A$为``取得的是1号或2号球''，事件$B$为``取得的是1号或3号球''，事件$C$为``取得的是1号或4号球''。验证：
+\[
+P(AB)=P(A)P(B),\quad P(AC)=P(A)P(C),\quad P(BC)=P(B)P(C),
+\]
+但
+\[
+P(ABC)\ne P(A)P(B)P(C),
+\]
+即事件$A,B,C$两两独立，但$A,B,C$不是相互独立的。
+
+\item 如果一危险情况C发生时，一电路闭合并发出警报，我们可以借用两个或多个开关并联以改善可靠性。在C发生时这些开关每一个都应闭合，且若至少一个开关闭合了，警报就发出。如果两个这样的开关并联连接，它们每个具有0.96的可靠性（即在情况C发生时闭合的概率），问这时系统的可靠性（即电路闭合的概率）是多少？如果需要有一个可靠性至少为0.9999的系统，则至少需要用多少只开关并联？设各开关闭合与否是相互独立的。
+
+\setcounter{enumi}{37}
+\item 袋中装有$m$枚正品硬币、$n$枚次品硬币（次品硬币的两面均印有国徽），在袋中任取一枚，将它投掷$r$次，已知每次都得到国徽。问这枚硬币是正品的概率为多少？
+\end{enumerate}
+
+\end{document}
