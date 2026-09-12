@@ -1,0 +1,146 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{array,booktabs}
+\geometry{a4paper,margin=2.5cm}
+
+\begin{document}
+
+\begin{center}
+\LARGE\bfseries 第二章作业题单
+\end{center}
+
+\section*{教材《概率论与数理统计》}
+
+\subsection*{第二章习题（pp.56--59）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\item 考虑为期一年的一张保险单，若投保人在投保后一年内因意外死亡，则公司赔付20万元；若投保人因其他原因死亡，则公司赔付5万元；若投保人在投保期末生存，则公司无须付给任何费用。若投保人在一年内因意外死亡的概率为0.0002，因其他原因死亡的概率为0.0010，求公司赔付金额的分布律。
+
+\setcounter{enumi}{2}
+\item 设在15只同类型的零件中有2只是次品，在其中取3次，每次任取1只，作不放回抽样。以$X$表示取出的次品的只数。
+\begin{enumerate}
+\item[(1)] 求$X$的分布律。
+\item[(2)] 画出分布律的图形。
+\end{enumerate}
+
+\item 进行重复独立试验，设每次试验成功的概率为$p$，失败的概率为$q=1-p\ (0<p<1)$。
+\begin{enumerate}
+\item[(1)] 将试验进行到出现一次成功为止，以$X$表示所需的试验次数，求$X$的分布律。（此时称$X$服从以$p$为参数的几何分布。）
+\item[(2)] 将试验进行到出现$r$次成功为止，以$Y$表示所需的试验次数，求$Y$的分布律。（此时称$Y$服从以$r,p$为参数的帕斯卡分布或负二项分布。）
+\item[(3)] 一篮球运动员的投篮命中率为45\%。以$X$表示他首次投中时累计已投篮的次数，写出$X$的分布律，并计算$X$取偶数的概率。
+\end{enumerate}
+
+\setcounter{enumi}{11}
+\item 一电话总机每分钟收到呼唤的次数服从参数为4的泊松分布。求
+\begin{enumerate}
+\item[(1)] 某一分钟恰有8次呼唤的概率。
+\item[(2)] 某一分钟的呼唤次数大于3的概率。
+\end{enumerate}
+
+\setcounter{enumi}{15}
+\item 有一繁忙的汽车站，每天有大量汽车通过，设一辆汽车在一天的某段时间内出事故的概率为0.0001。在某天的该时间段内有1000辆汽车通过。问出事故的车辆数不小于2的概率是多少？（利用泊松定理计算。）
+
+\setcounter{enumi}{20}
+\item 设随机变量$X$的概率密度为
+\[
+f(x)=
+\begin{cases}
+2(1-1/x^{2}), & 1\le x\le 2, \\[4pt]
+0, & \text{其他},
+\end{cases}
+\qquad
+f(x)=
+\begin{cases}
+x, & 0\le x<1, \\[4pt]
+2-x, & 1\le x<2, \\[4pt]
+0, & \text{其他}.
+\end{cases}
+\]
+求$X$的分布函数$F(x)$，并画出(2)中的$f(x)$及$F(x)$的图形。
+
+\setcounter{enumi}{24}
+\item 设$K$在$(0,5)$内服从均匀分布，求$x$的方程
+\[
+4x^{2}+4Kx+K+2=0
+\]
+有实根的概率。
+
+\setcounter{enumi}{28}
+\item 一工厂生产的某种元件的寿命$X$（以h计）服从参数为$\mu=160,\ \sigma(\sigma>0)$的正态分布。若要求$P\{120<X\le 200\}\ge 0.80$，允许$\sigma$最大为多少？
+
+\setcounter{enumi}{30}
+\item 某人上班，自家里去办公楼要经过一交通指示灯，这一指示灯有80\%时间亮红灯，此时他在指示灯旁等待直至绿灯亮。等待时间在区间$[0,30]$（以s计）上服从均匀分布。以$X$表示他的等待时间，求$X$的分布函数$F(x)$。画出$F(x)$的图形，并问$X$是否为连续型随机变量，是否为离散型的？（要说明理由。）
+
+\item 设$f(x),g(x)$都是概率密度函数，求证
+\[
+h(x)=\alpha f(x)+(1-\alpha)g(x),\quad 0\le\alpha\le 1
+\]
+也是一个概率密度函数。
+
+\setcounter{enumi}{34}
+\item 设随机变量$X\sim N(0,1)$。
+\begin{enumerate}
+\item[(1)] 求$Y=e^{X}$的概率密度。
+\item[(2)] 求$Y=2X^{2}+1$的概率密度。
+\item[(3)] 求$Y=|X|$的概率密度。
+\end{enumerate}
+
+\setcounter{enumi}{36}
+\item 设随机变量$X$的概率密度为
+\[
+f(x)=
+\begin{cases}
+\dfrac{2x}{\pi^{2}}, & 0<x<\pi, \\[8pt]
+0, & \text{其他}.
+\end{cases}
+\]
+求$Y=\sin X$的概率密度。
+\end{enumerate}
+
+\section*{教材《概率论及其应用》}
+
+\subsection*{6.10 习题（pp.130--131 / 139--140）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\setcounter{enumi}{26}
+\item 二项分布与泊松分布的结合。设一只昆虫生$r$个卵的概率是$p(r;\lambda)$，而卵能发育为成虫的概率是$p$。又设每个卵是否发育为成虫是彼此独立的。证明有$k$个后代的概率是遵从参数为$\lambda p$的泊松分布。
+
+注意：同样情况下的另一个例子是：$k$个染色体分裂的概率为$p(k;\lambda)$，一个分裂的染色体恢复原状的概率为$p$。（类似的一些其他例子见9.1节例(d)及12.1节。）
+
+\setcounter{enumi}{29}
+\item 证明当$k$从0跑到$\infty$时，$a_{k}=b(k;n,p)/p(k;\lambda)$最初上升而后下降，在$k=m$时达到它的最大值。
+
+\item 当$k$增大时，$b(k;n,p)$最初比$p(k;\lambda)$小而后变大最后又变得比$p(k;\lambda)$小。
+\end{enumerate}
+
+\subsection*{7.7 习题（pp.147--148 / 158--159）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\item 推广(7.1.7)，证明
+\[
+1-\mathfrak{N}(x)\sim\frac{1}{\sqrt{2\pi}}\,\mathrm{e}^{-\frac{1}{2}x^{2}}\left[\frac{1}{x}-\frac{1}{x^{3}}+\frac{1\cdot 3}{x^{5}}-\frac{1\cdot 3\cdot 5}{x^{7}}+\cdots+(-1)^{k}\frac{1\cdot 3\cdots(2k-1)}{x^{2k+1}}\right],
+\]
+且当$x>0$时，若$k$为偶数则高估了$1-\mathfrak{N}(x)$，若$k$为奇数则低估了$1-\mathfrak{N}(x)$。
+
+\setcounter{enumi}{8}
+\item 泊松分布的正态逼近。利用斯特林公式证明：如果$\lambda\to\infty$，则对于固定的$\alpha<\beta$
+\[
+\sum_{\lambda+\alpha\sqrt{\lambda}<k<\lambda+\beta\sqrt{\lambda}}p(k;\lambda)\to\mathfrak{N}(\beta)-\mathfrak{N}(\alpha).
+\]
+
+\item 超几何分布的正态逼近。令$m,n,k$为正整数且假定它们以
+\[
+\frac{r}{n+m}\to t,\quad \frac{n}{n+m}\to p,\quad \frac{m}{n+m}\to q,\quad h\{k-rp\}\to x
+\]
+的方式趋向无穷，其中$h=1/\sqrt{(n+m)pqt(1-t)}$。证明：
+\[
+\binom{n}{k}\binom{m}{r-k}\Big/\binom{n+m}{r}\sim h\mathfrak{n}(x).
+\]
+提示：用二项分布的正态逼近比用斯特林公式好。
+\end{enumerate}
+
+\end{document}
