@@ -1,0 +1,107 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{array,booktabs}
+\geometry{a4paper,margin=2.5cm}
+
+\begin{document}
+
+\begin{center}
+\LARGE\bfseries 第四章作业题单
+\end{center}
+
+\section*{教材《概率论与数理统计》}
+
+\subsection*{第四章习题（pp.114--119）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\setcounter{enumi}{8}
+\item 设随机变量$(X,Y)$的概率密度为
+\[
+f(x,y)=
+\begin{cases}
+12y^{2}, & 0\le y\le x\le 1,\\[4pt]
+0, & \text{其他}.
+\end{cases}
+\]
+求$E(X),E(Y),E(XY),E(X^{2}+Y^{2})$.
+
+\setcounter{enumi}{13}
+\item 设随机变量$X_{1},X_{2}$的概率密度分别为
+\[
+f_{1}(x)=
+\begin{cases}
+2\mathrm{e}^{-2x}, & x>0,\\[4pt]
+0, & x\le 0,
+\end{cases}
+\qquad
+f_{2}(x)=
+\begin{cases}
+4\mathrm{e}^{-4x}, & x>0,\\[4pt]
+0, & x\le 0.
+\end{cases}
+\]
+\begin{enumerate}
+\item[(1)] 求$E(X_{1}+X_{2}),E(2X_{1}-3X_{2}^{2})$.
+\item[(2)] 又设$X_{1},X_{2}$相互独立，求$E(X_{1}X_{2})$.
+\end{enumerate}
+
+\setcounter{enumi}{17}
+\item 设随机变量$X$服从瑞利分布，其概率密度为
+\[
+f(x)=
+\begin{cases}
+\dfrac{x}{\sigma^{2}}\mathrm{e}^{-x^{2}/(2\sigma^{2})}, & x>0,\\[8pt]
+0, & x\le 0,
+\end{cases}
+\]
+其中$\sigma>0$是常数。求$E(X),D(X)$.
+
+\setcounter{enumi}{33}
+\item 
+\begin{enumerate}
+\item[(1)] 设随机变量$W=(aX+3Y)^{2}$，$E(X)=E(Y)=0$，$D(X)=4$，$D(Y)=16$，$\rho_{XY}=-0.5$。求常数$a$使$E(W)$为最小，并求$E(W)$的最小值。
+\item[(2)] 设随机变量$(X,Y)$服从二维正态分布，且有$D(X)=\sigma_{X}^{2},D(Y)=\sigma_{Y}^{2}$。证明当$a^{2}=\sigma_{X}^{2}/\sigma_{Y}^{2}$时，随机变量$W=X-aY$与$V=X+aY$相互独立。
+\end{enumerate}
+
+\item 设随机变量$(X,Y)$服从二维正态分布，且$X\sim N(0,3)$，$Y\sim N(0,4)$，相关系数$\rho_{XY}=-1/4$，试写出$X$和$Y$的联合概率密度。
+
+\setcounter{enumi}{36}
+\item 对于两个随机变量$V,W$，若$E(V^{2}),E(W^{2})$存在，证明
+\[
+[E(VW)]^{2}\le E(V^{2})E(W^{2}).
+\]
+这一不等式称为柯西--施瓦茨（Cauchy--Schwarz）不等式。
+
+提示：考虑实变量$t$的函数
+\[
+q(t)=E[(V+tW)^{2}]=E(V^{2})+2tE(VW)+t^{2}E(W^{2}).
+\]
+\end{enumerate}
+
+\section*{教材《概率论及其应用》}
+
+\subsection*{第九章习题（pp.182--183 / 197--201）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\setcounter{enumi}{7}
+\item 令$X_{1},\cdots,X_{n}$为相互独立的随机变量，对于$k=1,2,\cdots,N$，每一个都具有均匀分布$P\{X_{i}=k\}=1/N$。令$U_{n}$和$V_{n}$分别为$X_{1},\cdots,X_{n}$中最小者和最大者。求$U_{n}$和$V_{n}$的分布。它和9.3节例(e)估计问题的联系是什么？
+
+\setcounter{enumi}{18}
+\item 有一个人想开门。他共有$n$把钥匙，可以这样设想，他用它们去试开门时所抽取的钥匙是相互独立的而且是随机的。求出试验次数的均值与方差。
+\begin{enumerate}
+\item[(a)] 如果以前选出来的开不开门的钥匙不除去。
+\item[(b)] 与(a)相反。
+\end{enumerate}
+（假定只有一把钥匙能打开这扇门。精确分布在2.7节中给出，但现在这个问题并不要求精确分布。）
+
+\setcounter{enumi}{37}
+\item 令$X_{1},\cdots,X_{n}$为具有共同分布的相互独立的随机变量，令其均值为$m$方差为$\sigma^{2}$。令$\overline{X}=(X_{1}+\cdots+X_{n})/n$。证明
+\[
+\frac{1}{n-1}E\left(\sum_{k=1}^{n}(X_{k}-\overline{X})^{2}\right)=\sigma^{2}.
+\]
+\end{enumerate}
+
+\end{document}
