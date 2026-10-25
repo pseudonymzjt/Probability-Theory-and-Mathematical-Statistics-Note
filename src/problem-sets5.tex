@@ -1,0 +1,58 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{array,booktabs}
+\geometry{a4paper,margin=2.5cm}
+
+\begin{document}
+
+\begin{center}
+\LARGE\bfseries 第五章作业题单
+\end{center}
+
+\section*{教材《概率论与数理统计》}
+
+\subsection*{第五章习题（pp.125--126）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\setcounter{enumi}{1}
+\item 
+\begin{enumerate}
+\item[(1)] 一保险公司有$10\,000$个汽车投保人，每个投保人索赔金额的数学期望为280美元，标准差为800美元，求索赔总金额超过$2\,700\,000$美元的概率。
+\item[(2)] 一公司有50张签约保险单，各张保险单的索赔金额$X_i,\ i=1,2,\cdots,50$（以千美元计）服从韦布尔（Weibull）分布，均值$E(X_i)=5$，方差$D(X_i)=6$，求50张保险单索赔的合计金额大于300的概率（设各保险单索赔金额是相互独立的）。
+\end{enumerate}
+
+\setcounter{enumi}{3}
+\item 设各零件的质量都是随机变量，它们相互独立，且服从相同的分布，其数学期望为$0.5\ \mathrm{kg}$，均方差为$0.1\ \mathrm{kg}$，问$5\,000$个零件的总质量超过$2\,510\ \mathrm{kg}$的概率是多少？
+
+\setcounter{enumi}{5}
+\item 一工人修理一台机器需两个阶段，第一阶段所需时间（以$\mathrm{h}$计）服从均值为0.2的指数分布，第二阶段所需时间服从均值为0.3的指数分布，且与第一阶段独立。现有20台机器需要修理，求他在$8\ \mathrm{h}$内完成的概率。
+
+\setcounter{enumi}{11}
+\item 一公寓有200户住户，一户住户拥有汽车辆数$X$的分布律为
+\[
+\begin{array}{c|ccc}
+X & 0 & 1 & 2\\
+\hline
+p_k & 0.1 & 0.6 & 0.3
+\end{array}
+\]
+问需要多少车位，才能使每辆汽车都具有一个车位的概率至少为0.95？
+\end{enumerate}
+
+\section*{教材《概率论及其应用》}
+
+\subsection*{第十章习题（p.201 / 217）}
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{\textbf{\arabic{enumi}.}}
+\setcounter{enumi}{6}
+\item 设$\{X_k\}$是相互独立的具有同分布的随机变量序列，且有均值$\mu$和有限的方差。令$S_n=X_1+\cdots+X_n$，证明大数定律对随机变量序列$\{S_n\}$不成立。但是，如果$na_n\to 0$，则$\{a_nS_n\}$服从大数定律。
+
+提示：计算$\mathrm{Var}(S_1,\cdots,S_n)/n$。
+
+\item 设$\{X_k\}$是随机变量序列，其中$X_k$只依赖于$X_{k-1}$和$X_{k+1}$而与其它的$X_j$相互独立，且$\mathrm{Var}(X_k)$有界，证明$\{X_k\}$服从大数定律。
+\end{enumerate}
+
+\end{document}
